@@ -30,7 +30,7 @@ final class NeutroFeverGuardScheduler: Module, DefaultInitializable, Environment
                 title: "Social Support Questionnaire",
                 instructions: "Please fill out the Social Support Questionnaire every day.",
                 category: .questionnaire,
-                schedule: .daily(hour: 8, minute: 0, startingAt: .today)
+                schedule: .daily(hour: 8, minute: 0, startingAt: .today) //you can change this to schedule stuff.
             ) { context in
                 context.questionnaire = Bundle.main.questionnaire(withName: "SocialSupportQuestionnaire")
             }

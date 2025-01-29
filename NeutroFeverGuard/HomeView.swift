@@ -7,6 +7,7 @@
 //
 
 @_spi(TestingSupport) import SpeziAccount
+import class SpeziScheduler.Scheduler
 import SwiftUI
 
 
@@ -54,6 +55,7 @@ struct HomeView: View {
     
     return HomeView()
         .previewWith(standard: NeutroFeverGuardStandard()) {
+            Scheduler()
             NeutroFeverGuardScheduler()
             AccountConfiguration(service: InMemoryAccountService(), activeDetails: details)
         }
