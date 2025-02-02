@@ -70,6 +70,9 @@
 		A9D83F962B083794000D0C78 /* SpeziFirebaseAccountStorage in Frameworks */ = {isa = PBXBuildFile; productRef = A9D83F952B083794000D0C78 /* SpeziFirebaseAccountStorage */; };
 		A9DFE8A92ABE551400428242 /* AccountButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DFE8A82ABE551400428242 /* AccountButton.swift */; };
 		A9FE7AD02AA39BAB0077B045 /* AccountSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FE7ACF2AA39BAB0077B045 /* AccountSheet.swift */; };
+		C49EC8342D501C62005C3495 /* DataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8332D501C5C005C3495 /* DataType.swift */; };
+		C49EC8362D501FB9005C3495 /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8352D501FB2005C3495 /* DataError.swift */; };
+		C49EC8382D5026EE005C3495 /* DataTypeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8372D5026EE005C3495 /* DataTypeTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,6 +134,9 @@
 		A9A3DCC72C75CB9A00FC9B69 /* FirebaseConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfiguration.swift; sourceTree = "<group>"; };
 		A9DFE8A82ABE551400428242 /* AccountButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountButton.swift; sourceTree = "<group>"; };
 		A9FE7ACF2AA39BAB0077B045 /* AccountSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSheet.swift; sourceTree = "<group>"; };
+		C49EC8332D501C5C005C3495 /* DataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataType.swift; sourceTree = "<group>"; };
+		C49EC8352D501FB2005C3495 /* DataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataError.swift; sourceTree = "<group>"; };
+		C49EC8372D5026EE005C3495 /* DataTypeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTypeTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -276,6 +282,8 @@
 		653A254F283387FE005D4D48 /* NeutroFeverGuard */ = {
 			isa = PBXGroup;
 			children = (
+				C49EC8352D501FB2005C3495 /* DataError.swift */,
+				C49EC8332D501C5C005C3495 /* DataType.swift */,
 				2FC975A72978F11A00BA99FE /* HomeView.swift */,
 				653A2550283387FE005D4D48 /* NeutroFeverGuard.swift */,
 				2F5E32BC297E05EA003432F8 /* NeutroFeverGuardDelegate.swift */,
@@ -297,6 +305,7 @@
 			isa = PBXGroup;
 			children = (
 				653A256128338800005D4D48 /* NeutroFeverGuardTests.swift */,
+				C49EC8372D5026EE005C3495 /* DataTypeTest.swift */,
 			);
 			path = NeutroFeverGuardTests;
 			sourceTree = "<group>";
@@ -544,6 +553,7 @@
 				2FE5DC4029EDD7EE004B9AB4 /* FeatureFlags.swift in Sources */,
 				2F4E23832989D51F0013F3D9 /* NeutroFeverGuardTestingSetup.swift in Sources */,
 				A98FF2B12CD131F500DFC949 /* EventView.swift in Sources */,
+				C49EC8342D501C62005C3495 /* DataType.swift in Sources */,
 				2FE5DC5329EDD7FA004B9AB4 /* Bundle+Questionnaire.swift in Sources */,
 				2F5E32BD297E05EA003432F8 /* NeutroFeverGuardDelegate.swift in Sources */,
 				2FE5DC5229EDD7FA004B9AB4 /* NeutroFeverGuardScheduler.swift in Sources */,
@@ -551,6 +561,7 @@
 				653A2551283387FE005D4D48 /* NeutroFeverGuard.swift in Sources */,
 				2FE5DC3629EDD7CA004B9AB4 /* HealthKitPermissions.swift in Sources */,
 				2F65B44E2A3B8B0600A36932 /* NotificationPermissions.swift in Sources */,
+				C49EC8362D501FB9005C3495 /* DataError.swift in Sources */,
 				2FE5DC2629EDD38A004B9AB4 /* Contacts.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -560,6 +571,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				653A256228338800005D4D48 /* NeutroFeverGuardTests.swift in Sources */,
+				C49EC8382D5026EE005C3495 /* DataTypeTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -694,10 +706,10 @@
 				INFOPLIST_KEY_NSMotionUsageDescription = "This message should never appear. Please adjust this when you start using motion information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "This message should never appear. Please adjust this when you start using speecg information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UINeutroFeverGuardlicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UINeutroFeverGuardlicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -898,10 +910,10 @@
 				INFOPLIST_KEY_NSMotionUsageDescription = "This message should never appear. Please adjust this when you start using motion information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "This message should never appear. Please adjust this when you start using speecg information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UINeutroFeverGuardlicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UINeutroFeverGuardlicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -945,10 +957,10 @@
 				INFOPLIST_KEY_NSMotionUsageDescription = "This message should never appear. Please adjust this when you start using motion information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "This message should never appear. Please adjust this when you start using speecg information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UINeutroFeverGuardlicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UINeutroFeverGuardlicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
