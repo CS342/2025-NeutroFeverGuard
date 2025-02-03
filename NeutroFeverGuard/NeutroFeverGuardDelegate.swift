@@ -31,13 +31,13 @@ class NeutroFeverGuardDelegate: SpeziAppDelegate {
                     configuration: [
                         .requires(\.userId),
                         .requires(\.name),
-
+                        
                         // additional values stored using the `FirestoreAccountStorage` within our Standard implementation
                         .collects(\.genderIdentity),
                         .collects(\.dateOfBirth)
                     ]
                 )
-
+                
                 firestore
                 if FeatureFlags.useFirebaseEmulator {
                     FirebaseStorageConfiguration(emulatorSettings: (host: "localhost", port: 9199))
@@ -45,7 +45,7 @@ class NeutroFeverGuardDelegate: SpeziAppDelegate {
                     FirebaseStorageConfiguration()
                 }
             }
-
+            
             if HKHealthStore.isHealthDataAvailable() {
                 healthKit
             }
@@ -53,11 +53,11 @@ class NeutroFeverGuardDelegate: SpeziAppDelegate {
             NeutroFeverGuardScheduler()
             Scheduler()
             OnboardingDataSource()
-
+            
             Notifications()
         }
     }
-
+    
     private var accountEmulator: (host: String, port: Int)? {
         if FeatureFlags.useFirebaseEmulator {
             (host: "localhost", port: 9099)
@@ -65,7 +65,7 @@ class NeutroFeverGuardDelegate: SpeziAppDelegate {
             nil
         }
     }
-
+    
     
     private var firestore: Firestore {
         let settings = FirestoreSettings()
@@ -83,21 +83,10 @@ class NeutroFeverGuardDelegate: SpeziAppDelegate {
     
     private var healthKit: HealthKit {
         HealthKit {
-            CollectSample(
-                HKQuantityType(.heartRate),
-                deliverySetting: .anchorQuery(.automatic)
-            )
-            CollectSample(
-                HKQuantityType(.oxygenSaturation),
-                deliverySetting: .anchorQuery(.automatic)
-            )
-            CollectSample(
-                HKQuantityType(.appleSleepingWristTemperature),
-                deliverySetting: .anchorQuery(.automatic)
-            )
-            CollectSample(
-                HKQuantityType(.bodyTemperature),
-                deliverySetting: .anchorQuery(.automatic))
+            CollectSample(HKQuantityType(.heartRate),deliverySetting: .anchorQuery(.automatic))
+            CollectSample(HKQuantityType(.oxygenSaturation),deliverySetting: .anchorQuery(.automatic))
+            CollectSample(HKQuantityType(.appleSleepingWristTemperature),deliverySetting: .anchorQuery(.automatic))
+            CollectSample(HKQuantityType(.bodyTemperature),deliverySetting: .anchorQuery(.automatic))
         }
     }
 }
