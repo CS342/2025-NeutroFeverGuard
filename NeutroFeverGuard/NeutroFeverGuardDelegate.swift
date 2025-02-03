@@ -97,7 +97,7 @@ class NeutroFeverGuardDelegate: SpeziAppDelegate {
             )
             CollectSample(
                 HKQuantityType(.bodyTemperature),
-                deliverySetting: .anchorQuery(.automatic)
-                )}
+                deliverySetting: .anchorQuery(.automatic))
+        }
     }
 }
