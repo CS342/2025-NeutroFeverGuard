@@ -16,6 +16,7 @@ struct DataInputForm: View {
     @State private var diastolicValue: String = ""
     @State private var temperatureUnit: TemperatureUnit = .fahrenheit
     @State private var labTestType: LabTestType = .whiteBloodCell
+    @State private var alertMessage: String = ""
     @Environment(\.dismiss) var dismiss
     
     var isFormValid: Bool {
@@ -59,6 +60,15 @@ struct DataInputForm: View {
             }, trailing: Button("Add") {
                 addData()
             }.disabled(!isFormValid))
+            .alert(isPresented: .constant(!alertMessage.isEmpty)) {
+                Alert(
+                    title: Text("Error"),
+                    message: Text(alertMessage),
+                    dismissButton: .default(Text("OK")) {
+                        alertMessage = ""
+                    }
+                )
+            }
         }
     }
     
@@ -70,8 +80,11 @@ struct DataInputForm: View {
                     let heartRateEntry = try HeartRateEntry(date: date, bpm: bpm)
                     print("Heart Rate Entry: \(heartRateEntry)")
                 } catch {
-                    print("Error: \(error)")
+                    alertMessage = "Error: \(error)"
                 }
+            }
+            else{
+                alertMessage = "bpm must be a valid number"
             }
         case "Temperature":
             if let value = Double(inputValue) {
@@ -79,8 +92,11 @@ struct DataInputForm: View {
                     let temperatureEntry = try TemperatureEntry(date: date, value: value, unit: temperatureUnit)
                     print("Temperature Entry: \(temperatureEntry)")
                 } catch {
-                    print("Error: \(error)")
+                    alertMessage = "Error: \(error)"
                 }
+            }
+            else{
+                alertMessage = "temperaure must be a valid number"
             }
         case "Oxygen Saturation":
             if let percentage = Double(inputValue) {
@@ -88,8 +104,11 @@ struct DataInputForm: View {
                     let oxygenEntry = try OxygenSaturationEntry(date: date, percentage: percentage)
                     print("Oxygen Saturation Entry: \(oxygenEntry)")
                 } catch {
-                    print("Error: \(error)")
+                    alertMessage = "Error: \(error)"
                 }
+            }
+            else{
+                alertMessage = "percentage must be a valid number"
             }
         case "Blood Pressure":
             if let systolic = Double(systolicValue), let diastolic = Double(diastolicValue) {
@@ -97,8 +116,11 @@ struct DataInputForm: View {
                     let bloodPressureEntry = try BloodPressureEntry(date: date, systolic: systolic, diastolic: diastolic)
                     print("Blood Pressure Entry: \(bloodPressureEntry)")
                 } catch {
-                    print("Error: \(error)")
+                    alertMessage = "Error: \(error)"
                 }
+            }
+            else{
+                alertMessage = "blood pressure must be a valid number"
             }
         case "Lab Results":
             if let value = Double(inputValue) {
@@ -106,13 +128,15 @@ struct DataInputForm: View {
                     let labEntry = try LabEntry(date: date, testType: labTestType, value: value)
                     print("Lab Entry: \(labEntry)")
                 } catch {
-                    print("Error: \(error)")
+                    alertMessage = "Error: \(error)"
                 }
+            }
+            else{
+                alertMessage = "input must be a valid number"
             }
         default:
             print("Unknown data type")
         }
-        
         dismiss()
     }
 }
@@ -213,7 +237,7 @@ struct BloodPressureForm: View {
 #Preview {
 //    DataInputForm(dataType: "Temperature")
 //    DataInputForm(dataType: "Heart Rate")
-//    DataInputForm(dataType: "Oxygen Saturation")
+    DataInputForm(dataType: "Oxygen Saturation")
 //    DataInputForm(dataType: "Blood Pressure")
-    DataInputForm(dataType: "Lab Results")
+//    DataInputForm(dataType: "Lab Results")
 }
