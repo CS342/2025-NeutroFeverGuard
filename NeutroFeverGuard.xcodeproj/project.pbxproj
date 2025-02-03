@@ -75,6 +75,7 @@
 		C49EC8382D5026EE005C3495 /* DataTypeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8372D5026EE005C3495 /* DataTypeTest.swift */; };
 		C49EC8402D5033F9005C3495 /* AddDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC83F2D5033F9005C3495 /* AddDataView.swift */; };
 		C49EC8532D5038AC005C3495 /* DataInputForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8522D5038AC005C3495 /* DataInputForm.swift */; };
+		C4C0A78F2D518DBC00F37EEC /* HelperFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0A78E2D518DB500F37EEC /* HelperFunc.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,6 +142,7 @@
 		C49EC8372D5026EE005C3495 /* DataTypeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTypeTest.swift; sourceTree = "<group>"; };
 		C49EC83F2D5033F9005C3495 /* AddDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDataView.swift; sourceTree = "<group>"; };
 		C49EC8522D5038AC005C3495 /* DataInputForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataInputForm.swift; sourceTree = "<group>"; };
+		C4C0A78E2D518DB500F37EEC /* HelperFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunc.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -286,6 +288,7 @@
 		653A254F283387FE005D4D48 /* NeutroFeverGuard */ = {
 			isa = PBXGroup;
 			children = (
+				C4C0A78E2D518DB500F37EEC /* HelperFunc.swift */,
 				C49EC83F2D5033F9005C3495 /* AddDataView.swift */,
 				C49EC8522D5038AC005C3495 /* DataInputForm.swift */,
 				C49EC8352D501FB2005C3495 /* DataError.swift */,
@@ -559,6 +562,7 @@
 				A9720E432ABB68CC00872D23 /* AccountSetupHeader.swift in Sources */,
 				2FE5DC4029EDD7EE004B9AB4 /* FeatureFlags.swift in Sources */,
 				2F4E23832989D51F0013F3D9 /* NeutroFeverGuardTestingSetup.swift in Sources */,
+				C4C0A78F2D518DBC00F37EEC /* HelperFunc.swift in Sources */,
 				C49EC8402D5033F9005C3495 /* AddDataView.swift in Sources */,
 				A98FF2B12CD131F500DFC949 /* EventView.swift in Sources */,
 				C49EC8342D501C62005C3495 /* DataType.swift in Sources */,

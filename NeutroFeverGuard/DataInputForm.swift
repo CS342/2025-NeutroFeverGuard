@@ -75,69 +75,99 @@ struct DataInputForm: View {
     func addData() {
         switch dataType {
         case "Heart Rate":
-            if let bpm = Double(inputValue) {
-                do {
-                    let heartRateEntry = try HeartRateEntry(date: date, bpm: bpm)
-                    print("Heart Rate Entry: \(heartRateEntry)")
-                } catch {
-                    alertMessage = "Error: \(error)"
-                }
-            }
-            else{
-                alertMessage = "bpm must be a valid number"
-            }
+            addHeartRate()
         case "Temperature":
-            if let value = Double(inputValue) {
-                do {
-                    let temperatureEntry = try TemperatureEntry(date: date, value: value, unit: temperatureUnit)
-                    print("Temperature Entry: \(temperatureEntry)")
-                } catch {
-                    alertMessage = "Error: \(error)"
-                }
-            }
-            else{
-                alertMessage = "temperaure must be a valid number"
-            }
+            addTemperature()
         case "Oxygen Saturation":
-            if let percentage = Double(inputValue) {
-                do {
-                    let oxygenEntry = try OxygenSaturationEntry(date: date, percentage: percentage)
-                    print("Oxygen Saturation Entry: \(oxygenEntry)")
-                } catch {
-                    alertMessage = "Error: \(error)"
-                }
-            }
-            else{
-                alertMessage = "percentage must be a valid number"
-            }
+            addOxygenSaturation()
         case "Blood Pressure":
-            if let systolic = Double(systolicValue), let diastolic = Double(diastolicValue) {
-                do {
-                    let bloodPressureEntry = try BloodPressureEntry(date: date, systolic: systolic, diastolic: diastolic)
-                    print("Blood Pressure Entry: \(bloodPressureEntry)")
-                } catch {
-                    alertMessage = "Error: \(error)"
-                }
-            }
-            else{
-                alertMessage = "blood pressure must be a valid number"
-            }
+            addBloodPressure()
         case "Lab Results":
-            if let value = Double(inputValue) {
-                do {
-                    let labEntry = try LabEntry(date: date, testType: labTestType, value: value)
-                    print("Lab Entry: \(labEntry)")
-                } catch {
-                    alertMessage = "Error: \(error)"
-                }
-            }
-            else{
-                alertMessage = "input must be a valid number"
-            }
+            addLabResult()
         default:
-            print("Unknown data type")
+            alertMessage = "Unknown data type"
         }
-        dismiss()
+//        dismiss()
+    }
+
+    func addHeartRate() {
+        guard let bpm = Double(inputValue) else {
+            alertMessage = "BPM must be a valid number"
+            return
+        }
+        do {
+            let heartRateEntry = try HeartRateEntry(date: combineDateAndTime(date, time), bpm: bpm)
+            print("Heart Rate Entry: \(heartRateEntry)")
+            dismiss()
+        } catch let error as DataError {
+            alertMessage = "Error: \(error.errorMessage)"
+        } catch {
+            alertMessage = "Error: \(error)"
+        }
+    }
+
+    func addTemperature() {
+        guard let value = Double(inputValue) else {
+            alertMessage = "Temperature must be a valid number"
+            return
+        }
+        do {
+            let temperatureEntry = try TemperatureEntry(date: combineDateAndTime(date, time), value: value, unit: temperatureUnit)
+            print("Temperature Entry: \(temperatureEntry)")
+            dismiss()
+        } catch let error as DataError {
+            alertMessage = "Error: \(error.errorMessage)"
+        } catch {
+            alertMessage = "Error: \(error)"
+        }
+    }
+
+    func addOxygenSaturation() {
+        guard let percentage = Double(inputValue) else {
+            alertMessage = "Percentage must be a valid number"
+            return
+        }
+        do {
+            let oxygenEntry = try OxygenSaturationEntry(date: combineDateAndTime(date, time), percentage: percentage)
+            print("Oxygen Saturation Entry: \(oxygenEntry)")
+            dismiss()
+        } catch let error as DataError {
+            alertMessage = "Error: \(error.errorMessage)"
+        } catch {
+            alertMessage = "Error: \(error)"
+        }
+    }
+
+    func addBloodPressure() {
+        guard let systolic = Double(systolicValue), let diastolic = Double(diastolicValue) else {
+            alertMessage = "Blood pressure values must be valid numbers"
+            return
+        }
+        do {
+            let bloodPressureEntry = try BloodPressureEntry(date: combineDateAndTime(date, time), systolic: systolic, diastolic: diastolic)
+            print("Blood Pressure Entry: \(bloodPressureEntry)")
+            dismiss()
+        } catch let error as DataError {
+            alertMessage = "Error: \(error.errorMessage)"
+        } catch {
+            alertMessage = "Error: \(error)"
+        }
+    }
+
+    func addLabResult() {
+        guard let value = Double(inputValue) else {
+            alertMessage = "Input must be a valid number"
+            return
+        }
+        do {
+            let labEntry = try LabEntry(date: combineDateAndTime(date, time), testType: labTestType, value: value)
+            print("Lab Entry: \(labEntry)")
+            dismiss()
+        } catch let error as DataError {
+            alertMessage = "Error: \(error.errorMessage)"
+        } catch {
+            alertMessage = "Error: \(error)"
+        }
     }
 }
 
