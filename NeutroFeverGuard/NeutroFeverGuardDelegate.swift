@@ -83,10 +83,10 @@ class NeutroFeverGuardDelegate: SpeziAppDelegate {
     
     private var healthKit: HealthKit {
         HealthKit {
-            CollectSample(HKQuantityType(.heartRate),deliverySetting: .anchorQuery(.automatic))
-            CollectSample(HKQuantityType(.oxygenSaturation),deliverySetting: .anchorQuery(.automatic))
-            CollectSample(HKQuantityType(.appleSleepingWristTemperature),deliverySetting: .anchorQuery(.automatic))
-            CollectSample(HKQuantityType(.bodyTemperature),deliverySetting: .anchorQuery(.automatic))
+            CollectSample(HKQuantityType(.heartRate), deliverySetting: .anchorQuery(.automatic))
+            CollectSample(HKQuantityType(.oxygenSaturation), deliverySetting: .anchorQuery(.automatic))
+            CollectSample(HKQuantityType(.appleSleepingWristTemperature), deliverySetting: .anchorQuery(.automatic))
+            CollectSample(HKQuantityType(.bodyTemperature), deliverySetting: .anchorQuery(.automatic))
         }
     }
 }
