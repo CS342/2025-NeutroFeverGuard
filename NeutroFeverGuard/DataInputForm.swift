@@ -18,6 +18,23 @@ struct DataInputForm: View {
     @State private var labTestType: LabTestType = .whiteBloodCell
     @Environment(\.dismiss) var dismiss
     
+    var isFormValid: Bool {
+        switch dataType {
+        case "Heart Rate":
+            return !inputValue.isEmpty
+        case "Temperature":
+            return !inputValue.isEmpty
+        case "Oxygen Saturation":
+            return !inputValue.isEmpty
+        case "Blood Pressure":
+            return !systolicValue.isEmpty && !diastolicValue.isEmpty
+        case "Lab Results":
+            return !inputValue.isEmpty
+        default:
+            return false
+        }
+    }
+    
     var body: some View {
         NavigationView {
             Form {
@@ -41,7 +58,7 @@ struct DataInputForm: View {
                 dismiss()
             }, trailing: Button("Add") {
                 addData()
-            })
+            }.disabled(!isFormValid))
         }
     }
     
@@ -148,8 +165,8 @@ struct TemperatureForm: View {
                 .keyboardType(.decimalPad)
                 .multilineTextAlignment(.trailing)
             Picker("", selection: $temperatureUnit) {
-                Text("°C").tag(TemperatureUnit.celsius)
                 Text("°F").tag(TemperatureUnit.fahrenheit)
+                Text("°C").tag(TemperatureUnit.celsius)
             }
             .pickerStyle(.menu)
             .frame(width: 60)
@@ -194,5 +211,9 @@ struct BloodPressureForm: View {
 }
 
 #Preview {
-    DataInputForm(dataType:"Temperature")
+//    DataInputForm(dataType: "Temperature")
+//    DataInputForm(dataType: "Heart Rate")
+//    DataInputForm(dataType: "Oxygen Saturation")
+//    DataInputForm(dataType: "Blood Pressure")
+    DataInputForm(dataType: "Lab Results")
 }
