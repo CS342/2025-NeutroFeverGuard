@@ -12,8 +12,6 @@ import Spezi
 import SpeziAccount
 import SpeziFirebaseAccount
 
-
-
 final class FirebaseConfiguration: Module, DefaultInitializable, @unchecked Sendable {
     enum ConfigurationError: Error {
         case userNotAuthenticatedYet
@@ -22,7 +20,6 @@ final class FirebaseConfiguration: Module, DefaultInitializable, @unchecked Send
     static var userCollection: CollectionReference {
         Firestore.firestore().collection("users")
     }
-
 
     @MainActor var userDocumentReference: DocumentReference {
         get throws {

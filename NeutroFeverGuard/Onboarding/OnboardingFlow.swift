@@ -81,7 +81,6 @@ struct OnboardingFlow: View {
             AccountConfiguration(service: InMemoryAccountService())
             Scheduler()
             NeutroFeverGuardScheduler()
-            
         }
 }
 #endif
