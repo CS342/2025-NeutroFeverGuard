@@ -84,7 +84,7 @@ class NeutroFeverGuardDelegate: SpeziAppDelegate {
     private var healthKit: HealthKit {
         HealthKit {
             CollectSample(
-                HKQuantityType(.heartRate),
+                HKQuantityType(.stepCount), // add other things here based on data you will collect through health
                 deliverySetting: .anchorQuery(.automatic)
             )
             CollectSample(
