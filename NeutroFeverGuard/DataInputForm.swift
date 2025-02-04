@@ -8,6 +8,100 @@
 
 import SwiftUI
 
+struct LabResultsForm: View {
+    @Binding var inputValue: String
+    @Binding var labTestType: LabTestType
+    
+    var body: some View {
+        Picker("Lab Test Type", selection: $labTestType) {
+            ForEach(LabTestType.allCases, id: \.self) { type in
+                Text(type.rawValue).tag(type)
+            }
+        }
+        .pickerStyle(.menu)
+        
+        HStack {
+            Text("Value")
+            Spacer()
+            TextField("", text: $inputValue)
+                .keyboardType(.decimalPad)
+                .multilineTextAlignment(.trailing)
+        }
+    }
+}
+
+struct HeartRateForm: View {
+    @Binding var inputValue: String
+    
+    var body: some View {
+        HStack {
+            Text("Rate (bpm)")
+            Spacer()
+            TextField("", text: $inputValue)
+                .keyboardType(.decimalPad)
+                .multilineTextAlignment(.trailing)
+        }
+    }
+}
+
+struct TemperatureForm: View {
+    @Binding var inputValue: String
+    @Binding var temperatureUnit: TemperatureUnit
+    
+    var body: some View {
+        HStack {
+            Text("Temperature")
+            Spacer()
+            TextField("value", text: $inputValue)
+                .keyboardType(.decimalPad)
+                .multilineTextAlignment(.trailing)
+            Picker("", selection: $temperatureUnit) {
+                Text("°F").tag(TemperatureUnit.fahrenheit)
+                Text("°C").tag(TemperatureUnit.celsius)
+            }
+            .pickerStyle(.menu)
+            .frame(width: 60)
+        }
+    }
+}
+
+struct OxygenSaturationForm: View {
+    @Binding var inputValue: String
+    
+    var body: some View {
+        HStack {
+            Text("Percentage (%)")
+            Spacer()
+            TextField("", text: $inputValue)
+                .keyboardType(.decimalPad)
+                .multilineTextAlignment(.trailing)
+        }
+    }
+}
+
+struct BloodPressureForm: View {
+    @Binding var systolicValue: String
+    @Binding var diastolicValue: String
+    
+    var body: some View {
+        HStack {
+            Text("Systolic (mmHg)")
+            Spacer()
+            TextField("", text: $systolicValue)
+                .keyboardType(.decimalPad)
+                .multilineTextAlignment(.trailing)
+        }
+        HStack {
+            Text("Diastolic (mmHg)")
+            Spacer()
+            TextField("", text: $diastolicValue)
+                .keyboardType(.decimalPad)
+                .multilineTextAlignment(.trailing)
+        }
+    }
+}
+
+
 struct DataInputForm: View {
     let dataType: String
     @State private var date = Date()
@@ -168,99 +262,6 @@ struct DataInputForm: View {
             alertMessage = "Error: \(error.errorMessage)"
         } catch {
             alertMessage = "Error: \(error)"
-        }
-    }
-}
-
-struct LabResultsForm: View {
-    @Binding var inputValue: String
-    @Binding var labTestType: LabTestType
-    
-    var body: some View {
-        Picker("Lab Test Type", selection: $labTestType) {
-            ForEach(LabTestType.allCases, id: \.self) { type in
-                Text(type.rawValue).tag(type)
-            }
-        }
-        .pickerStyle(.menu)
-        
-        HStack {
-            Text("Value")
-            Spacer()
-            TextField("", text: $inputValue)
-                .keyboardType(.decimalPad)
-                .multilineTextAlignment(.trailing)
-        }
-    }
-}
-
-struct HeartRateForm: View {
-    @Binding var inputValue: String
-    
-    var body: some View {
-        HStack {
-            Text("Rate (bpm)")
-            Spacer()
-            TextField("", text: $inputValue)
-                .keyboardType(.decimalPad)
-                .multilineTextAlignment(.trailing)
-        }
-    }
-}
-
-struct TemperatureForm: View {
-    @Binding var inputValue: String
-    @Binding var temperatureUnit: TemperatureUnit
-    
-    var body: some View {
-        HStack {
-            Text("Temperature")
-            Spacer()
-            TextField("value", text: $inputValue)
-                .keyboardType(.decimalPad)
-                .multilineTextAlignment(.trailing)
-            Picker("", selection: $temperatureUnit) {
-                Text("°F").tag(TemperatureUnit.fahrenheit)
-                Text("°C").tag(TemperatureUnit.celsius)
-            }
-            .pickerStyle(.menu)
-            .frame(width: 60)
-        }
-    }
-}
-
-struct OxygenSaturationForm: View {
-    @Binding var inputValue: String
-    
-    var body: some View {
-        HStack {
-            Text("Percentage (%)")
-            Spacer()
-            TextField("", text: $inputValue)
-                .keyboardType(.decimalPad)
-                .multilineTextAlignment(.trailing)
-        }
-    }
-}
-
-struct BloodPressureForm: View {
-    @Binding var systolicValue: String
-    @Binding var diastolicValue: String
-    
-    var body: some View {
-        HStack {
-            Text("Systolic (mmHg)")
-            Spacer()
-            TextField("", text: $systolicValue)
-                .keyboardType(.decimalPad)
-                .multilineTextAlignment(.trailing)
-        }
-        HStack {
-            Text("Diastolic (mmHg)")
-            Spacer()
-            TextField("", text: $diastolicValue)
-                .keyboardType(.decimalPad)
-                .multilineTextAlignment(.trailing)
         }
     }
 }

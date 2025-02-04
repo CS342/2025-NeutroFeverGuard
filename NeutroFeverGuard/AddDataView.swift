@@ -8,6 +8,11 @@
 
 import SwiftUI
 
+struct DataTypeItem: Identifiable {
+    let id = UUID()
+    let name: String
+}
+
 struct AddDataView: View {
     @State private var selectedDataType: DataTypeItem?
     
@@ -53,11 +58,6 @@ struct AddDataView: View {
             DataInputForm(dataType: item.name)
         }
     }
-}
-
-struct DataTypeItem: Identifiable {
-    let id = UUID()
-    let name: String
 }
 
 #Preview {

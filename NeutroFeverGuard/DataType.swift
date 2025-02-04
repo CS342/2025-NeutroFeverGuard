@@ -18,6 +18,33 @@ func isValidDate(_ date: Date) throws {
     }
 }
 
+enum LabTestType: String, CaseIterable {
+    case whiteBloodCell = "White Blood Cell Count"
+    case hemoglobin = "Hemoglobin"
+    case plateletCount = "Platelet Count"
+    case neutrophils = "% Neutrophils"
+    case lymphocytes = "% Lymphocytes"
+    case monocytes = "% Monocytes"
+    case eosinophils = "% Eosinophils"
+    case basophils = "% Basophils"
+    case blasts = "% Blasts"
+}
+
+
+enum TemperatureUnit: String {
+   case celsius = "Celsius"
+   case fahrenheit = "Fahrenheit"
+   
+   var hkUnit: HKUnit {
+       switch self {
+       case .celsius:
+           return HKUnit.degreeCelsius()
+       case .fahrenheit:
+           return HKUnit.degreeFahrenheit()
+       }
+   }
+}
+
 /*
  Heart Rate: date + time measured, and rate in BPM
  */
@@ -39,20 +66,6 @@ struct HeartRateEntry {
 /*
  Temperature: date + time measured, and temperature in either degrees celsius or
  */
-enum TemperatureUnit: String {
-    case celsius = "Celsius"
-    case fahrenheit = "Fahrenheit"
-    
-    var hkUnit: HKUnit {
-        switch self {
-        case .celsius:
-            return HKUnit.degreeCelsius()
-        case .fahrenheit:
-            return HKUnit.degreeFahrenheit()
-        }
-    }
-}
-
 struct TemperatureEntry {
     static let healthKitType = HKQuantityType(.bodyTemperature)
     
@@ -77,7 +90,7 @@ struct OxygenSaturationEntry {
     static let unit = HKUnit.percent()
     
     let date: Date
-    let percentage: Double // TODO: int or double?
+    let percentage: Double
     
     init(date: Date, percentage: Double) throws {
         try isValidDate(date)
@@ -91,6 +104,27 @@ struct OxygenSaturationEntry {
 
 
 /*
+ Lab values:
+ - Date and time of lab measured
+ - Name of lab: white blood cell count, hemoglobin, platelet count, %neutrophils, %lymphocytes, %monocytes, %eosinophils, %basophils, %blasts
+ - Lab values: include the number associated with the lab name above
+ */
+
+struct LabEntry {
+    let date: Date
+    let testType: LabTestType
+    let value: Double
+    
+    init(date: Date, testType: LabTestType, value: Double) throws {
+        try isValidDate(date)
+        self.date = date
+        self.testType = testType
+        self.value = value
+    }
+}
+
+
+/*
  Blood Pressure: date + time measured, and two pressures (systolic and diastolic) in mmHg.
  */
 struct BloodPressureEntry {
@@ -99,8 +133,8 @@ struct BloodPressureEntry {
     static let unit = HKUnit.millimeterOfMercury()
     
     let date: Date
-    let systolic: Double // TODO: int or double?
-    let diastolic: Double // TODO: int or double?
+    let systolic: Double
+    let diastolic: Double
     
     init(date: Date, systolic: Double, diastolic: Double) throws {
         try isValidDate(date)
@@ -110,37 +144,5 @@ struct BloodPressureEntry {
         self.date = date
         self.systolic = systolic
         self.diastolic = diastolic
-    }
-}
-
-
-/*
- Lab values:
- - Date and time of lab measured
- - Name of lab: white blood cell count, hemoglobin, platelet count, %neutrophils, %lymphocytes, %monocytes, %eosinophils, %basophils, %blasts
- - Lab values: include the number associated with the lab name above
- */
-enum LabTestType: String, CaseIterable {
-    case whiteBloodCell = "White Blood Cell Count"
-    case hemoglobin = "Hemoglobin"
-    case plateletCount = "Platelet Count"
-    case neutrophils = "% Neutrophils"
-    case lymphocytes = "% Lymphocytes"
-    case monocytes = "% Monocytes"
-    case eosinophils = "% Eosinophils"
-    case basophils = "% Basophils"
-    case blasts = "% Blasts"
-}
-
-struct LabEntry {
-    let date: Date
-    let testType: LabTestType
-    let value: Double
-    
-    init(date: Date, testType: LabTestType, value: Double) throws{
-        try isValidDate(date)
-        self.date = date
-        self.testType = testType
-        self.value = value
     }
 }
