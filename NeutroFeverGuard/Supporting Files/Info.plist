@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>CFBundleIdentifier</key>
-    <string>edu.stanford.cs342.2025.neutrofeverguard</string>
 	<key>CFBundleAllowMixedLocalizations</key>
 	<true/>
 	<key>FirebaseAppDelegateProxyEnabled</key>
