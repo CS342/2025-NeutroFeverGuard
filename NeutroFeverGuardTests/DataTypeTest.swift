@@ -84,14 +84,13 @@ struct DataTypeTest {
     @Test
     func testLabEntry() async throws {
         let validDate = Date()
-        let invalidDate = Date().addingTimeInterval(60 * 60 * 24) // 未来的日期
-        let testType = LabTestType.whiteBloodCell
-        let value = 5.0
+        let invalidDate = Date().addingTimeInterval(60 * 60 * 24)
+        let values: [LabTestType: Double] = Dictionary(uniqueKeysWithValues:LabTestType.allCases.map { ($0, Double.random(in: 1.0...10.0)) })
         
-        try LabEntry(date: validDate, testType: testType, value: value)
+        try LabEntry(date: validDate, values: values)
         
         #expect(throws: DataError.invalidDate) {
-            try LabEntry(date: invalidDate, testType: testType, value: value)
+            try LabEntry(date: invalidDate, values: values)
         }
     }
 }
