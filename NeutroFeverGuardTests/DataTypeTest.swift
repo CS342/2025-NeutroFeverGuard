@@ -60,7 +60,7 @@ struct DataTypeTest {
     @Test
     func testBloodPressureEntry() async throws {
         let validDate = Date()
-        let invalidDate = Date().addingTimeInterval(60 * 60 * 24) // 未来的日期
+        let invalidDate = Date().addingTimeInterval(60 * 60 * 24)
         let validSystolic = 120.0
         let validDiastolic = 80.0
         let invalidSystolic = -10.0
@@ -85,7 +85,7 @@ struct DataTypeTest {
     func testLabEntry() async throws {
         let validDate = Date()
         let invalidDate = Date().addingTimeInterval(60 * 60 * 24)
-        let values: [LabTestType: Double] = Dictionary(uniqueKeysWithValues:LabTestType.allCases.map { ($0, Double.random(in: 1.0...10.0)) })
+        let values: [LabTestType: Double] = Dictionary(uniqueKeysWithValues: LabTestType.allCases.map { ($0, Double.random(in: 1.0...10.0)) })
         
         try LabEntry(date: validDate, values: values)
         
