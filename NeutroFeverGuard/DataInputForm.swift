@@ -7,7 +7,111 @@
 //
 
 import SwiftUI
+import SpeziViews
 
+<<<<<<< HEAD
+=======
+struct DataInputForm: View {
+    let dataType: String
+    @State private var date = Date()
+    @State private var time = Date()
+    @State private var inputValue: String = ""
+    @State private var systolicValue: String = ""
+    @State private var diastolicValue: String = ""
+    @State private var temperatureUnit: TemperatureUnit = .fahrenheit
+    @State private var labTestType: LabTestType = .whiteBloodCell
+    @Environment(\.dismiss) var dismiss
+    
+    private let healthKitService: HealthKitService = HealthKitService()
+    
+    var body: some View {
+        NavigationView {
+            Form {
+                DatePicker("Date", selection: $date, displayedComponents: .date)
+                DatePicker("Time", selection: $time, displayedComponents: .hourAndMinute)
+                
+                if dataType == "Heart Rate" {
+                    HeartRateForm(inputValue: $inputValue)
+                } else if dataType == "Temperature" {
+                    TemperatureForm(inputValue: $inputValue, temperatureUnit: $temperatureUnit)
+                } else if dataType == "Oxygen Saturation" {
+                    OxygenSaturationForm(inputValue: $inputValue)
+                } else if dataType == "Blood Pressure" {
+                    BloodPressureForm(systolicValue: $systolicValue, diastolicValue: $diastolicValue)
+                } else if dataType == "Lab Results" {
+                    LabResultsForm(inputValue: $inputValue, labTestType: $labTestType)
+                }
+            }
+            .navigationTitle(dataType)
+            .navigationBarItems(leading: Button("Cancel") {
+                dismiss()
+            }, trailing: AsyncButton("Add") {
+                await addData()
+            })
+        }
+        .task {
+            let healthKitService = self.healthKitService
+            do {
+                // try await healthKitService.requestAuthorization()
+            } catch {
+                print("Failed to request HealthKit authorization: \(error)")
+            }
+        }
+    }
+    
+    init(dataType: String) {
+        self.dataType = dataType
+    }
+    
+    func addData() async {
+        // Combine date and time components
+        let calendar: Calendar = Calendar.current
+        let timeComponents: DateComponents = calendar.dateComponents([.hour, .minute], from: time)
+        let finalDate: Date = calendar.date(bySettingHour: timeComponents.hour ?? 0,
+                                    minute: timeComponents.minute ?? 0,
+                                    second: 0,
+                                    of: date) ?? date
+        
+        do {
+            switch dataType {
+            // change to enum
+            case "Heart Rate":
+                if let bpm = Double(inputValue) {
+                    let heartRateEntry: HeartRateEntry = try HeartRateEntry(date: finalDate, bpm: bpm)
+                    try await healthKitService.saveHeartRate(heartRateEntry)
+                }
+            case "Temperature":
+                if let value = Double(inputValue) {
+                    let temperatureEntry: TemperatureEntry = try TemperatureEntry(date: finalDate, value: value, unit: temperatureUnit)
+                    try await healthKitService.saveTemperature(temperatureEntry)
+                }
+            case "Oxygen Saturation":
+                if let percentage = Double(inputValue) {
+                    let oxygenEntry: OxygenSaturationEntry = try OxygenSaturationEntry(date: finalDate, percentage: percentage)
+                    try await healthKitService.saveOxygenSaturation(oxygenEntry)
+                }
+            case "Blood Pressure":
+                if let systolic = Double(systolicValue), let diastolic: Double = Double(diastolicValue) {
+                    let bloodPressureEntry: BloodPressureEntry = try BloodPressureEntry(date: finalDate, systolic: systolic, diastolic: diastolic)
+                    try await healthKitService.saveBloodPressure(bloodPressureEntry)
+                }
+            case "Lab Results":
+                if let value = Double(inputValue) {
+                    let labEntry: LabEntry = try LabEntry(date: finalDate, testType: labTestType, value: value)
+                    print("Lab Entry: \(labEntry)")
+                }
+            default:
+                break
+            }
+        } catch {
+            print("Error saving to HealthKit: \(error)")
+        }
+        
+        dismiss()
+    }
+}
+
+>>>>>>> 9187557 (added back-end functionality to push manually-entered user data to firebase via HealthKitService class)
 struct LabResultsForm: View {
     @Binding var labValues: [LabTestType: String]
     

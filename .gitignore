@@ -46,3 +46,7 @@ firebase-debug.*.log*
 
 # Swift Package List
 NeutroFeverGuard/package-list.json
+
+#VSCode
+.vscode/
+buildServer.json
