@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import Testing
 @testable import NeutroFeverGuard
+import Testing
 
 @MainActor
 struct DataTypeTest {

@@ -60,7 +60,14 @@ class SchedulerTests: XCTestCase {
         XCTAssert(app.staticTexts["What is your preferred contact method?"].waitForExistence(timeout: 0.5))
         XCTAssert(app.staticTexts["E-mail"].exists)
         app.staticTexts["E-mail"].tap()
+        
+        XCTAssert(nextButton.isEnabled)
+        nextButton.tap()
 
+        // staticTexts["What is your e-mail?"] is not exposed in the accessibility hierarchy; it seems like a bug in ResearchKit.
+        XCTAssert(app.textFields["Tap to answer"].exists)
+        try app.textFields["Tap to answer"].enter(value: "leland@stanford.edu")
+        
         XCTAssert(nextButton.isEnabled)
         nextButton.tap()
 
