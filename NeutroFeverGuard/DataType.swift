@@ -112,14 +112,12 @@ struct OxygenSaturationEntry {
 
 struct LabEntry {
     let date: Date
-    let testType: LabTestType
-    let value: Double
+    var values: [LabTestType: Double]
     
-    init(date: Date, testType: LabTestType, value: Double) throws {
+    init(date: Date, values: [LabTestType: Double]) throws {
         try isValidDate(date)
         self.date = date
-        self.testType = testType
-        self.value = value
+        self.values = values
     }
 }
 

@@ -9,23 +9,20 @@
 import SwiftUI
 
 struct LabResultsForm: View {
-    @Binding var inputValue: String
-    @Binding var labTestType: LabTestType
+    @Binding var labValues: [LabTestType: String]
     
     var body: some View {
-        Picker("Lab Test Type", selection: $labTestType) {
-            ForEach(LabTestType.allCases, id: \.self) { type in
-                Text(type.rawValue).tag(type)
-            }
-        }
-        .pickerStyle(.menu)
-        
-        HStack {
-            Text("Value")
-            Spacer()
-            TextField("", text: $inputValue)
+        ForEach(LabTestType.allCases, id: \.self) { testType in
+            HStack {
+                Text(testType.rawValue)
+                Spacer()
+                TextField("value", text: Binding(
+                    get: { labValues[testType] ?? "" },
+                    set: { labValues[testType] = $0 }
+                ))
                 .keyboardType(.decimalPad)
                 .multilineTextAlignment(.trailing)
+            }
         }
     }
 }
@@ -110,7 +107,7 @@ struct DataInputForm: View {
     @State private var systolicValue: String = ""
     @State private var diastolicValue: String = ""
     @State private var temperatureUnit: TemperatureUnit = .fahrenheit
-    @State private var labTestType: LabTestType = .whiteBloodCell
+    @State private var labValues: [LabTestType: String] = [:]
     @State private var alertMessage: String = ""
     @Environment(\.dismiss) var dismiss
     
@@ -125,7 +122,9 @@ struct DataInputForm: View {
         case "Blood Pressure":
             return !systolicValue.isEmpty && !diastolicValue.isEmpty
         case "Lab Results":
-            return !inputValue.isEmpty
+            return LabTestType.allCases.allSatisfy { testType in
+                !(labValues[testType] ?? "").isEmpty
+            }
         default:
             return false
         }
@@ -146,7 +145,7 @@ struct DataInputForm: View {
                 } else if dataType == "Blood Pressure" {
                     BloodPressureForm(systolicValue: $systolicValue, diastolicValue: $diastolicValue)
                 } else if dataType == "Lab Results" {
-                    LabResultsForm(inputValue: $inputValue, labTestType: $labTestType)
+                    LabResultsForm(labValues: $labValues)
                 }
             }
             .navigationTitle(dataType)
@@ -182,7 +181,6 @@ struct DataInputForm: View {
         default:
             alertMessage = "Unknown data type"
         }
-//        dismiss()
     }
 
     func addHeartRate() {
@@ -250,16 +248,21 @@ struct DataInputForm: View {
     }
 
     func addLabResult() {
-        guard let value = Double(inputValue) else {
-            alertMessage = "Input must be a valid number"
-            return
+        var parsedValues: [LabTestType: Double] = [:]
+        
+        for (testType, valueString) in labValues {
+            if let value = Double(valueString) {
+                parsedValues[testType] = value
+            } else {
+                alertMessage = "\(testType.rawValue) must be a valid number"
+                return
+            }
         }
+        
         do {
-            let labEntry = try LabEntry(date: combineDateAndTime(date, time), testType: labTestType, value: value)
+            let labEntry = try LabEntry(date: combineDateAndTime(date, time), values: parsedValues)
             print("Lab Entry: \(labEntry)")
             dismiss()
-        } catch let error as DataError {
-            alertMessage = "Error: \(error.errorMessage)"
         } catch {
             alertMessage = "Error: \(error)"
         }
@@ -269,7 +272,7 @@ struct DataInputForm: View {
 #Preview {
 //    DataInputForm(dataType: "Temperature")
 //    DataInputForm(dataType: "Heart Rate")
-    DataInputForm(dataType: "Oxygen Saturation")
+//    DataInputForm(dataType: "Oxygen Saturation")
 //    DataInputForm(dataType: "Blood Pressure")
-//    DataInputForm(dataType: "Lab Results")
+    DataInputForm(dataType: "Lab Results")
 }
