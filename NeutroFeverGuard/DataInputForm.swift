@@ -190,7 +190,6 @@ struct DataInputForm: View {
         }
         do {
             let heartRateEntry = try HeartRateEntry(date: combineDateAndTime(date, time), bpm: bpm)
-            print("Heart Rate Entry: \(heartRateEntry)")
             dismiss()
         } catch let error as DataError {
             alertMessage = "Error: \(error.errorMessage)"
@@ -206,7 +205,6 @@ struct DataInputForm: View {
         }
         do {
             let temperatureEntry = try TemperatureEntry(date: combineDateAndTime(date, time), value: value, unit: temperatureUnit)
-            print("Temperature Entry: \(temperatureEntry)")
             dismiss()
         } catch let error as DataError {
             alertMessage = "Error: \(error.errorMessage)"
@@ -222,7 +220,6 @@ struct DataInputForm: View {
         }
         do {
             let oxygenEntry = try OxygenSaturationEntry(date: combineDateAndTime(date, time), percentage: percentage)
-            print("Oxygen Saturation Entry: \(oxygenEntry)")
             dismiss()
         } catch let error as DataError {
             alertMessage = "Error: \(error.errorMessage)"
@@ -238,7 +235,6 @@ struct DataInputForm: View {
         }
         do {
             let bloodPressureEntry = try BloodPressureEntry(date: combineDateAndTime(date, time), systolic: systolic, diastolic: diastolic)
-            print("Blood Pressure Entry: \(bloodPressureEntry)")
             dismiss()
         } catch let error as DataError {
             alertMessage = "Error: \(error.errorMessage)"
@@ -261,7 +257,6 @@ struct DataInputForm: View {
         
         do {
             let labEntry = try LabEntry(date: combineDateAndTime(date, time), values: parsedValues)
-            print("Lab Entry: \(labEntry)")
             dismiss()
         } catch {
             alertMessage = "Error: \(error)"
