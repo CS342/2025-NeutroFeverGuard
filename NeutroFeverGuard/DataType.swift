@@ -126,9 +126,9 @@ struct LabEntry {
  Blood Pressure: date + time measured, and two pressures (systolic and diastolic) in mmHg.
  */
 struct BloodPressureEntry {
-//    static let systolicType = HKQuantityType(.bloodPressureSystolic)
-//    static let diastolicType = HKQuantityType(.bloodPressureDiastolic)
-//    static let unit = HKUnit.millimeterOfMercury()
+    static let systolicType = HKQuantityType(.bloodPressureSystolic)
+    static let diastolicType = HKQuantityType(.bloodPressureDiastolic)
+    static let unit = HKUnit.millimeterOfMercury()
     
     let date: Date
     let systolic: Double

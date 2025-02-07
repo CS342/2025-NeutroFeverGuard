@@ -9,8 +9,6 @@
 import SwiftUI
 import SpeziViews
 
-<<<<<<< HEAD
-=======
 struct DataInputForm: View {
     let dataType: String
     @State private var date = Date()
@@ -111,7 +109,6 @@ struct DataInputForm: View {
     }
 }
 
->>>>>>> 9187557 (added back-end functionality to push manually-entered user data to firebase via HealthKitService class)
 struct LabResultsForm: View {
     @Binding var labValues: [LabTestType: String]
     
