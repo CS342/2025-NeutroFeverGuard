@@ -19,7 +19,6 @@ class SchedulerTests: XCTestCase {
         app.launchArguments = ["--skipOnboarding"]
         app.deleteAndLaunch(withSpringboardAppName: "NeutroFeverGuard")
     }
-    
 
     @MainActor
     func testScheduler() throws {
