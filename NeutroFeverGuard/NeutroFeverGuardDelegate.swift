@@ -31,13 +31,13 @@ class NeutroFeverGuardDelegate: SpeziAppDelegate {
                     configuration: [
                         .requires(\.userId),
                         .requires(\.name),
-
+                        
                         // additional values stored using the `FirestoreAccountStorage` within our Standard implementation
                         .collects(\.genderIdentity),
                         .collects(\.dateOfBirth)
                     ]
                 )
-
+                
                 firestore
                 if FeatureFlags.useFirebaseEmulator {
                     FirebaseStorageConfiguration(emulatorSettings: (host: "localhost", port: 9199))
@@ -45,7 +45,7 @@ class NeutroFeverGuardDelegate: SpeziAppDelegate {
                     FirebaseStorageConfiguration()
                 }
             }
-
+            
             if HKHealthStore.isHealthDataAvailable() {
                 healthKit
             }
@@ -53,11 +53,11 @@ class NeutroFeverGuardDelegate: SpeziAppDelegate {
             NeutroFeverGuardScheduler()
             Scheduler()
             OnboardingDataSource()
-
+            
             Notifications()
         }
     }
-
+    
     private var accountEmulator: (host: String, port: Int)? {
         if FeatureFlags.useFirebaseEmulator {
             (host: "localhost", port: 9099)
@@ -65,7 +65,7 @@ class NeutroFeverGuardDelegate: SpeziAppDelegate {
             nil
         }
     }
-
+    
     
     private var firestore: Firestore {
         let settings = FirestoreSettings()
@@ -80,13 +80,29 @@ class NeutroFeverGuardDelegate: SpeziAppDelegate {
         )
     }
     
+    private var predicateOneMonth: NSPredicate {
+        // Define the start and end time for the predicate. In this example,
+        // we want to collect the samples in the previous month.
+        let calendar = Calendar(identifier: .gregorian)
+        let today = calendar.startOfDay(for: Date())
+        // We want the end date to be tomorrow so that we can collect all the samples today.
+        guard let endDate = calendar.date(byAdding: .day, value: 1, to: today) else {
+            fatalError("*** Unable to calculate the end time ***")
+        }
+        // Define the start date to one month before.
+        guard let startDate = calendar.date(byAdding: .month, value: -1, to: today) else {
+            fatalError("*** Unable to calculate the start time ***")
+        }
+        // Initialize the NSPredicate with our start and end dates.
+        return HKQuery.predicateForSamples(withStart: startDate, end: endDate)
+    }
     
     private var healthKit: HealthKit {
         HealthKit {
-            CollectSample(
-                HKQuantityType(.stepCount), // add other things here based on data you will collect through health
-                deliverySetting: .anchorQuery(.automatic)
-            )
+            CollectSample(HKQuantityType(.heartRate), predicate: predicateOneMonth, deliverySetting: .anchorQuery(.automatic))
+            CollectSample(HKQuantityType(.oxygenSaturation), predicate: predicateOneMonth, deliverySetting: .anchorQuery(.automatic))
+            CollectSample(HKQuantityType(.appleSleepingWristTemperature), predicate: predicateOneMonth, deliverySetting: .anchorQuery(.automatic))
+            CollectSample(HKQuantityType(.bodyTemperature), predicate: predicateOneMonth, deliverySetting: .anchorQuery(.automatic))
         }
     }
 }
