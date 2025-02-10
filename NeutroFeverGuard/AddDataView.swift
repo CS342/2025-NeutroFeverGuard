@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+import SpeziAccount
 import SwiftUI
 
 struct DataTypeItem: Identifiable {
@@ -15,6 +16,9 @@ struct DataTypeItem: Identifiable {
 
 struct AddDataView: View {
     @State private var selectedDataType: DataTypeItem?
+    
+    @Environment(Account.self) private var account: Account?
+    @Binding var presentingAccount: Bool
     
     let dataTypes: [(name: String, emoji: String)] = [
         (name: "Temperature", emoji: "🌡️"),
@@ -28,38 +32,45 @@ struct AddDataView: View {
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
 
     var body: some View {
-        VStack {
-            Text("What data would you like to add?")
-                .font(.title2)
-                .fontWeight(.bold)
-                .padding()
-
-            LazyVGrid(columns: columns, spacing: 20) {
-                ForEach(dataTypes, id: \.name) { item in
-                    Button(action: {
-                        self.selectedDataType = DataTypeItem(name: item.name)
-                    }) {
-                        VStack {
-                            Text(item.emoji)
-                                .font(.system(size: 40))
-                            Text(item.name)
-                                .font(.headline)
-                                .foregroundColor(.primary)
+        NavigationStack{
+            VStack {
+                Text("What data would you like to add?")
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .padding()
+                
+                LazyVGrid(columns: columns, spacing: 20) {
+                    ForEach(dataTypes, id: \.name) { item in
+                        Button(action: {
+                            self.selectedDataType = DataTypeItem(name: item.name)
+                        }) {
+                            VStack {
+                                Text(item.emoji)
+                                    .font(.system(size: 40))
+                                Text(item.name)
+                                    .font(.headline)
+                                    .foregroundColor(.primary)
+                            }
+                            .frame(width: 140, height: 100)
+                            .background(Color(.systemGray6))
+                            .cornerRadius(12)
                         }
-                        .frame(width: 140, height: 100)
-                        .background(Color(.systemGray6))
-                        .cornerRadius(12)
                     }
                 }
+                .padding()
             }
-            .padding()
-        }
-        .sheet(item: $selectedDataType) { item in
-            DataInputForm(dataType: item.name)
+            .sheet(item: $selectedDataType) { item in
+                DataInputForm(dataType: item.name)
+            }
+            .toolbar {
+                if account != nil {
+                    AccountButton(isPresented: $presentingAccount)
+                }
+            }
         }
     }
 }
 
 #Preview {
-    AddDataView()
+    AddDataView(presentingAccount: .constant(false))
 }
