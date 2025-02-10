@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%@" : {
+
+    },
     "ACCOUNT_SETUP_DESCRIPTION" : {
       "localizations" : {
         "en" : {
@@ -131,6 +134,27 @@
         }
       }
     },
+    "Heart Rate (beats/min)" : {
+
+    },
+    "HKVIZ_AVERAGE_STRING" : {
+
+    },
+    "HKVIZ_MAX_STRING" : {
+
+    },
+    "HKVIZ_MIN_STRING" : {
+
+    },
+    "HKVIZ_NAVIGATION_TITLE" : {
+
+    },
+    "HKVIZ_PLOT_HEART_TITLE" : {
+
+    },
+    "HKVIZ_SUMMARY" : {
+
+    },
     "HL7 FHIR" : {
       "localizations" : {
         "en" : {
@@ -231,6 +255,16 @@
         }
       }
     },
+    "NeutroFeverGuard" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spezi\nNeutroFeverGuard"
+          }
+        }
+      }
+    },
     "Next" : {
       "localizations" : {
         "en" : {
@@ -281,6 +315,15 @@
         }
       }
     },
+    "Preview Title" : {
+
+    },
+    "Preview x axis" : {
+
+    },
+    "Preview y axis" : {
+
+    },
     "Schedule" : {
       "localizations" : {
         "en" : {
@@ -317,16 +360,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Spezi Scheduler Notifications."
-          }
-        }
-      }
-    },
-    "NeutroFeverGuard" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Spezi\nNeutroFeverGuard"
           }
         }
       }
@@ -370,6 +403,12 @@
           }
         }
       }
+    },
+    "Threshold" : {
+
+    },
+    "Time" : {
+
     },
     "Unsupported Event" : {
       "localizations" : {

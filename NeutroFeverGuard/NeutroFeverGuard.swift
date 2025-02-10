@@ -22,7 +22,8 @@ struct NeutroFeverGuard: App {
         WindowGroup {
             ZStack {
                 if completedOnboardingFlow {
-                    HomeView()
+                    //HomeView()
+                    HKVisualizationItem(data: [], xName: "Preview x axis", yName: "Preview y axis", title: "Preview Title")
                 } else {
                     EmptyView()
                 }
