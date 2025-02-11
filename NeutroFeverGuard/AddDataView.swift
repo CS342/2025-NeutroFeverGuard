@@ -32,40 +32,38 @@ struct AddDataView: View {
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
 
     var body: some View {
-        NavigationStack{
-            VStack {
-                Text("What data would you like to add?")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .padding()
-                
-                LazyVGrid(columns: columns, spacing: 20) {
-                    ForEach(dataTypes, id: \.name) { item in
-                        Button(action: {
-                            self.selectedDataType = DataTypeItem(name: item.name)
-                        }) {
-                            VStack {
-                                Text(item.emoji)
-                                    .font(.system(size: 40))
-                                Text(item.name)
-                                    .font(.headline)
-                                    .foregroundColor(.primary)
+        NavigationStack {
+            ZStack {
+                Color(.systemGray6).ignoresSafeArea()
+                VStack {
+                    Text("What data would you like to add?")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .padding()
+                    
+                    LazyVGrid(columns: columns, spacing: 20) {
+                        ForEach(dataTypes, id: \.name) { item in
+                            Button(action: {
+                                self.selectedDataType = DataTypeItem(name: item.name)
+                            }) {
+                                VStack {
+                                    Text(item.emoji).font(.system(size: 40))
+                                    Text(item.name).font(.headline) .foregroundColor(.primary)
+                                }
+                                .frame(width: 140, height: 100)
+                                .background(Color(.white))
+                                .cornerRadius(12)
                             }
-                            .frame(width: 140, height: 100)
-                            .background(Color(.systemGray6))
-                            .cornerRadius(12)
                         }
                     }
+                    .padding()
                 }
-                .padding()
-            }
-            .sheet(item: $selectedDataType) { item in
-                DataInputForm(dataType: item.name)
-            }
-            .toolbar {
-                if account != nil {
-                    AccountButton(isPresented: $presentingAccount)
+                .sheet(item: $selectedDataType) { item in
+                    DataInputForm(dataType: item.name)
                 }
+                .toolbar {if account != nil {AccountButton(isPresented: $presentingAccount)}
+                }
+                .background(Color(.systemGray6))
             }
         }
     }

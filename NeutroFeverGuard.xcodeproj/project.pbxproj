@@ -70,8 +70,8 @@
 		A9D83F962B083794000D0C78 /* SpeziFirebaseAccountStorage in Frameworks */ = {isa = PBXBuildFile; productRef = A9D83F952B083794000D0C78 /* SpeziFirebaseAccountStorage */; };
 		A9DFE8A92ABE551400428242 /* AccountButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DFE8A82ABE551400428242 /* AccountButton.swift */; };
 		A9FE7AD02AA39BAB0077B045 /* AccountSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FE7ACF2AA39BAB0077B045 /* AccountSheet.swift */; };
-		C42D4D842D5837C400B2A169 /* ANCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D4D832D5837C400B2A169 /* ANCView.swift */; };
 		C42D4D8E2D58584A00B2A169 /* ANCNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D4D8D2D58584A00B2A169 /* ANCNotification.swift */; };
+		C42D4DA52D5AC89900B2A169 /* LabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D4DA42D5AC89500B2A169 /* LabView.swift */; };
 		C49EC8342D501C62005C3495 /* DataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8332D501C5C005C3495 /* DataType.swift */; };
 		C49EC8362D501FB9005C3495 /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8352D501FB2005C3495 /* DataError.swift */; };
 		C49EC8382D5026EE005C3495 /* DataTypeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8372D5026EE005C3495 /* DataTypeTest.swift */; };
@@ -139,8 +139,8 @@
 		A9A3DCC72C75CB9A00FC9B69 /* FirebaseConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfiguration.swift; sourceTree = "<group>"; };
 		A9DFE8A82ABE551400428242 /* AccountButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountButton.swift; sourceTree = "<group>"; };
 		A9FE7ACF2AA39BAB0077B045 /* AccountSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSheet.swift; sourceTree = "<group>"; };
-		C42D4D832D5837C400B2A169 /* ANCView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANCView.swift; sourceTree = "<group>"; };
 		C42D4D8D2D58584A00B2A169 /* ANCNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANCNotification.swift; sourceTree = "<group>"; };
+		C42D4DA42D5AC89500B2A169 /* LabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabView.swift; sourceTree = "<group>"; };
 		C49EC8332D501C5C005C3495 /* DataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataType.swift; sourceTree = "<group>"; };
 		C49EC8352D501FB2005C3495 /* DataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataError.swift; sourceTree = "<group>"; };
 		C49EC8372D5026EE005C3495 /* DataTypeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTypeTest.swift; sourceTree = "<group>"; };
@@ -292,7 +292,7 @@
 		653A254F283387FE005D4D48 /* NeutroFeverGuard */ = {
 			isa = PBXGroup;
 			children = (
-				C42D4D832D5837C400B2A169 /* ANCView.swift */,
+				C42D4DA42D5AC89500B2A169 /* LabView.swift */,
 				C42D4D8D2D58584A00B2A169 /* ANCNotification.swift */,
 				C4C0A78E2D518DB500F37EEC /* HelperFunc.swift */,
 				C49EC83F2D5033F9005C3495 /* AddDataView.swift */,
@@ -570,6 +570,7 @@
 				2F4E23832989D51F0013F3D9 /* NeutroFeverGuardTestingSetup.swift in Sources */,
 				C4C0A78F2D518DBC00F37EEC /* HelperFunc.swift in Sources */,
 				C49EC8402D5033F9005C3495 /* AddDataView.swift in Sources */,
+				C42D4DA52D5AC89900B2A169 /* LabView.swift in Sources */,
 				A98FF2B12CD131F500DFC949 /* EventView.swift in Sources */,
 				C49EC8342D501C62005C3495 /* DataType.swift in Sources */,
 				2FE5DC5329EDD7FA004B9AB4 /* Bundle+Questionnaire.swift in Sources */,
@@ -580,7 +581,6 @@
 				2FE5DC3629EDD7CA004B9AB4 /* HealthKitPermissions.swift in Sources */,
 				C42D4D8E2D58584A00B2A169 /* ANCNotification.swift in Sources */,
 				2F65B44E2A3B8B0600A36932 /* NotificationPermissions.swift in Sources */,
-				C42D4D842D5837C400B2A169 /* ANCView.swift in Sources */,
 				C49EC8362D501FB9005C3495 /* DataError.swift in Sources */,
 				2FE5DC2629EDD38A004B9AB4 /* Contacts.swift in Sources */,
 			);

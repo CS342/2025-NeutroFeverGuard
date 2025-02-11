@@ -13,6 +13,7 @@ import SwiftUI
 struct HomeView: View {
     enum Tabs: String {
         case addData
+        case labResult
         case schedule
         case contact
     }
@@ -28,6 +29,9 @@ struct HomeView: View {
         TabView(selection: $selectedTab) {
             Tab("Add Data", systemImage: "plus.app.fill", value: .addData) {
                 AddDataView(presentingAccount: $presentingAccount)
+            }
+            Tab("Lab", systemImage: "flask", value: .labResult) {
+                LabView(presentingAccount: $presentingAccount)
             }
                 .customizationID("home.addData")
             Tab("Schedule", systemImage: "list.clipboard", value: .schedule) {
