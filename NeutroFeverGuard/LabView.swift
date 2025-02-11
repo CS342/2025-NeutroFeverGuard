@@ -10,7 +10,7 @@ import SwiftUI
 
 struct LabView: View {
     @State private var latestNeutrophilPercentage: Double = 55.0
-    @State private var latestLeukocyteCount: Double = 4000.0
+    @State private var latestLeukocyteCount: Double = 1000.0
     @State private var latestRecordedTime: String = "Feb 8, 2025"
 
     @State private var labRecords: [LabRecord] = [
@@ -31,30 +31,11 @@ struct LabView: View {
     var body: some View {
         NavigationView {
             List {
-                // Section for Latest ANC
                 Section(header: Text("Absolute Neutrophil Counts")) {
                     NavigationLink(destination: LabResultDetailView(record: labRecords[0])) {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 8) {
-                                Text("🧪 Latest ANC")
-                                    .font(.headline)
-                                Text("\(ancValue, specifier: "%.1f")/µL")
-                                   .font(.largeTitle)
-                                   .bold()
-                                   .foregroundColor(ancValue < 1500 ? .red : .green)
-                                   .padding(.vertical, 8)
-                                Text("Last recorded: \(latestRecordedTime)")
-                                    .font(.caption)
-                                    .foregroundColor(.gray)
-//                                Text("Your ANC is \(ancValue < 1500 ? "low" : "normal")")
-//                                    .font(.subheadline)
-//                                    .foregroundColor(ancValue < 1500 ? .red : .green)
-                            }
-                        }
+                        ANCView(ancValue: ancValue, latestRecordedTime: latestRecordedTime)
                     }
                 }
-
-                // Section for Lab Records
                 Section(header: Text("Lab Results History")) {
                     ForEach(labRecords) { record in
                         NavigationLink(destination: LabResultDetailView(record: record)) {
@@ -74,6 +55,50 @@ struct LabView: View {
         }
     }
 }
+
+struct ANCView: View {
+    let ancValue: Double
+    let latestRecordedTime: String
+    
+    private func getANCStatus(_ ancValue: Double) -> (text: String, color: Color) {
+        switch ancValue {
+        case let anc where anc >= 1500:
+            return ("Normal", .green)
+        case let anc where anc >= 1000:
+            return ("Mild Neutropenia", .orange)
+        case let anc where anc >= 500:
+            return ("Moderate Neutropenia", .red)
+        case let anc where anc >= 100:
+            return ("Severe Neutropenia", .red)
+        default:
+            return ("Profound Neutropenia", .red)
+        }
+    }
+
+
+    var body: some View {
+        let status = getANCStatus(ancValue)
+
+        VStack(alignment: .leading, spacing: 8) {
+            Text("🧪 Latest ANC")
+                .font(.headline)
+            Text("\(ancValue, specifier: "%.1f")/µL")
+                .font(.largeTitle)
+                .bold()
+                .foregroundColor(status.color)
+                .padding(.vertical, 8)
+            
+            Text(status.text)
+                .font(.subheadline)
+                .foregroundColor(status.color)
+                .bold()
+            Text("Last recorded: \(latestRecordedTime)")
+                .font(.caption)
+                .foregroundColor(.gray)
+        }
+    }
+}
+
 
 struct LabRecord: Identifiable {
     let id = UUID()
