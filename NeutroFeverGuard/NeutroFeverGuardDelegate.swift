@@ -99,10 +99,10 @@ class NeutroFeverGuardDelegate: SpeziAppDelegate {
     
     private var healthKit: HealthKit {
         HealthKit {
-            CollectSamples([HKQuantityType(.heartRate)], predicate: predicateOneMonth, deliverySetting: .anchorQuery(.automatic))
-            CollectSamples([HKQuantityType(.oxygenSaturation)], predicate: predicateOneMonth, deliverySetting: .anchorQuery(.automatic))
-            CollectSamples([HKQuantityType(.appleSleepingWristTemperature)], predicate: predicateOneMonth, deliverySetting: .anchorQuery(.automatic))
-            CollectSamples([HKQuantityType(.bodyTemperature)], predicate: predicateOneMonth, deliverySetting: .anchorQuery(.automatic))
+            CollectSample(HKQuantityType(.heartRate), predicate: predicateOneMonth, deliverySetting: .anchorQuery(.automatic))
+            CollectSample(HKQuantityType(.oxygenSaturation), predicate: predicateOneMonth, deliverySetting: .anchorQuery(.automatic))
+            CollectSample(HKQuantityType(.appleSleepingWristTemperature), predicate: predicateOneMonth, deliverySetting: .anchorQuery(.automatic))
+            CollectSample(HKQuantityType(.bodyTemperature), predicate: predicateOneMonth, deliverySetting: .anchorQuery(.automatic))
         }
     }
 }
