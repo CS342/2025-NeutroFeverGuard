@@ -1,12 +1,82 @@
 //
-//  LabView.swift
-//  NeutroFeverGuard
+// This source file is part of the NeutroFeverGuard based on the Stanford Spezi Template Application project
 //
-//  Created by 杜思娴 on 2025/2/10.
+// SPDX-FileCopyrightText: 2025 Stanford University
+//
+// SPDX-License-Identifier: MIT
 //
 
 import SpeziAccount
 import SwiftUI
+
+struct ANCView: View {
+    let ancValue: Double
+    let latestRecordedTime: String
+
+    var body: some View {
+        let status = getANCStatus(ancValue)
+
+        VStack(alignment: .leading, spacing: 8) {
+            Text("🧪 Latest ANC")
+                .font(.headline)
+            Text("\(ancValue, specifier: "%.1f")/µL")
+                .font(.largeTitle)
+                .bold()
+                .foregroundColor(status.color)
+                .padding(.vertical, 8)
+            
+            Text(status.text)
+                .font(.subheadline)
+                .foregroundColor(status.color)
+                .bold()
+            Text("Last recorded: \(latestRecordedTime)")
+                .font(.caption)
+                .foregroundColor(.gray)
+        }
+    }
+    
+    private func getANCStatus(_ ancValue: Double) -> (text: String, color: Color) {
+        switch ancValue {
+        case let anc where anc >= 1500:
+            return ("Normal", .green)
+        case let anc where anc >= 1000:
+            return ("Mild Neutropenia", .orange)
+        case let anc where anc >= 500:
+            return ("Moderate Neutropenia", .red)
+        case let anc where anc >= 100:
+            return ("Severe Neutropenia", .red)
+        default:
+            return ("Profound Neutropenia", .red)
+        }
+    }
+}
+
+
+struct LabRecord: Identifiable {
+    let id = UUID()
+    let date: String
+    var values: [LabTestType: Double]
+}
+
+
+struct LabResultDetailView: View {
+    var record: LabRecord
+
+    var body: some View {
+        Form {
+            Section(header: Text("Lab Values")) {
+                ForEach(record.values.sorted(by: { $0.key.rawValue < $1.key.rawValue }), id: \.key) { key, value in
+                    HStack {
+                        Text(key.rawValue)
+                        Spacer()
+                        Text("\(value, specifier: "%.1f")")
+                    }
+                }
+            }
+        }
+        .navigationTitle(record.date)
+    }
+}
 
 struct LabView: View {
     @State private var latestNeutrophilPercentage: Double = 55.0
@@ -56,75 +126,6 @@ struct LabView: View {
     }
 }
 
-struct ANCView: View {
-    let ancValue: Double
-    let latestRecordedTime: String
-    
-    private func getANCStatus(_ ancValue: Double) -> (text: String, color: Color) {
-        switch ancValue {
-        case let anc where anc >= 1500:
-            return ("Normal", .green)
-        case let anc where anc >= 1000:
-            return ("Mild Neutropenia", .orange)
-        case let anc where anc >= 500:
-            return ("Moderate Neutropenia", .red)
-        case let anc where anc >= 100:
-            return ("Severe Neutropenia", .red)
-        default:
-            return ("Profound Neutropenia", .red)
-        }
-    }
-
-
-    var body: some View {
-        let status = getANCStatus(ancValue)
-
-        VStack(alignment: .leading, spacing: 8) {
-            Text("🧪 Latest ANC")
-                .font(.headline)
-            Text("\(ancValue, specifier: "%.1f")/µL")
-                .font(.largeTitle)
-                .bold()
-                .foregroundColor(status.color)
-                .padding(.vertical, 8)
-            
-            Text(status.text)
-                .font(.subheadline)
-                .foregroundColor(status.color)
-                .bold()
-            Text("Last recorded: \(latestRecordedTime)")
-                .font(.caption)
-                .foregroundColor(.gray)
-        }
-    }
-}
-
-
-struct LabRecord: Identifiable {
-    let id = UUID()
-    let date: String
-    var values: [LabTestType: Double]
-}
-
-
-struct LabResultDetailView: View {
-    var record: LabRecord
-
-    var body: some View {
-        Form {
-            Section(header: Text("Lab Values")) {
-                ForEach(record.values.sorted(by: { $0.key.rawValue < $1.key.rawValue }), id: \.key) { key, value in
-                    HStack {
-                        Text(key.rawValue)
-                        Spacer()
-                        Text("\(value, specifier: "%.1f")")
-                    }
-                }
-            }
-        }
-        .navigationTitle(record.date)
-    }
-}
 
 #Preview {
     LabView(presentingAccount: .constant(false))
