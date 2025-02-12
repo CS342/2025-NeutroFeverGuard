@@ -19,7 +19,7 @@ struct ANCView: View {
         VStack(alignment: .leading, spacing: 8) {
             Text("🧪 Latest ANC")
                 .font(.headline)
-            Text("\(ancValue, specifier: "%.1f")/µL")
+            Text("\(ancValue, specifier: "%.1f") cells/µL")
                 .font(.largeTitle)
                 .bold()
                 .foregroundColor(status.color)
@@ -61,9 +61,9 @@ struct LabResultDetailView: View {
     var body: some View {
         Form {
             Section(header: Text("Lab Values")) {
-                labValueRow(type: .whiteBloodCell, unit: "/µL")
+                labValueRow(type: .whiteBloodCell, unit: "cells/µL")
                 labValueRow(type: .hemoglobin, unit: "g/dL")
-                labValueRow(type: .plateletCount, unit: "/µL")
+                labValueRow(type: .plateletCount, unit: "cells/µL")
                 labValueRow(type: .neutrophils, unit: "%")
                 labValueRow(type: .lymphocytes, unit: "%")
                 labValueRow(type: .monocytes, unit: "%")
@@ -88,7 +88,7 @@ struct LabResultDetailView: View {
 
 struct LabView: View {
     @State private var latestNeutrophilPercentage: Double = 99.0
-    @State private var latestLeukocyteCount: Double = 10.0
+    @State private var latestLeukocyteCount: Double = 200.0
     @State private var latestRecordedTime: String = "Feb 8, 2025"
 
     @State private var labRecords: [LabRecord] = [
