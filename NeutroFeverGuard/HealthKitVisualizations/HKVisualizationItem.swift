@@ -1,8 +1,9 @@
 //
-//  HKVisualizationItem.swift
-//  NeutroFeverGuard
+// This source file is part of the NeutroFeverGuard based on the Stanford Spezi Template Application project
 //
-//  Created by Priyanka Shrestha on 2/4/25.
+// SPDX-FileCopyrightText: 2025 Stanford University
+//
+// SPDX-License-Identifier: MIT
 //
 
 import Charts

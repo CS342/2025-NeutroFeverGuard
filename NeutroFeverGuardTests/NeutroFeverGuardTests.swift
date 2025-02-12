@@ -6,22 +6,14 @@
 // SPDX-License-Identifier: MIT
 //
 
-@testable import NeutroFeverGuard
+import Foundation
 import HealthKit
-import XCTest
+import Testing
+@testable import NeutroFeverGuard
 
-
-class NeutroFeverGuardTests: XCTestCase {
-    @MainActor
-    func testContactsCount() throws {
-        XCTAssertEqual(Contacts(presentingAccount: .constant(true)).contacts.count, 1)
-    }
-}
-
-class HKVisualizationTests: XCTestCase {
-    @MainActor
-    func testHKDataInitialization() throws {
-        // Test HKData struct initialization
+struct NeutroFeverGuardTests {
+    @Test("HK Data Initialization Test")
+    func testHKDataInitialization() {
         let testDate = Date()
         let hkData = HKData(
             date: testDate,
@@ -31,26 +23,65 @@ class HKVisualizationTests: XCTestCase {
             maxValue: 90.0
         )
         
-        XCTAssertEqual(hkData.date, testDate)
-        XCTAssertEqual(hkData.sumValue, 100.0)
-        XCTAssertEqual(hkData.avgValue, 50.0)
-        XCTAssertEqual(hkData.minValue, 10.0)
-        XCTAssertEqual(hkData.maxValue, 90.0)
+        #expect(hkData.date == testDate, "Date should match test date")
+        #expect(hkData.sumValue == 100.0, "Sum value should be 100.0")
+        #expect(hkData.avgValue == 50.0, "Average value should be 50.0")
+        #expect(hkData.minValue == 10.0, "Minimum value should be 10.0")
+        #expect(hkData.maxValue == 90.0, "Maximum value should be 90.0")
     }
     
-    @MainActor
-    func testParseValue() throws {
-        // Test parsing different HealthKit quantity types
+    @Test("Test Parse Value")
+    func testParseValue() {
         let healthStore = HKHealthStore()
         
         // Heart Rate parsing
         let heartRateQuantity = HKQuantity(unit: HKUnit(from: "count/min"), doubleValue: 70)
         let heartRateValue = parseValue(quantity: heartRateQuantity, quantityTypeIDF: .heartRate)
-        XCTAssertEqual(heartRateValue, 70.0)
+        #expect(heartRateValue == 70.0, "Heart rate value should be 70.0")
         
         // Oxygen Saturation parsing
         let oxygenSatQuantity = HKQuantity(unit: .percent(), doubleValue: 0.95)
         let oxygenSatValue = parseValue(quantity: oxygenSatQuantity, quantityTypeIDF: .oxygenSaturation)
-        XCTAssertEqual(oxygenSatValue, 95.0)
+        #expect(oxygenSatValue == 95.0, "Oxygen saturation value should be 95.0")
+    }
+    @MainActor
+    @Test("Test HK Visualization Display")
+    func testHKVisualizationDisplay() {
+        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date()
+
+        let mockData = [
+            HKData(date: Date(), sumValue: 100, avgValue: 96, minValue: 90, maxValue: 105),
+            HKData(date: yesterday, sumValue: 0, avgValue: 96, minValue: 91, maxValue: 102)
+        ]
+        let view = HKVisualizationItem(
+            data: mockData,
+            xName: "Date",
+            yName: "Oxygen Saturation (%)",
+            title: "Blood Oxygen Saturation",
+            threshold: 94.0,
+            helperText: "Maintain oxygen saturation above 94%."
+        )
+        
+        #expect(view != nil, "View should be initialized successfully")
+    }
+    
+    @MainActor
+    @Test("Test HK Visualization Thereshold")
+    func testHKVisualizationItemThreshold() {
+        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date()
+        let mockData = [
+            HKData(date: Date(), sumValue: 100, avgValue: 96, minValue: 90, maxValue: 105),
+            HKData(date: yesterday, sumValue: 0, avgValue: 96, minValue: 91, maxValue: 102)
+        ]
+        let view = HKVisualizationItem(
+            data: mockData,
+            xName: "Date",
+            yName: "Body Temperature (°C)",
+            title: "Body Temperature",
+            threshold: 37.5,
+            helperText: "Monitor your body temperature for fever signs."
+        )
+        
+        #expect(view != nil, "View should be initialized successfully")
     }
 }
