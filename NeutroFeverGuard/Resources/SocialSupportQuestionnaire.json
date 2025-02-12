@@ -304,8 +304,10 @@
           "question": "695525f3-3e89-4455-8e25-878171c596da",
           "operator": "=",
           "answerCoding": {
-            "system": "urn:uuid:736ac230-812a-4f4a-edec-5156910fb6ec",
-            "code": "phone-call"
+              "id": "b7a3d7a5-52b9-49b1-8b59-7a3885483f1c",
+              "code": "phone-call",
+              "system": "urn:uuid:736ac230-812a-4f4a-edec-5156910fb6ec",
+              "display": "Phone call"
           }
         }
       ],
@@ -330,8 +332,10 @@
           "question": "695525f3-3e89-4455-8e25-878171c596da",
           "operator": "=",
           "answerCoding": {
-            "system": "urn:uuid:736ac230-812a-4f4a-edec-5156910fb6ec",
-            "code": "text-message"
+              "id": "3d42dde0-8e60-4832-bd46-bd06de28cbf2",
+              "code": "text-message",
+              "system": "urn:uuid:736ac230-812a-4f4a-edec-5156910fb6ec",
+              "display": "Text message"
           }
         }
       ],
@@ -371,8 +375,10 @@
           "question": "695525f3-3e89-4455-8e25-878171c596da",
           "operator": "=",
           "answerCoding": {
-            "system": "urn:uuid:736ac230-812a-4f4a-edec-5156910fb6ec",
-            "code": "e-mail"
+              "id": "e672cfc6-118f-4a2d-aafd-02722ff876b9",
+              "code": "e-mail",
+              "system": "urn:uuid:736ac230-812a-4f4a-edec-5156910fb6ec",
+              "display": "E-mail"
           }
         }
       ]

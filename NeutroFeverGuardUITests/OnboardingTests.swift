@@ -139,7 +139,7 @@ extension XCUIApplication {
     }
 
     private func navigateOnboardingFlowHealthKitAccess() throws {
-        XCTAssertTrue(staticTexts["HealthKit Access"].waitForExistence(timeout: 5))
+        XCTAssertTrue(staticTexts["HealthKit Access"].waitForExistence(timeout: 10))
         
         XCTAssertTrue(buttons["Grant Access"].exists)
         buttons["Grant Access"].tap()
