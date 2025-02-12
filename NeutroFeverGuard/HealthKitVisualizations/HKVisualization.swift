@@ -10,7 +10,7 @@ import Foundation
 import HealthKit
 import SwiftUI
 
-struct HKData: Identifiable {
+public struct HKData: Identifiable {
     var date: Date
     var id = UUID()
     var sumValue: Double

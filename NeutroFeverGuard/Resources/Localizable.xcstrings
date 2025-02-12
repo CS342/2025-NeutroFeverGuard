@@ -8,6 +8,7 @@
 
     },
     "°F" : {
+
     },
     "ACCOUNT_SETUP_DESCRIPTION" : {
       "localizations" : {
@@ -153,27 +154,6 @@
           }
         }
       }
-    },
-    "Heart Rate (beats/min)" : {
-
-    },
-    "HKVIZ_AVERAGE_STRING" : {
-
-    },
-    "HKVIZ_MAX_STRING" : {
-
-    },
-    "HKVIZ_MIN_STRING" : {
-
-    },
-    "HKVIZ_NAVIGATION_TITLE" : {
-
-    },
-    "HKVIZ_PLOT_HEART_TITLE" : {
-
-    },
-    "HKVIZ_SUMMARY" : {
-
     },
     "HL7 FHIR" : {
       "localizations" : {

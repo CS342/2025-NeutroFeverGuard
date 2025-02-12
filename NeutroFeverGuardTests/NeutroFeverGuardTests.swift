@@ -8,8 +8,9 @@
 
 import Foundation
 import HealthKit
-import Testing
 @testable import NeutroFeverGuard
+import Testing
+
 
 struct NeutroFeverGuardTests {
     @Test("HK Data Initialization Test")

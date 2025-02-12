@@ -276,6 +276,7 @@
 				653A256A28338800005D4D48 /* NeutroFeverGuardUITests */,
 				653A254E283387FE005D4D48 /* Products */,
 				653A258B283395A7005D4D48 /* Frameworks */,
+				EB02C6512D5D39D90035AA89 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -292,12 +293,12 @@
 		653A254F283387FE005D4D48 /* NeutroFeverGuard */ = {
 			isa = PBXGroup;
 			children = (
+				EB7D47E02D51433200CEDC78 /* HealthKitVisualizations */,
 				C4C0A78E2D518DB500F37EEC /* HelperFunc.swift */,
 				C49EC83F2D5033F9005C3495 /* AddDataView.swift */,
 				C49EC8522D5038AC005C3495 /* DataInputForm.swift */,
 				C49EC8352D501FB2005C3495 /* DataError.swift */,
 				C49EC8332D501C5C005C3495 /* DataType.swift */,
-				2FC975A72978F11A00BA99FE /* HomeView.swift */,
 				653A2550283387FE005D4D48 /* NeutroFeverGuard.swift */,
 				2F5E32BC297E05EA003432F8 /* NeutroFeverGuardDelegate.swift */,
 				2FF53D8C2A8729D600042B76 /* NeutroFeverGuardStandard.swift */,
@@ -358,6 +359,13 @@
 				A9A3DCC72C75CB9A00FC9B69 /* FirebaseConfiguration.swift */,
 			);
 			path = Firestore;
+			sourceTree = "<group>";
+		};
+		EB02C6512D5D39D90035AA89 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -10,7 +10,7 @@ import Charts
 import Foundation
 import SwiftUI
 
-struct HKVisualizationItem: View {
+public struct HKVisualizationItem: View {
     let id = UUID()
     let data: [HKData]
     let xName: LocalizedStringResource
