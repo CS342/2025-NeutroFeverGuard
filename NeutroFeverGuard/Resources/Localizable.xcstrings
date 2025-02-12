@@ -1,6 +1,15 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "" : {
+
+    },
+    "°C" : {
+
+    },
+    "°F" : {
+
+    },
     "ACCOUNT_SETUP_DESCRIPTION" : {
       "localizations" : {
         "en" : {
@@ -31,6 +40,9 @@
         }
       }
     },
+    "Add" : {
+
+    },
     "Allow Notifications" : {
       "localizations" : {
         "en" : {
@@ -40,6 +52,9 @@
           }
         }
       }
+    },
+    "Cancel" : {
+
     },
     "Close" : {
       "localizations" : {
@@ -80,6 +95,15 @@
           }
         }
       }
+    },
+    "Date" : {
+
+    },
+    "Diastolic (mmHg)" : {
+
+    },
+    "Error" : {
+
     },
     "Grant Access" : {
       "localizations" : {
@@ -231,6 +255,16 @@
         }
       }
     },
+    "NeutroFeverGuard" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spezi\nNeutroFeverGuard"
+          }
+        }
+      }
+    },
     "Next" : {
       "localizations" : {
         "en" : {
@@ -261,6 +295,9 @@
         }
       }
     },
+    "OK" : {
+
+    },
     "Onboarding" : {
       "localizations" : {
         "en" : {
@@ -271,6 +308,9 @@
         }
       }
     },
+    "Percentage (%)" : {
+
+    },
     "Please fill out the Social Support Questionnaire every day." : {
       "localizations" : {
         "en" : {
@@ -280,6 +320,9 @@
           }
         }
       }
+    },
+    "Rate (bpm)" : {
+
     },
     "Schedule" : {
       "localizations" : {
@@ -321,16 +364,6 @@
         }
       }
     },
-    "NeutroFeverGuard" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Spezi\nNeutroFeverGuard"
-          }
-        }
-      }
-    },
     "Start Questionnaire" : {
       "localizations" : {
         "en" : {
@@ -350,6 +383,12 @@
           }
         }
       }
+    },
+    "Systolic (mmHg)" : {
+
+    },
+    "Temperature" : {
+
     },
     "The Spezi Framework" : {
       "localizations" : {
@@ -371,6 +410,9 @@
         }
       }
     },
+    "Time" : {
+
+    },
     "Unsupported Event" : {
       "localizations" : {
         "en" : {
@@ -380,6 +422,9 @@
           }
         }
       }
+    },
+    "value" : {
+
     },
     "WELCOME_AREA1_DESCRIPTION" : {
       "localizations" : {
@@ -420,6 +465,9 @@
           }
         }
       }
+    },
+    "What data would you like to add?" : {
+
     },
     "Your Account" : {
       "localizations" : {
