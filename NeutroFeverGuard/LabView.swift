@@ -127,9 +127,6 @@ struct LabView: View {
         ])
     ]
 
-
-    @State private var selectedRecord: LabRecord?
-    
     @Environment(Account.self) private var account: Account?
     @Binding var presentingAccount: Bool
 
