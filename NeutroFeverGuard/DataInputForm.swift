@@ -5,20 +5,17 @@
 //
 // SPDX-License-Identifier: MIT
 //
-// swiftlint:disable closure_body_length
+// swiftlint:disable file_types_order
 
 import SpeziSecureStorage
 import SpeziViews
 import SwiftUI
 
+// swiftlint:disable closure_body_length
+// swiftlint:disable:next type_contents_order
 struct DataInputForm: View {
     let dataType: String
     private let healthKitService: HealthKitService
-    
-    init(dataType: String) {
-        self.dataType = dataType
-        self.healthKitService = HealthKitService()
-    }
     
     @State private var date = Date()
     @State private var time = Date()
@@ -28,6 +25,11 @@ struct DataInputForm: View {
     @State private var temperatureUnit: TemperatureUnit = .fahrenheit
     @State private var labValues: [String: String] = [:]
     @Environment(\.dismiss) var dismiss
+    
+    init(dataType: String) {
+        self.dataType = dataType
+        self.healthKitService = HealthKitService()
+    }
     
     var body: some View {
         NavigationView {
@@ -53,9 +55,12 @@ struct DataInputForm: View {
                     dismiss()
                 },
                 trailing: AsyncButton("Add") {
-                    // Request authorization first, then add data
-                    try await healthKitService.requestAuthorization()
-                    await addData()
+                    do {
+                        try await healthKitService.requestAuthorization()
+                        await addData()
+                    } catch {
+                        print("Error requesting HealthKit authorization: \(error)")
+                    }
                 }
             )
         }
@@ -69,7 +74,8 @@ struct DataInputForm: View {
             bySettingHour: timeComponents.hour ?? 0,
             minute: timeComponents.minute ?? 0,
             second: 0,
-            of: date) ?? date
+            of: date
+        ) ?? date
         
         do {
             switch dataType {
@@ -131,6 +137,7 @@ struct LabResultsForm: View {
     }
 }
 
+// swiftlint:disable:next type_contents_order
 struct LabeledTextField: View {
     let label: String
     @Binding var value: String
