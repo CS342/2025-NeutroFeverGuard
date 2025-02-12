@@ -11,10 +11,10 @@ import HealthKit
 @testable import NeutroFeverGuard
 import Testing
 
-
+@MainActor
 struct NeutroFeverGuardTests {
     @Test("HK Data Initialization Test")
-    func testHKDataInitialization() {
+    func testHKDataInitialization() async throws {
         let testDate = Date()
         let hkData = HKData(
             date: testDate,
@@ -32,7 +32,7 @@ struct NeutroFeverGuardTests {
     }
     
     @Test("Test Parse Value")
-    func testParseValue() {
+    func testParseValue() async throws {
         let healthStore = HKHealthStore()
         
         // Heart Rate parsing
@@ -47,7 +47,7 @@ struct NeutroFeverGuardTests {
     }
     @MainActor
     @Test("Test HK Visualization Display")
-    func testHKVisualizationDisplay() {
+    func testHKVisualizationDisplay() async throws {
         let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date()
 
         let mockData = [
@@ -68,7 +68,7 @@ struct NeutroFeverGuardTests {
     
     @MainActor
     @Test("Test HK Visualization Thereshold")
-    func testHKVisualizationItemThreshold() {
+    func testHKVisualizationItemThreshold() async throws {
         let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date()
         let mockData = [
             HKData(date: Date(), sumValue: 100, avgValue: 96, minValue: 90, maxValue: 105),

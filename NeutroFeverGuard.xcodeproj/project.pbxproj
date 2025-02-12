@@ -55,7 +55,6 @@
 		56E7083B2BB06F6F00B08F0A /* SwiftPackageList in Frameworks */ = {isa = PBXBuildFile; productRef = 56E7083A2BB06F6F00B08F0A /* SwiftPackageList */; };
 		653A2551283387FE005D4D48 /* NeutroFeverGuard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653A2550283387FE005D4D48 /* NeutroFeverGuard.swift */; };
 		653A255528338800005D4D48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 653A255428338800005D4D48 /* Assets.xcassets */; };
-		653A256228338800005D4D48 /* NeutroFeverGuardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653A256128338800005D4D48 /* NeutroFeverGuardTests.swift */; };
 		653A256C28338800005D4D48 /* SchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653A256B28338800005D4D48 /* SchedulerTests.swift */; };
 		9733CFC62A8066DE001B7ABC /* SpeziOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 2FE5DC8029EDD91D004B9AB4 /* SpeziOnboarding */; };
 		9739A0C62AD7B5730084BEA5 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 9739A0C52AD7B5730084BEA5 /* FirebaseStorage */; };
@@ -76,6 +75,7 @@
 		C49EC8402D5033F9005C3495 /* AddDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC83F2D5033F9005C3495 /* AddDataView.swift */; };
 		C49EC8532D5038AC005C3495 /* DataInputForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8522D5038AC005C3495 /* DataInputForm.swift */; };
 		C4C0A78F2D518DBC00F37EEC /* HelperFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0A78E2D518DB500F37EEC /* HelperFunc.swift */; };
+		EB02C6612D5D52E90035AA89 /* NeutroFeverGuardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653A256128338800005D4D48 /* NeutroFeverGuardTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,8 +145,27 @@
 		C4C0A78E2D518DB500F37EEC /* HelperFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunc.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		EB02C65C2D5D52800035AA89 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				HKVisualization.swift,
+				HKVisualizationItem.swift,
+			);
+			target = 653A255C28338800005D4D48 /* NeutroFeverGuardTests */;
+		};
+		EB02C65D2D5D52800035AA89 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				HKVisualization.swift,
+				HKVisualizationItem.swift,
+			);
+			target = 653A256628338800005D4D48 /* NeutroFeverGuardUITests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		EB7D47E02D51433200CEDC78 /* HealthKitVisualizations */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = HealthKitVisualizations; sourceTree = "<group>"; };
+		EB7D47E02D51433200CEDC78 /* HealthKitVisualizations */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (EB02C65C2D5D52800035AA89 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, EB02C65D2D5D52800035AA89 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = HealthKitVisualizations; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -598,7 +617,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				653A256228338800005D4D48 /* NeutroFeverGuardTests.swift in Sources */,
+				EB02C6612D5D52E90035AA89 /* NeutroFeverGuardTests.swift in Sources */,
 				C49EC8382D5026EE005C3495 /* DataTypeTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -26,12 +26,11 @@ public struct HKVisualizationItem: View {
     // Variables for lollipops.
     let lollipopColor: Color = .indigo
 
-    @Environment(\.locale)
-    private var locale
+    @Environment(\.locale) private var locale
 
     @State private var selectedElement: HKData?
     
-    var body: some View {
+    public var body: some View {
         Text(self.title)
             .font(.title3.bold())
         // Remove line below text.
