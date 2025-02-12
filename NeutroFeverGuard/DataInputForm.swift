@@ -11,8 +11,6 @@ import SpeziSecureStorage
 import SpeziViews
 import SwiftUI
 
-// swiftlint:disable closure_body_length
-// swiftlint:disable:next type_contents_order
 struct DataInputForm: View {
     let dataType: String
     private let healthKitService: HealthKitService
@@ -26,6 +24,7 @@ struct DataInputForm: View {
     @State private var labValues: [String: String] = [:]
     @Environment(\.dismiss) var dismiss
     
+    // swiftlint:disable:next type_contents_order
     init(dataType: String) {
         self.dataType = dataType
         self.healthKitService = HealthKitService()
@@ -137,11 +136,11 @@ struct LabResultsForm: View {
     }
 }
 
-// swiftlint:disable:next type_contents_order
 struct LabeledTextField: View {
     let label: String
     @Binding var value: String
     
+    // swiftlint:disable:next type_contents_order
     init(_ label: String, value: Binding<String>) {
         self.label = label
         self._value = value
