@@ -10,7 +10,6 @@
 import class SpeziScheduler.Scheduler
 import SwiftUI
 
-
 struct HomeView: View {
     enum Tabs: String {
         case schedule
