@@ -8,24 +8,42 @@
 
 import SwiftUI
 
+
 struct LabResultsForm: View {
     @Binding var labValues: [LabTestType: String]
-    
+
     var body: some View {
-        ForEach(LabTestType.allCases, id: \.self) { testType in
-            HStack {
-                Text(testType.rawValue)
-                Spacer()
-                TextField("value", text: Binding(
-                    get: { labValues[testType] ?? "" },
-                    set: { labValues[testType] = $0 }
-                ))
-                .keyboardType(.decimalPad)
-                .multilineTextAlignment(.trailing)
-            }
+        labInputRow(type: .whiteBloodCell, unit: "cells/µL")
+        labInputRow(type: .hemoglobin, unit: "g/dL")
+        labInputRow(type: .plateletCount, unit: "cells/µL")
+        labInputRow(type: .neutrophils, unit: "%")
+        labInputRow(type: .lymphocytes, unit: "%")
+        labInputRow(type: .monocytes, unit: "%")
+        labInputRow(type: .eosinophils, unit: "%")
+        labInputRow(type: .basophils, unit: "%")
+        labInputRow(type: .blasts, unit: "%")
+    }
+
+    private func labInputRow(type: LabTestType, unit: String) -> some View {
+        HStack {
+            Text(type.rawValue)
+                .frame(alignment: .leading)
+            Spacer()
+            TextField("", text: Binding(
+                get: { labValues[type] ?? "" },
+                set: { labValues[type] = $0 }
+            ))
+            .keyboardType(.decimalPad)
+            .multilineTextAlignment(.trailing)
+            .frame(width: 80)
+
+            Text(unit)
+                .frame(minWidth: 60, alignment: .leading)
+                .foregroundColor(.gray)
         }
     }
 }
+
 
 struct HeartRateForm: View {
     @Binding var inputValue: String
