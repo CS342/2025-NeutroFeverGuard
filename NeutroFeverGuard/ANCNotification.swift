@@ -7,44 +7,27 @@
 //
 
 import Spezi
-import SpeziNotifications
-import UserNotifications
+import SpeziScheduler
 
-// final class ANCReminder: Module {
-//    @Dependency(Notifications.self)
-//    private var notifications
-//
-//    @Application(\.notificationSettings)
-//    private var settings
-//
-//    func checkAndSendReminder() async throws {
-//        let lastRecordedTime = getLatestLabTime()
-//        let daysSinceLastRecord = Calendar.current.dateComponents([.day], from: lastRecordedTime, to: Date()).day ?? 0
-//
-//        if daysSinceLastRecord >= 7 {
-//            try await sendReminderNotification()
-//        }
-//    }
-//
-//    private func sendReminderNotification() async throws {
-//        let status = await settings().authorizationStatus
-//        guard status == .authorized || status == .provisional else { return }
-//
-//        let content = UNMutableNotificationContent()
-//        content.title = "Reminder: Update Your Lab Values"
-//        content.body = "You haven't recorded your ANC values for over a week. Please update them."
-//        content.sound = .default
-//
-//        let request = UNNotificationRequest(
-//            identifier: "ANCReminder",
-//            content: content,
-//            trigger: UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-//        )
-//
-//        try await notifications.add(request: request)
-//    }
-//
-//    private func getLatestLabTime() -> Date {
-//        return Calendar.current.date(byAdding: .day, value: -8, to: Date())!
-//    }
-// }
+class LabResultSchedulerModule: Module {
+    @Dependency(Scheduler.self)
+    private var scheduler
+
+
+    init() {}
+
+
+    func configure() {
+        do {
+            try scheduler.createOrUpdateTask(
+                id: "enter-lab-result",
+                title: "Remember to enter your lab results",
+                instructions: "You haven't recorded your lab results for last 7 days. Record now!",
+                category: Task.Category(rawValue: "measurement"),
+                schedule: .daily(hour: 9, minute: 0, startingAt: .today)
+            )
+        } catch {
+            // handle error (e.g., visualize in your UI)
+        }
+    }
+}

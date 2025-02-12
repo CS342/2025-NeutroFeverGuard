@@ -37,14 +37,10 @@ struct ANCView: View {
     
     private func getANCStatus(_ ancValue: Double) -> (text: String, color: Color) {
         switch ancValue {
-        case let anc where anc >= 1500:
-            return ("Normal", .green)
-        case let anc where anc >= 1000:
-            return ("Mild Neutropenia", .orange)
         case let anc where anc >= 500:
-            return ("Moderate Neutropenia", .red)
+            return ("Normal", .green)
         case let anc where anc >= 100:
-            return ("Severe Neutropenia", .red)
+            return ("Severe Neutropenia", .orange)
         default:
             return ("Profound Neutropenia", .red)
         }
@@ -65,29 +61,72 @@ struct LabResultDetailView: View {
     var body: some View {
         Form {
             Section(header: Text("Lab Values")) {
-                ForEach(record.values.sorted(by: { $0.key.rawValue < $1.key.rawValue }), id: \.key) { key, value in
-                    HStack {
-                        Text(key.rawValue)
-                        Spacer()
-                        Text("\(value, specifier: "%.1f")")
-                    }
-                }
+                labValueRow(type: .whiteBloodCell, unit: "/µL")
+                labValueRow(type: .hemoglobin, unit: "g/dL")
+                labValueRow(type: .plateletCount, unit: "/µL")
+                labValueRow(type: .neutrophils, unit: "%")
+                labValueRow(type: .lymphocytes, unit: "%")
+                labValueRow(type: .monocytes, unit: "%")
+                labValueRow(type: .eosinophils, unit: "%")
+                labValueRow(type: .basophils, unit: "%")
+                labValueRow(type: .blasts, unit: "%")
             }
         }
         .navigationTitle(record.date)
     }
+
+    @ViewBuilder
+    private func labValueRow(type: LabTestType, unit: String) -> some View {
+        HStack {
+            Text(type.rawValue)
+            Spacer()
+            Text("\(record.values[type] ?? 0, specifier: "%.1f") \(unit)")
+        }
+    }
 }
 
+
 struct LabView: View {
-    @State private var latestNeutrophilPercentage: Double = 55.0
-    @State private var latestLeukocyteCount: Double = 1000.0
+    @State private var latestNeutrophilPercentage: Double = 99.0
+    @State private var latestLeukocyteCount: Double = 10.0
     @State private var latestRecordedTime: String = "Feb 8, 2025"
 
     @State private var labRecords: [LabRecord] = [
-        LabRecord(date: "Feb 8, 2025", values: [.whiteBloodCell: 4500, .neutrophils: 55]),
-        LabRecord(date: "Feb 1, 2025", values: [.whiteBloodCell: 5000, .neutrophils: 52]),
-        LabRecord(date: "Jan 25, 2025", values: [.whiteBloodCell: 4800, .neutrophils: 53])
+        LabRecord(date: "Feb 8, 2025", values: [
+            .whiteBloodCell: 4500,
+            .hemoglobin: 13.5,
+            .plateletCount: 250000,
+            .neutrophils: 55,
+            .lymphocytes: 35,
+            .monocytes: 6,
+            .eosinophils: 2,
+            .basophils: 1,
+            .blasts: 0
+        ]),
+        LabRecord(date: "Feb 1, 2025", values: [
+            .whiteBloodCell: 5000,
+            .hemoglobin: 14.0,
+            .plateletCount: 260000,
+            .neutrophils: 52,
+            .lymphocytes: 37,
+            .monocytes: 5,
+            .eosinophils: 3,
+            .basophils: 1,
+            .blasts: 0
+        ]),
+        LabRecord(date: "Jan 25, 2025", values: [
+            .whiteBloodCell: 4800,
+            .hemoglobin: 13.8,
+            .plateletCount: 255000,
+            .neutrophils: 53,
+            .lymphocytes: 36,
+            .monocytes: 6,
+            .eosinophils: 2,
+            .basophils: 1,
+            .blasts: 0
+        ])
     ]
+
 
     @State private var selectedRecord: LabRecord?
     
