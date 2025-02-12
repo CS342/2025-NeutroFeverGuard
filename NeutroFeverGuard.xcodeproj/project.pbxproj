@@ -76,7 +76,6 @@
 		C49EC8402D5033F9005C3495 /* AddDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC83F2D5033F9005C3495 /* AddDataView.swift */; };
 		C49EC8532D5038AC005C3495 /* DataInputForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8522D5038AC005C3495 /* DataInputForm.swift */; };
 		C4C0A78F2D518DBC00F37EEC /* HelperFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0A78E2D518DB500F37EEC /* HelperFunc.swift */; };
-		F20286A92D53D99E00B56768 /* HealthKitServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20286A82D53D99D00B56768 /* HealthKitServiceTests.swift */; };
 		F2E6898F2D52ED8600869C4F /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E6898E2D52ED8500869C4F /* HealthKitService.swift */; };
 /* End PBXBuildFile section */
 
@@ -145,7 +144,6 @@
 		C49EC83F2D5033F9005C3495 /* AddDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDataView.swift; sourceTree = "<group>"; };
 		C49EC8522D5038AC005C3495 /* DataInputForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataInputForm.swift; sourceTree = "<group>"; };
 		C4C0A78E2D518DB500F37EEC /* HelperFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunc.swift; sourceTree = "<group>"; };
-		F20286A82D53D99D00B56768 /* HealthKitServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitServiceTests.swift; sourceTree = "<group>"; };
 		F2E6898E2D52ED8500869C4F /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -319,7 +317,6 @@
 			isa = PBXGroup;
 			children = (
 				653A256128338800005D4D48 /* NeutroFeverGuardTests.swift */,
-				F20286A82D53D99D00B56768 /* HealthKitServiceTests.swift */,
 				C49EC8372D5026EE005C3495 /* DataTypeTest.swift */,
 			);
 			path = NeutroFeverGuardTests;
@@ -590,7 +587,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				653A256228338800005D4D48 /* NeutroFeverGuardTests.swift in Sources */,
-				F20286A92D53D99E00B56768 /* HealthKitServiceTests.swift in Sources */,
 				C49EC8382D5026EE005C3495 /* DataTypeTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -78,9 +78,10 @@ actor HealthKitService {
         let metadata: [String: Any] = [
             HKMetadataKeyWasUserEntered: true
         ]
-        
-        // Create systolic sample
+
         let systolicQuantity = HKQuantity(unit: BloodPressureEntry.unit, doubleValue: entry.systolic)
+        let diastolicQuantity = HKQuantity(unit: BloodPressureEntry.unit, doubleValue: entry.diastolic)
+
         let systolicSample = HKQuantitySample(
             type: BloodPressureEntry.systolicType,
             quantity: systolicQuantity,
@@ -88,9 +89,7 @@ actor HealthKitService {
             end: entry.date,
             metadata: metadata
         )
-        
-        // Create diastolic sample
-        let diastolicQuantity = HKQuantity(unit: BloodPressureEntry.unit, doubleValue: entry.diastolic)
+
         let diastolicSample = HKQuantitySample(
             type: BloodPressureEntry.diastolicType,
             quantity: diastolicQuantity,
@@ -98,80 +97,15 @@ actor HealthKitService {
             end: entry.date,
             metadata: metadata
         )
-        
-        // Save both samples
-        try await healthStore.save([systolicSample, diastolicSample])
+
+        let bloodPressureCorrelation = HKCorrelation(
+            type: HKObjectType.correlationType(forIdentifier: .bloodPressure)!,
+            start: entry.date,
+            end: entry.date,
+            objects: [systolicSample, diastolicSample],
+            metadata: metadata
+        )
+
+        try await healthStore.save(bloodPressureCorrelation)
     }
-    
-    func saveLabValues(_ entries: [LabEntry]) async throws {
-        let metadata: [String: Any] = [
-            HKMetadataKeyWasUserEntered: true
-        ]
-        
-        // Ensure all entries are from the same date
-        guard let firstDate = entries.first?.date,
-              entries.allSatisfy({ $0.date == firstDate }) else {
-            throw NSError(domain: "HealthKitService", code: 2, userInfo: [
-                NSLocalizedDescriptionKey: "All lab values must be from the same date"
-            ])
-        }
-        
-        // Create samples for each lab value
-        var samples: [HKQuantitySample] = []
-        
-        for entry in entries {
-            // Map lab test types to appropriate HealthKit types and units
-            let (type, unit) = try mapLabTestToHealthKit(entry.testType)
-            
-            let quantity = HKQuantity(unit: unit, doubleValue: entry.value)
-            let sample = HKQuantitySample(
-                type: type,
-                quantity: quantity,
-                start: entry.date,
-                end: entry.date,
-                metadata: metadata
-            )
-            samples.append(sample)
-        }
-        
-        // Create a correlation to group all samples together
-        fatalError("Not Implemented")
-//        let correlationType = HKObjectType.correlationType(forIdentifier: .labResults)!
-//        let correlation = HKCorrelation(
-//            type: correlationType,
-//            start: firstDate,
-//            end: firstDate,
-//            objects: Set(samples),
-//            metadata: metadata
-//        )
-        
-        // Save the correlation
-//        try await healthStore.save(correlation)
-    }
-    
-    private func mapLabTestToHealthKit(_ testType: LabTestType) throws -> (HKQuantityType, HKUnit) {
-        fatalError("Not Implemented")
-//        switch testType {
-//        case .whiteBloodCell:
-//            return (
-//                HKQuantityType(.whiteBloodCellCount),
-//                HKUnit.count().unitDivided(by: HKUnit.literUnit(with: .milli))
-//            )
-//        case .hemoglobin:
-//            return (
-//                HKQuantityType(.hemoglobin),
-//                HKUnit.gramUnit(with: .deci).unitDivided(by: HKUnit.literUnit(with: .deci))
-//            )
-//        case .plateletCount:
-//            return (
-//                HKQuantityType(.plateletCount),
-//                HKUnit.count().unitDivided(by: HKUnit.literUnit(with: .milli))
-//            )
-//        case .neutrophils, .lymphocytes, .monocytes, .eosinophils, .basophils, .blasts:
-//            return (
-//                HKQuantityType(.numberOfTimesFallen),
-//                HKUnit.percent()
-//            ) // Using a placeholder type since HealthKit doesn't have specific types for these
-//        }
-    }
-} 
+}

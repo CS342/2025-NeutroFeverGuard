@@ -80,17 +80,4 @@ struct DataTypeTest {
             try BloodPressureEntry(date: validDate, systolic: validSystolic, diastolic: invalidDiastolic)
         }
     }
-
-    @Test
-    func testLabEntry() async throws {
-        let validDate = Date()
-        let invalidDate = Date().addingTimeInterval(60 * 60 * 24)
-        let values: [LabTestType: Double] = Dictionary(uniqueKeysWithValues: LabTestType.allCases.map { ($0, Double.random(in: 1.0...10.0)) })
-        
-        try LabEntry(date: validDate, values: values)
-        
-        #expect(throws: DataError.invalidDate) {
-            try LabEntry(date: invalidDate, values: values)
-        }
-    }
 }

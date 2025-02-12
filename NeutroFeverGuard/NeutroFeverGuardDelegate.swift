@@ -18,6 +18,7 @@ import SpeziHealthKit
 import SpeziNotifications
 import SpeziOnboarding
 import SpeziScheduler
+import SpeziSecureStorage
 import SwiftUI
 
 
@@ -53,6 +54,7 @@ class NeutroFeverGuardDelegate: SpeziAppDelegate {
             NeutroFeverGuardScheduler()
             Scheduler()
             OnboardingDataSource()
+            SecureStorage()
 
             Notifications()
         }

@@ -10,15 +10,6 @@
     "°F" : {
 
     },
-    "" : {
-
-    },
-    "°C" : {
-
-    },
-    "°F" : {
-
-    },
     "ACCOUNT_SETUP_DESCRIPTION" : {
       "localizations" : {
         "en" : {
@@ -52,9 +43,6 @@
     "Add" : {
 
     },
-    "Add" : {
-
-    },
     "Allow Notifications" : {
       "localizations" : {
         "en" : {
@@ -64,9 +52,6 @@
           }
         }
       }
-    },
-    "Cancel" : {
-
     },
     "Cancel" : {
 
@@ -237,9 +222,6 @@
         }
       }
     },
-    "Lab Test Type" : {
-
-    },
     "Learn More" : {
       "localizations" : {
         "en" : {
@@ -266,16 +248,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "License Information"
-          }
-        }
-      }
-    },
-    "NeutroFeverGuard" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Spezi\nNeutroFeverGuard"
           }
         }
       }
@@ -320,9 +292,6 @@
         }
       }
     },
-    "OK" : {
-
-    },
     "Onboarding" : {
       "localizations" : {
         "en" : {
@@ -336,9 +305,6 @@
     "Percentage (%)" : {
 
     },
-    "Percentage (%)" : {
-
-    },
     "Please fill out the Social Support Questionnaire every day." : {
       "localizations" : {
         "en" : {
@@ -348,9 +314,6 @@
           }
         }
       }
-    },
-    "Rate (bpm)" : {
-
     },
     "Rate (bpm)" : {
 
@@ -421,12 +384,6 @@
     "Temperature" : {
 
     },
-    "Systolic (mmHg)" : {
-
-    },
-    "Temperature" : {
-
-    },
     "The Spezi Framework" : {
       "localizations" : {
         "en" : {
@@ -450,9 +407,6 @@
     "Time" : {
 
     },
-    "Time" : {
-
-    },
     "Unsupported Event" : {
       "localizations" : {
         "en" : {
@@ -464,9 +418,6 @@
       }
     },
     "value" : {
-
-    },
-    "Value" : {
 
     },
     "WELCOME_AREA1_DESCRIPTION" : {
@@ -508,9 +459,6 @@
           }
         }
       }
-    },
-    "What data would you like to add?" : {
-
     },
     "What data would you like to add?" : {
 
