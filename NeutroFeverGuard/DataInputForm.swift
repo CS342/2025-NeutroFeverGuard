@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+// swiftlint:disable file_types_order
 import SpeziSecureStorage
 import SpeziViews
 import SwiftUI
@@ -21,12 +22,12 @@ struct DataInputForm: View {
     @State private var labValues: [String: String] = [:]
     @Environment(\.dismiss) var dismiss
     
+    private let healthKitService: HealthKitService
+    
     init(dataType: String) {
         self.dataType = dataType
         self.healthKitService = HealthKitService()
     }
-    
-    private let healthKitService: HealthKitService
     
     var body: some View {
         NavigationView {
@@ -47,16 +48,13 @@ struct DataInputForm: View {
                 }
             }
             .navigationTitle(dataType)
-            .navigationBarItems(
-                leading: Button("Cancel") {
-                    dismiss()
-                },
-                trailing: AsyncButton("Add") {
-                    // Request authorization first, then add data
-                    try await healthKitService.requestAuthorization()
+            .navigationBarItems(leading: Button("Cancel") {
+                dismiss()
+            }, trailing: AsyncButton("Add") {
+                Task {
                     await addData()
                 }
-            )
+            })
         }
     }
     
@@ -67,7 +65,8 @@ struct DataInputForm: View {
         let finalDate: Date = calendar.date(bySettingHour: timeComponents.hour ?? 0,
                                             minute: timeComponents.minute ?? 0,
                                             second: 0,
-                                            of: date) ?? date
+                                            of: date
+        ) ?? date
         
         do {
             switch dataType {
@@ -129,13 +128,13 @@ struct LabResultsForm: View {
 }
 
 struct LabeledTextField: View {
+    let label: String
+    @Binding var value: String
+    
     init(_ label: String, value: Binding<String>) {
         self.label = label
         self._value = value
     }
-    
-    let label: String
-    @Binding var value: String
     
     var body: some View {
         HStack {

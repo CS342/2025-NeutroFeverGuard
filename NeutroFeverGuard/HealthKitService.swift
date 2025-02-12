@@ -14,6 +14,7 @@ actor HealthKitService {
     
     init() {}
     
+    // periphery:ignore
     func requestAuthorization() async throws {
         // Define the types we want to write
         let typesToWrite: Set<HKSampleType> = [
