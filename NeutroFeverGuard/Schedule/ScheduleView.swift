@@ -58,6 +58,7 @@ struct ScheduleView: View {
 
     ScheduleView(presentingAccount: $presentingAccount)
         .previewWith(standard: NeutroFeverGuardStandard()) {
+            Scheduler()
             NeutroFeverGuardScheduler()
             AccountConfiguration(service: InMemoryAccountService())
         }
