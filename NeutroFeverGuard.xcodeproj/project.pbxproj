@@ -321,6 +321,7 @@
 			children = (
 				653A256128338800005D4D48 /* NeutroFeverGuardTests.swift */,
 				C49EC8372D5026EE005C3495 /* DataTypeTest.swift */,
+				C49EC8372D5026EE005C3495 /* DataTypeTest.swift */,
 			);
 			path = NeutroFeverGuardTests;
 			sourceTree = "<group>";
@@ -553,6 +554,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C49EC8532D5038AC005C3495 /* DataInputForm.swift in Sources */,
+				C49EC8532D5038AC005C3495 /* DataInputForm.swift in Sources */,
 				2FE5DC4129EDD7EE004B9AB4 /* StorageKeys.swift in Sources */,
 				2FE5DCB129EE6107004B9AB4 /* AccountOnboarding.swift in Sources */,
 				2FE5DC3A29EDD7CA004B9AB4 /* Welcome.swift in Sources */,
@@ -573,6 +575,7 @@
 				C42D4DA52D5AC89900B2A169 /* LabView.swift in Sources */,
 				A98FF2B12CD131F500DFC949 /* EventView.swift in Sources */,
 				C49EC8342D501C62005C3495 /* DataType.swift in Sources */,
+				C49EC8342D501C62005C3495 /* DataType.swift in Sources */,
 				2FE5DC5329EDD7FA004B9AB4 /* Bundle+Questionnaire.swift in Sources */,
 				2F5E32BD297E05EA003432F8 /* NeutroFeverGuardDelegate.swift in Sources */,
 				2FE5DC5229EDD7FA004B9AB4 /* NeutroFeverGuardScheduler.swift in Sources */,
@@ -581,6 +584,7 @@
 				2FE5DC3629EDD7CA004B9AB4 /* HealthKitPermissions.swift in Sources */,
 				C42D4D8E2D58584A00B2A169 /* ANCNotification.swift in Sources */,
 				2F65B44E2A3B8B0600A36932 /* NotificationPermissions.swift in Sources */,
+				C49EC8362D501FB9005C3495 /* DataError.swift in Sources */,
 				C49EC8362D501FB9005C3495 /* DataError.swift in Sources */,
 				2FE5DC2629EDD38A004B9AB4 /* Contacts.swift in Sources */,
 			);
@@ -591,6 +595,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				653A256228338800005D4D48 /* NeutroFeverGuardTests.swift in Sources */,
+				C49EC8382D5026EE005C3495 /* DataTypeTest.swift in Sources */,
 				C49EC8382D5026EE005C3495 /* DataTypeTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
