@@ -20,7 +20,7 @@ class SchedulerTests: XCTestCase {
         app.deleteAndLaunch(withSpringboardAppName: "NeutroFeverGuard")
     }
     
-    
+
     @MainActor
     func testScheduler() throws {
         let app = XCUIApplication()
@@ -65,13 +65,6 @@ class SchedulerTests: XCTestCase {
         nextButton.tap()
         
         XCTAssert(app.textFields["Tap to answer"].waitForExistence(timeout: 2))
-        try app.textFields["Tap to answer"].enter(value: "leland@stanford.edu")
-        
-        XCTAssert(nextButton.isEnabled)
-        nextButton.tap()
-        
-        // staticTexts["What is your e-mail?"] is not exposed in the accessibility hierarchy; it seems like a bug in ResearchKit.
-        XCTAssert(app.textFields["Tap to answer"].exists)
         try app.textFields["Tap to answer"].enter(value: "leland@stanford.edu")
         
         XCTAssert(nextButton.isEnabled)
