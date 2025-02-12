@@ -6,10 +6,10 @@
 // SPDX-License-Identifier: MIT
 //
 
-//import Spezi
-//import SpeziScheduler
+// import Spezi
+// import SpeziScheduler
 //
-//class LabResultSchedulerModule: Module {
+// class LabResultSchedulerModule: Module {
 //    @Dependency(Scheduler.self)
 //    private var scheduler
 //
@@ -30,4 +30,4 @@
 //            // handle error (e.g., visualize in your UI)
 //        }
 //    }
-//}
+// }
