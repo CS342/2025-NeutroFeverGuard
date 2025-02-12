@@ -21,12 +21,12 @@ struct DataInputForm: View {
     @State private var labValues: [String: String] = [:]
     @Environment(\.dismiss) var dismiss
     
-    private let healthKitService: HealthKitService
-    
     init(dataType: String) {
         self.dataType = dataType
         self.healthKitService = HealthKitService()
     }
+    
+    private let healthKitService: HealthKitService
     
     var body: some View {
         NavigationView {
@@ -47,13 +47,16 @@ struct DataInputForm: View {
                 }
             }
             .navigationTitle(dataType)
-            .navigationBarItems(leading: Button("Cancel") {
-                dismiss()
-            }, trailing: AsyncButton("Add") {
-                Task {
+            .navigationBarItems(
+                leading: Button("Cancel") {
+                    dismiss()
+                },
+                trailing: AsyncButton("Add") {
+                    // Request authorization first, then add data
+                    try await healthKitService.requestAuthorization()
                     await addData()
                 }
-            })
+            )
         }
     }
     
@@ -62,13 +65,11 @@ struct DataInputForm: View {
         let calendar = Calendar.current
         let timeComponents: DateComponents = calendar.dateComponents([.hour, .minute], from: time)
         let finalDate: Date = calendar.date(bySettingHour: timeComponents.hour ?? 0,
-            minute: timeComponents.minute ?? 0,
-            second: 0,
-            of: date
-        ) ?? date
+                                            minute: timeComponents.minute ?? 0,
+                                            second: 0,
+                                            of: date) ?? date
         
         do {
-            
             switch dataType {
             // change to enum
             case "Heart Rate":
@@ -123,19 +124,18 @@ struct LabResultsForm: View {
         Binding(
             get: { labValues[key] ?? "" },
             set: { labValues[key] = $0 }
-            
         )
     }
 }
 
 struct LabeledTextField: View {
-    let label: String
-    @Binding var value: String
-    
     init(_ label: String, value: Binding<String>) {
         self.label = label
         self._value = value
     }
+    
+    let label: String
+    @Binding var value: String
     
     var body: some View {
         HStack {
