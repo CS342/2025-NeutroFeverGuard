@@ -48,6 +48,7 @@ enum TemperatureUnit: String {
 /*
  Heart Rate: date + time measured, and rate in BPM
  */
+// periphery:ignore
 struct HeartRateEntry {
 //    static let healthKitType = HKQuantityType(.heartRate)
 //    static let unit = HKUnit.count().unitDivided(by: HKUnit.minute())
@@ -66,6 +67,7 @@ struct HeartRateEntry {
 /*
  Temperature: date + time measured, and temperature in either degrees celsius or
  */
+// periphery:ignore
 struct TemperatureEntry {
 //    static let healthKitType = HKQuantityType(.bodyTemperature)
     
@@ -85,6 +87,7 @@ struct TemperatureEntry {
 /*
  Oxygen saturation: date + time measured, and oxygen saturation in %.
  */
+// periphery:ignore
 struct OxygenSaturationEntry {
 //    static let healthKitType = HKQuantityType(.oxygenSaturation)
 //    static let unit = HKUnit.percent()
@@ -109,7 +112,7 @@ struct OxygenSaturationEntry {
  - Name of lab: white blood cell count, hemoglobin, platelet count, %neutrophils, %lymphocytes, %monocytes, %eosinophils, %basophils, %blasts
  - Lab values: include the number associated with the lab name above
  */
-
+// periphery:ignore
 struct LabEntry {
     let date: Date
     var values: [LabTestType: Double]
@@ -125,6 +128,7 @@ struct LabEntry {
 /*
  Blood Pressure: date + time measured, and two pressures (systolic and diastolic) in mmHg.
  */
+// periphery:ignore
 struct BloodPressureEntry {
 //    static let systolicType = HKQuantityType(.bloodPressureSystolic)
 //    static let diastolicType = HKQuantityType(.bloodPressureDiastolic)
