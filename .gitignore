@@ -46,3 +46,5 @@ firebase-debug.*.log*
 
 # Swift Package List
 NeutroFeverGuard/package-list.json
+
+NeutroFeverGuard.xcodeproj/xcshareddata/xcschemes/NeutroFeverGuard.xcscheme
