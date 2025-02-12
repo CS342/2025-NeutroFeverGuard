@@ -48,6 +48,7 @@ enum TemperatureUnit: String {
 /*
  Heart Rate: date + time measured, and rate in BPM
  */
+
 struct HeartRateEntry {
     static let healthKitType = HKQuantityType(.heartRate)
     static let unit = HKUnit.count().unitDivided(by: HKUnit.minute())
@@ -122,5 +123,23 @@ struct BloodPressureEntry {
         self.date = date
         self.systolic = systolic
         self.diastolic = diastolic
+    }
+}
+  
+  /*
+ Lab values:
+ - Date and time of lab measured
+ - Name of lab: white blood cell count, hemoglobin, platelet count, %neutrophils, %lymphocytes, %monocytes, %eosinophils, %basophils, %blasts
+ - Lab values: include the number associated with the lab name above
+ */
+// periphery:ignore
+struct LabEntry {
+    let date: Date
+    var values: [LabTestType: Double]
+    
+    init(date: Date, values: [LabTestType: Double]) throws {
+        try isValidDate(date)
+        self.date = date
+        self.values = values
     }
 }

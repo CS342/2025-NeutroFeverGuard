@@ -102,6 +102,9 @@
     "Diastolic (mmHg)" : {
 
     },
+    "Error" : {
+
+    },
     "Grant Access" : {
       "localizations" : {
         "en" : {
@@ -291,6 +294,9 @@
           }
         }
       }
+    },
+    "OK" : {
+
     },
     "Onboarding" : {
       "localizations" : {
