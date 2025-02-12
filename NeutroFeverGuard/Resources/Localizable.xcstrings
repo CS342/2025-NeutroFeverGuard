@@ -1,8 +1,13 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "%@" : {
+    "" : {
 
+    },
+    "°C" : {
+
+    },
+    "°F" : {
     },
     "ACCOUNT_SETUP_DESCRIPTION" : {
       "localizations" : {
@@ -34,6 +39,9 @@
         }
       }
     },
+    "Add" : {
+
+    },
     "Allow Notifications" : {
       "localizations" : {
         "en" : {
@@ -43,6 +51,9 @@
           }
         }
       }
+    },
+    "Cancel" : {
+
     },
     "Close" : {
       "localizations" : {
@@ -83,6 +94,15 @@
           }
         }
       }
+    },
+    "Date" : {
+
+    },
+    "Diastolic (mmHg)" : {
+
+    },
+    "Error" : {
+
     },
     "Grant Access" : {
       "localizations" : {
@@ -295,6 +315,9 @@
         }
       }
     },
+    "OK" : {
+
+    },
     "Onboarding" : {
       "localizations" : {
         "en" : {
@@ -304,6 +327,9 @@
           }
         }
       }
+    },
+    "Percentage (%)" : {
+
     },
     "Please fill out the Social Support Questionnaire every day." : {
       "localizations" : {
@@ -315,13 +341,7 @@
         }
       }
     },
-    "Preview Title" : {
-
-    },
-    "Preview x axis" : {
-
-    },
-    "Preview y axis" : {
+    "Rate (bpm)" : {
 
     },
     "Schedule" : {
@@ -384,6 +404,12 @@
         }
       }
     },
+    "Systolic (mmHg)" : {
+
+    },
+    "Temperature" : {
+
+    },
     "The Spezi Framework" : {
       "localizations" : {
         "en" : {
@@ -404,9 +430,6 @@
         }
       }
     },
-    "Threshold" : {
-
-    },
     "Time" : {
 
     },
@@ -419,6 +442,9 @@
           }
         }
       }
+    },
+    "value" : {
+
     },
     "WELCOME_AREA1_DESCRIPTION" : {
       "localizations" : {
@@ -459,6 +485,9 @@
           }
         }
       }
+    },
+    "What data would you like to add?" : {
+
     },
     "Your Account" : {
       "localizations" : {
