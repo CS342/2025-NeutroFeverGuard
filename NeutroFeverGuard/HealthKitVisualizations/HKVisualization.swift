@@ -86,10 +86,10 @@ struct HKVisualization: View {
     }
     
     func readAllHKData(ensureUpdate: Bool = false) {
-        if FeatureFlags.mockTestData {
-            loadMockData()
-            return
-        }
+        // if FeatureFlags.mockTestData {
+            // loadMockData()
+            // return
+        // }
         
         let dateRange = generateDateRange()
 
