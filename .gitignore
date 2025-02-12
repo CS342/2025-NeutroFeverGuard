@@ -48,3 +48,7 @@ firebase-debug.*.log*
 NeutroFeverGuard/package-list.json
 
 NeutroFeverGuard.xcodeproj/xcshareddata/xcschemes/NeutroFeverGuard.xcscheme
+
+#VSCode
+.vscode/settings.json
+buildServer.json

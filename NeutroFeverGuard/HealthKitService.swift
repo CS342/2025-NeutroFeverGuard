@@ -14,7 +14,6 @@ actor HealthKitService {
     
     init() {}
     
-    // periphery:ignore
     func requestAuthorization() async throws {
         // Define the types we want to write
         let typesToWrite: Set<HKSampleType> = [
@@ -106,8 +105,13 @@ actor HealthKitService {
             metadata: metadata
         )
 
+        guard let bloodPressureType = HKObjectType.correlationType(forIdentifier: .bloodPressure) else {
+            print("HealthKit does not support blood pressure correlation on this device.")
+            return
+        }
+            
         let bloodPressureCorrelation = HKCorrelation(
-            type: HKObjectType.correlationType(forIdentifier: .bloodPressure)!,
+            type: bloodPressureType,
             start: entry.date,
             end: entry.date,
             objects: [systolicSample, diastolicSample],
