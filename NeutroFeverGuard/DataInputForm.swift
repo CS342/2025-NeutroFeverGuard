@@ -51,6 +51,7 @@ struct DataInputForm: View {
     }
     
     var body: some View {
+        // swiftlint:disable:next closure_body_length
         NavigationView {
             Form {
                 DatePicker("Date", selection: $date, displayedComponents: .date)
@@ -80,7 +81,8 @@ struct DataInputForm: View {
                     } catch {
                         print("Error requesting HealthKit authorization: \(error)")
                     }
-                }.disabled(!isFormValid))
+                }.disabled(!isFormValid)
+            )
             .alert(isPresented: .constant(!alertMessage.isEmpty)) {
                 Alert(
                     title: Text("Error"),
