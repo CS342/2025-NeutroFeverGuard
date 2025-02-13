@@ -15,7 +15,6 @@ actor HealthKitService {
     private let localStorage: LocalStorage
         
     init(localStorage: LocalStorage) {
-        print("✅ HealthKitService initialized with LocalStorage")
         self.localStorage = localStorage
     }
     
@@ -125,7 +124,7 @@ actor HealthKitService {
 
         try await healthStore.save(bloodPressureCorrelation)
     }
-    
+
     func saveLabEntry(_ entry: LabEntry, key: String? = nil) async throws {
         let finalKey = key ?? "labEntry-\(UUID().uuidString)"
         try localStorage.store(entry, storageKey: finalKey)

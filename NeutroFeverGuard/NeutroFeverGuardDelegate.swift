@@ -19,6 +19,7 @@ import SpeziLocalStorage
 import SpeziNotifications
 import SpeziOnboarding
 import SpeziScheduler
+import SpeziSecureStorage
 import SwiftUI
 
 

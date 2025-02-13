@@ -31,6 +31,7 @@ struct DataInputForm: View {
     // swiftlint:disable:next type_contents_order
     init(dataType: String) {
         self.dataType = dataType
+        self.healthKitService = HealthKitService()
     }
     
     var isFormValid: Bool {
