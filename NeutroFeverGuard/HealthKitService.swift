@@ -8,11 +8,16 @@
 
 import HealthKit
 import SpeziHealthKit
+import SpeziLocalStorage
 
 actor HealthKitService {
     internal let healthStore = HKHealthStore()
-    
-    init() {}
+    private let localStorage: LocalStorage
+        
+    init(localStorage: LocalStorage) {
+        print("✅ HealthKitService initialized with LocalStorage")
+        self.localStorage = localStorage
+    }
     
     func requestAuthorization() async throws {
         // Define the types we want to write
@@ -119,5 +124,10 @@ actor HealthKitService {
         )
 
         try await healthStore.save(bloodPressureCorrelation)
+    }
+    
+    func saveLabEntry(_ entry: LabEntry, key: String? = nil) async throws {
+        let finalKey = key ?? "labEntry-\(UUID().uuidString)"
+        try localStorage.store(entry, storageKey: finalKey)
     }
 }
