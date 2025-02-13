@@ -21,7 +21,8 @@ struct DataInputForm: View {
     @State private var systolicValue: String = ""
     @State private var diastolicValue: String = ""
     @State private var temperatureUnit: TemperatureUnit = .fahrenheit
-    @State private var labValues: [String: String] = [:]
+    @State private var labValues: [LabTestType: String] = [:]
+    @State private var alertMessage: String = ""
     @Environment(\.dismiss) var dismiss
     
     // swiftlint:disable:next type_contents_order
@@ -80,29 +81,28 @@ struct DataInputForm: View {
                         print("Error requesting HealthKit authorization: \(error)")
                     }
                 }.disabled(!isFormValid))
-                .alert(isPresented: .constant(!alertMessage.isEmpty)) {
-                    Alert(
-                        title: Text("Error"),
-                        message: Text(alertMessage),
-                        dismissButton: .default(Text("OK")) {
-                            alertMessage = ""
-                        }
-                    )
-                }
-            )
+            .alert(isPresented: .constant(!alertMessage.isEmpty)) {
+                Alert(
+                    title: Text("Error"),
+                    message: Text(alertMessage),
+                    dismissButton: .default(Text("OK")) {
+                        alertMessage = ""
+                    }
+                )
+            }
         }
     }
     
-    func addData() {
+    func addData() async {
         switch dataType {
         case "Heart Rate":
-            addHeartRate()
+            await addHeartRate()
         case "Temperature":
-            addTemperature()
+            await addTemperature()
         case "Oxygen Saturation":
-            addOxygenSaturation()
+            await addOxygenSaturation()
         case "Blood Pressure":
-            addBloodPressure()
+            await addBloodPressure()
         case "Lab Results":
             addLabResult()
         default:
@@ -110,7 +110,7 @@ struct DataInputForm: View {
         }
     }
 
-    func addHeartRate() {
+    func addHeartRate() async {
         guard let bpm = Double(inputValue) else {
             alertMessage = "BPM must be a valid number"
             return
@@ -126,7 +126,7 @@ struct DataInputForm: View {
         }
     }
 
-    func addTemperature() {
+    func addTemperature() async {
         guard let value = Double(inputValue) else {
             alertMessage = "Temperature must be a valid number"
             return
@@ -142,7 +142,7 @@ struct DataInputForm: View {
         }
     }
 
-    func addOxygenSaturation() {
+    func addOxygenSaturation() async {
         guard let percentage = Double(inputValue) else {
             alertMessage = "Percentage must be a valid number"
             return
@@ -158,7 +158,7 @@ struct DataInputForm: View {
         }
     }
 
-    func addBloodPressure() {
+    func addBloodPressure() async {
         guard let systolic = Double(systolicValue), let diastolic = Double(diastolicValue) else {
             alertMessage = "Blood pressure values must be valid numbers"
             return
@@ -197,7 +197,7 @@ struct DataInputForm: View {
 
 // periphery:ignore
 struct LabResultsForm: View {
-    @Binding var labValues: [String: String]
+    @Binding var labValues: [LabTestType: String]
     
     var body: some View {
         labInputRow(type: .whiteBloodCell, unit: "cells/µL")
