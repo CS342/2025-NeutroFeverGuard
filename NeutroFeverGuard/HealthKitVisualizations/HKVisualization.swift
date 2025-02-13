@@ -10,14 +10,15 @@ import Foundation
 import HealthKit
 import SwiftUI
 
-struct HKData: Identifiable {
+public struct HKData: Identifiable {
     var date: Date
-    var id = UUID()
+    public var id = UUID()
     var sumValue: Double
     var avgValue: Double
     var minValue: Double
     var maxValue: Double
 }
+
 
 struct HKVisualization: View {
     // @Environment(PatientInformation.self)

@@ -10,7 +10,7 @@ import Charts
 import Foundation
 import SwiftUI
 
-struct HKVisualizationItem: View {
+public struct HKVisualizationItem: View {
     let id = UUID()
     let data: [HKData]
     let xName: LocalizedStringResource
@@ -30,7 +30,7 @@ struct HKVisualizationItem: View {
 
     @State private var selectedElement: HKData?
     
-    var body: some View {
+    public var body: some View {
         Text(self.title)
             .font(.title3.bold())
         // Remove line below text.
