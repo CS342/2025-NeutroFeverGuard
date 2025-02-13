@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+// periphery:ignore
 enum DataError: Error, Equatable {
     case invalidDate
     case invalidPercentage
