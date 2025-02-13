@@ -30,6 +30,25 @@ struct DataInputForm: View {
         self.healthKitService = HealthKitService()
     }
     
+    var isFormValid: Bool {
+        switch dataType {
+        case "Heart Rate":
+            return !inputValue.isEmpty
+        case "Temperature":
+            return !inputValue.isEmpty
+        case "Oxygen Saturation":
+            return !inputValue.isEmpty
+        case "Blood Pressure":
+            return !systolicValue.isEmpty && !diastolicValue.isEmpty
+        case "Lab Results":
+            return LabTestType.allCases.allSatisfy { testType in
+                !(labValues[testType] ?? "").isEmpty
+            }
+        default:
+            return false
+        }
+    }
+    
     var body: some View {
         NavigationView {
             Form {
@@ -60,53 +79,119 @@ struct DataInputForm: View {
                     } catch {
                         print("Error requesting HealthKit authorization: \(error)")
                     }
+                }.disabled(!isFormValid))
+                .alert(isPresented: .constant(!alertMessage.isEmpty)) {
+                    Alert(
+                        title: Text("Error"),
+                        message: Text(alertMessage),
+                        dismissButton: .default(Text("OK")) {
+                            alertMessage = ""
+                        }
+                    )
                 }
             )
         }
     }
     
-    func addData() async {
-        // Combine date and time components
-        let calendar = Calendar.current
-        let timeComponents: DateComponents = calendar.dateComponents([.hour, .minute], from: time)
-        let finalDate: Date = calendar.date(
-            bySettingHour: timeComponents.hour ?? 0,
-            minute: timeComponents.minute ?? 0,
-            second: 0,
-            of: date
-        ) ?? date
-        
+    func addData() {
+        switch dataType {
+        case "Heart Rate":
+            addHeartRate()
+        case "Temperature":
+            addTemperature()
+        case "Oxygen Saturation":
+            addOxygenSaturation()
+        case "Blood Pressure":
+            addBloodPressure()
+        case "Lab Results":
+            addLabResult()
+        default:
+            alertMessage = "Unknown data type"
+        }
+    }
+
+    func addHeartRate() {
+        guard let bpm = Double(inputValue) else {
+            alertMessage = "BPM must be a valid number"
+            return
+        }
         do {
-            switch dataType {
-            // change to enum
-            case "Heart Rate":
-                if let bpm = Double(inputValue) {
-                    let heartRateEntry: HeartRateEntry = try HeartRateEntry(date: finalDate, bpm: bpm)
-                    try await healthKitService.saveHeartRate(heartRateEntry)
-                }
-            case "Temperature":
-                if let value = Double(inputValue) {
-                    let temperatureEntry: TemperatureEntry = try TemperatureEntry(date: finalDate, value: value, unit: temperatureUnit)
-                    try await healthKitService.saveTemperature(temperatureEntry)
-                }
-            case "Oxygen Saturation":
-                if let percentage = Double(inputValue) {
-                    let oxygenEntry: OxygenSaturationEntry = try OxygenSaturationEntry(date: finalDate, percentage: percentage)
-                    try await healthKitService.saveOxygenSaturation(oxygenEntry)
-                }
-            case "Blood Pressure":
-                if let systolic = Double(systolicValue), let diastolic = Double(diastolicValue) {
-                    let bloodPressureEntry: BloodPressureEntry = try BloodPressureEntry(date: finalDate, systolic: systolic, diastolic: diastolic)
-                    try await healthKitService.saveBloodPressure(bloodPressureEntry)
-                }
-            default:
-                break
-            }
+            let heartRateEntry = try HeartRateEntry(date: combineDateAndTime(date, time), bpm: bpm)
+            try await healthKitService.saveHeartRate(heartRateEntry)
+            dismiss()
+        } catch let error as DataError {
+            alertMessage = "Error: \(error.errorMessage)"
         } catch {
-            print("Error saving to HealthKit: \(error)")
+            alertMessage = "Error: \(error)"
+        }
+    }
+
+    func addTemperature() {
+        guard let value = Double(inputValue) else {
+            alertMessage = "Temperature must be a valid number"
+            return
+        }
+        do {
+            let temperatureEntry = try TemperatureEntry(date: combineDateAndTime(date, time), value: value, unit: temperatureUnit)
+            try await healthKitService.saveTemperature(temperatureEntry)
+            dismiss()
+        } catch let error as DataError {
+            alertMessage = "Error: \(error.errorMessage)"
+        } catch {
+            alertMessage = "Error: \(error)"
+        }
+    }
+
+    func addOxygenSaturation() {
+        guard let percentage = Double(inputValue) else {
+            alertMessage = "Percentage must be a valid number"
+            return
+        }
+        do {
+            let oxygenEntry = try OxygenSaturationEntry(date: combineDateAndTime(date, time), percentage: percentage)
+            try await healthKitService.saveOxygenSaturation(oxygenEntry)
+            dismiss()
+        } catch let error as DataError {
+            alertMessage = "Error: \(error.errorMessage)"
+        } catch {
+            alertMessage = "Error: \(error)"
+        }
+    }
+
+    func addBloodPressure() {
+        guard let systolic = Double(systolicValue), let diastolic = Double(diastolicValue) else {
+            alertMessage = "Blood pressure values must be valid numbers"
+            return
+        }
+        do {
+            let bloodPressureEntry = try BloodPressureEntry(date: combineDateAndTime(date, time), systolic: systolic, diastolic: diastolic)
+            try await healthKitService.saveBloodPressure(bloodPressureEntry)
+            dismiss()
+        } catch let error as DataError {
+            alertMessage = "Error: \(error.errorMessage)"
+        } catch {
+            alertMessage = "Error: \(error)"
+        }
+    }
+
+    func addLabResult() {
+        var parsedValues: [LabTestType: Double] = [:]
+        
+        for (testType, valueString) in labValues {
+            if let value = Double(valueString) {
+                parsedValues[testType] = value
+            } else {
+                alertMessage = "\(testType.rawValue) must be a valid number"
+                return
+            }
         }
         
-        dismiss()
+        do {
+            let labEntry = try LabEntry(date: combineDateAndTime(date, time), values: parsedValues)
+            dismiss()
+        } catch {
+            alertMessage = "Error: \(error)"
+        }
     }
 }
 
@@ -115,24 +200,34 @@ struct LabResultsForm: View {
     @Binding var labValues: [String: String]
     
     var body: some View {
-        Group {
-            LabeledTextField("White Blood Cell Count", value: binding(for: "wbc"))
-            LabeledTextField("Hemoglobin", value: binding(for: "hemoglobin"))
-            LabeledTextField("Platelet Count", value: binding(for: "platelets"))
-            LabeledTextField("Neutrophils %", value: binding(for: "neutrophils"))
-            LabeledTextField("Lymphocytes %", value: binding(for: "lymphocytes"))
-            LabeledTextField("Monocytes %", value: binding(for: "monocytes"))
-            LabeledTextField("Eosinophils %", value: binding(for: "eosinophils"))
-            LabeledTextField("Basophils %", value: binding(for: "basophils"))
-            LabeledTextField("Blasts %", value: binding(for: "blasts"))
-        }
+        labInputRow(type: .whiteBloodCell, unit: "cells/µL")
+        labInputRow(type: .hemoglobin, unit: "g/dL")
+        labInputRow(type: .plateletCount, unit: "cells/µL")
+        labInputRow(type: .neutrophils, unit: "%")
+        labInputRow(type: .lymphocytes, unit: "%")
+        labInputRow(type: .monocytes, unit: "%")
+        labInputRow(type: .eosinophils, unit: "%")
+        labInputRow(type: .basophils, unit: "%")
+        labInputRow(type: .blasts, unit: "%")
     }
     
-    private func binding(for key: String) -> Binding<String> {
-        Binding(
-            get: { labValues[key] ?? "" },
-            set: { labValues[key] = $0 }
-        )
+    private func labInputRow(type: LabTestType, unit: String) -> some View {
+        HStack {
+            Text(type.rawValue)
+                .frame(alignment: .leading)
+            Spacer()
+            TextField("", text: Binding(
+                get: { labValues[type] ?? "" },
+                set: { labValues[type] = $0 }
+            ))
+            .keyboardType(.decimalPad)
+            .multilineTextAlignment(.trailing)
+            .frame(width: 80)
+
+            Text(unit)
+                .frame(minWidth: 60, alignment: .leading)
+                .foregroundColor(.gray)
+        }
     }
 }
 
