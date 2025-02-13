@@ -5,12 +5,29 @@
 
     },
     "%@" : {
+    "%.1f %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$.1f %2$@"
+          }
+        }
+      }
+    },
+    "%.1f cells/µL" : {
 
     },
     "°C" : {
 
     },
     "°F" : {
+
+    },
+    "🧪 Latest ANC" : {
+
+    },
+    "Absolute Neutrophil Counts" : {
 
     },
     "ACCOUNT_SETUP_DESCRIPTION" : {
@@ -44,6 +61,9 @@
       }
     },
     "Add" : {
+
+    },
+    "Add Data" : {
 
     },
     "Allow Notifications" : {
@@ -248,6 +268,21 @@
           }
         }
       }
+    },
+    "Lab" : {
+
+    },
+    "Lab Results" : {
+
+    },
+    "Lab Results History" : {
+
+    },
+    "Lab Values" : {
+
+    },
+    "Last recorded: %@" : {
+
     },
     "Learn More" : {
       "localizations" : {
