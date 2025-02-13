@@ -66,4 +66,3 @@ final class HKVisualizationUITests: XCTestCase {
         XCTAssertTrue(chartElement.exists, "A chart should be visible in the section.")
     }
 }
-

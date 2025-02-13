@@ -14,8 +14,7 @@ import SwiftUI
 private func loadMockData() {
     let today = Date()
     self.heartRateData = (0..<10).map {
-        HKData(
-               date: Calendar.current.date(byAdding: .day, value: -$0, to: today) ??  Date(),
+        HKData(date: Calendar.current.date(byAdding: .day, value: -$0, to: today) ??  Date(),
                sumValue: Double.random(in: 60...120),
                avgValue: 80,
                minValue: 60,
@@ -23,8 +22,7 @@ private func loadMockData() {
         )
     }
     self.basalBodyTemperatureData = (0..<10).map {
-        HKData(
-               date: Calendar.current.date(byAdding: .day, value: -$0, to: today) ?? Date(),
+        HKData(date: Calendar.current.date(byAdding: .day, value: -$0, to: today) ?? Date(),
                sumValue: Double.random(in: 97...99),
                avgValue: 98.6,
                minValue: 97,
@@ -32,8 +30,7 @@ private func loadMockData() {
         )
     }
     self.oxygenSaturationData = (0..<10).map {
-        HKData(
-               date: Calendar.current.date(byAdding: .day, value: -$0, to: today) ?? Date(),
+        HKData(date: Calendar.current.date(byAdding: .day, value: -$0, to: today) ?? Date(),
                sumValue: Double.random(in: 90...100),
                avgValue: 95,
                minValue: 90,
