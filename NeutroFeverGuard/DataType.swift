@@ -18,7 +18,7 @@ func isValidDate(_ date: Date) throws {
     }
 }
 
-enum LabTestType: String, CaseIterable {
+enum LabTestType: String, CaseIterable, Codable {
     case whiteBloodCell = "White Blood Cell Count"
     case hemoglobin = "Hemoglobin"
     case plateletCount = "Platelet Count"
@@ -134,7 +134,7 @@ struct BloodPressureEntry {
  - Lab values: include the number associated with the lab name above
  */
 // periphery:ignore
-struct LabEntry {
+struct LabEntry: Codable {
     let date: Date
     var values: [LabTestType: Double]
     
