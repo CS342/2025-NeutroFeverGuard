@@ -131,13 +131,7 @@ struct HKVisualization: View {
         return [startDate, endDate, predicate]
     }
 
-    private func readHealthData(
-                                for identifier: HKQuantityTypeIdentifier,
-                                ensureUpdate: Bool,
-                                startDate: Date,
-                                endDate: Date,
-                                predicate: NSPredicate
-    ) async {
+    private func readHealthData(for identifier: HKQuantityTypeIdentifier, ensureUpdate: Bool, startDate: Date, endDate: Date, predicate: NSPredicate) async {
         switch identifier {
         case .heartRate:
             if self.heartRateData.isEmpty || ensureUpdate {
@@ -162,7 +156,8 @@ struct HKVisualization: View {
     func loadMockData() {
         let today = Date()
         self.heartRateData = (0..<10).map {
-            HKData(date: Calendar.current.date(byAdding: .day, value: -$0, to: today) ??  Date(),
+            HKData(
+                   date: Calendar.current.date(byAdding: .day, value: -$0, to: today) ??  Date(),
                    sumValue: Double.random(in: 60...120),
                    avgValue: 80,
                    minValue: 60,
@@ -170,7 +165,8 @@ struct HKVisualization: View {
             )
         }
         self.basalBodyTemperatureData = (0..<10).map {
-            HKData(date: Calendar.current.date(byAdding: .day, value: -$0, to: today) ?? Date(),
+            HKData(
+                   date: Calendar.current.date(byAdding: .day, value: -$0, to: today) ?? Date(),
                    sumValue: Double.random(in: 97...99),
                    avgValue: 98.6,
                    minValue: 97,
@@ -178,7 +174,8 @@ struct HKVisualization: View {
             )
         }
         self.oxygenSaturationData = (0..<10).map {
-            HKData(date: Calendar.current.date(byAdding: .day, value: -$0, to: today) ?? Date(),
+            HKData(
+                   date: Calendar.current.date(byAdding: .day, value: -$0, to: today) ?? Date(),
                    sumValue: Double.random(in: 90...100),
                    avgValue: 95,
                    minValue: 90,
@@ -204,12 +201,7 @@ struct HKVisualization: View {
         }
     }
     
-    func readFromSampleQuery(
-         startDate: Date,
-         endDate: Date,
-         predicate: NSPredicate,
-         quantityTypeIDF: HKQuantityTypeIdentifier
-     ) async {
+    func readFromSampleQuery(startDate: Date, endDate: Date, predicate: NSPredicate, quantityTypeIDF: HKQuantityTypeIdentifier) async {
          let healthStore = HKHealthStore()
          // Run a HKSampleQuery to fetch the health kit data.
          guard let quantityType = HKObjectType.quantityType(forIdentifier: quantityTypeIDF) else {
@@ -256,12 +248,7 @@ struct HKVisualization: View {
          healthStore.execute(query)
      }
     
-    func readHKStats(
-        startDate: Date,
-        endDate: Date,
-        predicate: NSPredicate,
-        quantityTypeIDF: HKQuantityTypeIdentifier
-    ) {
+    func readHKStats(startDate: Date, endDate: Date, predicate: NSPredicate, quantityTypeIDF: HKQuantityTypeIdentifier) {
         let healthStore = HKHealthStore()
         // Read the step counts per day for the past three months.
         guard let quantityType = HKObjectType.quantityType(forIdentifier: quantityTypeIDF) else {
@@ -290,12 +277,7 @@ struct HKVisualization: View {
         healthStore.execute(query)
     }
     
-    func updateQueryResult(
-        results: HKStatisticsCollection,
-        startDate: Date,
-        endDate: Date,
-        quantityTypeIDF: HKQuantityTypeIdentifier
-    ) {
+    func updateQueryResult(results: HKStatisticsCollection, startDate: Date, endDate: Date, quantityTypeIDF: HKQuantityTypeIdentifier) {
         var allData: [HKData] = []
         // Enumerate over all the statistics objects between the start and end dates.
         results.enumerateStatistics(from: startDate, to: endDate) { statistics, _ in
