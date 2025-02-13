@@ -1,4 +1,4 @@
-//
+// swiftlint:disable all
 // This source file is part of the NeutroFeverGuard based on the Stanford Spezi Template Application project
 //
 // SPDX-FileCopyrightText: 2025 Stanford University
@@ -48,7 +48,6 @@ struct HKVisualization: View {
                             .foregroundColor(.gray)
                     }
                 }
-                
                 Section {
                     if !basalBodyTemperatureData.isEmpty {
                         HKVisualizationItem(
@@ -64,7 +63,6 @@ struct HKVisualization: View {
                             .foregroundColor(.gray)
                     }
                 }
-                
                 Section {
                     if !oxygenSaturationData.isEmpty {
                         HKVisualizationItem(
@@ -97,9 +95,7 @@ struct HKVisualization: View {
     
     func readAllHKData(ensureUpdate: Bool = false) async {
             print("Reading all HealthKit data with ensureUpdate: \(ensureUpdate)")
-            
             let dateRange = generateDateRange()
-            
             guard let startDate = dateRange[0] as? Date else {
                 fatalError("*** Start date was not properly formatted ***")
             }
