@@ -233,6 +233,7 @@ struct LabResultsForm: View {
     }
 }
 
+// periphery:ignore
 struct LabeledTextField: View {
     let label: String
     @Binding var value: String
