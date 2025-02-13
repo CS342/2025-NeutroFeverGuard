@@ -4,7 +4,6 @@
     "" : {
 
     },
-    "%@" : {
     "%.1f %@" : {
       "localizations" : {
         "en" : {
@@ -75,6 +74,12 @@
           }
         }
       }
+    },
+    "Basal Body Temperature Over Time" : {
+
+    },
+    "Body Temperature (°F)" : {
+
     },
     "Cancel" : {
 
@@ -178,7 +183,10 @@
         }
       }
     },
-    "Heart Rate (beats/min)" : {
+    "Heart Rate (bpm)" : {
+
+    },
+    "Heart Rate Over Time" : {
 
     },
     "HKVIZ_AVERAGE_STRING" : {
@@ -188,12 +196,6 @@
 
     },
     "HKVIZ_MIN_STRING" : {
-
-    },
-    "HKVIZ_NAVIGATION_TITLE" : {
-
-    },
-    "HKVIZ_PLOT_HEART_TITLE" : {
 
     },
     "HKVIZ_SUMMARY" : {
@@ -334,6 +336,15 @@
         }
       }
     },
+    "No basal body temperature data available." : {
+
+    },
+    "No heart rate data available." : {
+
+    },
+    "No oxygen saturation data available." : {
+
+    },
     "NOTIFICATION_PERMISSIONS_DESCRIPTION" : {
       "localizations" : {
         "en" : {
@@ -366,6 +377,12 @@
           }
         }
       }
+    },
+    "Oxygen Saturation (%)" : {
+
+    },
+    "Oxygen Saturation Over Time" : {
+
     },
     "Percentage (%)" : {
 
@@ -486,6 +503,9 @@
       }
     },
     "value" : {
+
+    },
+    "Vitals Dashboard" : {
 
     },
     "WELCOME_AREA1_DESCRIPTION" : {
