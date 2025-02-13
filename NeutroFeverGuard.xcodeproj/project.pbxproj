@@ -350,7 +350,6 @@
 			children = (
 				653A256128338800005D4D48 /* NeutroFeverGuardTests.swift */,
 				C49EC8372D5026EE005C3495 /* DataTypeTest.swift */,
-				EB37043C2D5E590C004E762F /* HKVisualizationUITests.swift */,
 			);
 			path = NeutroFeverGuardTests;
 			sourceTree = "<group>";
@@ -358,6 +357,7 @@
 		653A256A28338800005D4D48 /* NeutroFeverGuardUITests */ = {
 			isa = PBXGroup;
 			children = (
+				EB37043C2D5E590C004E762F /* HKVisualizationUITests.swift */,
 				2F4E237D2989A2FE0013F3D9 /* OnboardingTests.swift */,
 				653A256B28338800005D4D48 /* SchedulerTests.swift */,
 				2F4E23862989DB360013F3D9 /* ContactsTests.swift */,
@@ -622,8 +622,6 @@
 				653A2551283387FE005D4D48 /* NeutroFeverGuard.swift in Sources */,
 				2FE5DC3629EDD7CA004B9AB4 /* HealthKitPermissions.swift in Sources */,
 				2F65B44E2A3B8B0600A36932 /* NotificationPermissions.swift in Sources */,
-				C49EC8362D501FB9005C3495 /* DataError.swift in Sources */,
-				C49EC8362D501FB9005C3495 /* DataError.swift in Sources */,
 				2FE5DC2629EDD38A004B9AB4 /* Contacts.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
