@@ -35,23 +35,23 @@ enum TemperatureUnit: String {
    case celsius = "Celsius"
    case fahrenheit = "Fahrenheit"
    
-//   var hkUnit: HKUnit {
-//       switch self {
-//       case .celsius:
-//           return HKUnit.degreeCelsius()
-//       case .fahrenheit:
-//           return HKUnit.degreeFahrenheit()
-//       }
-//   }
+   var hkUnit: HKUnit {
+       switch self {
+       case .celsius:
+           return HKUnit.degreeCelsius()
+       case .fahrenheit:
+           return HKUnit.degreeFahrenheit()
+       }
+   }
 }
 
 /*
  Heart Rate: date + time measured, and rate in BPM
  */
-// periphery:ignore
+
 struct HeartRateEntry {
-//    static let healthKitType = HKQuantityType(.heartRate)
-//    static let unit = HKUnit.count().unitDivided(by: HKUnit.minute())
+    static let healthKitType = HKQuantityType(.heartRate)
+    static let unit = HKUnit.count().unitDivided(by: HKUnit.minute())
     
     let date: Date
     let bpm: Double
@@ -67,9 +67,8 @@ struct HeartRateEntry {
 /*
  Temperature: date + time measured, and temperature in either degrees celsius or
  */
-// periphery:ignore
 struct TemperatureEntry {
-//    static let healthKitType = HKQuantityType(.bodyTemperature)
+    static let healthKitType = HKQuantityType(.bodyTemperature)
     
     let date: Date
     let value: Double
@@ -87,10 +86,9 @@ struct TemperatureEntry {
 /*
  Oxygen saturation: date + time measured, and oxygen saturation in %.
  */
-// periphery:ignore
 struct OxygenSaturationEntry {
-//    static let healthKitType = HKQuantityType(.oxygenSaturation)
-//    static let unit = HKUnit.percent()
+    static let healthKitType = HKQuantityType(.oxygenSaturation)
+    static let unit = HKUnit.percent()
     
     let date: Date
     let percentage: Double
@@ -105,8 +103,31 @@ struct OxygenSaturationEntry {
     }
 }
 
-
 /*
+ Blood Pressure: date + time measured, and two pressures (systolic and diastolic) in mmHg.
+ */
+// swiftlint:disable:next file_types_order
+struct BloodPressureEntry {
+    static let systolicType = HKQuantityType(.bloodPressureSystolic)
+    static let diastolicType = HKQuantityType(.bloodPressureDiastolic)
+    static let unit = HKUnit.millimeterOfMercury()
+    
+    let date: Date
+    let systolic: Double
+    let diastolic: Double
+    
+    init(date: Date, systolic: Double, diastolic: Double) throws {
+        try isValidDate(date)
+        guard systolic >= 0, diastolic >= 0 else {
+            throw DataError.invalidBloodPressure
+        }
+        self.date = date
+        self.systolic = systolic
+        self.diastolic = diastolic
+    }
+}
+  
+  /*
  Lab values:
  - Date and time of lab measured
  - Name of lab: white blood cell count, hemoglobin, platelet count, %neutrophils, %lymphocytes, %monocytes, %eosinophils, %basophils, %blasts
@@ -121,30 +142,5 @@ struct LabEntry {
         try isValidDate(date)
         self.date = date
         self.values = values
-    }
-}
-
-
-/*
- Blood Pressure: date + time measured, and two pressures (systolic and diastolic) in mmHg.
- */
-// periphery:ignore
-struct BloodPressureEntry {
-//    static let systolicType = HKQuantityType(.bloodPressureSystolic)
-//    static let diastolicType = HKQuantityType(.bloodPressureDiastolic)
-//    static let unit = HKUnit.millimeterOfMercury()
-    
-    let date: Date
-    let systolic: Double
-    let diastolic: Double
-    
-    init(date: Date, systolic: Double, diastolic: Double) throws {
-        try isValidDate(date)
-        guard systolic >= 0, diastolic >= 0 else {
-            throw DataError.invalidBloodPressure
-        }
-        self.date = date
-        self.systolic = systolic
-        self.diastolic = diastolic
     }
 }
