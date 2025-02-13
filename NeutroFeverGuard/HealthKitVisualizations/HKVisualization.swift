@@ -12,6 +12,7 @@ import SwiftUI
 
 struct HKData: Identifiable {
     var date: Date
+    // periphery:ignore
     var id = UUID()
     var sumValue: Double
     var avgValue: Double
@@ -20,9 +21,6 @@ struct HKData: Identifiable {
 }
 
 struct HKVisualization: View {
-    // @Environment(PatientInformation.self)
-    // private var patientInformation
-    
     @State var basalBodyTemperatureData: [HKData] = []
     @State var heartRateData: [HKData] = []
     @State var oxygenSaturationData: [HKData] = []
@@ -30,82 +28,95 @@ struct HKVisualization: View {
     @State var oxygenSaturationScatterData: [HKData] = []
     @State var basalBodyTemperatureScatterData: [HKData] = []
     
-    var visualizationList: some View {
-        self.readAllHKData()
-        return List {
-            Section {
-                HKVisualizationItem(
-                    data: self.heartRateData,
-                    xName: "Time",
-                    yName: "Heart Rate (beats/min)",
-                    title: "HKVIZ_PLOT_HEART_TITLE",
-                    scatterData: self.heartRateScatterData
-                )
+    var body: some View {
+        // swiftlint:disable closure_body_length
+        NavigationStack {
+            List {
+                Section {
+                    if !heartRateData.isEmpty {
+                        HKVisualizationItem(
+                            data: heartRateData,
+                            xName: "Time",
+                            yName: "Heart Rate (bpm)",
+                            title: "Heart Rate Over Time",
+                            threshold: 100,
+                            scatterData: heartRateData
+                        )
+                    } else {
+                        Text("No heart rate data available.")
+                            .foregroundColor(.gray)
+                    }
+                }
+                
+                Section {
+                    if !basalBodyTemperatureData.isEmpty {
+                        HKVisualizationItem(
+                            data: basalBodyTemperatureData,
+                            xName: "Time",
+                            yName: "Body Temperature (°F)",
+                            title: "Basal Body Temperature Over Time",
+                            threshold: 99.0,
+                            scatterData: basalBodyTemperatureData
+                        )
+                    } else {
+                        Text("No basal body temperature data available.")
+                            .foregroundColor(.gray)
+                    }
+                }
+                
+                Section {
+                    if !oxygenSaturationData.isEmpty {
+                        HKVisualizationItem(
+                            data: oxygenSaturationData,
+                            xName: "Time",
+                            yName: "Oxygen Saturation (%)",
+                            title: "Oxygen Saturation Over Time",
+                            threshold: 94.0,
+                            scatterData: oxygenSaturationData
+                        )
+                    } else {
+                        Text("No oxygen saturation data available.")
+                            .foregroundColor(.gray)
+                    }
+                }
+            }
+            .navigationTitle("Vitals Dashboard")
+            .onAppear {
+                Task {
+                    if ProcessInfo.processInfo.environment["IS_UITEST"] == "1" {
+                        loadMockData()
+                    } else {
+                        await readAllHKData()
+                    }
+                }
             }
         }
-    }
-    // @Binding var presentingAccount: Bool
-
-    var body: some View {
-        self.readAllHKData()
-        
-        return NavigationStack {
-            visualizationList
-                .navigationTitle("HKVIZ_NAVIGATION_TITLE")
-                // .toolbar {
-                  //  if AccountButton.shouldDisplay {
-                    //    AccountButton(isPresented: $presentingAccount)
-                    // }
-                // }
-                .onAppear {
-                    self.readAllHKData(ensureUpdate: true)
-                }
-        }
-    }
-    // init(presentingAccount: Binding<Bool>) {
-        // self._presentingAccount = presentingAccount
-    // }
-    
-    func loadMockData() { // NEED TO CHANGE THIS
-        let today = Date()
-        let sumStatData = [
-            HKData(date: today, sumValue: 100, avgValue: 0, minValue: 0, maxValue: 0),
-            HKData(date: today, sumValue: 100, avgValue: 0, minValue: 0, maxValue: 0)
-        ]
-        let minMaxAvgStatData = [
-            HKData(date: today, sumValue: 0, avgValue: 50, minValue: 1, maxValue: 100)
-        ]
-        // if self.stepData.isEmpty {
-            // self.stepData = sumStatData
-            // self.heartRateScatterData = sumStatData
-            // self.oxygenSaturationScatterData = sumStatData
-            // self.heartRateData = minMaxAvgStatData
-            // self.oxygenSaturationData = minMaxAvgStatData
-        // }
+    // swiftlint:enable closure_body_length
     }
     
-    func readAllHKData(ensureUpdate: Bool = false) {
-        // if FeatureFlags.mockTestData {
-            // loadMockData()
-            // return
-        // }
-        
-        let dateRange = generateDateRange()
-
-        guard let startDate = dateRange[0] as? Date else {
-            fatalError("*** start date was not properly formatted ***")
+    func readAllHKData(ensureUpdate: Bool = false) async {
+            print("Reading all HealthKit data with ensureUpdate: \(ensureUpdate)")
+            
+            let dateRange = generateDateRange()
+            
+            guard let startDate = dateRange[0] as? Date else {
+                fatalError("*** Start date was not properly formatted ***")
+            }
+            guard let endDate = dateRange[1] as? Date else {
+                fatalError("*** End date was not properly formatted ***")
+            }
+            guard let predicate = dateRange[2] as? NSPredicate else {
+                fatalError("*** Predicate was not properly formatted ***")
+            }
+            
+            print("Date Range: \(startDate) - \(endDate)")
+            
+            await readHealthData(for: .heartRate, ensureUpdate: ensureUpdate, startDate: startDate, endDate: endDate, predicate: predicate)
+            await readHealthData(for: .oxygenSaturation, ensureUpdate: ensureUpdate, startDate: startDate, endDate: endDate, predicate: predicate)
+            await readHealthData(for: .basalBodyTemperature, ensureUpdate: ensureUpdate, startDate: startDate, endDate: endDate, predicate: predicate)
+            
+            print("Finished reading all HealthKit data.")
         }
-        guard let endDate = dateRange[1] as? Date else {
-            fatalError("*** end date was not properly formatted ***")
-        }
-        guard let predicate = dateRange[2] as? NSPredicate else {
-            fatalError("*** predicate was not properly formatted ***")
-        }
-
-        readHealthData(for: .heartRate, ensureUpdate: ensureUpdate, startDate: startDate, endDate: endDate, predicate: predicate)
-        readHealthData(for: .oxygenSaturation, ensureUpdate: ensureUpdate, startDate: startDate, endDate: endDate, predicate: predicate)
-        readHealthData(for: .basalBodyTemperature, ensureUpdate: ensureUpdate, startDate: startDate, endDate: endDate, predicate: predicate)
-    }
 
     private func generateDateRange() -> [Any] {
         let startOfToday = Calendar.current.startOfDay(for: Date())
@@ -125,22 +136,22 @@ struct HKVisualization: View {
                                 startDate: Date,
                                 endDate: Date,
                                 predicate: NSPredicate
-    ) {
+    ) async {
         switch identifier {
         case .heartRate:
             if self.heartRateData.isEmpty || ensureUpdate {
                 readHKStats(startDate: startDate, endDate: endDate, predicate: predicate, quantityTypeIDF: identifier)
-                readFromSampleQuery(startDate: startDate, endDate: endDate, predicate: predicate, quantityTypeIDF: identifier)
+                await readFromSampleQuery(startDate: startDate, endDate: endDate, predicate: predicate, quantityTypeIDF: identifier)
             }
         case .oxygenSaturation:
             if self.oxygenSaturationData.isEmpty || ensureUpdate {
                 readHKStats(startDate: startDate, endDate: endDate, predicate: predicate, quantityTypeIDF: identifier)
-                readFromSampleQuery(startDate: startDate, endDate: endDate, predicate: predicate, quantityTypeIDF: identifier)
+                await readFromSampleQuery(startDate: startDate, endDate: endDate, predicate: predicate, quantityTypeIDF: identifier)
             }
         case .basalBodyTemperature:
             if self.basalBodyTemperatureData.isEmpty || ensureUpdate {
                 readHKStats(startDate: startDate, endDate: endDate, predicate: predicate, quantityTypeIDF: identifier)
-                readFromSampleQuery(startDate: startDate, endDate: endDate, predicate: predicate, quantityTypeIDF: identifier)
+                await readFromSampleQuery(startDate: startDate, endDate: endDate, predicate: predicate, quantityTypeIDF: identifier)
             }
         default:
             print("Unsupported identifier: \(identifier.rawValue)")
@@ -148,16 +159,44 @@ struct HKVisualization: View {
     }
     
     
+    func handleAuthorizationError(_ error: Error) {
+        if let hkError = error as? HKError {
+            switch hkError.code {
+            case .errorAuthorizationDenied:
+                print("Authorization denied by the user.")
+            case .errorHealthDataUnavailable:
+                print("Health data is unavailable on this device.")
+            case .errorInvalidArgument:
+                print("Invalid argument provided for HealthKit authorization.")
+            default:
+                print("Unhandled HealthKit error: \(error.localizedDescription)")
+            }
+        } else {
+            print("Unknown error during HealthKit authorization: \(error.localizedDescription)")
+        }
+    }
+    
     func readFromSampleQuery(
          startDate: Date,
          endDate: Date,
          predicate: NSPredicate,
          quantityTypeIDF: HKQuantityTypeIdentifier
-     ) {
+     ) async {
          let healthStore = HKHealthStore()
          // Run a HKSampleQuery to fetch the health kit data.
          guard let quantityType = HKObjectType.quantityType(forIdentifier: quantityTypeIDF) else {
              fatalError("*** Unable to create a quantity type ***")
+         }
+         let typesToWrite: Set<HKSampleType> = [
+            HKQuantityType(.heartRate),
+            HKQuantityType(.basalBodyTemperature),
+            HKQuantityType(.oxygenSaturation)
+         ]
+         do {
+             try await healthStore.requestAuthorization(toShare: typesToWrite, read: typesToWrite)
+             print("HealthKit authorization granted.")
+         } catch {
+             handleAuthorizationError(error)
          }
          let sortDescriptors = [
              NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
@@ -179,7 +218,7 @@ struct HKVisualization: View {
                      if quantityTypeIDF == HKQuantityTypeIdentifier.oxygenSaturation {
                          self.oxygenSaturationScatterData = collectedData
                      } else if quantityTypeIDF == HKQuantityTypeIdentifier.heartRate {
-                         self.heartRateScatterData = collectedData
+                        self.heartRateData = collectedData
                      } else if quantityTypeIDF == HKQuantityTypeIdentifier.basalBodyTemperature {
                          self.basalBodyTemperatureScatterData = collectedData
                      }
@@ -188,7 +227,6 @@ struct HKVisualization: View {
          }
          healthStore.execute(query)
      }
-    
     
     func readHKStats(
         startDate: Date,
@@ -201,15 +239,7 @@ struct HKVisualization: View {
         guard let quantityType = HKObjectType.quantityType(forIdentifier: quantityTypeIDF) else {
             fatalError("*** Unable to create a quantity type ***")
         }
-        let query = if quantityTypeIDF == HKQuantityTypeIdentifier.stepCount {
-            HKStatisticsCollectionQuery(
-                quantityType: quantityType,
-                quantitySamplePredicate: predicate,
-                options: .cumulativeSum,
-                anchorDate: startDate,
-                intervalComponents: DateComponents(day: 1)
-            )
-        } else {
+        let query =
             HKStatisticsCollectionQuery(
                 quantityType: quantityType,
                 quantitySamplePredicate: predicate,
@@ -217,7 +247,7 @@ struct HKVisualization: View {
                 anchorDate: startDate,
                 intervalComponents: DateComponents(day: 1)
             )
-        }
+        
         query.initialResultsHandler = { _, results, error in
             Task { @MainActor in
                 guard error == nil else {
@@ -251,34 +281,36 @@ struct HKVisualization: View {
             self.oxygenSaturationData = allData
         case .heartRate:
             self.heartRateData = allData
+        case .basalBodyTemperature:
+            self.basalBodyTemperatureData = allData
         default:
             print("Unexpected quantity received:", quantityTypeIDF)
         }
     }
-    
-    func parseStat(statistics: HKStatistics, quantityTypeIDF: HKQuantityTypeIdentifier) -> HKData? {
-        let date = statistics.endDate
-        var curSum = 0.0
-        var curMax = 0.0
-        var curAvg = 0.0
-        var curMin = 0.0
-        if let quantity = statistics.sumQuantity() {
-            curSum = parseValue(quantity: quantity, quantityTypeIDF: quantityTypeIDF)
-        }
-        if let quantity = statistics.maximumQuantity() {
-            curMax = parseValue(quantity: quantity, quantityTypeIDF: quantityTypeIDF)
-        }
-        if let quantity = statistics.averageQuantity() {
-            curAvg = parseValue(quantity: quantity, quantityTypeIDF: quantityTypeIDF)
-        }
-        if let quantity = statistics.minimumQuantity() {
-            curMin = parseValue(quantity: quantity, quantityTypeIDF: quantityTypeIDF)
-        }
-        if curSum != 0.0 || curMin != 0.0 || curMin != 0.0 || curMax != 0.0 {
-            return HKData(date: date, sumValue: curSum, avgValue: curAvg, minValue: curMin, maxValue: curMax)
-        }
-        return nil
+}
+
+func parseStat(statistics: HKStatistics, quantityTypeIDF: HKQuantityTypeIdentifier) -> HKData? {
+    let date = statistics.endDate
+    var curSum = 0.0
+    var curMax = 0.0
+    var curAvg = 0.0
+    var curMin = 0.0
+    if let quantity = statistics.sumQuantity() {
+        curSum = parseValue(quantity: quantity, quantityTypeIDF: quantityTypeIDF)
     }
+    if let quantity = statistics.maximumQuantity() {
+        curMax = parseValue(quantity: quantity, quantityTypeIDF: quantityTypeIDF)
+    }
+    if let quantity = statistics.averageQuantity() {
+        curAvg = parseValue(quantity: quantity, quantityTypeIDF: quantityTypeIDF)
+    }
+    if let quantity = statistics.minimumQuantity() {
+        curMin = parseValue(quantity: quantity, quantityTypeIDF: quantityTypeIDF)
+    }
+    if curSum != 0.0 || curMin != 0.0 || curMin != 0.0 || curMax != 0.0 {
+        return HKData(date: date, sumValue: curSum, avgValue: curAvg, minValue: curMin, maxValue: curMax)
+    }
+    return nil
 }
 
 func parseValue(quantity: HKQuantity, quantityTypeIDF: HKQuantityTypeIdentifier) -> Double {
@@ -287,7 +319,7 @@ func parseValue(quantity: HKQuantity, quantityTypeIDF: HKQuantityTypeIdentifier)
         return quantity.doubleValue(for: .percent()) * 100
     case .heartRate:
         return quantity.doubleValue(for: HKUnit(from: "count/min"))
-    case .bodyTemperature:
+    case .basalBodyTemperature:
         return quantity.doubleValue(for: .degreeCelsius())
     default:
         print("Unexpected quantity received:", quantityTypeIDF)
@@ -322,7 +354,7 @@ func parseSampleQueryData(results: [HKSample], quantityTypeIDF: HKQuantityTypeId
             value = result.quantity.doubleValue(for: HKUnit(from: "count/min"))
         
         // body temperature collect
-        } else if quantityTypeIDF == HKQuantityTypeIdentifier.bodyTemperature {
+        } else if quantityTypeIDF == HKQuantityTypeIdentifier.basalBodyTemperature {
             value = result.quantity.doubleValue(for: .degreeCelsius())
         }
         
@@ -331,4 +363,22 @@ func parseSampleQueryData(results: [HKSample], quantityTypeIDF: HKQuantityTypeId
         collectedData.append(HKData(date: date, sumValue: value, avgValue: -1.0, minValue: -1.0, maxValue: -1.0))
     }
     return collectedData
+}
+
+#Preview {
+    let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date()
+
+    let mockData = [
+        HKData(date: Date(), sumValue: 100, avgValue: 96, minValue: 90, maxValue: 105),
+        HKData(date: yesterday, sumValue: 0, avgValue: 96, minValue: 91, maxValue: 102)
+    ]
+    
+    HKVisualizationItem(
+        data: mockData,
+        xName: "Date",
+        yName: "Oxygen Saturation (%)",
+        title: "Blood Oxygen Saturation",
+        threshold: 94.0,
+        helperText: "Maintain oxygen saturation above 94%."
+    )
 }

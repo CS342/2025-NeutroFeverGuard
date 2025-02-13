@@ -24,6 +24,7 @@ struct HomeView: View {
 
     
     var body: some View {
+        HKVisualization()
         TabView(selection: $selectedTab) {
             Tab("Schedule", systemImage: "list.clipboard", value: .schedule) {
                 ScheduleView(presentingAccount: $presentingAccount)
