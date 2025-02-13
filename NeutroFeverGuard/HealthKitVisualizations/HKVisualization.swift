@@ -19,8 +19,9 @@ struct HKData: Identifiable {
     var minValue: Double
     var maxValue: Double
 }
-// swiftlint:disable closure_body_length
+
 struct HKVisualization: View {
+    // swiftlint:disable closure_body_length
     @State var basalBodyTemperatureData: [HKData] = []
     @State var heartRateData: [HKData] = []
     @State var oxygenSaturationData: [HKData] = []
@@ -314,8 +315,8 @@ struct HKVisualization: View {
             print("Unexpected quantity received:", quantityTypeIDF)
         }
     }
+    // swiftlint:enable closure_body_length
 }
-// swiftlint:disable closure_body_length
 
 func parseStat(statistics: HKStatistics, quantityTypeIDF: HKQuantityTypeIdentifier) -> HKData? {
     let date = statistics.endDate
@@ -356,11 +357,6 @@ func parseValue(quantity: HKQuantity, quantityTypeIDF: HKQuantityTypeIdentifier)
 }
 
 // Parses the raw HealthKit data.
-// Inputs:
-//  [HKSample] is an array of raw healthKit samples
-//  quantityTypeIDF identifies the type of health data (ex. heart rate)
-// Output: Array of HKdata objects
-
 func parseSampleQueryData(results: [HKSample], quantityTypeIDF: HKQuantityTypeIdentifier) -> [HKData] {
     // Retrieve quantity value and time for each data point.
     
