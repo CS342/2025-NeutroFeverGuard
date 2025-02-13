@@ -12,6 +12,7 @@ import SwiftUI
 
 struct HomeView: View {
     enum Tabs: String {
+        case dashboard
         case addData
         case labResult
         case schedule
@@ -19,39 +20,52 @@ struct HomeView: View {
     }
 
 
-    @AppStorage(StorageKeys.homeTabSelection) private var selectedTab = Tabs.schedule
+    @AppStorage(StorageKeys.homeTabSelection) private var selectedTab = Tabs.dashboard
     @AppStorage(StorageKeys.tabViewCustomization) private var tabViewCustomization = TabViewCustomization()
 
     @State private var presentingAccount = false
 
     
     var body: some View {
-        HKVisualization()
         TabView(selection: $selectedTab) {
+            // Dashboard tab (HKVisualization)
+            Tab("Dashboard", systemImage: "heart.text.square", value: .dashboard) {
+                HKVisualization()
+            }
+            .customizationID("home.dashboard")
+            
+            // Add Data tab
             Tab("Add Data", systemImage: "plus.app.fill", value: .addData) {
                 AddDataView(presentingAccount: $presentingAccount)
             }
+            .customizationID("home.addData")
+            
+            // Lab tab
             Tab("Lab", systemImage: "flask", value: .labResult) {
                 LabView(presentingAccount: $presentingAccount)
             }
-                .customizationID("home.addData")
+            .customizationID("home.lab")
+            
+            // Schedule tab
             Tab("Schedule", systemImage: "list.clipboard", value: .schedule) {
                 ScheduleView(presentingAccount: $presentingAccount)
             }
-                .customizationID("home.schedule")
+            .customizationID("home.schedule")
+            
+            // Contacts tab
             Tab("Contacts", systemImage: "person.fill", value: .contact) {
                 Contacts(presentingAccount: $presentingAccount)
             }
-                .customizationID("home.contacts")
+            .customizationID("home.contacts")
         }
-            .tabViewStyle(.sidebarAdaptable)
-            .tabViewCustomization($tabViewCustomization)
-            .sheet(isPresented: $presentingAccount) {
-                AccountSheet(dismissAfterSignIn: false) // presentation was user initiated, do not automatically dismiss
-            }
-            .accountRequired(!FeatureFlags.disableFirebase && !FeatureFlags.skipOnboarding) {
-                AccountSheet()
-            }
+        .tabViewStyle(.sidebarAdaptable)
+        .tabViewCustomization($tabViewCustomization)
+        .sheet(isPresented: $presentingAccount) {
+            AccountSheet(dismissAfterSignIn: false)
+        }
+        .accountRequired(!FeatureFlags.disableFirebase && !FeatureFlags.skipOnboarding) {
+            AccountSheet()
+        }
     }
 }
 
