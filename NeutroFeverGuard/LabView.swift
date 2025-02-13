@@ -1,11 +1,3 @@
-//
-// This source file is part of the NeutroFeverGuard based on the Stanford Spezi Template Application project
-//
-// SPDX-FileCopyrightText: 2025 Stanford University
-//
-// SPDX-License-Identifier: MIT
-//
-
 import SpeziAccount
 import SwiftUI
 
@@ -48,15 +40,8 @@ struct ANCView: View {
 }
 
 
-struct LabRecord: Identifiable {
-    let id = UUID()
-    let date: String
-    var values: [LabTestType: Double]
-}
-
-
 struct LabResultDetailView: View {
-    var record: LabRecord
+    var record: LabEntry
 
     var body: some View {
         Form {
@@ -72,7 +57,7 @@ struct LabResultDetailView: View {
                 labValueRow(type: .blasts, unit: "%")
             }
         }
-        .navigationTitle(record.date)
+        .navigationTitle(formatDate(record.date))
     }
 
     @ViewBuilder
@@ -83,50 +68,63 @@ struct LabResultDetailView: View {
             Text("\(record.values[type] ?? 0, specifier: "%.1f") \(unit)")
         }
     }
+
+    private func formatDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        return formatter.string(from: date)
+    }
+}
+
+// for simple view
+func createLabEntry(daysAgo: Int, values: [LabTestType: Double]) throws -> LabEntry {
+    guard let date = Calendar.current.date(byAdding: .day, value: -daysAgo, to: Date()) else {
+        throw NSError(domain: "Invalid date", code: 1, userInfo: nil)
+    }
+    return try LabEntry(date: date, values: values)
 }
 
 
 struct LabView: View {
     @State private var latestNeutrophilPercentage: Double = 99.0
     @State private var latestLeukocyteCount: Double = 200.0
-    @State private var latestRecordedTime: String = "Feb 8, 2025"
-
-    @State private var labRecords: [LabRecord] = [
-        LabRecord(date: "Feb 8, 2025", values: [
-            .whiteBloodCell: 4500,
-            .hemoglobin: 13.5,
-            .plateletCount: 250000,
-            .neutrophils: 55,
-            .lymphocytes: 35,
-            .monocytes: 6,
-            .eosinophils: 2,
-            .basophils: 1,
-            .blasts: 0
-        ]),
-        LabRecord(date: "Feb 1, 2025", values: [
-            .whiteBloodCell: 5000,
-            .hemoglobin: 14.0,
-            .plateletCount: 260000,
-            .neutrophils: 52,
-            .lymphocytes: 37,
-            .monocytes: 5,
-            .eosinophils: 3,
-            .basophils: 1,
-            .blasts: 0
-        ]),
-        LabRecord(date: "Jan 25, 2025", values: [
-            .whiteBloodCell: 4800,
-            .hemoglobin: 13.8,
-            .plateletCount: 255000,
-            .neutrophils: 53,
-            .lymphocytes: 36,
-            .monocytes: 6,
-            .eosinophils: 2,
-            .basophils: 1,
-            .blasts: 0
-        ])
-    ]
-
+    @State private var latestRecordedTime = Date()
+    @State private var labRecords: [LabEntry] = {
+        do {
+            let record1 = try createLabEntry(daysAgo: 0, values: [
+                .whiteBloodCell: 4500, .hemoglobin: 13.5,
+                .plateletCount: 250000, .neutrophils: 55,
+                .lymphocytes: 35, .monocytes: 6,
+                .eosinophils: 2, .basophils: 1,
+                .blasts: 0
+            ])
+            let record2 = try createLabEntry(daysAgo: 7, values: [
+                .whiteBloodCell: 5000,
+                .hemoglobin: 14.0,
+                .plateletCount: 260000,
+                .neutrophils: 52,
+                .lymphocytes: 37,
+                .monocytes: 5,
+                .eosinophils: 3,
+                .basophils: 1,
+                .blasts: 0
+            ])
+            let record3 = try createLabEntry(daysAgo: 14, values: [
+                .whiteBloodCell: 4800,
+                .hemoglobin: 13.8,
+                .plateletCount: 255000,
+                .neutrophils: 53,
+                .lymphocytes: 36,
+                .monocytes: 6,
+                .eosinophils: 2,
+                .basophils: 1,
+                .blasts: 0
+            ])
+            return [record1, record2, record3]
+        } catch {
+            fatalError("Error initializing lab records: \(error)")
+        }
+    }()
     @Environment(Account.self) private var account: Account?
     @Binding var presentingAccount: Bool
 
@@ -139,13 +137,13 @@ struct LabView: View {
             List {
                 Section(header: Text("Absolute Neutrophil Counts")) {
                     NavigationLink(destination: LabResultDetailView(record: labRecords[0])) {
-                        ANCView(ancValue: ancValue, latestRecordedTime: latestRecordedTime)
+                        ANCView(ancValue: ancValue, latestRecordedTime: formatDate(latestRecordedTime))
                     }
                 }
                 Section(header: Text("Lab Results History")) {
-                    ForEach(labRecords) { record in
+                    ForEach(labRecords, id: \.date) { record in
                         NavigationLink(destination: LabResultDetailView(record: record)) {
-                            Text(record.date)
+                            Text(formatDate(record.date))
                         }
                     }
                 }
@@ -160,8 +158,13 @@ struct LabView: View {
             }
         }
     }
-}
 
+    private func formatDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        return formatter.string(from: date)
+    }
+}
 
 #Preview {
     LabView(presentingAccount: .constant(false))
