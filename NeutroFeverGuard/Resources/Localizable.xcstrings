@@ -4,16 +4,29 @@
     "" : {
 
     },
-    "(absolute neutrophil counts)" : {
-
+    "%.1f %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$.1f %2$@"
+          }
+        }
+      }
     },
-    "%.1f" : {
+    "%.1f cells/µL" : {
 
     },
     "°C" : {
 
     },
     "°F" : {
+
+    },
+    "🧪 Latest ANC" : {
+
+    },
+    "Absolute Neutrophil Counts" : {
 
     },
     "ACCOUNT_SETUP_DESCRIPTION" : {
@@ -65,9 +78,6 @@
     "Cancel" : {
 
     },
-    "Cancel" : {
-
-    },
     "Close" : {
       "localizations" : {
         "en" : {
@@ -107,15 +117,6 @@
           }
         }
       }
-    },
-    "Date" : {
-
-    },
-    "Diastolic (mmHg)" : {
-
-    },
-    "Error" : {
-
     },
     "Date" : {
 
@@ -246,6 +247,18 @@
         }
       }
     },
+    "Lab" : {
+
+    },
+    "Lab Results" : {
+
+    },
+    "Lab Results History" : {
+
+    },
+    "Lab Values" : {
+
+    },
     "Last recorded: %@" : {
 
     },
@@ -275,16 +288,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "License Information"
-          }
-        }
-      }
-    },
-    "NeutroFeverGuard" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Spezi\nNeutroFeverGuard"
           }
         }
       }
@@ -332,9 +335,6 @@
     "OK" : {
 
     },
-    "OK" : {
-
-    },
     "Onboarding" : {
       "localizations" : {
         "en" : {
@@ -348,9 +348,6 @@
     "Percentage (%)" : {
 
     },
-    "Percentage (%)" : {
-
-    },
     "Please fill out the Social Support Questionnaire every day." : {
       "localizations" : {
         "en" : {
@@ -360,9 +357,6 @@
           }
         }
       }
-    },
-    "Rate (bpm)" : {
-
     },
     "Rate (bpm)" : {
 
@@ -433,12 +427,6 @@
     "Temperature" : {
 
     },
-    "Systolic (mmHg)" : {
-
-    },
-    "Temperature" : {
-
-    },
     "The Spezi Framework" : {
       "localizations" : {
         "en" : {
@@ -462,9 +450,6 @@
     "Time" : {
 
     },
-    "Time" : {
-
-    },
     "Unsupported Event" : {
       "localizations" : {
         "en" : {
@@ -474,9 +459,6 @@
           }
         }
       }
-    },
-    "value" : {
-
     },
     "value" : {
 
@@ -524,9 +506,6 @@
     "What data would you like to add?" : {
 
     },
-    "What data would you like to add?" : {
-
-    },
     "Your Account" : {
       "localizations" : {
         "en" : {
@@ -536,9 +515,6 @@
           }
         }
       }
-    },
-    "Your ANC" : {
-
     }
   },
   "version" : "1.0"

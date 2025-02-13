@@ -63,7 +63,6 @@ class SchedulerTests: XCTestCase {
         
         XCTAssert(nextButton.isEnabled)
         nextButton.tap()
-        
         XCTAssert(app.textFields["Tap to answer"].waitForExistence(timeout: 2))
         try app.textFields["Tap to answer"].enter(value: "leland@stanford.edu")
         

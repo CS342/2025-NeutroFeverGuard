@@ -72,11 +72,12 @@
 		A9FE7AD02AA39BAB0077B045 /* AccountSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FE7ACF2AA39BAB0077B045 /* AccountSheet.swift */; };
 		C42D4DA52D5AC89900B2A169 /* LabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D4DA42D5AC89500B2A169 /* LabView.swift */; };
 		C49EC8342D501C62005C3495 /* DataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8332D501C5C005C3495 /* DataType.swift */; };
-		C49EC8362D501FB9005C3495 /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8352D501FB2005C3495 /* DataError.swift */; };
 		C49EC8382D5026EE005C3495 /* DataTypeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8372D5026EE005C3495 /* DataTypeTest.swift */; };
 		C49EC8402D5033F9005C3495 /* AddDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC83F2D5033F9005C3495 /* AddDataView.swift */; };
 		C49EC8532D5038AC005C3495 /* DataInputForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8522D5038AC005C3495 /* DataInputForm.swift */; };
 		C4C0A78F2D518DBC00F37EEC /* HelperFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0A78E2D518DB500F37EEC /* HelperFunc.swift */; };
+		F223937A2D5D4095006C8EB4 /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22393792D5D4092006C8EB4 /* DataError.swift */; };
+		F2E6898F2D52ED8600869C4F /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E6898E2D52ED8500869C4F /* HealthKitService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,11 +141,12 @@
 		A9FE7ACF2AA39BAB0077B045 /* AccountSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSheet.swift; sourceTree = "<group>"; };
 		C42D4DA42D5AC89500B2A169 /* LabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabView.swift; sourceTree = "<group>"; };
 		C49EC8332D501C5C005C3495 /* DataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataType.swift; sourceTree = "<group>"; };
-		C49EC8352D501FB2005C3495 /* DataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataError.swift; sourceTree = "<group>"; };
 		C49EC8372D5026EE005C3495 /* DataTypeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTypeTest.swift; sourceTree = "<group>"; };
 		C49EC83F2D5033F9005C3495 /* AddDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDataView.swift; sourceTree = "<group>"; };
 		C49EC8522D5038AC005C3495 /* DataInputForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataInputForm.swift; sourceTree = "<group>"; };
 		C4C0A78E2D518DB500F37EEC /* HelperFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunc.swift; sourceTree = "<group>"; };
+		F22393792D5D4092006C8EB4 /* DataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataError.swift; sourceTree = "<group>"; };
+		F2E6898E2D52ED8500869C4F /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -290,11 +292,12 @@
 		653A254F283387FE005D4D48 /* NeutroFeverGuard */ = {
 			isa = PBXGroup;
 			children = (
+				F22393792D5D4092006C8EB4 /* DataError.swift */,
 				C42D4DA42D5AC89500B2A169 /* LabView.swift */,
 				C4C0A78E2D518DB500F37EEC /* HelperFunc.swift */,
+				F2E6898E2D52ED8500869C4F /* HealthKitService.swift */,
 				C49EC83F2D5033F9005C3495 /* AddDataView.swift */,
 				C49EC8522D5038AC005C3495 /* DataInputForm.swift */,
-				C49EC8352D501FB2005C3495 /* DataError.swift */,
 				C49EC8332D501C5C005C3495 /* DataType.swift */,
 				2FC975A72978F11A00BA99FE /* HomeView.swift */,
 				653A2550283387FE005D4D48 /* NeutroFeverGuard.swift */,
@@ -549,7 +552,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C49EC8532D5038AC005C3495 /* DataInputForm.swift in Sources */,
+				F223937A2D5D4095006C8EB4 /* DataError.swift in Sources */,
 				C49EC8532D5038AC005C3495 /* DataInputForm.swift in Sources */,
 				2FE5DC4129EDD7EE004B9AB4 /* StorageKeys.swift in Sources */,
 				2FE5DCB129EE6107004B9AB4 /* AccountOnboarding.swift in Sources */,
@@ -570,7 +573,7 @@
 				C49EC8402D5033F9005C3495 /* AddDataView.swift in Sources */,
 				C42D4DA52D5AC89900B2A169 /* LabView.swift in Sources */,
 				A98FF2B12CD131F500DFC949 /* EventView.swift in Sources */,
-				C49EC8342D501C62005C3495 /* DataType.swift in Sources */,
+				F2E6898F2D52ED8600869C4F /* HealthKitService.swift in Sources */,
 				C49EC8342D501C62005C3495 /* DataType.swift in Sources */,
 				2FE5DC5329EDD7FA004B9AB4 /* Bundle+Questionnaire.swift in Sources */,
 				2F5E32BD297E05EA003432F8 /* NeutroFeverGuardDelegate.swift in Sources */,
