@@ -19,7 +19,7 @@ struct HKData: Identifiable {
     var minValue: Double
     var maxValue: Double
 }
-
+// swiftlint:disable closure_body_length
 struct HKVisualization: View {
     @State var basalBodyTemperatureData: [HKData] = []
     @State var heartRateData: [HKData] = []
@@ -315,6 +315,7 @@ struct HKVisualization: View {
         }
     }
 }
+// swiftlint:disable closure_body_length
 
 func parseStat(statistics: HKStatistics, quantityTypeIDF: HKQuantityTypeIdentifier) -> HKData? {
     let date = statistics.endDate
