@@ -15,6 +15,7 @@ import SpeziFirebaseAccountStorage
 import SpeziFirebaseStorage
 import SpeziFirestore
 import SpeziHealthKit
+import SpeziLocalStorage
 import SpeziNotifications
 import SpeziOnboarding
 import SpeziScheduler
@@ -54,7 +55,7 @@ class NeutroFeverGuardDelegate: SpeziAppDelegate {
             NeutroFeverGuardScheduler()
             Scheduler()
             OnboardingDataSource()
-            SecureStorage()
+            LocalStorage()
             Notifications()
         }
     }
