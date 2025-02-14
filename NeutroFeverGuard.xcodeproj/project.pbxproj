@@ -10,7 +10,6 @@
 		2F1AC9DF2B4E840E00C24973 /* NeutroFeverGuard.docc in Sources */ = {isa = PBXBuildFile; fileRef = 2F1AC9DE2B4E840E00C24973 /* NeutroFeverGuard.docc */; };
 		2F3D4ABC2A4E7C290068FB2F /* SpeziScheduler in Frameworks */ = {isa = PBXBuildFile; productRef = 2F3D4ABB2A4E7C290068FB2F /* SpeziScheduler */; };
 		2F49B7762980407C00BCB272 /* Spezi in Frameworks */ = {isa = PBXBuildFile; productRef = 2F49B7752980407B00BCB272 /* Spezi */; };
-		2F4E237E2989A2FE0013F3D9 /* OnboardingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E237D2989A2FE0013F3D9 /* OnboardingTests.swift */; };
 		2F4E23832989D51F0013F3D9 /* NeutroFeverGuardTestingSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E23822989D51F0013F3D9 /* NeutroFeverGuardTestingSetup.swift */; };
 		2F4E23872989DB360013F3D9 /* ContactsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E23862989DB360013F3D9 /* ContactsTests.swift */; };
 		2F5E32BD297E05EA003432F8 /* NeutroFeverGuardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5E32BC297E05EA003432F8 /* NeutroFeverGuardDelegate.swift */; };
@@ -99,7 +98,6 @@
 
 /* Begin PBXFileReference section */
 		2F1AC9DE2B4E840E00C24973 /* NeutroFeverGuard.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = NeutroFeverGuard.docc; sourceTree = "<group>"; };
-		2F4E237D2989A2FE0013F3D9 /* OnboardingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTests.swift; sourceTree = "<group>"; };
 		2F4E23822989D51F0013F3D9 /* NeutroFeverGuardTestingSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeutroFeverGuardTestingSetup.swift; sourceTree = "<group>"; };
 		2F4E23862989DB360013F3D9 /* ContactsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTests.swift; sourceTree = "<group>"; };
 		2F5E32BC297E05EA003432F8 /* NeutroFeverGuardDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeutroFeverGuardDelegate.swift; sourceTree = "<group>"; };
@@ -353,7 +351,6 @@
 		653A256A28338800005D4D48 /* NeutroFeverGuardUITests */ = {
 			isa = PBXGroup;
 			children = (
-				2F4E237D2989A2FE0013F3D9 /* OnboardingTests.swift */,
 				653A256B28338800005D4D48 /* SchedulerTests.swift */,
 				2F4E23862989DB360013F3D9 /* ContactsTests.swift */,
 				5680DD3D2AB8CD84004E6D4A /* ContributionsTest.swift */,
@@ -617,8 +614,6 @@
 				653A2551283387FE005D4D48 /* NeutroFeverGuard.swift in Sources */,
 				2FE5DC3629EDD7CA004B9AB4 /* HealthKitPermissions.swift in Sources */,
 				2F65B44E2A3B8B0600A36932 /* NotificationPermissions.swift in Sources */,
-				C49EC8362D501FB9005C3495 /* DataError.swift in Sources */,
-				C49EC8362D501FB9005C3495 /* DataError.swift in Sources */,
 				2FE5DC2629EDD38A004B9AB4 /* Contacts.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -639,7 +634,6 @@
 			files = (
 				5680DD3E2AB8CD84004E6D4A /* ContributionsTest.swift in Sources */,
 				2F4E23872989DB360013F3D9 /* ContactsTests.swift in Sources */,
-				2F4E237E2989A2FE0013F3D9 /* OnboardingTests.swift in Sources */,
 				653A256C28338800005D4D48 /* SchedulerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
