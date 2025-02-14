@@ -5,7 +5,6 @@
 //
 // SPDX-License-Identifier: MIT
 //
-
 import class FirebaseFirestore.FirestoreSettings
 import class FirebaseFirestore.MemoryCacheSettings
 import Spezi
@@ -97,12 +96,20 @@ class NeutroFeverGuardDelegate: SpeziAppDelegate {
         return HKQuery.predicateForSamples(withStart: startDate, end: endDate)
     }
     
+    private var predicateLastDay: NSPredicate {
+        let calendar = Calendar(identifier: .gregorian)
+        let now = Date()
+        guard let oneDayAgo = calendar.date(byAdding: .day, value: -1, to: now) else {
+            fatalError("*** Unable to calculate the start time ***")
+        }
+        return HKQuery.predicateForSamples(withStart: oneDayAgo, end: now)
+    }
+    
     private var healthKit: HealthKit {
         HealthKit {
-            CollectSample(HKQuantityType(.heartRate), predicate: predicateOneMonth, deliverySetting: .anchorQuery(.automatic))
-            CollectSample(HKQuantityType(.oxygenSaturation), predicate: predicateOneMonth, deliverySetting: .anchorQuery(.automatic))
-            CollectSample(HKQuantityType(.appleSleepingWristTemperature), predicate: predicateOneMonth, deliverySetting: .anchorQuery(.automatic))
-            CollectSample(HKQuantityType(.bodyTemperature), predicate: predicateOneMonth, deliverySetting: .anchorQuery(.automatic))
+            CollectSample(.heartRate, continueInBackground: true, predicate: predicateOneMonth)
+            CollectSample(.bloodOxygen, continueInBackground: true, predicate: predicateOneMonth)
+            CollectSample(.bodyTemperature, continueInBackground: true, predicate: predicateOneMonth)
         }
     }
 }
