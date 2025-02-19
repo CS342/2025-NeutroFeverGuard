@@ -1,6 +1,34 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "" : {
+
+    },
+    "%.1f %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$.1f %2$@"
+          }
+        }
+      }
+    },
+    "%.1f cells/µL" : {
+
+    },
+    "°C" : {
+
+    },
+    "°F" : {
+
+    },
+    "🧪 Latest ANC" : {
+
+    },
+    "Absolute Neutrophil Counts" : {
+
+    },
     "ACCOUNT_SETUP_DESCRIPTION" : {
       "localizations" : {
         "en" : {
@@ -31,6 +59,12 @@
         }
       }
     },
+    "Add" : {
+
+    },
+    "Add Data" : {
+
+    },
     "Allow Notifications" : {
       "localizations" : {
         "en" : {
@@ -40,6 +74,9 @@
           }
         }
       }
+    },
+    "Cancel" : {
+
     },
     "Close" : {
       "localizations" : {
@@ -80,6 +117,15 @@
           }
         }
       }
+    },
+    "Date" : {
+
+    },
+    "Diastolic (mmHg)" : {
+
+    },
+    "Error" : {
+
     },
     "Grant Access" : {
       "localizations" : {
@@ -201,6 +247,21 @@
         }
       }
     },
+    "Lab" : {
+
+    },
+    "Lab Results" : {
+
+    },
+    "Lab Results History" : {
+
+    },
+    "Lab Values" : {
+
+    },
+    "Last recorded: %@" : {
+
+    },
     "Learn More" : {
       "localizations" : {
         "en" : {
@@ -227,6 +288,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "License Information"
+          }
+        }
+      }
+    },
+    "NeutroFeverGuard" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spezi\nNeutroFeverGuard"
           }
         }
       }
@@ -261,6 +332,9 @@
         }
       }
     },
+    "OK" : {
+
+    },
     "Onboarding" : {
       "localizations" : {
         "en" : {
@@ -271,6 +345,9 @@
         }
       }
     },
+    "Percentage (%)" : {
+
+    },
     "Please fill out the Social Support Questionnaire every day." : {
       "localizations" : {
         "en" : {
@@ -280,6 +357,9 @@
           }
         }
       }
+    },
+    "Rate (bpm)" : {
+
     },
     "Schedule" : {
       "localizations" : {
@@ -321,16 +401,6 @@
         }
       }
     },
-    "NeutroFeverGuard" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Spezi\nNeutroFeverGuard"
-          }
-        }
-      }
-    },
     "Start Questionnaire" : {
       "localizations" : {
         "en" : {
@@ -350,6 +420,12 @@
           }
         }
       }
+    },
+    "Systolic (mmHg)" : {
+
+    },
+    "Temperature" : {
+
     },
     "The Spezi Framework" : {
       "localizations" : {
@@ -371,6 +447,9 @@
         }
       }
     },
+    "Time" : {
+
+    },
     "Unsupported Event" : {
       "localizations" : {
         "en" : {
@@ -380,6 +459,9 @@
           }
         }
       }
+    },
+    "value" : {
+
     },
     "WELCOME_AREA1_DESCRIPTION" : {
       "localizations" : {
@@ -420,6 +502,9 @@
           }
         }
       }
+    },
+    "What data would you like to add?" : {
+
     },
     "Your Account" : {
       "localizations" : {

@@ -71,8 +71,15 @@
 		A9DFE8A92ABE551400428242 /* AccountButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DFE8A82ABE551400428242 /* AccountButton.swift */; };
 		A9FE7AD02AA39BAB0077B045 /* AccountSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FE7ACF2AA39BAB0077B045 /* AccountSheet.swift */; };
 		B02727472D5E797900B73953 /* FeverMonitoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02727462D5E797900B73953 /* FeverMonitoring.swift */; };
-		B02727482D5E797900B73953 /* FeverMonitoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02727462D5E797900B73953 /* FeverMonitoring.swift */; };
-		B02727492D5E797900B73953 /* FeverMonitoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02727462D5E797900B73953 /* FeverMonitoring.swift */; };
+		C42D4DA52D5AC89900B2A169 /* LabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D4DA42D5AC89500B2A169 /* LabView.swift */; };
+		C49EC8342D501C62005C3495 /* DataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8332D501C5C005C3495 /* DataType.swift */; };
+		C49EC8382D5026EE005C3495 /* DataTypeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8372D5026EE005C3495 /* DataTypeTest.swift */; };
+		C49EC8402D5033F9005C3495 /* AddDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC83F2D5033F9005C3495 /* AddDataView.swift */; };
+		C49EC8532D5038AC005C3495 /* DataInputForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8522D5038AC005C3495 /* DataInputForm.swift */; };
+		C4C0A78F2D518DBC00F37EEC /* HelperFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0A78E2D518DB500F37EEC /* HelperFunc.swift */; };
+		F223937A2D5D4095006C8EB4 /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22393792D5D4092006C8EB4 /* DataError.swift */; };
+		F2E6898F2D52ED8600869C4F /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E6898E2D52ED8500869C4F /* HealthKitService.swift */; };
+
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,6 +142,14 @@
 		A9DFE8A82ABE551400428242 /* AccountButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountButton.swift; sourceTree = "<group>"; };
 		A9FE7ACF2AA39BAB0077B045 /* AccountSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSheet.swift; sourceTree = "<group>"; };
 		B02727462D5E797900B73953 /* FeverMonitoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeverMonitoring.swift; sourceTree = "<group>"; };
+		C42D4DA42D5AC89500B2A169 /* LabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabView.swift; sourceTree = "<group>"; };
+		C49EC8332D501C5C005C3495 /* DataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataType.swift; sourceTree = "<group>"; };
+		C49EC8372D5026EE005C3495 /* DataTypeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTypeTest.swift; sourceTree = "<group>"; };
+		C49EC83F2D5033F9005C3495 /* AddDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDataView.swift; sourceTree = "<group>"; };
+		C49EC8522D5038AC005C3495 /* DataInputForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataInputForm.swift; sourceTree = "<group>"; };
+		C4C0A78E2D518DB500F37EEC /* HelperFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunc.swift; sourceTree = "<group>"; };
+		F22393792D5D4092006C8EB4 /* DataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataError.swift; sourceTree = "<group>"; };
+		F2E6898E2D52ED8500869C4F /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -281,6 +296,13 @@
 			isa = PBXGroup;
 			children = (
 				B02727462D5E797900B73953 /* FeverMonitoring.swift */,
+				F22393792D5D4092006C8EB4 /* DataError.swift */,
+				C42D4DA42D5AC89500B2A169 /* LabView.swift */,
+				C4C0A78E2D518DB500F37EEC /* HelperFunc.swift */,
+				F2E6898E2D52ED8500869C4F /* HealthKitService.swift */,
+				C49EC83F2D5033F9005C3495 /* AddDataView.swift */,
+				C49EC8522D5038AC005C3495 /* DataInputForm.swift */,
+				C49EC8332D501C5C005C3495 /* DataType.swift */,
 				2FC975A72978F11A00BA99FE /* HomeView.swift */,
 				653A2550283387FE005D4D48 /* NeutroFeverGuard.swift */,
 				2F5E32BC297E05EA003432F8 /* NeutroFeverGuardDelegate.swift */,
@@ -302,6 +324,7 @@
 			isa = PBXGroup;
 			children = (
 				653A256128338800005D4D48 /* NeutroFeverGuardTests.swift */,
+				C49EC8372D5026EE005C3495 /* DataTypeTest.swift */,
 			);
 			path = NeutroFeverGuardTests;
 			sourceTree = "<group>";
@@ -429,6 +452,8 @@
 				2FE5DC9B29EDD9EF004B9AB4 /* XCTHealthKit */,
 				A9947BF32CC142BD0068AA8A /* XCTSpeziNotifications */,
 				A994264D2CD25EB3002F8BD5 /* XCTSpeziAccount */,
+				F2A54D362D5DE24400A20113 /* FirebaseCore */,
+				F2A54D382D5DE24E00A20113 /* FirebaseFirestore */,
 			);
 			productName = NeutroFeverGuardUITests;
 			productReference = 653A256728338800005D4D48 /* NeutroFeverGuardUITests.xctest */;
@@ -533,6 +558,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F223937A2D5D4095006C8EB4 /* DataError.swift in Sources */,
+				C49EC8532D5038AC005C3495 /* DataInputForm.swift in Sources */,
 				2FE5DC4129EDD7EE004B9AB4 /* StorageKeys.swift in Sources */,
 				2FE5DCB129EE6107004B9AB4 /* AccountOnboarding.swift in Sources */,
 				2FE5DC3A29EDD7CA004B9AB4 /* Welcome.swift in Sources */,
@@ -549,7 +576,12 @@
 				B02727492D5E797900B73953 /* FeverMonitoring.swift in Sources */,
 				2FE5DC4029EDD7EE004B9AB4 /* FeatureFlags.swift in Sources */,
 				2F4E23832989D51F0013F3D9 /* NeutroFeverGuardTestingSetup.swift in Sources */,
+				C4C0A78F2D518DBC00F37EEC /* HelperFunc.swift in Sources */,
+				C49EC8402D5033F9005C3495 /* AddDataView.swift in Sources */,
+				C42D4DA52D5AC89900B2A169 /* LabView.swift in Sources */,
 				A98FF2B12CD131F500DFC949 /* EventView.swift in Sources */,
+				F2E6898F2D52ED8600869C4F /* HealthKitService.swift in Sources */,
+				C49EC8342D501C62005C3495 /* DataType.swift in Sources */,
 				2FE5DC5329EDD7FA004B9AB4 /* Bundle+Questionnaire.swift in Sources */,
 				2F5E32BD297E05EA003432F8 /* NeutroFeverGuardDelegate.swift in Sources */,
 				2FE5DC5229EDD7FA004B9AB4 /* NeutroFeverGuardScheduler.swift in Sources */,
@@ -567,6 +599,8 @@
 			files = (
 				B02727482D5E797900B73953 /* FeverMonitoring.swift in Sources */,
 				653A256228338800005D4D48 /* NeutroFeverGuardTests.swift in Sources */,
+				C49EC8382D5026EE005C3495 /* DataTypeTest.swift in Sources */,
+				C49EC8382D5026EE005C3495 /* DataTypeTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1405,6 +1439,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2F66D20D2BB723180010D555 /* XCRemoteSwiftPackageReference "SwiftLint" */;
 			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+		F2A54D362D5DE24400A20113 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2FE5DC9029EDD9C3004B9AB4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		F2A54D382D5DE24E00A20113 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2FE5DC9029EDD9C3004B9AB4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

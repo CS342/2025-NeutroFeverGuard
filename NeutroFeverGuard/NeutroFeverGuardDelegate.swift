@@ -14,9 +14,11 @@ import SpeziFirebaseAccountStorage
 import SpeziFirebaseStorage
 import SpeziFirestore
 import SpeziHealthKit
+import SpeziLocalStorage
 import SpeziNotifications
 import SpeziOnboarding
 import SpeziScheduler
+import SpeziSecureStorage
 import SwiftUI
 
 
@@ -52,7 +54,7 @@ class NeutroFeverGuardDelegate: SpeziAppDelegate {
             NeutroFeverGuardScheduler()
             Scheduler()
             OnboardingDataSource()
-            
+            LocalStorage()
             Notifications()
         }
     }
@@ -95,7 +97,6 @@ class NeutroFeverGuardDelegate: SpeziAppDelegate {
         // Initialize the NSPredicate with our start and end dates.
         return HKQuery.predicateForSamples(withStart: startDate, end: endDate)
     }
-    
     private var predicateLastDay: NSPredicate {
         let calendar = Calendar(identifier: .gregorian)
         let now = Date()
