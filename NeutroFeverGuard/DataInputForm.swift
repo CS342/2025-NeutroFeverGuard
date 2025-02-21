@@ -27,6 +27,7 @@ struct DataInputForm: View {
     @State private var labValues: [LabTestType: String] = [:]
     @State private var alertMessage: String = ""
     @Environment(\.dismiss) var dismiss
+    @Environment(NeutroFeverGuardScheduler.self) private var scheduler
     
     // swiftlint:disable:next type_contents_order
     init(dataType: String) {
@@ -194,6 +195,7 @@ struct DataInputForm: View {
         do {
             let labEntry = try LabEntry(date: combineDateAndTime(date, time), values: parsedValues)
             try await healthKitService.saveLabEntry(labEntry)
+            scheduler.markRecentEventsAsComplete(combineDateAndTime(date, time))
             dismiss()
         } catch {
             alertMessage = "Error: \(error)"
