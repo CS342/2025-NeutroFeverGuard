@@ -12,8 +12,7 @@ import SwiftUI
 
 struct HKData: Identifiable {
     var date: Date
-    // periphery:ignore
-    public var id = UUID()
+    var id = UUID()
     var sumValue: Double
     var avgValue: Double
     var minValue: Double
