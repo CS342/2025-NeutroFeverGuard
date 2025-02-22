@@ -18,5 +18,5 @@ enum StorageKeys {
     /// The TabView customization on iPadOS
     static let tabViewCustomization = "home.tab-view-customization"
     // The default dashboard tab
-    //static let defaultDashboardTab = "home.dashboard"
+    // static let defaultDashboardTab = "home.dashboard"
 }
