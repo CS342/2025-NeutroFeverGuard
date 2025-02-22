@@ -28,7 +28,7 @@ struct HKVisualization: View {
     @State var oxygenSaturationScatterData: [HKData] = []
     @State var bodyTemperatureScatterData: [HKData] = []
     
-    var public body: some View {
+    var body: some View {
         // swiftlint:disable closure_body_length
         NavigationStack {
             List {
@@ -40,7 +40,7 @@ struct HKVisualization: View {
                             yName: "Heart Rate (bpm)",
                             title: "Heart Rate Over Time",
                             threshold: 100,
-                            scatterData: heartRateData
+                            scatterData: heartRateScatterData
                         )
                     } else {
                         Text("No heart rate data available.")
@@ -53,9 +53,9 @@ struct HKVisualization: View {
                             data: bodyTemperatureData,
                             xName: "Time",
                             yName: "Body Temperature (°F)",
-                            title: "Basal Body Temperature Over Time",
+                            title: "Body Temperature Over Time",
                             threshold: 99.0,
-                            scatterData: bodyTemperatureData
+                            scatterData: bodyTemperatureScatterData
                         )
                     } else {
                         Text("No body temperature data available.")
@@ -70,7 +70,7 @@ struct HKVisualization: View {
                             yName: "Oxygen Saturation (%)",
                             title: "Oxygen Saturation Over Time",
                             threshold: 94.0,
-                            scatterData: oxygenSaturationData
+                            scatterData: oxygenSaturationScatterData
                         )
                     } else {
                         Text("No oxygen saturation data available.")
@@ -233,7 +233,7 @@ struct HKVisualization: View {
                      if quantityTypeIDF == HKQuantityTypeIdentifier.oxygenSaturation {
                          self.oxygenSaturationScatterData = collectedData
                      } else if quantityTypeIDF == HKQuantityTypeIdentifier.heartRate {
-                        self.heartRateData = collectedData
+                        self.heartRateScatterData = collectedData
                      } else if quantityTypeIDF == HKQuantityTypeIdentifier.bodyTemperature {
                          self.bodyTemperatureScatterData = collectedData
                      }

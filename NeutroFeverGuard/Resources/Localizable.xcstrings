@@ -78,10 +78,10 @@
         }
       }
     },
-    "Basal Body Temperature Over Time" : {
+    "Body Temperature (°F)" : {
 
     },
-    "Body Temperature (°F)" : {
+    "Body Temperature Over Time" : {
 
     },
     "Cancel" : {
@@ -195,16 +195,16 @@
     "Heart Rate Over Time" : {
 
     },
-    "HKVIZ_AVERAGE_STRING" : {
+    "HKVIZ_AVERAGE_STRING: " : {
 
     },
-    "HKVIZ_MAX_STRING" : {
+    "HKVIZ_MAX_STRING: " : {
 
     },
-    "HKVIZ_MIN_STRING" : {
+    "HKVIZ_MIN_STRING: " : {
 
     },
-    "HKVIZ_SUMMARY" : {
+    "HKVIZ_SUMMARY: " : {
 
     },
     "HL7 FHIR" : {
@@ -342,7 +342,7 @@
         }
       }
     },
-    "No basal body temperature data available." : {
+    "No body temperature data available." : {
 
     },
     "No heart rate data available." : {

@@ -43,16 +43,16 @@ struct HKVisualizationItem: View {
         // Helper text to show data when clicked.
         if let elm = selectedElement, elm.sumValue == 0 {
             let details = (
-                String(localized: "HKVIZ_SUMMARY", locale: locale) +
+                String(localized: "HKVIZ_SUMMARY: ", locale: locale) +
                 String(elm.date.formatted(.dateTime.year().month().day())) +
                 ":\n" +
-                String(localized: "HKVIZ_AVERAGE_STRING", locale: locale) +
+                String(localized: "HKVIZ_AVERAGE_STRING: ", locale: locale) +
                 String(round(elm.avgValue * 10) / 10) +
                 ", " +
-                String(localized: "HKVIZ_MAX_STRING", locale: locale) +
+                String(localized: "HKVIZ_MAX_STRING: ", locale: locale) +
                 String(Int(round(elm.maxValue))) +
                 ", " +
-                String(localized: "HKVIZ_MIN_STRING", locale: locale) +
+                String(localized: "HKVIZ_MIN_STRING: ", locale: locale) +
                 String(Int(round(elm.minValue)))
             )
             Text(details)
@@ -147,7 +147,7 @@ struct HKVisualizationItem: View {
         xName: LocalizedStringResource,
         yName: LocalizedStringResource,
         title: LocalizedStringResource,
-        threshold: Double = -1.0,
+        threshold: Double = 25,
         helperText: LocalizedStringResource? = nil,
         scatterData: [HKData] = []
     ) {
