@@ -19,7 +19,7 @@ struct HKData: Identifiable {
     var maxValue: Double
 }
 
-
+// periphery:ignore
 struct HKVisualization: View {
     // @Environment(PatientInformation.self)
     // private var patientInformation
