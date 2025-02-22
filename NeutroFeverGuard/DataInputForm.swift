@@ -7,13 +7,16 @@
 //
 // swiftlint:disable file_types_order
 
-import SpeziSecureStorage
+import SpeziLocalStorage
 import SpeziViews
 import SwiftUI
 
 struct DataInputForm: View {
     let dataType: String
-    private let healthKitService: HealthKitService
+    @Environment(LocalStorage.self) var localStorage
+    private var healthKitService: HealthKitService {
+        HealthKitService(localStorage: localStorage)
+    }
     
     @State private var date = Date()
     @State private var time = Date()
@@ -28,7 +31,6 @@ struct DataInputForm: View {
     // swiftlint:disable:next type_contents_order
     init(dataType: String) {
         self.dataType = dataType
-        self.healthKitService = HealthKitService()
     }
     
     var isFormValid: Bool {
@@ -49,6 +51,7 @@ struct DataInputForm: View {
             return false
         }
     }
+    
     
     var body: some View {
         // swiftlint:disable:next closure_body_length
@@ -106,7 +109,7 @@ struct DataInputForm: View {
         case "Blood Pressure":
             await addBloodPressure()
         case "Lab Results":
-            addLabResult()
+            await addLabResult()
         default:
             alertMessage = "Unknown data type"
         }
@@ -176,7 +179,7 @@ struct DataInputForm: View {
         }
     }
 
-    func addLabResult() {
+    func addLabResult() async {
         var parsedValues: [LabTestType: Double] = [:]
         
         for (testType, valueString) in labValues {
@@ -190,6 +193,7 @@ struct DataInputForm: View {
         
         do {
             let labEntry = try LabEntry(date: combineDateAndTime(date, time), values: parsedValues)
+            try await healthKitService.saveLabEntry(labEntry)
             dismiss()
         } catch {
             alertMessage = "Error: \(error)"
