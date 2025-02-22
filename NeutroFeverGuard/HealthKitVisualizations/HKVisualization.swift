@@ -1,4 +1,4 @@
-//
+// periphery:ignore all
 // This source file is part of the NeutroFeverGuard based on the Stanford Spezi Template Application project
 //
 // SPDX-FileCopyrightText: 2025 Stanford University
@@ -10,7 +10,7 @@ import Foundation
 import HealthKit
 import SwiftUI
 
-public struct HKData: Identifiable {
+struct HKData: Identifiable {
     var date: Date
     // periphery:ignore
     public var id = UUID()

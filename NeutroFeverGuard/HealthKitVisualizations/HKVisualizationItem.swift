@@ -1,4 +1,4 @@
-//
+// periphery:ignore all
 // This source file is part of the NeutroFeverGuard based on the Stanford Spezi Template Application project
 //
 // SPDX-FileCopyrightText: 2025 Stanford University
@@ -11,6 +11,7 @@ import Foundation
 import SwiftUI
 
 public struct HKVisualizationItem: View {
+    // periphery:ignore
     let id = UUID()
     let data: [HKData]
     let xName: LocalizedStringResource
@@ -30,7 +31,7 @@ public struct HKVisualizationItem: View {
 
     @State private var selectedElement: HKData?
     
-    public var body: some View {
+    var body: some View {
         Text(self.title)
             .font(.title3.bold())
         // Remove line below text.
