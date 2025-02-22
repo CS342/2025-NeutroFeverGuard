@@ -12,7 +12,6 @@ import SwiftUI
 
 struct HKData: Identifiable {
     var date: Date
-    // periphery:ignore
     var id = UUID()
     var sumValue: Double
     var avgValue: Double
@@ -22,14 +21,14 @@ struct HKData: Identifiable {
 
 struct HKVisualization: View {
     // swiftlint:disable closure_body_length
-    @State var basalBodyTemperatureData: [HKData] = []
+    @State var bodyTemperatureData: [HKData] = []
     @State var heartRateData: [HKData] = []
     @State var oxygenSaturationData: [HKData] = []
     @State var heartRateScatterData: [HKData] = []
     @State var oxygenSaturationScatterData: [HKData] = []
-    @State var basalBodyTemperatureScatterData: [HKData] = []
+    @State var bodyTemperatureScatterData: [HKData] = []
     
-    var body: some View {
+    var public body: some View {
         // swiftlint:disable closure_body_length
         NavigationStack {
             List {
@@ -49,17 +48,17 @@ struct HKVisualization: View {
                     }
                 }
                 Section {
-                    if !basalBodyTemperatureData.isEmpty {
+                    if !bodyTemperatureData.isEmpty {
                         HKVisualizationItem(
-                            data: basalBodyTemperatureData,
+                            data: bodyTemperatureData,
                             xName: "Time",
                             yName: "Body Temperature (°F)",
                             title: "Basal Body Temperature Over Time",
                             threshold: 99.0,
-                            scatterData: basalBodyTemperatureData
+                            scatterData: bodyTemperatureData
                         )
                     } else {
-                        Text("No basal body temperature data available.")
+                        Text("No body temperature data available.")
                             .foregroundColor(.gray)
                     }
                 }
@@ -110,7 +109,7 @@ struct HKVisualization: View {
             
             await readHealthData(for: .heartRate, ensureUpdate: ensureUpdate, startDate: startDate, endDate: endDate, predicate: predicate)
             await readHealthData(for: .oxygenSaturation, ensureUpdate: ensureUpdate, startDate: startDate, endDate: endDate, predicate: predicate)
-            await readHealthData(for: .basalBodyTemperature, ensureUpdate: ensureUpdate, startDate: startDate, endDate: endDate, predicate: predicate)
+            await readHealthData(for: .bodyTemperature, ensureUpdate: ensureUpdate, startDate: startDate, endDate: endDate, predicate: predicate)
             
             print("Finished reading all HealthKit data.")
         }
@@ -139,8 +138,8 @@ struct HKVisualization: View {
                 readHKStats(startDate: startDate, endDate: endDate, predicate: predicate, quantityTypeIDF: identifier)
                 await readFromSampleQuery(startDate: startDate, endDate: endDate, predicate: predicate, quantityTypeIDF: identifier)
             }
-        case .basalBodyTemperature:
-            if self.basalBodyTemperatureData.isEmpty || ensureUpdate {
+        case .bodyTemperature:
+            if self.bodyTemperatureData.isEmpty || ensureUpdate {
                 readHKStats(startDate: startDate, endDate: endDate, predicate: predicate, quantityTypeIDF: identifier)
                 await readFromSampleQuery(startDate: startDate, endDate: endDate, predicate: predicate, quantityTypeIDF: identifier)
             }
@@ -160,7 +159,7 @@ struct HKVisualization: View {
                    maxValue: 120
             )
         }
-        self.basalBodyTemperatureData = (0..<10).map {
+        self.bodyTemperatureData = (0..<10).map {
             HKData(
                    date: Calendar.current.date(byAdding: .day, value: -$0, to: today) ?? Date(),
                    sumValue: Double.random(in: 97...99),
@@ -205,7 +204,7 @@ struct HKVisualization: View {
          }
          let typesToWrite: Set<HKSampleType> = [
             HKQuantityType(.heartRate),
-            HKQuantityType(.basalBodyTemperature),
+            HKQuantityType(.bodyTemperature),
             HKQuantityType(.oxygenSaturation)
          ]
          do {
@@ -235,8 +234,8 @@ struct HKVisualization: View {
                          self.oxygenSaturationScatterData = collectedData
                      } else if quantityTypeIDF == HKQuantityTypeIdentifier.heartRate {
                         self.heartRateData = collectedData
-                     } else if quantityTypeIDF == HKQuantityTypeIdentifier.basalBodyTemperature {
-                         self.basalBodyTemperatureScatterData = collectedData
+                     } else if quantityTypeIDF == HKQuantityTypeIdentifier.bodyTemperature {
+                         self.bodyTemperatureScatterData = collectedData
                      }
                  }
              }
@@ -287,8 +286,8 @@ struct HKVisualization: View {
             self.oxygenSaturationData = allData
         case .heartRate:
             self.heartRateData = allData
-        case .basalBodyTemperature:
-            self.basalBodyTemperatureData = allData
+        case .bodyTemperature:
+            self.bodyTemperatureData = allData
         default:
             print("Unexpected quantity received:", quantityTypeIDF)
         }
@@ -326,7 +325,7 @@ func parseValue(quantity: HKQuantity, quantityTypeIDF: HKQuantityTypeIdentifier)
         return quantity.doubleValue(for: .percent()) * 100
     case .heartRate:
         return quantity.doubleValue(for: HKUnit(from: "count/min"))
-    case .basalBodyTemperature:
+    case .bodyTemperature:
         return quantity.doubleValue(for: .degreeCelsius())
     default:
         print("Unexpected quantity received:", quantityTypeIDF)
@@ -356,7 +355,7 @@ func parseSampleQueryData(results: [HKSample], quantityTypeIDF: HKQuantityTypeId
             value = result.quantity.doubleValue(for: HKUnit(from: "count/min"))
         
         // body temperature collect
-        } else if quantityTypeIDF == HKQuantityTypeIdentifier.basalBodyTemperature {
+        } else if quantityTypeIDF == HKQuantityTypeIdentifier.bodyTemperature {
             value = result.quantity.doubleValue(for: .degreeCelsius())
         }
         
