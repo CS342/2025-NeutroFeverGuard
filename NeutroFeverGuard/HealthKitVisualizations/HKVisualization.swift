@@ -25,12 +25,12 @@ struct HKVisualization: View {
     // @Environment(PatientInformation.self)
     // private var patientInformation
     
-    @State var basalBodyTemperatureData: [HKData] = []
+    @State var bodyTemperatureData: [HKData] = []
     @State var heartRateData: [HKData] = []
     @State var oxygenSaturationData: [HKData] = []
     @State var heartRateScatterData: [HKData] = []
     @State var oxygenSaturationScatterData: [HKData] = []
-    @State var basalBodyTemperatureScatterData: [HKData] = []
+    @State var bodyTemperatureScatterData: [HKData] = []
     
     var visualizationList: some View {
         self.readAllHKData()
@@ -106,7 +106,7 @@ struct HKVisualization: View {
 
         readHealthData(for: .heartRate, ensureUpdate: ensureUpdate, startDate: startDate, endDate: endDate, predicate: predicate)
         readHealthData(for: .oxygenSaturation, ensureUpdate: ensureUpdate, startDate: startDate, endDate: endDate, predicate: predicate)
-        readHealthData(for: .basalBodyTemperature, ensureUpdate: ensureUpdate, startDate: startDate, endDate: endDate, predicate: predicate)
+        readHealthData(for: .bodyTemperature, ensureUpdate: ensureUpdate, startDate: startDate, endDate: endDate, predicate: predicate)
     }
 
     private func generateDateRange() -> [Any] {
@@ -139,8 +139,8 @@ struct HKVisualization: View {
                 readHKStats(startDate: startDate, endDate: endDate, predicate: predicate, quantityTypeIDF: identifier)
                 readFromSampleQuery(startDate: startDate, endDate: endDate, predicate: predicate, quantityTypeIDF: identifier)
             }
-        case .basalBodyTemperature:
-            if self.basalBodyTemperatureData.isEmpty || ensureUpdate {
+        case .bodyTemperature:
+            if self.bodyTemperatureData.isEmpty || ensureUpdate {
                 readHKStats(startDate: startDate, endDate: endDate, predicate: predicate, quantityTypeIDF: identifier)
                 readFromSampleQuery(startDate: startDate, endDate: endDate, predicate: predicate, quantityTypeIDF: identifier)
             }
@@ -182,8 +182,8 @@ struct HKVisualization: View {
                          self.oxygenSaturationScatterData = collectedData
                      } else if quantityTypeIDF == HKQuantityTypeIdentifier.heartRate {
                          self.heartRateScatterData = collectedData
-                     } else if quantityTypeIDF == HKQuantityTypeIdentifier.basalBodyTemperature {
-                         self.basalBodyTemperatureScatterData = collectedData
+                     } else if quantityTypeIDF == HKQuantityTypeIdentifier.bodyTemperature {
+                         self.bodyTemperatureScatterData = collectedData
                      }
                  }
              }
