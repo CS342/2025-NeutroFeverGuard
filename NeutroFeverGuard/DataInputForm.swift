@@ -236,27 +236,6 @@ struct LabResultsForm: View {
     }
 }
 
-struct LabeledTextField: View {
-    let label: String
-    @Binding var value: String
-    
-    // swiftlint:disable:next type_contents_order
-    init(_ label: String, value: Binding<String>) {
-        self.label = label
-        self._value = value
-    }
-    
-    var body: some View {
-        HStack {
-            Text(label)
-            Spacer()
-            TextField("value", text: $value)
-                .keyboardType(.decimalPad)
-                .multilineTextAlignment(.trailing)
-        }
-    }
-}
-
 struct HeartRateForm: View {
     @Binding var inputValue: String
     
