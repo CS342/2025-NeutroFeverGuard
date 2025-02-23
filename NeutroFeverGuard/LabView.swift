@@ -107,7 +107,7 @@ struct LabView: View {
                 Section(header: Text("Absolute Neutrophil Counts")) {
                     if let anc = ancValue, let latestRecord = labRecords.first {
                         NavigationLink(destination: LabResultDetailView(record: latestRecord)) {
-                            ANCView(ancValue: anc, latestRecordedTime:latestRecordedTime)
+                            ANCView(ancValue: anc, latestRecordedTime: latestRecordedTime)
                         }
                     } else {
                         Text("No ANC data available")

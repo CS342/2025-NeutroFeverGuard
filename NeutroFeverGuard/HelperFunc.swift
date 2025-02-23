@@ -8,7 +8,6 @@
 
 import Foundation
 
-// periphery:ignore
 func combineDateAndTime(_ date: Date, _ time: Date) -> Date {
     let calendar = Calendar.current
     let dateComponents = calendar.dateComponents([.year, .month, .day], from: date)
