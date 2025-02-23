@@ -7,6 +7,7 @@
 //
 
 import SpeziAccount
+import SpeziLocalStorage
 import SwiftUI
 
 struct ANCView: View {
@@ -84,74 +85,45 @@ struct LabResultDetailView: View {
     }
 }
 
-// for simple view
-func createLabEntry(daysAgo: Int, values: [LabTestType: Double]) throws -> LabEntry {
-    guard let date = Calendar.current.date(byAdding: .day, value: -daysAgo, to: Date()) else {
-        throw NSError(domain: "Invalid date", code: 1, userInfo: nil)
-    }
-    return try LabEntry(date: date, values: values)
-}
-
-
 struct LabView: View {
-    @State private var latestNeutrophilPercentage: Double = 99.0
-    @State private var latestLeukocyteCount: Double = 200.0
-    @State private var latestRecordedTime = Date()
-    @State private var labRecords: [LabEntry] = {
-        do {
-            let record1 = try createLabEntry(daysAgo: 0, values: [
-                .whiteBloodCell: 4500, .hemoglobin: 13.5,
-                .plateletCount: 250000, .neutrophils: 55,
-                .lymphocytes: 35, .monocytes: 6,
-                .eosinophils: 2, .basophils: 1,
-                .blasts: 0
-            ])
-            let record2 = try createLabEntry(daysAgo: 7, values: [
-                .whiteBloodCell: 5000,
-                .hemoglobin: 14.0,
-                .plateletCount: 260000,
-                .neutrophils: 52,
-                .lymphocytes: 37,
-                .monocytes: 5,
-                .eosinophils: 3,
-                .basophils: 1,
-                .blasts: 0
-            ])
-            let record3 = try createLabEntry(daysAgo: 14, values: [
-                .whiteBloodCell: 4800,
-                .hemoglobin: 13.8,
-                .plateletCount: 255000,
-                .neutrophils: 53,
-                .lymphocytes: 36,
-                .monocytes: 6,
-                .eosinophils: 2,
-                .basophils: 1,
-                .blasts: 0
-            ])
-            return [record1, record2, record3]
-        } catch {
-            fatalError("Error initializing lab records: \(error)")
-        }
-    }()
+    @State private var labRecords: [LabEntry] = []
+    @State private var latestRecordedTime: String = "None"
+    @Environment(LocalStorage.self) var localStorage
     @Environment(Account.self) private var account: Account?
     @Binding var presentingAccount: Bool
 
-    private var ancValue: Double {
-        (latestNeutrophilPercentage / 100.0) * latestLeukocyteCount
+    private var ancValue: Double? {
+        guard let latestRecord = labRecords.first,
+              let neutrophils = latestRecord.values[.neutrophils],
+              let wbc = latestRecord.values[.whiteBloodCell] else {
+            return nil
+        }
+        return (neutrophils / 100.0) * wbc
     }
 
     var body: some View {
         NavigationView {
             List {
                 Section(header: Text("Absolute Neutrophil Counts")) {
-                    NavigationLink(destination: LabResultDetailView(record: labRecords[0])) {
-                        ANCView(ancValue: ancValue, latestRecordedTime: formatDate(latestRecordedTime))
+                    if let anc = ancValue, let latestRecord = labRecords.first {
+                        NavigationLink(destination: LabResultDetailView(record: latestRecord)) {
+                            ANCView(ancValue: anc, latestRecordedTime:latestRecordedTime)
+                        }
+                    } else {
+                        Text("No ANC data available")
+                            .foregroundColor(.gray)
                     }
                 }
+                
                 Section(header: Text("Lab Results History")) {
-                    ForEach(labRecords, id: \.date) { record in
-                        NavigationLink(destination: LabResultDetailView(record: record)) {
-                            Text(formatDate(record.date))
+                    if labRecords.isEmpty {
+                        Text("No lab results recorded")
+                            .foregroundColor(.gray)
+                    } else {
+                        ForEach(labRecords, id: \.date) { record in
+                            NavigationLink(destination: LabResultDetailView(record: record)) {
+                                Text(formatDate(record.date))
+                            }
                         }
                     }
                 }
@@ -164,6 +136,28 @@ struct LabView: View {
                     AccountButton(isPresented: $presentingAccount)
                 }
             }
+            .onAppear {
+                loadLabResults()
+            }
+        }
+    }
+    
+    private func loadLabResults() {
+        var results: [LabEntry]
+        do {
+            results = try localStorage.read([LabEntry].self, storageKey: "labResults")
+            results.sort { $0.date > $1.date }
+            labRecords = results
+            
+            if let latestRecord = results.first {
+                latestRecordedTime = formatDate(latestRecord.date)
+            } else {
+                latestRecordedTime = "None"
+            }
+        } catch {
+            print("Failed to load lab results: \(error)")
+            labRecords = []
+            latestRecordedTime = "None"
         }
     }
 
@@ -173,6 +167,7 @@ struct LabView: View {
         return formatter.string(from: date)
     }
 }
+
 
 #Preview {
     LabView(presentingAccount: .constant(false))

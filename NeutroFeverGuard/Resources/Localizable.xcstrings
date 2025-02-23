@@ -312,6 +312,12 @@
         }
       }
     },
+    "No ANC data available" : {
+
+    },
+    "No lab results recorded" : {
+
+    },
     "NOTIFICATION_PERMISSIONS_DESCRIPTION" : {
       "localizations" : {
         "en" : {
