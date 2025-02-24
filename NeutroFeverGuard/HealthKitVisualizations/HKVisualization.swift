@@ -1,4 +1,3 @@
-// swiftlint:disable all
 // periphery:ignore all
 // This source file is part of the NeutroFeverGuard based on the Stanford Spezi Template Application project
 //
@@ -127,6 +126,7 @@ struct HKVisualization: View {
         return [startDate, endDate, predicate]
     }
 
+
     private func readHealthData(for identifier: HKQuantityTypeIdentifier, ensureUpdate: Bool, startDate: Date, endDate: Date, predicate: NSPredicate) async {
         switch identifier {
         case .heartRate:
@@ -214,6 +214,7 @@ struct HKVisualization: View {
          } catch {
              handleAuthorizationError(error)
          }
+
          let sortDescriptors = [
              NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
          ]

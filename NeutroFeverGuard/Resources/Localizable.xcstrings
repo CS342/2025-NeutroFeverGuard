@@ -15,22 +15,57 @@
       }
     },
     "%.1f cells/µL" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%.1f cells/µL"
+          }
+        }
+      }
     },
     "%@" : {
 
     },
     "°C" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "°C"
+          }
+        }
+      }
     },
     "°F" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "°F"
+          }
+        }
+      }
     },
     "🧪 Latest ANC" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🧪 Latest ANC"
+          }
+        }
+      }
     },
     "Absolute Neutrophil Counts" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Absolute Neutrophil Counts"
+          }
+        }
+      }
     },
     "ACCOUNT_SETUP_DESCRIPTION" : {
       "localizations" : {
@@ -63,10 +98,24 @@
       }
     },
     "Add" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add"
+          }
+        }
+      }
     },
     "Add Data" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add Data"
+          }
+        }
+      }
     },
     "Allow Notifications" : {
       "localizations" : {
@@ -78,14 +127,35 @@
         }
       }
     },
-    "Body Temperature (°F)" : {
-
-    },
     "Body Temperature Over Time" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Basal Body Temperature Over Time"
+          }
+        }
+      }
+    },
+    "Body Temperature (°F)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Body Temperature (°F)"
+          }
+        }
+      }
     },
     "Cancel" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
     },
     "Close" : {
       "localizations" : {
@@ -131,13 +201,34 @@
 
     },
     "Date" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Date"
+          }
+        }
+      }
     },
     "Diastolic (mmHg)" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diastolic (mmHg)"
+          }
+        }
+      }
     },
     "Error" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error"
+          }
+        }
+      }
     },
     "Grant Access" : {
       "localizations" : {
@@ -190,22 +281,64 @@
       }
     },
     "Heart Rate (bpm)" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heart Rate (bpm)"
+          }
+        }
+      }
     },
     "Heart Rate Over Time" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heart Rate Over Time"
+          }
+        }
+      }
     },
-    "HKVIZ_AVERAGE_STRING: " : {
-
+    "HKVIZ_AVERAGE_STRING" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "HKVIZ_AVERAGE_STRING"
+          }
+        }
+      }
     },
-    "HKVIZ_MAX_STRING: " : {
-
+    "HKVIZ_MAX_STRING" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "HKVIZ_MAX_STRING"
+          }
+        }
+      }
     },
-    "HKVIZ_MIN_STRING: " : {
-
+    "HKVIZ_MIN_STRING" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "HKVIZ_MIN_STRING"
+          }
+        }
+      }
     },
-    "HKVIZ_SUMMARY: " : {
-
+    "HKVIZ_SUMMARY" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "HKVIZ_SUMMARY"
+          }
+        }
+      }
     },
     "HL7 FHIR" : {
       "localizations" : {
@@ -278,19 +411,54 @@
       }
     },
     "Lab" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lab"
+          }
+        }
+      }
     },
     "Lab Results" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lab Results"
+          }
+        }
+      }
     },
     "Lab Results History" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lab Results History"
+          }
+        }
+      }
     },
     "Lab Values" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lab Values"
+          }
+        }
+      }
     },
     "Last recorded: %@" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last recorded: %@"
+          }
+        }
+      }
     },
     "Learn More" : {
       "localizations" : {
@@ -342,14 +510,35 @@
         }
       }
     },
-    "No body temperature data available." : {
-
+    "No basal body temperature data available." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No body temperature data available."
+          }
+        }
+      }
     },
     "No heart rate data available." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No heart rate data available."
+          }
+        }
+      }
     },
     "No oxygen saturation data available." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No oxygen saturation data available."
+          }
+        }
+      }
     },
     "NOTIFICATION_PERMISSIONS_DESCRIPTION" : {
       "localizations" : {
@@ -372,7 +561,14 @@
       }
     },
     "OK" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
     },
     "Onboarding" : {
       "localizations" : {
@@ -385,13 +581,34 @@
       }
     },
     "Oxygen Saturation (%)" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oxygen Saturation (%)"
+          }
+        }
+      }
     },
     "Oxygen Saturation Over Time" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oxygen Saturation Over Time"
+          }
+        }
+      }
     },
     "Percentage (%)" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Percentage (%)"
+          }
+        }
+      }
     },
     "Please fill out the Social Support Questionnaire every day." : {
       "localizations" : {
@@ -404,7 +621,14 @@
       }
     },
     "Rate (bpm)" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rate (bpm)"
+          }
+        }
+      }
     },
     "Schedule" : {
       "localizations" : {
@@ -467,10 +691,24 @@
       }
     },
     "Systolic (mmHg)" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Systolic (mmHg)"
+          }
+        }
+      }
     },
     "Temperature" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Temperature"
+          }
+        }
+      }
     },
     "The Spezi Framework" : {
       "localizations" : {
@@ -493,10 +731,24 @@
       }
     },
     "Threshold" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Threshold"
+          }
+        }
+      }
     },
     "Time" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time"
+          }
+        }
+      }
     },
     "Unsupported Event" : {
       "localizations" : {
@@ -509,7 +761,24 @@
       }
     },
     "value" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "value"
+          }
+        }
+      }
+    },
+    "Vitals Dashboard" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitals Dashboard"
+          }
+        }
+      }
     },
     "Vitals Dashboard" : {
 
@@ -555,7 +824,14 @@
       }
     },
     "What data would you like to add?" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What data would you like to add?"
+          }
+        }
+      }
     },
     "Your Account" : {
       "localizations" : {
