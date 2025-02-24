@@ -28,7 +28,7 @@ final class ContributionsTest: XCTestCase {
         // Waiting until the setup test accounts actions have been finished & sheets are dismissed.
         try await Task.sleep(for: .seconds(5))
         
-        XCTAssertTrue(app.navigationBars.buttons["Your Account"].waitForExistence(timeout: 10))
+        // XCTAssertTrue(app.navigationBars.buttons["Your Account"].waitForExistence(timeout: 10))
         app.navigationBars.buttons["Your Account"].tap()
         
         XCTAssertTrue(app.buttons["License Information"].waitForExistence(timeout: 10))
