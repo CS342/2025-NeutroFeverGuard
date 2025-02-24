@@ -22,3 +22,14 @@ func combineDateAndTime(_ date: Date, _ time: Date) -> Date {
         second: timeComponents.second
     )) ?? Date()
 }
+
+func parseLocalizedNumber(_ input: String) -> Double? {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .decimal
+    formatter.locale = Locale.current
+    
+    if let number = formatter.number(from: input) {
+        return number.doubleValue
+    }
+    return nil
+}
