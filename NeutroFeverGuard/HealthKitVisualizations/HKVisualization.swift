@@ -204,7 +204,7 @@ struct HKVisualization: View {
         }
     }
     
-    func readFromSampleQuery(startDate: Date, endDate: Date, predicate: NSPredicate, quantityTypeIDF: HKQuantityTypeIdentifier) async {
+    func readFromSampleQuery(predicate: NSPredicate, quantityTypeIDF: HKQuantityTypeIdentifier) async {
          let healthStore = HKHealthStore()
          // Run a HKSampleQuery to fetch the health kit data.
          guard let quantityType = HKObjectType.quantityType(forIdentifier: quantityTypeIDF) else {
