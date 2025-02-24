@@ -127,7 +127,13 @@ struct HKVisualization: View {
     }
 
 
-    private func readHealthData(for identifier: HKQuantityTypeIdentifier, ensureUpdate: Bool, startDate: Date, endDate: Date, predicate: NSPredicate) async {
+    private func readHealthData(
+                                for identifier: HKQuantityTypeIdentifier,
+                                ensureUpdate: Bool,
+                                startDate: Date,
+                                endDate: Date,
+                                predicate: NSPredicate
+    ) async {
         switch identifier {
         case .heartRate:
             if self.heartRateData.isEmpty || ensureUpdate {

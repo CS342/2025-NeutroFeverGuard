@@ -1,4 +1,3 @@
-
 // swiftlint:disable all
 // periphery:ignore all
 // This source file is part of the NeutroFeverGuard based on the Stanford Spezi Template Application project
