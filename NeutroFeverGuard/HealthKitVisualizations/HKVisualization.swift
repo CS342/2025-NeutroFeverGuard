@@ -139,17 +139,17 @@ struct HKVisualization: View {
         case .heartRate:
             if self.heartRateData.isEmpty || ensureUpdate {
                 readHKStats(startDate: startDate, endDate: endDate, predicate: predicate, quantityTypeIDF: identifier)
-                await readFromSampleQuery(startDate: startDate, endDate: endDate, predicate: predicate, quantityTypeIDF: identifier)
+                await readFromSampleQuery(predicate: predicate, quantityTypeIDF: identifier)
             }
         case .oxygenSaturation:
             if self.oxygenSaturationData.isEmpty || ensureUpdate {
                 readHKStats(startDate: startDate, endDate: endDate, predicate: predicate, quantityTypeIDF: identifier)
-                await readFromSampleQuery(startDate: startDate, endDate: endDate, predicate: predicate, quantityTypeIDF: identifier)
+                await readFromSampleQuery(predicate: predicate, quantityTypeIDF: identifier)
             }
         case .bodyTemperature:
             if self.bodyTemperatureData.isEmpty || ensureUpdate {
                 readHKStats(startDate: startDate, endDate: endDate, predicate: predicate, quantityTypeIDF: identifier)
-                await readFromSampleQuery(startDate: startDate, endDate: endDate, predicate: predicate, quantityTypeIDF: identifier)
+                await readFromSampleQuery(predicate: predicate, quantityTypeIDF: identifier)
             }
         default:
             print("Unsupported identifier: \(identifier.rawValue)")
