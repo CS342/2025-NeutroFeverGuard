@@ -222,8 +222,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziFoundation.git",
       "state" : {
-        "revision" : "5b4ad1b343154b52a68c33a6bfe02d9cb07cb9dc",
-        "version" : "2.0.0"
+        "revision" : "c844b98242829fe44e7908739374d4c8b88d6da7",
+        "version" : "2.1.0"
       }
     },
     {
@@ -231,8 +231,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziHealthKit.git",
       "state" : {
-        "revision" : "fbdec78fcb2f90d6338f1968e21dd11fbee65070",
-        "version" : "0.6.0"
+        "revision" : "90575b75be77aa3f7bcf59dd6aa86551a72fe281",
+        "version" : "1.0.0-beta.1"
       }
     },
     {
@@ -285,8 +285,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziStorage.git",
       "state" : {
-        "revision" : "0f4a54430e51f82d29da63a7ce5f61bad7dfb9cd",
-        "version" : "1.2.1"
+        "revision" : "935a7e121d7235a394a2c744ba8b83fd52f71ece",
+        "version" : "1.2.3"
       }
     },
     {

@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+import HealthKit
 @_spi(TestingSupport) import SpeziAccount
 import SpeziFirebaseAccount
 import SpeziHealthKit
@@ -27,16 +28,6 @@ struct OnboardingFlow: View {
     @State private var localNotificationAuthorization = false
     
     
-    @MainActor private var healthKitAuthorization: Bool {
-        // As HealthKit not available in preview simulator
-        if ProcessInfo.processInfo.isPreviewSimulator {
-            return false
-        }
-        
-        return healthKitDataSource.authorized
-    }
-    
-    
     var body: some View {
         OnboardingStack(onboardingFlowComplete: $completedOnboardingFlow) {
             Welcome()
@@ -50,7 +41,7 @@ struct OnboardingFlow: View {
                 Consent()
             #endif
             
-            if HKHealthStore.isHealthDataAvailable() && !healthKitAuthorization {
+            if HKHealthStore.isHealthDataAvailable() {
                 HealthKitPermissions()
             }
             
