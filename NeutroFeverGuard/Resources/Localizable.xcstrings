@@ -127,22 +127,22 @@
         }
       }
     },
-    "Body Temperature Over Time" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Basal Body Temperature Over Time"
-          }
-        }
-      }
-    },
     "Body Temperature (°F)" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Body Temperature (°F)"
+          }
+        }
+      }
+    },
+    "Body Temperature Over Time" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Basal Body Temperature Over Time"
           }
         }
       }
@@ -301,6 +301,7 @@
       }
     },
     "HKVIZ_AVERAGE_STRING" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -310,7 +311,11 @@
         }
       }
     },
+    "HKVIZ_AVERAGE_STRING: " : {
+
+    },
     "HKVIZ_MAX_STRING" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -320,7 +325,11 @@
         }
       }
     },
+    "HKVIZ_MAX_STRING: " : {
+
+    },
     "HKVIZ_MIN_STRING" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -330,7 +339,11 @@
         }
       }
     },
+    "HKVIZ_MIN_STRING: " : {
+
+    },
     "HKVIZ_SUMMARY" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -339,6 +352,9 @@
           }
         }
       }
+    },
+    "HKVIZ_SUMMARY: " : {
+
     },
     "HL7 FHIR" : {
       "localizations" : {
@@ -511,6 +527,7 @@
       }
     },
     "No basal body temperature data available." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -519,6 +536,9 @@
           }
         }
       }
+    },
+    "No body temperature data available." : {
+
     },
     "No heart rate data available." : {
       "localizations" : {
@@ -779,9 +799,6 @@
           }
         }
       }
-    },
-    "Vitals Dashboard" : {
-
     },
     "WELCOME_AREA1_DESCRIPTION" : {
       "localizations" : {

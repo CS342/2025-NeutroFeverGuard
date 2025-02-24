@@ -51,12 +51,14 @@ struct HomeView: View {
                 ScheduleView(presentingAccount: $presentingAccount)
             }
             .customizationID("home.schedule")
+            .accessibilityIdentifier("Schedule")
             
             // Contacts tab
             Tab("Contacts", systemImage: "person.fill", value: .contact) {
                 Contacts(presentingAccount: $presentingAccount)
             }
             .customizationID("home.contacts")
+            .accessibilityIdentifier("Contacts")
         }
         .tabViewStyle(.sidebarAdaptable)
         .tabViewCustomization($tabViewCustomization)
