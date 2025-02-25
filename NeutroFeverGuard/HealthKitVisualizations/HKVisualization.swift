@@ -9,6 +9,7 @@
 import Charts
 import Foundation
 import HealthKit
+import SpeziAccount
 import SwiftUI
 
 struct HKData: Identifiable {
@@ -28,6 +29,8 @@ struct HKVisualization: View {
     @State var heartRateScatterData: [HKData] = []
     @State var oxygenSaturationScatterData: [HKData] = []
     @State var bodyTemperatureScatterData: [HKData] = []
+    @Environment(Account.self) private var account: Account?
+    @Binding var presentingAccount: Bool
     
     var body: some View {
         // swiftlint:disable closure_body_length
@@ -77,6 +80,8 @@ struct HKVisualization: View {
                         Text("No oxygen saturation data available.")
                             .foregroundColor(.gray)
                     }
+                }
+                .toolbar {if account != nil {AccountButton(isPresented: $presentingAccount)}
                 }
             }
             .navigationTitle("Vitals Dashboard")

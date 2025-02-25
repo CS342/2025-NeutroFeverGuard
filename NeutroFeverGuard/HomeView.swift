@@ -30,7 +30,7 @@ struct HomeView: View {
         TabView(selection: $selectedTab) {
             // Dashboard tab (HKVisualization)
             Tab("Dashboard", systemImage: "heart.text.square", value: .dashboard) {
-                HKVisualization()
+                HKVisualization(presentingAccount: $presentingAccount)
             }
             .customizationID("home.dashboard")
             

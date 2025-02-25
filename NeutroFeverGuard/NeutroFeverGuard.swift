@@ -22,7 +22,7 @@ struct NeutroFeverGuard: App {
         WindowGroup {
             ZStack {
                 if completedOnboardingFlow {
-                      HomeView()
+                    HomeView()
                 } else {
                     EmptyView()
                 }
