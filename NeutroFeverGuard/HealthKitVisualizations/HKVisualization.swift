@@ -81,8 +81,8 @@ struct HKVisualization: View {
                             .foregroundColor(.gray)
                     }
                 }
-            }
-            .toolbar {if account != nil {AccountButton(isPresented: $presentingAccount)}
+                .toolbar {if account != nil {AccountButton(isPresented: $presentingAccount)}
+                }
             }
             .navigationTitle("Vitals Dashboard")
             .onAppear {
