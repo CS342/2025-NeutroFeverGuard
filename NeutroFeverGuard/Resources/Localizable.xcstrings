@@ -127,24 +127,22 @@
         }
       }
     },
-    "Basal Body Temperature Over Time" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Basal Body Temperature Over Time"
-          }
-        }
-      }
-    },
     "Body Temperature (°F)" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Body Temperature (°F)"
+          }
+        }
+      }
+    },
+    "Body Temperature Over Time" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Basal Body Temperature Over Time"
           }
         }
       }
@@ -198,6 +196,9 @@
           }
         }
       }
+    },
+    "Dashboard" : {
+
     },
     "Date" : {
       "localizations" : {
@@ -305,6 +306,7 @@
       }
     },
     "HKVIZ_AVERAGE_STRING" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -314,7 +316,11 @@
         }
       }
     },
+    "HKVIZ_AVERAGE_STRING: " : {
+
+    },
     "HKVIZ_MAX_STRING" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -324,7 +330,11 @@
         }
       }
     },
+    "HKVIZ_MAX_STRING: " : {
+
+    },
     "HKVIZ_MIN_STRING" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -334,13 +344,11 @@
         }
       }
     },
-    "HKVIZ_NAVIGATION_TITLE" : {
-
-    },
-    "HKVIZ_PLOT_HEART_TITLE" : {
+    "HKVIZ_MIN_STRING: " : {
 
     },
     "HKVIZ_SUMMARY" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -349,6 +357,9 @@
           }
         }
       }
+    },
+    "HKVIZ_SUMMARY: " : {
+
     },
     "HL7 FHIR" : {
       "localizations" : {
@@ -529,10 +540,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No basal body temperature data available."
+            "value" : "No body temperature data available."
           }
         }
       }
+    },
+    "No body temperature data available." : {
+
     },
     "No heart rate data available." : {
       "extractionState" : "stale",
@@ -540,7 +554,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Now heart rate data available."
+            "value" : "No heart rate data available."
           }
         }
       }

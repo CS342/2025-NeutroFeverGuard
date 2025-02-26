@@ -1,3 +1,4 @@
+// swiftlint:disable orphaned_doc_comment
 //
 // This source file is part of the NeutroFeverGuard based on the Stanford Spezi Template Application project
 //
@@ -22,10 +23,10 @@ enum FeatureFlags {
     static let useFirebaseEmulator = CommandLine.arguments.contains("--useFirebaseEmulator")
     #endif
     /// Automatically sign in into a test account upon app launch.
-    ///
+
     /// Requires ``disableFirebase`` to be `false`.
     static let setupTestAccount = CommandLine.arguments.contains("--setupTestAccount")
     
-    // Defines whether to use the mock data for testing the application. This should only be set to true in UI tests.
+    /// Defines whether to use the mock data for testing the application. This should only be set to true in UI tests.
     // static let mockTestData = CommandLine.arguments.contains("--mockTestData")
 }
