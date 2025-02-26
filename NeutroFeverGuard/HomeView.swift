@@ -39,12 +39,14 @@ struct HomeView: View {
                 AddDataView(presentingAccount: $presentingAccount)
             }
             .customizationID("home.addData")
+            .accessibilityIdentifier("Add Data")
             
             // Lab tab
             Tab("Lab", systemImage: "flask", value: .labResult) {
                 LabView(presentingAccount: $presentingAccount)
             }
             .customizationID("home.lab")
+            .accessibilityIdentifier("Lab")
             
             // Schedule tab
             Tab("Schedule", systemImage: "list.clipboard", value: .schedule) {
