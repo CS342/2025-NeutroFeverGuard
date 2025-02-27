@@ -158,8 +158,7 @@ struct LabView: View {
             } else {
                 latestRecordedTime = "None"
             }
-        }
-        else {
+        } else {
             var results: [LabEntry]
             do {
                 results = try localStorage.read([LabEntry].self, storageKey: "labResults")
