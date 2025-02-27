@@ -141,6 +141,7 @@ struct LabView: View {
             }
         }
     }
+  
     private func loadLabResults() {
         if FeatureFlags.mockLabData {
             do {
