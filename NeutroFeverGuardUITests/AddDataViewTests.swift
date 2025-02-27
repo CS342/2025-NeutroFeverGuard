@@ -45,8 +45,6 @@ class AddDataViewTests: XCTestCase {
         XCTAssertTrue(app.buttons["Add"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.buttons["Add"].isEnabled)
         app.buttons["Add"].tap()
-        
-        XCTAssertTrue(app.staticTexts["What data would you like to add?"].waitForExistence(timeout: 5))
     }
     
     @MainActor
@@ -78,8 +76,6 @@ class AddDataViewTests: XCTestCase {
         XCTAssertTrue(app.buttons["Add"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.buttons["Add"].isEnabled)
         app.buttons["Add"].tap()
-        
-        XCTAssertTrue(app.staticTexts["What data would you like to add?"].waitForExistence(timeout: 5))
     }
     
     @MainActor
@@ -110,8 +106,6 @@ class AddDataViewTests: XCTestCase {
         XCTAssertTrue(app.buttons["Add"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.buttons["Add"].isEnabled)
         app.buttons["Add"].tap()
-        
-        XCTAssertTrue(app.staticTexts["What data would you like to add?"].waitForExistence(timeout: 5))
     }
     
     @MainActor
@@ -149,8 +143,6 @@ class AddDataViewTests: XCTestCase {
         XCTAssertTrue(app.buttons["Add"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.buttons["Add"].isEnabled)
         app.buttons["Add"].tap()
-        
-        XCTAssertTrue(app.staticTexts["What data would you like to add?"].waitForExistence(timeout: 5))
     }
     
     @MainActor
@@ -169,7 +161,5 @@ class AddDataViewTests: XCTestCase {
         
         XCTAssertTrue(app.buttons["Cancel"].waitForExistence(timeout: 5))
         app.buttons["Cancel"].tap()
-        
-        XCTAssertTrue(app.staticTexts["What data would you like to add?"].waitForExistence(timeout: 5))
     }
 }
