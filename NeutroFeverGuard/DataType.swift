@@ -133,7 +133,7 @@ struct BloodPressureEntry {
  - Name of lab: white blood cell count, hemoglobin, platelet count, %neutrophils, %lymphocytes, %monocytes, %eosinophils, %basophils, %blasts
  - Lab values: include the number associated with the lab name above
  */
-// periphery:ignore
+
 struct LabEntry: Codable {
     let date: Date
     var values: [LabTestType: Double]

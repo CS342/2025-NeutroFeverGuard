@@ -34,7 +34,7 @@ struct AddDataView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color(.systemGray6).ignoresSafeArea()
+                Color(.systemBackground).ignoresSafeArea()
                 VStack {
                     Text("What data would you like to add?")
                         .font(.title2)
@@ -48,10 +48,11 @@ struct AddDataView: View {
                             }) {
                                 VStack {
                                     Text(item.emoji).font(.system(size: 40))
-                                    Text(item.name).font(.headline) .foregroundColor(.primary)
+                                    Text(item.name).font(.headline)
+                                        .foregroundColor(.primary)
                                 }
                                 .frame(width: 140, height: 100)
-                                .background(Color(.white))
+                                .background(Color(.systemGray6))
                                 .cornerRadius(12)
                             }
                         }
@@ -63,7 +64,6 @@ struct AddDataView: View {
                 }
                 .toolbar {if account != nil {AccountButton(isPresented: $presentingAccount)}
                 }
-                .background(Color(.systemGray6))
             }
         }
     }
