@@ -20,6 +20,7 @@ struct HKData: Identifiable {
     var maxValue: Double
 }
 
+// periphery:ignore
 struct HKVisualization: View {
     // swiftlint:disable closure_body_length
     @State var bodyTemperatureData: [HKData] = []
