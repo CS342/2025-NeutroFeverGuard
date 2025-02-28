@@ -22,25 +22,6 @@ class AddDataViewTests: XCTestCase {
     }
     
     @MainActor
-    func testDataTypesExist() throws {
-        let app = XCUIApplication()
-        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 2.0))
-
-        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Add Data"].waitForExistence(timeout: 5))
-        app.tabBars["Tab Bar"].buttons["Add Data"].tap()
-
-        let dataTypes = [
-            "Temperature", "Heart Rate", "Oxygen Saturation",
-            "Blood Pressure", "Lab Results", "Medication"
-        ]
-
-        for type in dataTypes {
-            XCTAssertTrue(app.staticTexts[type].waitForExistence(timeout: 5), "\(type) should be visible")
-        }
-    }
-
-    
-    @MainActor
     func testHeartRateDataInput() throws {
         let app = XCUIApplication()
         
@@ -67,6 +48,21 @@ class AddDataViewTests: XCTestCase {
         app.buttons["Add"].tap()
         try app.handleHealthKitAuthorization()
         XCTAssertTrue(app.staticTexts["What data would you like to add?"].waitForExistence(timeout: 5))
+        
+        // invalid input
+        XCTAssertTrue(app.staticTexts["Heart Rate"].waitForExistence(timeout: 5))
+        app.staticTexts["Heart Rate"].tap()
+        
+        XCTAssertTrue(heartRateField.waitForExistence(timeout: 5))
+        heartRateField.tap()
+        
+        XCTAssertTrue(app.buttons["Add"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["Add"].isEnabled)
+        
+        heartRateField.typeText("invalid")
+        XCTAssertTrue(app.buttons["Add"].waitForExistence(timeout: 5))
+        app.buttons["Add"].tap()
+        XCTAssertTrue(app.staticTexts["Error"].waitForExistence(timeout: 5))
     }
     
     @MainActor
@@ -99,6 +95,21 @@ class AddDataViewTests: XCTestCase {
         app.buttons["Add"].tap()
         try app.handleHealthKitAuthorization()
         XCTAssertTrue(app.staticTexts["What data would you like to add?"].waitForExistence(timeout: 5))
+        
+        // invalid input
+        XCTAssertTrue(app.staticTexts["Temperature"].waitForExistence(timeout: 5))
+        app.staticTexts["Temperature"].tap()
+        
+        XCTAssertTrue(app.buttons["Add"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["Add"].isEnabled)
+        
+        XCTAssertTrue(temperatureField.waitForExistence(timeout: 5))
+        temperatureField.tap()
+        temperatureField.typeText("invalid")
+        
+        XCTAssertTrue(app.buttons["Add"].waitForExistence(timeout: 5))
+        app.buttons["Add"].tap()
+        XCTAssertTrue(app.staticTexts["Error"].waitForExistence(timeout: 5))
     }
     
     @MainActor
@@ -131,6 +142,22 @@ class AddDataViewTests: XCTestCase {
         app.buttons["Add"].tap()
         try app.handleHealthKitAuthorization()
         XCTAssertTrue(app.staticTexts["What data would you like to add?"].waitForExistence(timeout: 5))
+        
+        // invalid input
+        XCTAssertTrue(app.staticTexts["Blood Pressure"].waitForExistence(timeout: 5))
+        app.staticTexts["Blood Pressure"].tap()
+        
+        textFields[0].tap()
+        textFields[0].typeText("120")
+        
+        XCTAssertTrue(app.buttons["Add"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["Add"].isEnabled)
+        
+        textFields[1].tap()
+        textFields[1].typeText("invalid")
+        
+        app.buttons["Add"].tap()
+        XCTAssertTrue(app.staticTexts["Error"].waitForExistence(timeout: 5))
     }
     
     @MainActor
@@ -159,6 +186,20 @@ class AddDataViewTests: XCTestCase {
         app.buttons["Add"].tap()
         try app.handleHealthKitAuthorization()
         XCTAssertTrue(app.staticTexts["What data would you like to add?"].waitForExistence(timeout: 5))
+        
+        // invalid input
+        XCTAssertTrue(app.staticTexts["Oxygen Saturation"].waitForExistence(timeout: 5))
+        app.staticTexts["Oxygen Saturation"].tap()
+        
+        XCTAssertTrue(app.buttons["Add"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["Add"].isEnabled)
+        
+        textFields[0].tap()
+        textFields[0].typeText("invalid")
+        
+        XCTAssertTrue(app.buttons["Add"].waitForExistence(timeout: 5))
+        app.buttons["Add"].tap()
+        XCTAssertTrue(app.staticTexts["Error"].waitForExistence(timeout: 5))
     }
     
     @MainActor
@@ -198,6 +239,30 @@ class AddDataViewTests: XCTestCase {
         app.buttons["Add"].tap()
         try app.handleHealthKitAuthorization()
         XCTAssertTrue(app.staticTexts["What data would you like to add?"].waitForExistence(timeout: 5))
+        
+        // invalid input
+        XCTAssertTrue(app.staticTexts["Lab Results"].waitForExistence(timeout: 5))
+        app.staticTexts["Lab Results"].tap()
+        
+        XCTAssertTrue(app.buttons["Add"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["Add"].isEnabled)
+
+        let labValues2 = [
+            "invalid", "14.2", "250000", "60", "30", "5", "3", "1", "0"
+        ]
+        
+        for (index, test) in labTests.enumerated() {
+            let testRow = app.staticTexts[test]
+            XCTAssertTrue(testRow.waitForExistence(timeout: 5))
+            
+            let textField = app.cells.containing(.staticText, identifier: test).textFields.firstMatch
+            textField.tap()
+            textField.typeText(labValues2[index])
+        }
+        
+        XCTAssertTrue(app.buttons["Add"].waitForExistence(timeout: 5))
+        app.buttons["Add"].tap()
+        XCTAssertTrue(app.staticTexts["Error"].waitForExistence(timeout: 5))
     }
     
     @MainActor
