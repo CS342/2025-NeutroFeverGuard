@@ -8,6 +8,7 @@
 
 import XCTest
 import XCTestExtensions
+import XCTHealthKit
 
 
 class AddDataViewTests: XCTestCase {
@@ -64,6 +65,8 @@ class AddDataViewTests: XCTestCase {
         XCTAssertTrue(app.buttons["Add"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.buttons["Add"].isEnabled)
         app.buttons["Add"].tap()
+        try app.handleHealthKitAuthorization()
+        XCTAssertTrue(app.staticTexts["What data would you like to add?"].waitForExistence(timeout: 5))
     }
     
     @MainActor
@@ -94,6 +97,8 @@ class AddDataViewTests: XCTestCase {
         XCTAssertTrue(app.buttons["Add"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.buttons["Add"].isEnabled)
         app.buttons["Add"].tap()
+        try app.handleHealthKitAuthorization()
+        XCTAssertTrue(app.staticTexts["What data would you like to add?"].waitForExistence(timeout: 5))
     }
     
     @MainActor
@@ -124,6 +129,8 @@ class AddDataViewTests: XCTestCase {
         XCTAssertTrue(app.buttons["Add"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.buttons["Add"].isEnabled)
         app.buttons["Add"].tap()
+        try app.handleHealthKitAuthorization()
+        XCTAssertTrue(app.staticTexts["What data would you like to add?"].waitForExistence(timeout: 5))
     }
     
     @MainActor
@@ -150,6 +157,8 @@ class AddDataViewTests: XCTestCase {
         XCTAssertTrue(app.buttons["Add"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.buttons["Add"].isEnabled)
         app.buttons["Add"].tap()
+        try app.handleHealthKitAuthorization()
+        XCTAssertTrue(app.staticTexts["What data would you like to add?"].waitForExistence(timeout: 5))
     }
     
     @MainActor
@@ -187,6 +196,8 @@ class AddDataViewTests: XCTestCase {
         XCTAssertTrue(app.buttons["Add"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.buttons["Add"].isEnabled)
         app.buttons["Add"].tap()
+        try app.handleHealthKitAuthorization()
+        XCTAssertTrue(app.staticTexts["What data would you like to add?"].waitForExistence(timeout: 5))
     }
     
     @MainActor
@@ -205,5 +216,7 @@ class AddDataViewTests: XCTestCase {
         
         XCTAssertTrue(app.buttons["Cancel"].waitForExistence(timeout: 5))
         app.buttons["Cancel"].tap()
+        try app.handleHealthKitAuthorization()
+        XCTAssertTrue(app.staticTexts["What data would you like to add?"].waitForExistence(timeout: 5))
     }
 }
