@@ -21,6 +21,25 @@ class AddDataViewTests: XCTestCase {
     }
     
     @MainActor
+    func testDataTypesExist() throws {
+        let app = XCUIApplication()
+        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 2.0))
+
+        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Add Data"].waitForExistence(timeout: 5))
+        app.tabBars["Tab Bar"].buttons["Add Data"].tap()
+
+        let dataTypes = [
+            "Temperature", "Heart Rate", "Oxygen Saturation",
+            "Blood Pressure", "Lab Results", "Medication"
+        ]
+
+        for type in dataTypes {
+            XCTAssertTrue(app.staticTexts[type].waitForExistence(timeout: 5), "\(type) should be visible")
+        }
+    }
+
+    
+    @MainActor
     func testHeartRateDataInput() throws {
         let app = XCUIApplication()
         
@@ -67,7 +86,6 @@ class AddDataViewTests: XCTestCase {
         temperatureField.tap()
         temperatureField.typeText("98.6")
         
-        let unitPicker = app.pickers.element
         XCTAssertTrue(app.buttons["°F"].waitForExistence(timeout: 5))
         app.buttons["°F"].tap()
         XCTAssertTrue(app.staticTexts["°F"].waitForExistence(timeout: 5))
