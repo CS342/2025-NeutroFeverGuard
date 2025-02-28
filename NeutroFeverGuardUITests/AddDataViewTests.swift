@@ -127,6 +127,32 @@ class AddDataViewTests: XCTestCase {
     }
     
     @MainActor
+    func testOxygenSaturationDataInput() throws {
+        let app = XCUIApplication()
+        
+        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 2.0))
+        
+        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Add Data"].waitForExistence(timeout: 5))
+        app.tabBars["Tab Bar"].buttons["Add Data"].tap()
+        
+        XCTAssertTrue(app.staticTexts["Oxygen Saturation"].waitForExistence(timeout: 5))
+        app.staticTexts["Oxygen Saturation"].tap()
+        
+        XCTAssertTrue(app.navigationBars["Oxygen Saturation"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Percentage (%)"].waitForExistence(timeout: 5))
+        
+        let textFields = app.textFields.allElementsBoundByIndex
+        XCTAssertEqual(textFields.count, 1)
+        
+        textFields[0].tap()
+        textFields[0].typeText("99")
+        
+        XCTAssertTrue(app.buttons["Add"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Add"].isEnabled)
+        app.buttons["Add"].tap()
+    }
+    
+    @MainActor
     func testLabResultsDataInput() throws {
         let app = XCUIApplication()
         
