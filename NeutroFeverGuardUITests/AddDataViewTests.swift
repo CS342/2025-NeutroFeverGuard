@@ -149,12 +149,12 @@ class AddDataViewTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Blood Pressure"].waitForExistence(timeout: 5))
         app.staticTexts["Blood Pressure"].tap()
         
+        XCTAssertTrue(app.buttons["Add"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["Add"].isEnabled)
+        
         let textFields2 = app.textFields.allElementsBoundByIndex
         textFields2[0].tap()
         textFields2[0].typeText("120")
-        
-        XCTAssertTrue(app.buttons["Add"].waitForExistence(timeout: 5))
-        XCTAssertFalse(app.buttons["Add"].isEnabled)
         
         textFields2[1].tap()
         textFields2[1].typeText("invalid")
