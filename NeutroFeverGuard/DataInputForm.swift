@@ -116,7 +116,7 @@ struct DataInputForm: View {
     }
 
     func addHeartRate() async {
-        guard let bpm = Double(inputValue) else {
+        guard let bpm = parseLocalizedNumber(inputValue) else {
             alertMessage = "BPM must be a valid number"
             return
         }
@@ -132,7 +132,7 @@ struct DataInputForm: View {
     }
 
     func addTemperature() async {
-        guard let value = Double(inputValue) else {
+        guard let value = parseLocalizedNumber(inputValue) else {
             alertMessage = "Temperature must be a valid number"
             return
         }
@@ -148,7 +148,7 @@ struct DataInputForm: View {
     }
 
     func addOxygenSaturation() async {
-        guard let percentage = Double(inputValue) else {
+        guard let percentage = parseLocalizedNumber(inputValue) else {
             alertMessage = "Percentage must be a valid number"
             return
         }
@@ -164,7 +164,8 @@ struct DataInputForm: View {
     }
 
     func addBloodPressure() async {
-        guard let systolic = Double(systolicValue), let diastolic = Double(diastolicValue) else {
+        guard let systolic = parseLocalizedNumber(systolicValue),
+              let diastolic = parseLocalizedNumber(diastolicValue) else {
             alertMessage = "Blood pressure values must be valid numbers"
             return
         }
@@ -183,7 +184,7 @@ struct DataInputForm: View {
         var parsedValues: [LabTestType: Double] = [:]
         
         for (testType, valueString) in labValues {
-            if let value = Double(valueString) {
+            if let value = parseLocalizedNumber(valueString) {
                 parsedValues[testType] = value
             } else {
                 alertMessage = "\(testType.rawValue) must be a valid number"
@@ -201,7 +202,6 @@ struct DataInputForm: View {
     }
 }
 
-// periphery:ignore
 struct LabResultsForm: View {
     @Binding var labValues: [LabTestType: String]
     
@@ -233,28 +233,6 @@ struct LabResultsForm: View {
             Text(unit)
                 .frame(minWidth: 60, alignment: .leading)
                 .foregroundColor(.gray)
-        }
-    }
-}
-
-// periphery:ignore
-struct LabeledTextField: View {
-    let label: String
-    @Binding var value: String
-    
-    // swiftlint:disable:next type_contents_order
-    init(_ label: String, value: Binding<String>) {
-        self.label = label
-        self._value = value
-    }
-    
-    var body: some View {
-        HStack {
-            Text(label)
-            Spacer()
-            TextField("value", text: $value)
-                .keyboardType(.decimalPad)
-                .multilineTextAlignment(.trailing)
         }
     }
 }

@@ -124,9 +124,21 @@ actor HealthKitService {
 
         try await healthStore.save(bloodPressureCorrelation)
     }
-
-    func saveLabEntry(_ entry: LabEntry, key: String? = nil) async throws {
-        let finalKey = key ?? "labEntry-\(UUID().uuidString)"
-        try localStorage.store(entry, storageKey: finalKey)
+    
+    
+    func saveLabEntry(_ entry: LabEntry) async throws {
+        let storageKey = "labResults"
+        var labResults: [LabEntry]
+        
+        do {
+            labResults = try localStorage.read([LabEntry].self, storageKey: storageKey)
+        } catch {
+            labResults = []
+        }
+        
+        labResults.append(entry)
+//        print(labResults)
+        
+        try localStorage.store(labResults, storageKey: storageKey)
     }
 }

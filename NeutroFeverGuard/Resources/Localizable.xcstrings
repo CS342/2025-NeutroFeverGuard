@@ -526,6 +526,9 @@
         }
       }
     },
+    "No ANC data available" : {
+
+    },
     "No basal body temperature data available." : {
       "extractionState" : "stale",
       "localizations" : {
@@ -549,6 +552,9 @@
           }
         }
       }
+    },
+    "No lab results recorded" : {
+
     },
     "No oxygen saturation data available." : {
       "localizations" : {
