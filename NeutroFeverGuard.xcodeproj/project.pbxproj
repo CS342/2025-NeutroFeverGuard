@@ -52,6 +52,8 @@
 		5680DD3E2AB8CD84004E6D4A /* ContributionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5680DD3D2AB8CD84004E6D4A /* ContributionsTest.swift */; };
 		56E708352BB06B7100B08F0A /* SpeziLicense in Frameworks */ = {isa = PBXBuildFile; productRef = 56E708342BB06B7100B08F0A /* SpeziLicense */; };
 		56E7083B2BB06F6F00B08F0A /* SwiftPackageList in Frameworks */ = {isa = PBXBuildFile; productRef = 56E7083A2BB06F6F00B08F0A /* SwiftPackageList */; };
+		6522D2582D74057000888C4B /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = F2A54D362D5DE24400A20113 /* FirebaseCore */; };
+		6522D2592D74057000888C4B /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F2A54D382D5DE24E00A20113 /* FirebaseFirestore */; };
 		653A2551283387FE005D4D48 /* NeutroFeverGuard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653A2550283387FE005D4D48 /* NeutroFeverGuard.swift */; };
 		653A255528338800005D4D48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 653A255428338800005D4D48 /* Assets.xcassets */; };
 		653A256C28338800005D4D48 /* SchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653A256B28338800005D4D48 /* SchedulerTests.swift */; };
@@ -223,8 +225,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4C8A3552D6F94C800F313AE /* FirebaseFirestore in Frameworks */,
-				C4C8A3542D6F94C800F313AE /* FirebaseCore in Frameworks */,
+				6522D2592D74057000888C4B /* FirebaseFirestore in Frameworks */,
+				6522D2582D74057000888C4B /* FirebaseCore in Frameworks */,
 				2FE5DC9929EDD9D9004B9AB4 /* XCTestExtensions in Frameworks */,
 				2FE5DC9C29EDD9EF004B9AB4 /* XCTHealthKit in Frameworks */,
 				A994264E2CD25EB3002F8BD5 /* XCTSpeziAccount in Frameworks */,
@@ -511,7 +513,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1600;
+				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					653A254C283387FE005D4D48 = {
 						CreatedOnToolsVersion = 13.4;
@@ -644,7 +646,6 @@
 				EB02C6612D5D52E90035AA89 /* NeutroFeverGuardTests.swift in Sources */,
 				C4C8A3B32D71204200F313AE /* HelperFuncTests.swift in Sources */,
 				C49EC8382D5026EE005C3495 /* DataTypeTest.swift in Sources */,
-				C49EC8382D5026EE005C3495 /* DataTypeTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -764,7 +765,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "NeutroFeverGuard/Supporting Files/NeutroFeverGuard.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = "";
@@ -972,7 +973,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "NeutroFeverGuard/Supporting Files/NeutroFeverGuard.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = "";
@@ -1017,10 +1018,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "NeutroFeverGuard/Supporting Files/NeutroFeverGuard.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 637867499T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "NeutroFeverGuard/Supporting Files/Info.plist";
@@ -1046,6 +1049,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs342.2025.neutrofeverguard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "CS342 2025 NeutroFeverGuard";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
