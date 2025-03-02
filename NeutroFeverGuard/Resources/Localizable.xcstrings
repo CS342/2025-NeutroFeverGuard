@@ -280,11 +280,7 @@
         }
       }
     },
-    "Heart Rate (beats/min)" : {
-
-    },
     "Heart Rate (bpm)" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -295,7 +291,6 @@
       }
     },
     "Heart Rate Over Time" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -549,7 +544,6 @@
 
     },
     "No heart rate data available." : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -563,7 +557,6 @@
 
     },
     "No oxygen saturation data available." : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -614,7 +607,6 @@
       }
     },
     "Oxygen Saturation (%)" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -625,7 +617,6 @@
       }
     },
     "Oxygen Saturation Over Time" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -806,7 +797,6 @@
       }
     },
     "Vitals Dashboard" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
