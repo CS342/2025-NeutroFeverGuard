@@ -141,23 +141,41 @@ struct LabView: View {
             }
         }
     }
-    
+  
     private func loadLabResults() {
-        var results: [LabEntry]
-        do {
-            results = try localStorage.read([LabEntry].self, storageKey: "labResults")
-            results.sort { $0.date > $1.date }
-            labRecords = results
-            
-            if let latestRecord = results.first {
+        if FeatureFlags.mockLabData {
+            do {
+                labRecords = [
+                    try LabEntry(date: Date(), values: [
+                        .whiteBloodCell: 4000, . neutrophils: 40, .hemoglobin: 13.5, .plateletCount: 250000,
+                        .lymphocytes: 30, .monocytes: 5, .eosinophils: 3, .basophils: 1, .blasts: 0
+                    ])
+                ]
+            } catch {
+                print("Failed to load mock data")
+            }
+            if let latestRecord = labRecords.first {
                 latestRecordedTime = formatDate(latestRecord.date)
             } else {
                 latestRecordedTime = "None"
             }
-        } catch {
-            print("Failed to load lab results: \(error)")
-            labRecords = []
-            latestRecordedTime = "None"
+        } else {
+            var results: [LabEntry]
+            do {
+                results = try localStorage.read([LabEntry].self, storageKey: "labResults")
+                results.sort { $0.date > $1.date }
+                labRecords = results
+                
+                if let latestRecord = results.first {
+                    latestRecordedTime = formatDate(latestRecord.date)
+                } else {
+                    latestRecordedTime = "None"
+                }
+            } catch {
+                print("Failed to load lab results: \(error)")
+                labRecords = []
+                latestRecordedTime = "None"
+            }
         }
     }
 

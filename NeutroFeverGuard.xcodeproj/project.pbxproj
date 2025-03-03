@@ -75,7 +75,13 @@
 		C49EC8382D5026EE005C3495 /* DataTypeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8372D5026EE005C3495 /* DataTypeTest.swift */; };
 		C49EC8402D5033F9005C3495 /* AddDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC83F2D5033F9005C3495 /* AddDataView.swift */; };
 		C49EC8532D5038AC005C3495 /* DataInputForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8522D5038AC005C3495 /* DataInputForm.swift */; };
+		C4A367C82D73C1EC009923C9 /* DataErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A367C72D73C1E1009923C9 /* DataErrorTests.swift */; };
 		C4C0A78F2D518DBC00F37EEC /* HelperFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0A78E2D518DB500F37EEC /* HelperFunc.swift */; };
+		C4C8A3542D6F94C800F313AE /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = F2A54D362D5DE24400A20113 /* FirebaseCore */; };
+		C4C8A3552D6F94C800F313AE /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F2A54D382D5DE24E00A20113 /* FirebaseFirestore */; };
+		C4C8A35F2D6F950600F313AE /* AddDataViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C8A35E2D6F950600F313AE /* AddDataViewTests.swift */; };
+		C4C8A3682D6F9E2100F313AE /* LabViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C8A3672D6F9E1A00F313AE /* LabViewUITests.swift */; };
+		C4C8A3B32D71204200F313AE /* HelperFuncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C8A3B22D71204200F313AE /* HelperFuncTests.swift */; };
 		EB02C6612D5D52E90035AA89 /* NeutroFeverGuardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653A256128338800005D4D48 /* NeutroFeverGuardTests.swift */; };
 		F223937A2D5D4095006C8EB4 /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22393792D5D4092006C8EB4 /* DataError.swift */; };
 		F2E6898F2D52ED8600869C4F /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E6898E2D52ED8500869C4F /* HealthKitService.swift */; };
@@ -144,7 +150,11 @@
 		C49EC8372D5026EE005C3495 /* DataTypeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTypeTest.swift; sourceTree = "<group>"; };
 		C49EC83F2D5033F9005C3495 /* AddDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDataView.swift; sourceTree = "<group>"; };
 		C49EC8522D5038AC005C3495 /* DataInputForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataInputForm.swift; sourceTree = "<group>"; };
+		C4A367C72D73C1E1009923C9 /* DataErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataErrorTests.swift; sourceTree = "<group>"; };
 		C4C0A78E2D518DB500F37EEC /* HelperFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunc.swift; sourceTree = "<group>"; };
+		C4C8A35E2D6F950600F313AE /* AddDataViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDataViewTests.swift; sourceTree = "<group>"; };
+		C4C8A3672D6F9E1A00F313AE /* LabViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabViewUITests.swift; sourceTree = "<group>"; };
+		C4C8A3B22D71204200F313AE /* HelperFuncTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFuncTests.swift; sourceTree = "<group>"; };
 		F22393792D5D4092006C8EB4 /* DataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataError.swift; sourceTree = "<group>"; };
 		F2E6898E2D52ED8500869C4F /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -347,6 +357,8 @@
 			isa = PBXGroup;
 			children = (
 				653A256128338800005D4D48 /* NeutroFeverGuardTests.swift */,
+				C4A367C72D73C1E1009923C9 /* DataErrorTests.swift */,
+				C4C8A3B22D71204200F313AE /* HelperFuncTests.swift */,
 				C49EC8372D5026EE005C3495 /* DataTypeTest.swift */,
 			);
 			path = NeutroFeverGuardTests;
@@ -355,7 +367,9 @@
 		653A256A28338800005D4D48 /* NeutroFeverGuardUITests */ = {
 			isa = PBXGroup;
 			children = (
+				C4C8A3672D6F9E1A00F313AE /* LabViewUITests.swift */,
 				653A256B28338800005D4D48 /* SchedulerTests.swift */,
+				C4C8A35E2D6F950600F313AE /* AddDataViewTests.swift */,
 				2F4E23862989DB360013F3D9 /* ContactsTests.swift */,
 				5680DD3D2AB8CD84004E6D4A /* ContributionsTest.swift */,
 			);
@@ -628,7 +642,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4A367C82D73C1EC009923C9 /* DataErrorTests.swift in Sources */,
 				EB02C6612D5D52E90035AA89 /* NeutroFeverGuardTests.swift in Sources */,
+				C4C8A3B32D71204200F313AE /* HelperFuncTests.swift in Sources */,
 				C49EC8382D5026EE005C3495 /* DataTypeTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -638,6 +654,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5680DD3E2AB8CD84004E6D4A /* ContributionsTest.swift in Sources */,
+				C4C8A3682D6F9E2100F313AE /* LabViewUITests.swift in Sources */,
+				C4C8A35F2D6F950600F313AE /* AddDataViewTests.swift in Sources */,
 				2F4E23872989DB360013F3D9 /* ContactsTests.swift in Sources */,
 				653A256C28338800005D4D48 /* SchedulerTests.swift in Sources */,
 			);

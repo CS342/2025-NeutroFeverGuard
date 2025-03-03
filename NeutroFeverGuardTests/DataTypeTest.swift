@@ -93,4 +93,15 @@ struct DataTypeTest {
             try LabEntry(date: invalidDate, values: values)
         }
     }
+    
+    @Test
+    func testDataTypesArray() {
+        let view = AddDataView(presentingAccount: .constant(false))
+        #expect(view.dataTypes.count == 6)
+        
+        let expectedNames = ["Temperature", "Heart Rate", "Oxygen Saturation", "Blood Pressure", "Lab Results", "Medication"]
+        let actualNames = view.dataTypes.map { $0.name }
+
+        #expect(expectedNames == actualNames)
+    }
 }
