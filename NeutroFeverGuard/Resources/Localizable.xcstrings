@@ -217,6 +217,9 @@
         }
       }
     },
+    "Enter Lab Results" : {
+
+    },
     "Error" : {
       "localizations" : {
         "en" : {
@@ -852,6 +855,9 @@
           }
         }
       }
+    },
+    "You haven't recorded your lab results for last 7 days. Record now!" : {
+
     },
     "Your Account" : {
       "localizations" : {
