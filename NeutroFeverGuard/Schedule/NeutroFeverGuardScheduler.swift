@@ -40,7 +40,7 @@ final class NeutroFeverGuardScheduler: Module, DefaultInitializable, Environment
                 title: "Enter Lab Results",
                 instructions: "You haven't recorded your lab results for last 7 days. Record now!",
                 category: .measurement,
-                schedule: .daily(hour: 15, minute: 01, startingAt: .today),
+                schedule: .daily(hour: 9, minute: 0, startingAt: .today),
                 scheduleNotifications: true
             )
         } catch {
@@ -51,7 +51,8 @@ final class NeutroFeverGuardScheduler: Module, DefaultInitializable, Environment
     @MainActor
     func markRecentEventsAsComplete(_ recordTime: Date = Date()) {
         print("in markRecentEventsAsComplete")
-        guard let sevenDaysLater = Calendar.current.date(byAdding: .day, value: 7, to: recordTime) else { return }
+        guard let sevenDaysLater = Calendar.current.date(byAdding: .day, value: 7, to: recordTime)
+                                    else { return }
         
         do {
             let events = try scheduler.queryEvents(for: recordTime..<sevenDaysLater, predicate: #Predicate { $0.id == "enter-lab-result" })
