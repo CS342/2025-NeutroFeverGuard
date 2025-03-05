@@ -131,7 +131,7 @@ actor HealthKitService {
         var labResults: [LabEntry]
         
         do {
-            labResults = try localStorage.read([LabEntry].self, storageKey: storageKey)
+            labResults = try localStorage.load(LocalStorageKey<[LabEntry]>(storageKey)) ?? []
         } catch {
             labResults = []
         }
@@ -139,6 +139,6 @@ actor HealthKitService {
         labResults.append(entry)
 //        print(labResults)
         
-        try localStorage.store(labResults, storageKey: storageKey)
+        try localStorage.store(labResults, for: LocalStorageKey(storageKey))
     }
 }

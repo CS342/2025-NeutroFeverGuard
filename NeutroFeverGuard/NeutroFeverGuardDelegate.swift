@@ -15,11 +15,11 @@ import SpeziFirebaseAccountStorage
 import SpeziFirebaseStorage
 import SpeziFirestore
 import SpeziHealthKit
+import SpeziKeychainStorage
 import SpeziLocalStorage
 import SpeziNotifications
 import SpeziOnboarding
 import SpeziScheduler
-import SpeziSecureStorage
 import SwiftUI
 
 
