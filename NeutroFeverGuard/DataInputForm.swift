@@ -201,7 +201,7 @@ struct DataInputForm: View {
                     BloodPressureForm(systolicValue: $systolicValue, diastolicValue: $diastolicValue)
                 } else if dataType == "Lab Results" {
                     LabResultsForm(labValues: $labValues)
-                } else if dataType == "Medication"{
+                } else if dataType == "Medication" {
                     MedicationForm( medicationName: $medicationName, doseValue: $doseValue, doseUnit: $doseUnit)
                 }
             }
