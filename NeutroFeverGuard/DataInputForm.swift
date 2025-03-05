@@ -49,54 +49,22 @@ struct MedicationForm: View {
     @Binding var medicationName: String
     @Binding var doseValue: String
     @Binding var doseUnit: DoseUnit
-    @Binding var startDate: Date
-    @Binding var endDate: Date?
-    
-    var scheduleDuration: String {
-        guard let end = endDate
-            else { return "No end date" }
-        let components = Calendar.current.dateComponents([.day], from: startDate, to: end)
-        if let days = components.day {
-            return "\(days) days"
-        }
-        return "Invalid date range"
-    }
     
     var body: some View {
-        Section {
-            HStack {
-                Text("Name")
-                Spacer()
-                TextField("Medication Name", text: $medicationName).multilineTextAlignment(.trailing)
+        HStack {
+            Text("Name")
+            Spacer()
+            TextField("Medication Name", text: $medicationName).multilineTextAlignment(.trailing)
+        }
+        HStack {
+            Text("Dose")
+            Spacer()
+            TextField("Amount", text: $doseValue)
+                .keyboardType(.decimalPad) .multilineTextAlignment(.trailing) .frame(width: 80)
+            Picker("", selection: $doseUnit) {
+                ForEach(DoseUnit.allCases, id: \.self) { unit in Text(unit.rawValue).tag(unit) }
             }
-            HStack {
-                Text("Dose")
-                Spacer()
-                TextField("Amount", text: $doseValue)
-                    .keyboardType(.decimalPad) .multilineTextAlignment(.trailing) .frame(width: 80)
-                Picker("", selection: $doseUnit) {
-                    ForEach(DoseUnit.allCases, id: \.self) { unit in Text(unit.rawValue).tag(unit) }
-                }
-                .pickerStyle(.menu) .frame(width: 70)
-            }
-            DatePicker("Start Date", selection: $startDate, displayedComponents: .date)
-            HStack {
-                if let endDate = endDate {
-                    DatePicker("End Date", selection: Binding( get: { endDate }, set: { self.endDate = $0 }), displayedComponents: .date)
-                    Button(action: { self.endDate = nil }) {
-                        Image(systemName: "xmark.circle.fill") .accessibility(label: Text("Clear End Date"))
-                    }
-                } else {
-                    Button("Set End Date") {
-                        self.endDate = Calendar.current.date(byAdding: .month, value: 1, to: startDate)
-                    }.foregroundColor(.blue)
-                }
-            }
-            HStack {
-                Text("Schedule Duration")
-                Spacer()
-                Text(scheduleDuration).foregroundColor(.gray)
-            }
+            .pickerStyle(.menu) .frame(width: 70)
         }
     }
 }
@@ -221,24 +189,20 @@ struct DataInputForm: View {
     var body: some View {
         NavigationView {
             Form {
-                if dataType == "Medication" {
-                    MedicationForm(
-                        medicationName: $medicationName, doseValue: $doseValue, doseUnit: $doseUnit, startDate: $startDate, endDate: $endDate
-                    )
-                } else {
-                    DatePicker("Date", selection: $date, displayedComponents: .date)
-                    DatePicker("Time", selection: $time, displayedComponents: .hourAndMinute)
-                    if dataType == "Heart Rate" {
-                        HeartRateForm(inputValue: $inputValue)
-                    } else if dataType == "Temperature" {
-                        TemperatureForm(inputValue: $inputValue, temperatureUnit: $temperatureUnit)
-                    } else if dataType == "Oxygen Saturation" {
-                        OxygenSaturationForm(inputValue: $inputValue)
-                    } else if dataType == "Blood Pressure" {
-                        BloodPressureForm(systolicValue: $systolicValue, diastolicValue: $diastolicValue)
-                    } else if dataType == "Lab Results" {
-                        LabResultsForm(labValues: $labValues)
-                    }
+                DatePicker("Date", selection: $date, displayedComponents: .date)
+                DatePicker("Time", selection: $time, displayedComponents: .hourAndMinute)
+                if dataType == "Heart Rate" {
+                    HeartRateForm(inputValue: $inputValue)
+                } else if dataType == "Temperature" {
+                    TemperatureForm(inputValue: $inputValue, temperatureUnit: $temperatureUnit)
+                } else if dataType == "Oxygen Saturation" {
+                    OxygenSaturationForm(inputValue: $inputValue)
+                } else if dataType == "Blood Pressure" {
+                    BloodPressureForm(systolicValue: $systolicValue, diastolicValue: $diastolicValue)
+                } else if dataType == "Lab Results" {
+                    LabResultsForm(labValues: $labValues)
+                } else if dataType == "Medication"{
+                    MedicationForm( medicationName: $medicationName, doseValue: $doseValue, doseUnit: $doseUnit)
                 }
             }
             .navigationTitle(dataType)
@@ -379,11 +343,10 @@ struct DataInputForm: View {
                 return
             }
             let medicationEntry = try MedicationEntry(
+                date: combineDateAndTime(date, time),
                 name: medicationName,
                 doseValue: value,
-                doseUnit: doseUnit,
-                startDate: startDate,
-                endDate: endDate
+                doseUnit: doseUnit
             )
             try await healthKitService.saveMedication(medicationEntry)
             dismiss()

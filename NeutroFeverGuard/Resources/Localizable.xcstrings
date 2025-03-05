@@ -160,9 +160,6 @@
         }
       }
     },
-    "Clear End Date" : {
-
-    },
     "Close" : {
       "localizations" : {
         "en" : {
@@ -224,9 +221,6 @@
       }
     },
     "Dose" : {
-
-    },
-    "End Date" : {
 
     },
     "Enter Lab Results" : {
@@ -684,12 +678,6 @@
         }
       }
     },
-    "Schedule Duration" : {
-
-    },
-    "Set End Date" : {
-
-    },
     "Social Support Questionnaire" : {
       "localizations" : {
         "en" : {
@@ -719,9 +707,6 @@
           }
         }
       }
-    },
-    "Start Date" : {
-
     },
     "Start Questionnaire" : {
       "localizations" : {

@@ -162,22 +162,16 @@ enum DoseUnit: String, CaseIterable, Codable {
 }
 
 struct MedicationEntry: Codable {
+    let date: Date
     let name: String
     let doseValue: Double
     let doseUnit: DoseUnit
-    let startDate: Date
-    let endDate: Date?
 
-    init(name: String, doseValue: Double, doseUnit: DoseUnit, startDate: Date, endDate: Date? = nil) throws {
-        try isValidDate(startDate)
-        if let endDate = endDate, startDate > endDate {
-            throw DataError.invalidDate
-        }
+    init(date: Date, name: String, doseValue: Double, doseUnit: DoseUnit) throws {
+        try isValidDate(date)
+        self.date = date
         self.name = name
         self.doseValue = doseValue
         self.doseUnit = doseUnit
-        self.startDate = startDate
-        self.endDate = endDate
     }
 }
-
