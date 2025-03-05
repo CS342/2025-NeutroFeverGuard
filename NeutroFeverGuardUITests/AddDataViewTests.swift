@@ -133,10 +133,12 @@ class AddDataViewTests: XCTestCase {
         let textFields = app.textFields.allElementsBoundByIndex
         XCTAssertEqual(textFields.count, 2)
         
-        textFields[0].tap()
+        let systolicField = textFields[0].coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
+        systolicField.tap()
         textFields[0].typeText("120")
-        
-        textFields[1].tap()
+
+        let diastolicField = textFields[1].coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
+        diastolicField.tap()
         textFields[1].typeText("80")
         
         XCTAssertTrue(app.buttons["Add"].waitForExistence(timeout: 5))
@@ -153,10 +155,13 @@ class AddDataViewTests: XCTestCase {
         XCTAssertFalse(app.buttons["Add"].isEnabled)
         
         let textFields2 = app.textFields.allElementsBoundByIndex
-        textFields2[0].tap()
-        textFields2[0].typeText("120")
         
-        textFields2[1].tap()
+        let systolicField2 = textFields2[0].coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
+        systolicField2.tap()
+        textFields2[0].typeText("120")
+
+        let diastolicField2 = textFields2[1].coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
+        diastolicField2.tap()
         textFields2[1].typeText("invalid")
         
         app.buttons["Add"].tap()
