@@ -39,8 +39,15 @@ struct MedicationView: View {
 
     var body: some View {
         NavigationView {
-            List(medications, id: \.name) { medication in
-                MedicationRow(medication: medication)
+            List {
+                if medications.isEmpty {
+                    Text("No medications recorded")
+                        .font(.headline)
+                } else {
+                    ForEach(medications, id: \.name) {medication in
+                        MedicationRow(medication: medication)
+                    }
+                }
             }
             .navigationTitle("Medication List")
             .onAppear {
