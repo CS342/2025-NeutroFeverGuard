@@ -217,6 +217,12 @@
         }
       }
     },
+    "Dose" : {
+
+    },
+    "End Date" : {
+
+    },
     "Error" : {
       "localizations" : {
         "en" : {
@@ -503,6 +509,12 @@
         }
       }
     },
+    "Medication Name" : {
+
+    },
+    "Name" : {
+
+    },
     "NeutroFeverGuard" : {
       "localizations" : {
         "en" : {
@@ -663,6 +675,12 @@
         }
       }
     },
+    "Schedule Duration" : {
+
+    },
+    "Set End Date" : {
+
+    },
     "Social Support Questionnaire" : {
       "localizations" : {
         "en" : {
@@ -692,6 +710,9 @@
           }
         }
       }
+    },
+    "Start Date" : {
+
     },
     "Start Questionnaire" : {
       "localizations" : {

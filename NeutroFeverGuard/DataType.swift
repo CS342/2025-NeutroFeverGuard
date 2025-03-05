@@ -144,3 +144,31 @@ struct LabEntry: Codable {
         self.values = values
     }
 }
+
+/*
+ Medication administrations for chemotherapy:
+ - Start date and time of administration
+ - Optional end date and time of administration
+ - Medication name
+ - Medication dose
+ */
+
+struct MedicationEntry: Codable {
+    let name: String
+    let dose: String
+    let startDate: Date
+    let endDate: Date?
+    
+    init(name: String, dose: String, startDate: Date, endDate: Date? = nil) throws {
+        try isValidDate(startDate)
+        if let endDate = endDate {
+            guard startDate <= endDate else {
+                throw DataError.invalidDate
+            }
+        }
+        self.startDate = startDate
+        self.endDate = endDate
+        self.name = name
+        self.dose = dose
+    }
+}

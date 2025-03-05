@@ -45,6 +45,66 @@ struct LabResultsForm: View {
     }
 }
 
+struct MedicationForm: View {
+    @Binding var medicationName: String
+    @Binding var dose: String
+    @Binding var startDate: Date
+    @Binding var endDate: Date?
+    
+    var scheduleDuration: String {
+        guard let end = endDate else { return "No end date" }
+        let components = Calendar.current.dateComponents([.day], from: startDate, to: end)
+        if let days = components.day {
+            return "\(days) days"
+        }
+        return "Invalid date range"
+    }
+    
+    var body: some View {
+        Section {
+            HStack {
+                Text("Name")
+                Spacer()
+                TextField("Medication Name", text: $medicationName)
+                    .multilineTextAlignment(.trailing)
+            }
+            
+            HStack {
+                Text("Dose")
+                Spacer()
+                TextField("Dose", text: $dose) .keyboardType(.decimalPad).multilineTextAlignment(.trailing)
+            }
+            
+            DatePicker("Start Date", selection: $startDate, displayedComponents: .date)
+            
+            HStack {
+                if let endDate = endDate {
+                    DatePicker("End Date", selection: Binding(
+                        get: { endDate },
+                        set: { self.endDate = $0 }
+                    ), displayedComponents: .date)
+                    
+                    Button(action: { self.endDate = nil }) {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundColor(.red)
+                    }
+                } else {
+                    Button("Set End Date") {
+                        self.endDate = Calendar.current.date(byAdding: .month, value: 1, to: startDate)
+                    }.foregroundColor(.blue)
+                }
+            }
+            
+            HStack {
+                Text("Schedule Duration")
+                Spacer()
+                Text(scheduleDuration).foregroundColor(.gray)
+            }
+        }
+    }
+}
+
+
 struct HeartRateForm: View {
     @Binding var inputValue: String
     
@@ -130,6 +190,10 @@ struct DataInputForm: View {
     @State private var diastolicValue: String = ""
     @State private var temperatureUnit: TemperatureUnit = .fahrenheit
     @State private var labValues: [LabTestType: String] = [:]
+    @State private var medicationName: String = ""
+    @State private var dosage: String = ""
+    @State private var startDate: Date = Date()
+    @State private var endDate: Date? = nil
     @State private var alertMessage: String = ""
     @Environment(\.dismiss) var dismiss
     
@@ -147,6 +211,8 @@ struct DataInputForm: View {
             return LabTestType.allCases.allSatisfy { testType in
                 !(labValues[testType] ?? "").isEmpty
             }
+        case "Medication":
+            return !medicationName.isEmpty && !dosage.isEmpty
         default:
             return false
         }
@@ -156,19 +222,22 @@ struct DataInputForm: View {
     var body: some View {
         NavigationView {
             Form {
-                DatePicker("Date", selection: $date, displayedComponents: .date)
-                DatePicker("Time", selection: $time, displayedComponents: .hourAndMinute)
-                
-                if dataType == "Heart Rate" {
-                    HeartRateForm(inputValue: $inputValue)
-                } else if dataType == "Temperature" {
-                    TemperatureForm(inputValue: $inputValue, temperatureUnit: $temperatureUnit)
-                } else if dataType == "Oxygen Saturation" {
-                    OxygenSaturationForm(inputValue: $inputValue)
-                } else if dataType == "Blood Pressure" {
-                    BloodPressureForm(systolicValue: $systolicValue, diastolicValue: $diastolicValue)
-                } else if dataType == "Lab Results" {
-                    LabResultsForm(labValues: $labValues)
+                if dataType == "Medication" {
+                    MedicationForm(medicationName: $medicationName, dose: $dosage, startDate: $startDate, endDate: $endDate)
+                } else {
+                    DatePicker("Date", selection: $date, displayedComponents: .date)
+                    DatePicker("Time", selection: $time, displayedComponents: .hourAndMinute)
+                    if dataType == "Heart Rate" {
+                        HeartRateForm(inputValue: $inputValue)
+                    } else if dataType == "Temperature" {
+                        TemperatureForm(inputValue: $inputValue, temperatureUnit: $temperatureUnit)
+                    } else if dataType == "Oxygen Saturation" {
+                        OxygenSaturationForm(inputValue: $inputValue)
+                    } else if dataType == "Blood Pressure" {
+                        BloodPressureForm(systolicValue: $systolicValue, diastolicValue: $diastolicValue)
+                    } else if dataType == "Lab Results" {
+                        LabResultsForm(labValues: $labValues)
+                    }
                 }
             }
             .navigationTitle(dataType)
@@ -178,15 +247,11 @@ struct DataInputForm: View {
                     do {
                         try await healthKitService.requestAuthorization()
                         await addData()
-                    } catch {
-                        print("Error requesting HealthKit authorization: \(error)")
-                    }
+                    } catch { print("Error requesting HealthKit authorization: \(error)") }
                 }.disabled(!isFormValid)
             )
             .alert(isPresented: .constant(!alertMessage.isEmpty)) {
-                Alert(
-                    title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")) { alertMessage = "" }
-                )
+                Alert( title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")) { alertMessage = "" })
             }
         }
     }
@@ -207,6 +272,8 @@ struct DataInputForm: View {
             await addBloodPressure()
         case "Lab Results":
             await addLabResult()
+        case "Medication":
+            await addMedication()
         default:
             alertMessage = "Unknown data type"
         }
@@ -297,6 +364,28 @@ struct DataInputForm: View {
             alertMessage = "Error: \(error)"
         }
     }
+    
+    func addMedication() async {
+        guard !medicationName.isEmpty, !dosage.isEmpty else {
+            alertMessage = "Medication name and dosage cannot be empty"
+            return
+        }
+        
+        do {
+            let medicationEntry = try MedicationEntry(
+                name: medicationName,
+                dose: dosage,
+                startDate: startDate,
+                endDate: endDate
+            )
+            try await healthKitService.saveMedication(medicationEntry)
+            dismiss()
+        } catch let error as DataError {
+            alertMessage = "Error: \(error.errorMessage)"
+        } catch {
+            alertMessage = "Error: \(error)"
+        }
+    }
 }
 
 #Preview {
@@ -304,5 +393,6 @@ struct DataInputForm: View {
 //    DataInputForm(dataType: "Heart Rate")
 //    DataInputForm(dataType: "Oxygen Saturation")
 //    DataInputForm(dataType: "Blood Pressure")
-    DataInputForm(dataType: "Lab Results")
+//    DataInputForm(dataType: "Lab Results")
+    DataInputForm(dataType: "Medication")
 }
