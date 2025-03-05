@@ -47,7 +47,8 @@ struct LabResultsForm: View {
 
 struct MedicationForm: View {
     @Binding var medicationName: String
-    @Binding var dose: String
+    @Binding var doseValue: String
+    @Binding var doseUnit: DoseUnit
     @Binding var startDate: Date
     @Binding var endDate: Date?
     
@@ -66,25 +67,24 @@ struct MedicationForm: View {
             HStack {
                 Text("Name")
                 Spacer()
-                TextField("Medication Name", text: $medicationName)
-                    .multilineTextAlignment(.trailing)
+                TextField("Medication Name", text: $medicationName).multilineTextAlignment(.trailing)
             }
-            
             HStack {
                 Text("Dose")
                 Spacer()
-                TextField("Dose", text: $dose) .keyboardType(.decimalPad).multilineTextAlignment(.trailing)
+                TextField("Amount", text: $doseValue)
+                    .keyboardType(.decimalPad) .multilineTextAlignment(.trailing) .frame(width: 80)
+                Picker("", selection: $doseUnit) {
+                    ForEach(DoseUnit.allCases, id: \.self) { unit in Text(unit.rawValue).tag(unit) }
+                }
+                .pickerStyle(.menu) .frame(width: 70)
             }
-            
             DatePicker("Start Date", selection: $startDate, displayedComponents: .date)
-            
             HStack {
                 if let endDate = endDate {
                     DatePicker("End Date", selection: Binding( get: { endDate }, set: { self.endDate = $0 }), displayedComponents: .date)
-                    
                     Button(action: { self.endDate = nil }) {
-                        Image(systemName: "xmark.circle.fill")
-                            .accessibility(label: Text("Clear End Date"))
+                        Image(systemName: "xmark.circle.fill") .accessibility(label: Text("Clear End Date"))
                     }
                 } else {
                     Button("Set End Date") {
@@ -92,7 +92,6 @@ struct MedicationForm: View {
                     }.foregroundColor(.blue)
                 }
             }
-            
             HStack {
                 Text("Schedule Duration")
                 Spacer()
@@ -189,7 +188,8 @@ struct DataInputForm: View {
     @State private var temperatureUnit: TemperatureUnit = .fahrenheit
     @State private var labValues: [LabTestType: String] = [:]
     @State private var medicationName: String = ""
-    @State private var dosage: String = ""
+    @State private var doseValue: String = ""
+    @State private var doseUnit: DoseUnit = .mgUnit
     @State private var startDate = Date()
     @State private var endDate: Date?
     @State private var alertMessage: String = ""
@@ -211,7 +211,7 @@ struct DataInputForm: View {
                 !(labValues[testType] ?? "").isEmpty
             }
         case "Medication":
-            return !medicationName.isEmpty && !dosage.isEmpty
+            return !medicationName.isEmpty && !doseValue.isEmpty
         default:
             return false
         }
@@ -222,7 +222,9 @@ struct DataInputForm: View {
         NavigationView {
             Form {
                 if dataType == "Medication" {
-                    MedicationForm(medicationName: $medicationName, dose: $dosage, startDate: $startDate, endDate: $endDate)
+                    MedicationForm(
+                        medicationName: $medicationName, doseValue: $doseValue, doseUnit: $doseUnit, startDate: $startDate, endDate: $endDate
+                    )
                 } else {
                     DatePicker("Date", selection: $date, displayedComponents: .date)
                     DatePicker("Time", selection: $time, displayedComponents: .hourAndMinute)
@@ -366,15 +368,20 @@ struct DataInputForm: View {
     }
     
     func addMedication() async {
-        guard !medicationName.isEmpty, !dosage.isEmpty else {
+        guard !medicationName.isEmpty, !doseValue.isEmpty else {
             alertMessage = "Medication name and dosage cannot be empty"
             return
         }
         
         do {
+            guard let value = parseLocalizedNumber(doseValue) else {
+                alertMessage = "Dose value must be valid numbers"
+                return
+            }
             let medicationEntry = try MedicationEntry(
                 name: medicationName,
-                dose: dosage,
+                doseValue: value,
+                doseUnit: doseUnit,
                 startDate: startDate,
                 endDate: endDate
             )

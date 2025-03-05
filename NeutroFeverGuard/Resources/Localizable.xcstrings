@@ -127,6 +127,9 @@
         }
       }
     },
+    "Amount" : {
+
+    },
     "Body Temperature (°F)" : {
       "localizations" : {
         "en" : {
