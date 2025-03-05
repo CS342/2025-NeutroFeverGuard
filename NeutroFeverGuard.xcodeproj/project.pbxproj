@@ -77,8 +77,6 @@
 		C49EC8532D5038AC005C3495 /* DataInputForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8522D5038AC005C3495 /* DataInputForm.swift */; };
 		C4A367C82D73C1EC009923C9 /* DataErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A367C72D73C1E1009923C9 /* DataErrorTests.swift */; };
 		C4C0A78F2D518DBC00F37EEC /* HelperFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0A78E2D518DB500F37EEC /* HelperFunc.swift */; };
-		C4C8A3542D6F94C800F313AE /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = F2A54D362D5DE24400A20113 /* FirebaseCore */; };
-		C4C8A3552D6F94C800F313AE /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F2A54D382D5DE24E00A20113 /* FirebaseFirestore */; };
 		C4C8A35F2D6F950600F313AE /* AddDataViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C8A35E2D6F950600F313AE /* AddDataViewTests.swift */; };
 		C4C8A3682D6F9E2100F313AE /* LabViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C8A3672D6F9E1A00F313AE /* LabViewUITests.swift */; };
 		C4C8A3B32D71204200F313AE /* HelperFuncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C8A3B22D71204200F313AE /* HelperFuncTests.swift */; };
@@ -1235,8 +1233,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziHealthKit.git";
 			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 0.6.0;
+				kind = exactVersion;
+				version = "1.0.0-beta.1";
 			};
 		};
 		2FE5DC7329EDD8E6004B9AB4 /* XCRemoteSwiftPackageReference "SpeziFirebase" */ = {
