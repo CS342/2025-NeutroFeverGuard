@@ -131,14 +131,14 @@ actor HealthKitService {
         var labResults: [LabEntry]
         
         do {
-            labResults = try localStorage.read([LabEntry].self, storageKey: storageKey)
+            labResults = try localStorage.load(LocalStorageKey<[LabEntry]>(storageKey)) ?? []
         } catch {
             labResults = []
         }
         
         labResults.append(entry)
         
-        try localStorage.store(labResults, storageKey: storageKey)
+        try localStorage.store(labResults, for: LocalStorageKey(storageKey))
     }
     
     func saveMedication(_ entry: MedicationEntry) async throws {
@@ -146,13 +146,13 @@ actor HealthKitService {
         var medications: [MedicationEntry]
         
         do {
-            medications = try localStorage.read([MedicationEntry].self, storageKey: storageKey)
+            medications = try localStorage.load(LocalStorageKey<[MedicationEntry]>(storageKey)) ?? []
         } catch {
             medications = []
         }
         
         medications.append(entry)
         
-        try localStorage.store(medications, storageKey: storageKey)
+        try localStorage.store(medications, for: LocalStorageKey(storageKey))
     }
 }

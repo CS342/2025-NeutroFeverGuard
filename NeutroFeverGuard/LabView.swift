@@ -162,7 +162,7 @@ struct LabView: View {
         } else {
             var results: [LabEntry]
             do {
-                results = try localStorage.read([LabEntry].self, storageKey: "labResults")
+                results = try localStorage.load(LocalStorageKey<[LabEntry]>("labResults")) ?? []
                 results.sort { $0.date > $1.date }
                 labRecords = results
                 
