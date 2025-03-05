@@ -210,6 +210,9 @@
         }
       }
     },
+    "Date: %@" : {
+
+    },
     "Diastolic (mmHg)" : {
       "localizations" : {
         "en" : {
@@ -222,6 +225,16 @@
     },
     "Dose" : {
 
+    },
+    "Dose: %@ %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Dose: %1$@ %2$@"
+          }
+        }
+      }
     },
     "Enter Lab Results" : {
 
@@ -511,6 +524,12 @@
           }
         }
       }
+    },
+    "Medication" : {
+
+    },
+    "Medication List" : {
+
     },
     "Medication Name" : {
 
