@@ -33,7 +33,9 @@ struct OnboardingFlow: View {
             return false
         }
         
-        return healthKitDataSource.authorized
+        return healthKitDataSource.isAuthorized(toWrite: HKQuantityType(.heartRate)) &&
+                healthKitDataSource.isAuthorized(toWrite: HKQuantityType(.oxygenSaturation)) &&
+                healthKitDataSource.isAuthorized(toWrite: HKQuantityType(.bodyTemperature))
     }
     
     
