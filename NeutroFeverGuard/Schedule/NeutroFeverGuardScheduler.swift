@@ -40,7 +40,7 @@ final class NeutroFeverGuardScheduler: Module, DefaultInitializable, Environment
                 title: "Enter Lab Results",
                 instructions: "You haven't recorded your lab results for last 7 days. Record now!",
                 category: .measurement,
-                schedule: .daily(hour: 17, minute: 0, startingAt: .today),
+                schedule: .daily(hour: 18, minute: 0, startingAt: .today),
                 scheduleNotifications: true
             )
         } catch {
