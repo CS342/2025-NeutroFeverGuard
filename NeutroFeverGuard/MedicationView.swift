@@ -47,6 +47,7 @@ struct MedicationView: View {
                     ForEach(medications, id: \.name) {medication in
                         MedicationRow(medication: medication)
                     }
+                    .onDelete(perform: deleteMedication)
                 }
             }
             .navigationTitle("Medication List")
@@ -72,6 +73,19 @@ struct MedicationView: View {
         } catch {
             print("Failed to load medications : \(error)")
             medications = []
+        }
+    }
+    
+    private func deleteMedication(at offsets: IndexSet) {
+        medications.remove(atOffsets: offsets)
+        saveMedications()
+    }
+
+    private func saveMedications() {
+        do {
+            try localStorage.store(medications, for: LocalStorageKey<[MedicationEntry]>("medications"))
+        } catch {
+            print("Failed to save medications: \(error)")
         }
     }
 }
