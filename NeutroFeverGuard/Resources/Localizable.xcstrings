@@ -157,6 +157,9 @@
         }
       }
     },
+    "Clear End Date" : {
+
+    },
     "Close" : {
       "localizations" : {
         "en" : {
@@ -224,7 +227,7 @@
 
     },
     "Enter Lab Results" : {
-      
+
     },
     "Error" : {
       "localizations" : {

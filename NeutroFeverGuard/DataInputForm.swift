@@ -52,7 +52,8 @@ struct MedicationForm: View {
     @Binding var endDate: Date?
     
     var scheduleDuration: String {
-        guard let end = endDate else { return "No end date" }
+        guard let end = endDate
+            else { return "No end date" }
         let components = Calendar.current.dateComponents([.day], from: startDate, to: end)
         if let days = components.day {
             return "\(days) days"
@@ -79,14 +80,11 @@ struct MedicationForm: View {
             
             HStack {
                 if let endDate = endDate {
-                    DatePicker("End Date", selection: Binding(
-                        get: { endDate },
-                        set: { self.endDate = $0 }
-                    ), displayedComponents: .date)
+                    DatePicker("End Date", selection: Binding( get: { endDate }, set: { self.endDate = $0 }), displayedComponents: .date)
                     
                     Button(action: { self.endDate = nil }) {
                         Image(systemName: "xmark.circle.fill")
-                            .foregroundColor(.red)
+                            .accessibility(label: Text("Clear End Date"))
                     }
                 } else {
                     Button("Set End Date") {
@@ -192,8 +190,8 @@ struct DataInputForm: View {
     @State private var labValues: [LabTestType: String] = [:]
     @State private var medicationName: String = ""
     @State private var dosage: String = ""
-    @State private var startDate: Date = Date()
-    @State private var endDate: Date? = nil
+    @State private var startDate = Date()
+    @State private var endDate: Date?
     @State private var alertMessage: String = ""
     @Environment(\.dismiss) var dismiss
     @Environment(NeutroFeverGuardScheduler.self) private var scheduler
