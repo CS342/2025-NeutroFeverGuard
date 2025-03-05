@@ -158,8 +158,6 @@ struct DataInputForm: View {
     @State private var medicationName: String = ""
     @State private var doseValue: String = ""
     @State private var doseUnit: DoseUnit = .mgUnit
-    @State private var startDate = Date()
-    @State private var endDate: Date?
     @State private var alertMessage: String = ""
     @Environment(\.dismiss) var dismiss
     @Environment(NeutroFeverGuardScheduler.self) private var scheduler

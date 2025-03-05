@@ -688,6 +688,7 @@
       }
     },
     "Schedule" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -728,6 +729,7 @@
       }
     },
     "Start Questionnaire" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -778,6 +780,7 @@
       }
     },
     "This type of event is currently unsupported. Please contact the developer of this app." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -808,6 +811,7 @@
       }
     },
     "Unsupported Event" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
