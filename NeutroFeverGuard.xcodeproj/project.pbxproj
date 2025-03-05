@@ -43,7 +43,6 @@
 		2FE5DC7929EDD8E6004B9AB4 /* SpeziFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 2FE5DC7829EDD8E6004B9AB4 /* SpeziFirestore */; };
 		2FE5DC8429EDD934004B9AB4 /* SpeziQuestionnaire in Frameworks */ = {isa = PBXBuildFile; productRef = 2FE5DC8329EDD934004B9AB4 /* SpeziQuestionnaire */; };
 		2FE5DC8A29EDD972004B9AB4 /* SpeziLocalStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 2FE5DC8929EDD972004B9AB4 /* SpeziLocalStorage */; };
-		2FE5DC8C29EDD972004B9AB4 /* SpeziSecureStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 2FE5DC8B29EDD972004B9AB4 /* SpeziSecureStorage */; };
 		2FE5DC8F29EDD980004B9AB4 /* SpeziViews in Frameworks */ = {isa = PBXBuildFile; productRef = 2FE5DC8E29EDD980004B9AB4 /* SpeziViews */; };
 		2FE5DC9929EDD9D9004B9AB4 /* XCTestExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = 2FE5DC9829EDD9D9004B9AB4 /* XCTestExtensions */; };
 		2FE5DC9C29EDD9EF004B9AB4 /* XCTHealthKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2FE5DC9B29EDD9EF004B9AB4 /* XCTHealthKit */; };
@@ -70,6 +69,7 @@
 		A9D83F962B083794000D0C78 /* SpeziFirebaseAccountStorage in Frameworks */ = {isa = PBXBuildFile; productRef = A9D83F952B083794000D0C78 /* SpeziFirebaseAccountStorage */; };
 		A9DFE8A92ABE551400428242 /* AccountButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DFE8A82ABE551400428242 /* AccountButton.swift */; };
 		A9FE7AD02AA39BAB0077B045 /* AccountSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FE7ACF2AA39BAB0077B045 /* AccountSheet.swift */; };
+		C42B98FF2D769E54005D820B /* SpeziKeychainStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C42B98FE2D769E54005D820B /* SpeziKeychainStorage */; };
 		C42D4DA52D5AC89900B2A169 /* LabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D4DA42D5AC89500B2A169 /* LabView.swift */; };
 		C49EC8342D501C62005C3495 /* DataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8332D501C5C005C3495 /* DataType.swift */; };
 		C49EC8382D5026EE005C3495 /* DataTypeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8372D5026EE005C3495 /* DataTypeTest.swift */; };
@@ -193,13 +193,13 @@
 				2FE5DC6729EDD894004B9AB4 /* SpeziContact in Frameworks */,
 				2FE5DC8429EDD934004B9AB4 /* SpeziQuestionnaire in Frameworks */,
 				2FB099B12A875DF100B20952 /* FirebaseFirestore in Frameworks */,
+				C42B98FF2D769E54005D820B /* SpeziKeychainStorage in Frameworks */,
 				A94DDFFD2CBD1190004930BD /* SpeziNotifications in Frameworks */,
 				A9D83F962B083794000D0C78 /* SpeziFirebaseAccountStorage in Frameworks */,
 				2FB099B62A875E2B00B20952 /* HealthKitOnFHIR in Frameworks */,
 				56E7083B2BB06F6F00B08F0A /* SwiftPackageList in Frameworks */,
 				56E708352BB06B7100B08F0A /* SpeziLicense in Frameworks */,
 				2FE5DC8A29EDD972004B9AB4 /* SpeziLocalStorage in Frameworks */,
-				2FE5DC8C29EDD972004B9AB4 /* SpeziSecureStorage in Frameworks */,
 				2FE5DC7529EDD8E6004B9AB4 /* SpeziFirebaseAccount in Frameworks */,
 				9739A0C62AD7B5730084BEA5 /* FirebaseStorage in Frameworks */,
 				2FE5DC7229EDD8D3004B9AB4 /* SpeziHealthKit in Frameworks */,
@@ -437,7 +437,6 @@
 				2FE5DC7829EDD8E6004B9AB4 /* SpeziFirestore */,
 				2FE5DC8329EDD934004B9AB4 /* SpeziQuestionnaire */,
 				2FE5DC8929EDD972004B9AB4 /* SpeziLocalStorage */,
-				2FE5DC8B29EDD972004B9AB4 /* SpeziSecureStorage */,
 				2FE5DC8E29EDD980004B9AB4 /* SpeziViews */,
 				2FBD738B2A3BD150004228E7 /* SpeziScheduler */,
 				2F3D4ABB2A4E7C290068FB2F /* SpeziScheduler */,
@@ -452,6 +451,7 @@
 				56E7083A2BB06F6F00B08F0A /* SwiftPackageList */,
 				A94DDFFC2CBD1190004930BD /* SpeziNotifications */,
 				A9947BEF2CC131ED0068AA8A /* SpeziSchedulerUI */,
+				C42B98FE2D769E54005D820B /* SpeziKeychainStorage */,
 			);
 			productName = NeutroFeverGuard;
 			productReference = 653A254D283387FE005D4D48 /* NeutroFeverGuard.app */;
@@ -1234,7 +1234,7 @@
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziHealthKit.git";
 			requirement = {
 				kind = exactVersion;
-				version = "1.0.0-beta.1";
+				version = "1.0.0-beta.3";
 			};
 		};
 		2FE5DC7329EDD8E6004B9AB4 /* XCRemoteSwiftPackageReference "SpeziFirebase" */ = {
@@ -1258,7 +1258,7 @@
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziStorage.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.1;
+				minimumVersion = 2.0.0;
 			};
 		};
 		2FE5DC8D29EDD980004B9AB4 /* XCRemoteSwiftPackageReference "SpeziViews" */ = {
@@ -1410,11 +1410,6 @@
 			package = 2FE5DC8829EDD972004B9AB4 /* XCRemoteSwiftPackageReference "SpeziStorage" */;
 			productName = SpeziLocalStorage;
 		};
-		2FE5DC8B29EDD972004B9AB4 /* SpeziSecureStorage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2FE5DC8829EDD972004B9AB4 /* XCRemoteSwiftPackageReference "SpeziStorage" */;
-			productName = SpeziSecureStorage;
-		};
 		2FE5DC8E29EDD980004B9AB4 /* SpeziViews */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2FE5DC8D29EDD980004B9AB4 /* XCRemoteSwiftPackageReference "SpeziViews" */;
@@ -1494,6 +1489,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2F66D20D2BB723180010D555 /* XCRemoteSwiftPackageReference "SwiftLint" */;
 			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+		C42B98FE2D769E54005D820B /* SpeziKeychainStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2FE5DC8829EDD972004B9AB4 /* XCRemoteSwiftPackageReference "SpeziStorage" */;
+			productName = SpeziKeychainStorage;
 		};
 		F2A54D362D5DE24400A20113 /* FirebaseCore */ = {
 			isa = XCSwiftPackageProductDependency;

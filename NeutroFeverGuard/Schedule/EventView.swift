@@ -26,9 +26,12 @@ struct EventView: View {
                 guard case let .completed(response) = result else {
                     return // user cancelled the task
                 }
-
-                event.complete()
-                await standard.add(response: response)
+                do {
+                    try event.complete()
+                    await standard.add(response: response)
+                } catch {
+                    print("Failed to complete event: \(error.localizedDescription)")
+                }
             }
         } else {
             NavigationStack {
