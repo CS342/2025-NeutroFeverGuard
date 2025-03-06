@@ -210,6 +210,9 @@
         }
       }
     },
+    "Details" : {
+
+    },
     "Diastolic (mmHg)" : {
       "localizations" : {
         "en" : {
