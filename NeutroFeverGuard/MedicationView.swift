@@ -42,7 +42,8 @@ struct MedicationEditForm: View {
     var onCancel: () -> Void
     
     var isFormValid: Bool {
-        return !medication.name.isEmpty && !doseValue.isEmpty
+        var ret = !medication.name.isEmpty && !doseValue.isEmpty
+        return ret
     }
     
     var body: some View {
