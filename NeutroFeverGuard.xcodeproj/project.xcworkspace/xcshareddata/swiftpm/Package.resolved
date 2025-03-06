@@ -276,8 +276,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziScheduler.git",
       "state" : {
-        "revision" : "42be6ab2c7dfad0554d765c37a5256234565cfa9",
-        "version" : "1.2.0"
+        "branch" : "lukas/improve-shadowed-outcome-handling",
+        "revision" : "805de853e48c9fa2872eee3d8600a093aa717ba5"
       }
     },
     {
