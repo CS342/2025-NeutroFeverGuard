@@ -41,43 +41,79 @@ struct ANCView: View {
 }
 
 struct LabResultDetailView: View {
-    var record: LabEntry
     @Environment(LabResultsManager.self) private var labResultsManager
+    @Environment(\.dismiss) var dismiss
+    
+    @State private var isEditing = false
+    @State private var showDeleteAlert = false
+    @State private var editedRecord: LabEntry
+    @State private var editedIndex: Int
 
     var body: some View {
         Form {
             Section {
-                HStack {
-                    Text("Date")
-                    Spacer()
-                    Text("\(labResultsManager.formatDate(record.date))")
+                DatePicker("Date", selection: $editedRecord.date, displayedComponents: .date)
+                    .disabled(true)
+                DatePicker("Time", selection: $editedRecord.date, displayedComponents: .hourAndMinute)
+                    .disabled(true)
+                ForEach(LabTestType.allCases, id: \.self) { testType in
+                    HStack {
+                        Text(testType.rawValue)
+                        Spacer()
+                        TextField("Value", text: Binding(
+                            get: { String(editedRecord.values[testType] ?? 0) },
+                            set: { editedRecord.values[testType] = Double($0) }
+                        ))
+                        .keyboardType(.decimalPad)
+                        .multilineTextAlignment(.trailing)
+                        .frame(width: 80)
+                        .disabled(!isEditing)
+                    }
                 }
-                HStack {
-                    Text("Time")
-                    Spacer()
-                    Text("\(labResultsManager.formatTime(record.date))")
+            }
+            HStack {
+                Spacer()
+                Button("Delete", role: .destructive) {
+                    showDeleteAlert = true
                 }
-                labValueRow(type: .whiteBloodCell, unit: "cells/µL")
-                labValueRow(type: .hemoglobin, unit: "g/dL")
-                labValueRow(type: .plateletCount, unit: "cells/µL")
-                labValueRow(type: .neutrophils, unit: "%")
-                labValueRow(type: .lymphocytes, unit: "%")
-                labValueRow(type: .monocytes, unit: "%")
-                labValueRow(type: .eosinophils, unit: "%")
-                labValueRow(type: .basophils, unit: "%")
-                labValueRow(type: .blasts, unit: "%")
+                Spacer()
             }
         }
-        .navigationTitle("Details")
+        .navigationTitle("Lab Details")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(isEditing ? "Save" : "Edit") {
+                    if isEditing {
+                        saveChanges()
+                    }
+                    isEditing.toggle()
+                }
+            }
+        }
+        .alert("Delete Lab Record", isPresented: $showDeleteAlert) {
+            Button("Delete", role: .destructive) {
+                deleteRecord()
+            }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("Are you sure you want to delete this lab record? This action cannot be undone.")
+        }
+    }
+    
+    init(record: LabEntry, index: Int) {
+        _editedRecord = State(initialValue: record)
+        _editedIndex = State(initialValue: index)
     }
 
-    @ViewBuilder
-    private func labValueRow(type: LabTestType, unit: String) -> some View {
-        HStack {
-            Text(type.rawValue)
-            Spacer()
-            Text("\(record.values[type] ?? 0, specifier: "%.1f") \(unit)")
-        }
+    private func saveChanges() {
+        labResultsManager.updateLabEntry(at: editedIndex, with: editedRecord)
+        labResultsManager.refresh()
+    }
+
+    private func deleteRecord() {
+        labResultsManager.deleteLabEntry(at: editedIndex)
+        labResultsManager.refresh()
+        dismiss()
     }
 }
 
@@ -104,7 +140,7 @@ struct LabView: View {
         Section(header: Text("Absolute Neutrophil Counts")) {
             if labResultsManager.getAncValue() != nil, !labResultsManager.labRecords.isEmpty {
                 if let latestRecord = labResultsManager.labRecords.first {
-                    NavigationLink(destination: LabResultDetailView(record: latestRecord)) {
+                    NavigationLink(destination: LabResultDetailView(record: latestRecord, index: 0)) {
                         ANCView()
                     }
                 }
@@ -119,8 +155,8 @@ struct LabView: View {
             if labResultsManager.labRecords.isEmpty {
                 Text("No lab results recorded").foregroundColor(.gray)
             } else {
-                ForEach(labResultsManager.labRecords, id: \.date) { record in
-                    NavigationLink(destination: LabResultDetailView(record: record)) {
+                ForEach(Array(labResultsManager.labRecords.enumerated()), id: \.element.date) { index, record in
+                    NavigationLink(destination: LabResultDetailView(record: record, index: index)) {
                         Text(labResultsManager.formatDateTime(record.date))
                     }
                 }
@@ -135,8 +171,4 @@ struct LabView: View {
             }
         }
     }
-}
-
-#Preview {
-    LabView(presentingAccount: .constant(false))
 }
