@@ -15,12 +15,13 @@ struct HomeView: View {
 //        case dashboard
         case addData
         case labResult
-        case schedule
+        case medication
+//        case schedule
         case contact
     }
 
 
-    @AppStorage(StorageKeys.homeTabSelection) private var selectedTab = Tabs.schedule
+    @AppStorage(StorageKeys.homeTabSelection) private var selectedTab = Tabs.addData
     @AppStorage(StorageKeys.tabViewCustomization) private var tabViewCustomization = TabViewCustomization()
 
     @State private var presentingAccount = false
@@ -48,12 +49,19 @@ struct HomeView: View {
             .customizationID("home.lab")
             .accessibilityIdentifier("Lab")
             
-            // Schedule tab
-            Tab("Schedule", systemImage: "list.clipboard", value: .schedule) {
-                ScheduleView(presentingAccount: $presentingAccount)
+            // Medication tab
+            Tab("Medication", systemImage: "pills", value: .medication) {
+                MedicationView(presentingAccount: $presentingAccount)
             }
-            .customizationID("home.schedule")
-            .accessibilityIdentifier("Schedule")
+            .customizationID("home.medication")
+            .accessibilityIdentifier("Medication")
+            
+            // Schedule tab
+//            Tab("Schedule", systemImage: "list.clipboard", value: .schedule) {
+//                ScheduleView(presentingAccount: $presentingAccount)
+//            }
+//            .customizationID("home.schedule")
+//            .accessibilityIdentifier("Schedule")
             
             // Contacts tab
             Tab("Contacts", systemImage: "person.fill", value: .contact) {
