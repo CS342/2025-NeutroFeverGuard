@@ -25,22 +25,22 @@ final class NeutroFeverGuardScheduler: Module, DefaultInitializable, Environment
     /// Add or update the current list of task upon app startup.
     func configure() {
         do {
-            try scheduler.createOrUpdateTask(
-                id: "social-support-questionnaire",
-                title: "Social Support Questionnaire",
-                instructions: "Please fill out the Social Support Questionnaire every day.",
-                category: .questionnaire,
-                schedule: .daily(hour: 8, minute: 0, startingAt: .today) // you can change this to schedule stuff.
-            ) { context in
-                context.questionnaire = Bundle.main.questionnaire(withName: "SocialSupportQuestionnaire")
-            }
+//            try scheduler.createOrUpdateTask(
+//                id: "social-support-questionnaire",
+//                title: "Social Support Questionnaire",
+//                instructions: "Please fill out the Social Support Questionnaire every day.",
+//                category: .questionnaire,
+//                schedule: .daily(hour: 8, minute: 0, startingAt: .today) // you can change this to schedule stuff.
+//            ) { context in
+//                context.questionnaire = Bundle.main.questionnaire(withName: "SocialSupportQuestionnaire")
+//            }
             
             try scheduler.createOrUpdateTask(
                 id: "enter-lab-result",
                 title: "Enter Lab Results",
                 instructions: "You haven't recorded your lab results for last 7 days. Record now!",
                 category: .measurement,
-                schedule: .daily(hour: 9, minute: 0, startingAt: .today),
+                schedule: .daily(hour: 18, minute: 0, startingAt: .today),
                 scheduleNotifications: true
             )
         } catch {
@@ -70,9 +70,9 @@ final class NeutroFeverGuardScheduler: Module, DefaultInitializable, Environment
 }
 
 
-extension Task.Context {
-    @Property(coding: .json) var questionnaire: Questionnaire?
-}
+// extension Task.Context {
+//     @Property(coding: .json) var questionnaire: Questionnaire?
+// }
 
 
 extension Outcome {

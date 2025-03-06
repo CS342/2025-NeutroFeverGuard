@@ -76,24 +76,24 @@ actor NeutroFeverGuardStandard: Standard,
     }
 
     // periphery:ignore:parameters isolation
-    func add(response: ModelsR4.QuestionnaireResponse, isolation: isolated (any Actor)? = #isolation) async {
-        let id = response.identifier?.value?.value?.string ?? UUID().uuidString
-        
-        if FeatureFlags.disableFirebase {
-            let jsonRepresentation = (try? String(data: JSONEncoder().encode(response), encoding: .utf8)) ?? ""
-            await logger.debug("Received questionnaire response: \(jsonRepresentation)")
-            return
-        }
-        
-        do {
-            try await configuration.userDocumentReference
-                .collection("QuestionnaireResponse") // Add all HealthKit sources in a /QuestionnaireResponse collection.
-                .document(id) // Set the document identifier to the id of the response.
-                .setData(from: response)
-        } catch {
-            await logger.error("Could not store questionnaire response: \(error)")
-        }
-    }
+//    func add(response: ModelsR4.QuestionnaireResponse, isolation: isolated (any Actor)? = #isolation) async {
+//        let id = response.identifier?.value?.value?.string ?? UUID().uuidString
+//        
+//        if FeatureFlags.disableFirebase {
+//            let jsonRepresentation = (try? String(data: JSONEncoder().encode(response), encoding: .utf8)) ?? ""
+//            await logger.debug("Received questionnaire response: \(jsonRepresentation)")
+//            return
+//        }
+//        
+//        do {
+//            try await configuration.userDocumentReference
+//                .collection("QuestionnaireResponse") // Add all HealthKit sources in a /QuestionnaireResponse collection.
+//                .document(id) // Set the document identifier to the id of the response.
+//                .setData(from: response)
+//        } catch {
+//            await logger.error("Could not store questionnaire response: \(error)")
+//        }
+//    }
     
     private func checkForFebrileNeutropenia() async -> String? {
         let fever = await FeverMonitor.shared.checkForFever()
