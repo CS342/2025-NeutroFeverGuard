@@ -37,8 +37,13 @@ struct MedicationEditForm: View {
     @State private var date: Date
     @State private var time: Date
     @State private var doseValue: String
+    @State private var alertMessage: String = ""
     var onSave: () -> Void
     var onCancel: () -> Void
+    
+    var isFormValid: Bool {
+        return !medication.name.isEmpty && !doseValue.isEmpty
+    }
     
     var body: some View {
         NavigationStack {
@@ -60,19 +65,22 @@ struct MedicationEditForm: View {
                 }
             }
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Cancel") { onCancel() }
-                }
-                ToolbarItem {
-                    Button("Save") {
-                        guard let value = parseLocalizedNumber(doseValue) else {
-                            return
-                        }
-                        medication.doseValue = value
-                        medication.date = combineDateAndTime(date, time)
-                        onSave()
+                ToolbarItem(placement: .navigationBarLeading) { Button("Cancel") { onCancel() } }
+                ToolbarItem { Button("Save") {
+                    guard let value = parseLocalizedNumber(doseValue) else {
+                        alertMessage = "Invalid dose value. Please enter a number."
+                        return
                     }
+                    medication.doseValue = value
+                    medication.date = combineDateAndTime(date, time)
+                    onSave()
+                }.disabled(!isFormValid)
                 }
+            }
+            .alert(isPresented: .constant(!alertMessage.isEmpty)) {
+                Alert(
+                    title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")) { alertMessage = "" }
+                )
             }
         }
     }
