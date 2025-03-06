@@ -9,13 +9,18 @@ import Spezi
 import SpeziLocalStorage
 import SwiftUI
 
+
 @Observable
 @MainActor
 class LabResultsManager: Module, EnvironmentAccessible {
-    private var localStorage: LocalStorage?
+    private let localStorage: LocalStorage
     
     var latestRecordedTime: String = "None"
     var labRecords: [LabEntry] = []
+        
+    init(localStorage: LocalStorage) {
+        self.localStorage = localStorage
+    }
     
     func configure() {
         loadLabResults() // Load data on startup
@@ -26,11 +31,6 @@ class LabResultsManager: Module, EnvironmentAccessible {
     }
     
     private func loadLabResults() {
-        guard let localStorage = localStorage else {
-                    print("LocalStorage not available")
-                    return
-                }
-        
         do {
             var results = try localStorage.load(LocalStorageKey<[LabEntry]>("labResults")) ?? []
             results.sort { $0.date > $1.date }
@@ -53,10 +53,21 @@ class LabResultsManager: Module, EnvironmentAccessible {
         saveLabResults()
     }
     
+    func deleteLabEntry(at index: Int) {
+        guard labRecords.indices.contains(index)
+            else { return }
+        labRecords.remove(at: index)
+        saveLabResults()
+    }
+
+    func updateLabEntry(at index: Int, with updatedEntry: LabEntry) {
+        guard labRecords.indices.contains(index)
+            else { return }
+        labRecords[index] = updatedEntry
+        saveLabResults()
+    }
+    
     private func saveLabResults() {
-        guard let localStorage = localStorage else {
-            return
-        }
         do {
             try localStorage.store(labRecords, for: LocalStorageKey<[LabEntry]>("labResults"))
         } catch {
@@ -91,6 +102,19 @@ class LabResultsManager: Module, EnvironmentAccessible {
     func formatDate(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
+        return formatter.string(from: date)
+    }
+    
+    func formatDateTime(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        return formatter.string(from: date)
+    }
+    
+    func formatTime(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
         return formatter.string(from: date)
     }
 }

@@ -213,6 +213,9 @@
     "Debug" : {
 
     },
+    "Details" : {
+
+    },
     "Diastolic (mmHg)" : {
       "localizations" : {
         "en" : {
@@ -463,6 +466,7 @@
       }
     },
     "Lab Values" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
