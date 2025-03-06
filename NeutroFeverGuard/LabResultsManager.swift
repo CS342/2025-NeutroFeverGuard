@@ -58,7 +58,7 @@ class LabResultsManager: Module, EnvironmentAccessible {
             return
         }
         do {
-            try localStorage.store(labRecords, key: LocalStorageKey<[LabEntry]>("labResults"))
+            try localStorage.store(labRecords, for: LocalStorageKey<[LabEntry]>("labResults"))
         } catch {
             print("Failed to save lab results: \(error)")
         }
