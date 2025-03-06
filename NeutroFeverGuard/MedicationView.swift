@@ -23,6 +23,7 @@ struct MedicationRow: View {
                 .font(.subheadline)
         }
     }
+    
     private func formatDate(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -31,47 +32,114 @@ struct MedicationRow: View {
     }
 }
 
+struct MedicationEditForm: View {
+    @Binding var medication: MedicationEntry
+    @State private var date: Date
+    @State private var time: Date
+    @State private var doseValue: String
+    var onSave: () -> Void
+    var onCancel: () -> Void
+    
+    var body: some View {
+        NavigationStack {
+            Form {
+                DatePicker("Date", selection: $date, displayedComponents: .date)
+                DatePicker("Time", selection: $time, displayedComponents: .hourAndMinute)
+                HStack {
+                    Text("Name")
+                    Spacer()
+                    TextField("Medication Name", text: $medication.name) .multilineTextAlignment(.trailing)
+                }
+                HStack {
+                    Text("Dose")
+                    Spacer()
+                    TextField("Amount", text: $doseValue) .keyboardType(.decimalPad) .multilineTextAlignment(.trailing) .frame(width: 80)
+                    Picker("", selection: $medication.doseUnit) {
+                        ForEach(DoseUnit.allCases, id: \.self) { unit in Text(unit.rawValue).tag(unit) }
+                    }.pickerStyle(.menu).frame(width: 70)
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Cancel") { onCancel() }
+                }
+                ToolbarItem {
+                    Button("Save") {
+                        guard let value = parseLocalizedNumber(doseValue) else {
+                            return
+                        }
+                        medication.doseValue = value
+                        medication.date = combineDateAndTime(date, time)
+                        onSave()
+                    }
+                }
+            }
+        }
+    }
+    
+    init(medication: Binding<MedicationEntry>, onSave: @escaping () -> Void, onCancel: @escaping () -> Void) {
+        self._medication = medication
+        self._date = State(initialValue: medication.wrappedValue.date)
+        self._time = State(initialValue: medication.wrappedValue.date)
+        self._doseValue = State(initialValue: String(medication.wrappedValue.doseValue))
+        self.onSave = onSave
+        self.onCancel = onCancel
+    }
+}
+
 struct MedicationView: View {
     @State private var medications: [MedicationEntry] = []
     @Environment(LocalStorage.self) var localStorage
     @Environment(Account.self) private var account: Account?
+    @State private var isEditing = false
+    @State private var editingMedicationIndex: Int = 0
     @Binding var presentingAccount: Bool
 
     var body: some View {
         NavigationView {
             List {
                 if medications.isEmpty {
-                    Text("No medications recorded")
-                        .font(.headline)
+                    Text("No medications recorded").font(.headline)
                 } else {
-                    ForEach(medications, id: \.name) {medication in
+                    ForEach(Array(medications.enumerated()), id: \.element.name) { index, medication in
                         MedicationRow(medication: medication)
+                            .swipeActions(edge: .leading) {
+                                Button("Edit") { editMedication(at: index) }.tint(.blue)
+                            }
                     }
                     .onDelete(perform: deleteMedication)
                 }
             }
             .navigationTitle("Medication List")
-            .onAppear {
-                loadMedications()
-            }
+            .onAppear { loadMedications() }
             .listStyle(.insetGrouped)
             .background(Color(.systemGray6))
             .toolbar {
-                if account != nil {
-                    AccountButton(isPresented: $presentingAccount)
-                }
+                if account != nil { AccountButton(isPresented: $presentingAccount) }
+            }
+            .sheet(isPresented: $isEditing) {
+                let ind = editingMedicationIndex
+                MedicationEditForm(
+                    medication: $medications[ind],
+                    onSave: {
+                        saveMedications()
+                        isEditing = false
+                        loadMedications()
+                    },
+                    onCancel: {
+                        isEditing = false
+                    }
+                )
             }
         }
     }
 
     private func loadMedications() {
-        var results: [MedicationEntry]
         do {
-            results = try localStorage.load(LocalStorageKey<[MedicationEntry]>("medications")) ?? []
-            results.sort { $0.date > $1.date }
-            medications = results
+            medications = try localStorage.load(LocalStorageKey<[MedicationEntry]>("medications")) ?? []
+            medications.sort { $0.date > $1.date }
         } catch {
-            print("Failed to load medications : \(error)")
+            print("Failed to load medications: \(error)")
             medications = []
         }
     }
@@ -87,5 +155,10 @@ struct MedicationView: View {
         } catch {
             print("Failed to save medications: \(error)")
         }
+    }
+    
+    private func editMedication(at index: Int) {
+        editingMedicationIndex = index
+        isEditing = true
     }
 }

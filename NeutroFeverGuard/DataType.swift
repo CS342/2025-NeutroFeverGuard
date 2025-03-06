@@ -162,10 +162,10 @@ enum DoseUnit: String, CaseIterable, Codable {
 }
 
 struct MedicationEntry: Codable {
-    let date: Date
-    let name: String
-    let doseValue: Double
-    let doseUnit: DoseUnit
+    var date: Date
+    var name: String
+    var doseValue: Double
+    var doseUnit: DoseUnit
 
     init(date: Date, name: String, doseValue: Double, doseUnit: DoseUnit) throws {
         try isValidDate(date)
