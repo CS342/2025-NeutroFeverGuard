@@ -125,7 +125,7 @@ struct LabView: View {
     @Environment(LabResultsManager.self) private var labResultsManager
     @Environment(Account.self) private var account: Account?
     @Binding var presentingAccount: Bool
-    @Environment(NeutroFeverGuardScheduler.self) private var scheduler
+//    @Environment(NeutroFeverGuardScheduler.self) private var scheduler
 
     var body: some View {
         NavigationView {
