@@ -20,7 +20,7 @@ struct ANCView: View {
             Text("🧪 Latest ANC")
                 .font(.headline)
             if let ancValue = labResultsManager.getAncValue() {
-                Text("\(labResultsManager.ancValue, specifier: "%.1f") cells/µL")
+                Text("\(ancValue, specifier: "%.1f") cells/µL")
                     .font(.largeTitle)
                     .bold()
                     .foregroundColor(status.color)
