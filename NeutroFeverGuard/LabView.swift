@@ -93,10 +93,9 @@ struct LabView: View {
         }
     }
     
-    /// ✅ Extracted ANC Section
     private func ancSection() -> some View {
         Section(header: Text("Absolute Neutrophil Counts")) {
-            if let anc = labResultsManager.getAncValue(), !labResultsManager.labRecords.isEmpty {
+            if labResultsManager.getAncValue() != nil, !labResultsManager.labRecords.isEmpty {
                 if let latestRecord = labResultsManager.labRecords.first {
                     NavigationLink(destination: LabResultDetailView(record: latestRecord)) {
                         ANCView()
@@ -108,7 +107,6 @@ struct LabView: View {
         }
     }
 
-    /// ✅ Extracted Lab History Section
     private func labHistorySection() -> some View {
         Section(header: Text("Lab Results History")) {
             if labResultsManager.labRecords.isEmpty {
@@ -123,7 +121,6 @@ struct LabView: View {
         }
     }
 
-    /// ✅ Extracted Toolbar Content
     private func toolbarContent() -> some ToolbarContent {
         ToolbarItem {
             if account != nil {
