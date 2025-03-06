@@ -19,12 +19,16 @@ struct ANCView: View {
         VStack(alignment: .leading, spacing: 8) {
             Text("🧪 Latest ANC")
                 .font(.headline)
-            Text("\(labResultsManager.ancValue, specifier: "%.1f") cells/µL")
-                .font(.largeTitle)
-                .bold()
-                .foregroundColor(status.color)
-                .padding(.vertical, 8)
-            
+            if let ancValue = labResultsManager.getAncValue() {
+                Text("\(labResultsManager.ancValue, specifier: "%.1f") cells/µL")
+                    .font(.largeTitle)
+                    .bold()
+                    .foregroundColor(status.color)
+                    .padding(.vertical, 8)
+            } else {
+                Text("No ANC data available")
+                    .foregroundColor(.gray)
+            }
             Text(status.text)
                 .font(.subheadline)
                 .foregroundColor(status.color)
@@ -79,9 +83,11 @@ struct LabView: View {
         NavigationView {
             List {
                 Section(header: Text("Absolute Neutrophil Counts")) {
-                    if let anc = labResultsManager.getAncValue(), let latestRecord = labResultsManager.labRecords.first {
-                        NavigationLink(destination: LabResultDetailView(record: latestRecord)) {
-                            ANCView()
+                    if let anc = labResultsManager.getAncValue(), !labResultsManager.labRecords.isEmpty {
+                        if let latestRecord = labResultsManager.labRecords.first {
+                            NavigationLink(destination: LabResultDetailView(record: latestRecord)) {
+                                ANCView()
+                            }
                         }
                     } else {
                         Text("No ANC data available")
