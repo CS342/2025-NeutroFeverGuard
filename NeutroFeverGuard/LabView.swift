@@ -82,47 +82,56 @@ struct LabView: View {
     var body: some View {
         NavigationView {
             List {
-                Section(header: Text("Absolute Neutrophil Counts")) {
-                    if let anc = labResultsManager.getAncValue(), !labResultsManager.labRecords.isEmpty {
-                        if let latestRecord = labResultsManager.labRecords.first {
-                            NavigationLink(destination: LabResultDetailView(record: latestRecord)) {
-                                ANCView()
-                            }
-                        }
-                    } else {
-                        Text("No ANC data available")
-                            .foregroundColor(.gray)
-                    }
-                }
-                
-                Section(header: Text("Lab Results History")) {
-                    if labResultsManager.labRecords.isEmpty {
-                        Text("No lab results recorded")
-                            .foregroundColor(.gray)
-                    } else {
-                        ForEach(labResultsManager.labRecords, id: \.date) { record in
-                            NavigationLink(destination: LabResultDetailView(record: record)) {
-                                Text(labResultsManager.formatDate(record.date))
-                            }
-                        }
-                    }
-                }
+                ancSection()
+                labHistorySection()
             }
             .listStyle(.insetGrouped)
             .navigationTitle("Lab Results")
             .background(Color(.systemGray6))
-            .toolbar {
-                if account != nil {
-                    AccountButton(isPresented: $presentingAccount)
+            .toolbar { toolbarContent() }
+            .onAppear { labResultsManager.refresh() }
+        }
+    }
+    
+    /// ✅ Extracted ANC Section
+    private func ancSection() -> some View {
+        Section(header: Text("Absolute Neutrophil Counts")) {
+            if let anc = labResultsManager.getAncValue(), !labResultsManager.labRecords.isEmpty {
+                if let latestRecord = labResultsManager.labRecords.first {
+                    NavigationLink(destination: LabResultDetailView(record: latestRecord)) {
+                        ANCView()
+                    }
+                }
+            } else {
+                Text("No ANC data available").foregroundColor(.gray)
+            }
+        }
+    }
+
+    /// ✅ Extracted Lab History Section
+    private func labHistorySection() -> some View {
+        Section(header: Text("Lab Results History")) {
+            if labResultsManager.labRecords.isEmpty {
+                Text("No lab results recorded").foregroundColor(.gray)
+            } else {
+                ForEach(labResultsManager.labRecords, id: \.date) { record in
+                    NavigationLink(destination: LabResultDetailView(record: record)) {
+                        Text(labResultsManager.formatDate(record.date))
+                    }
                 }
             }
-            .onAppear {
-                labResultsManager.refresh()
+        }
+    }
+
+    /// ✅ Extracted Toolbar Content
+    private func toolbarContent() -> some ToolbarContent {
+        ToolbarItem {
+            if account != nil {
+                AccountButton(isPresented: $presentingAccount)
             }
         }
     }
 }
-
 
 #Preview {
     LabView(presentingAccount: .constant(false))
