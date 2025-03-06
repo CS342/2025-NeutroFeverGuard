@@ -6,10 +6,10 @@
 // SPDX-License-Identifier: MIT
 //
 
+import FirebaseFirestore
 import HealthKit
 import SpeziHealthKit
 import SpeziLocalStorage
-import FirebaseFirestore
 
 actor HealthKitService {
     internal let healthStore = HKHealthStore()
