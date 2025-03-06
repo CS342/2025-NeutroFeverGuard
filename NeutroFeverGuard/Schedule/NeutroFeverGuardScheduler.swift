@@ -56,11 +56,11 @@ final class NeutroFeverGuardScheduler: Module, DefaultInitializable, Environment
         
         do {
             let events = try scheduler.queryEvents(for: recordTime..<sevenDaysLater, predicate: #Predicate { $0.id == "enter-lab-result" })
-            print("find event")
-            print(events)
+//            print("find event")
+//            print(events)
             for event in events {
                 try event.complete()
-                print("Marked event \(event.id) as complete")
+//                print("Marked event \(event.id) as complete")
             }
             scheduler.manuallyScheduleNotificationRefresh()
         } catch {

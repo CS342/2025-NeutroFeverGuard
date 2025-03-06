@@ -40,15 +40,23 @@ struct ANCView: View {
     }
 }
 
-
 struct LabResultDetailView: View {
     var record: LabEntry
-    
     @Environment(LabResultsManager.self) private var labResultsManager
 
     var body: some View {
         Form {
-            Section(header: Text("Lab Values")) {
+            Section {
+                HStack {
+                    Text("Date")
+                    Spacer()
+                    Text("\(labResultsManager.formatDate(record.date))")
+                }
+                HStack {
+                    Text("Time")
+                    Spacer()
+                    Text("\(labResultsManager.formatTime(record.date))")
+                }
                 labValueRow(type: .whiteBloodCell, unit: "cells/µL")
                 labValueRow(type: .hemoglobin, unit: "g/dL")
                 labValueRow(type: .plateletCount, unit: "cells/µL")
@@ -60,7 +68,7 @@ struct LabResultDetailView: View {
                 labValueRow(type: .blasts, unit: "%")
             }
         }
-        .navigationTitle(labResultsManager.formatDate(record.date))
+        .navigationTitle("Details")
     }
 
     @ViewBuilder
@@ -75,7 +83,6 @@ struct LabResultDetailView: View {
 
 struct LabView: View {
     @Environment(LabResultsManager.self) private var labResultsManager
-    @Environment(LocalStorage.self) var localStorage
     @Environment(Account.self) private var account: Account?
     @Binding var presentingAccount: Bool
 
@@ -114,7 +121,7 @@ struct LabView: View {
             } else {
                 ForEach(labResultsManager.labRecords, id: \.date) { record in
                     NavigationLink(destination: LabResultDetailView(record: record)) {
-                        Text(labResultsManager.formatDate(record.date))
+                        Text(labResultsManager.formatDateTime(record.date))
                     }
                 }
             }
