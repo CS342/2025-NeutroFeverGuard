@@ -16,7 +16,6 @@ struct HomeView: View {
         case addData
         case labResult
         case schedule
-        case feverdebug
         case contact
     }
 
@@ -57,13 +56,6 @@ struct HomeView: View {
             .customizationID("home.schedule")
             .accessibilityIdentifier("Schedule")
             
-            // Schedule tab
-            Tab("Debug", systemImage: "list.clipboard", value: .feverdebug) {
-                FeverView(presentingAccount: $presentingAccount)
-            }
-            .customizationID("home.debug")
-            .accessibilityIdentifier("Debug")
-            
             // Contacts tab
             Tab("Contacts", systemImage: "person.fill", value: .contact) {
                 Contacts(presentingAccount: $presentingAccount)
@@ -78,6 +70,9 @@ struct HomeView: View {
         }
         .accountRequired(!FeatureFlags.disableFirebase && !FeatureFlags.skipOnboarding) {
             AccountSheet()
+        }
+        .onAppear {
+            UNUserNotificationCenter.current().delegate = NotificationManager.shared
         }
     }
 }

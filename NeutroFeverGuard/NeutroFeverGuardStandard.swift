@@ -29,6 +29,7 @@ actor NeutroFeverGuardStandard: Standard,
     @Application(\.logger) private var logger
 
     @Dependency(FirebaseConfiguration.self) private var configuration
+    @Dependency(LabResultsManager.self) private var labResultsManager
 
     init() {}
 
@@ -36,12 +37,27 @@ actor NeutroFeverGuardStandard: Standard,
     func add(sample: HKSample) async {
         if FeatureFlags.disableFirebase {
             logger.debug("Received new HealthKit sample: \(sample)")
+            if let condition = await checkForFebrileNeutropenia() {
+                await MainActor.run {
+                    NotificationManager.shared.sendLocalNotification(
+                        title: "Health Alert",
+                        body: "Risk detected: \(condition), please contact your care provider."
+                    )
+                }
+            }
             return
         }
         
         do {
             try await healthKitDocument(id: sample.id)
                 .setData(from: sample.resource)
+            // Check if the condition is met before sending a notification
+            if let condition = await checkForFebrileNeutropenia() {
+                await NotificationManager.shared.sendLocalNotification(
+                    title: "Health Alert",
+                    body: "Risk detected: \(condition), please contact your care provider."
+                )
+            }
         } catch {
             logger.error("Could not store HealthKit sample: \(error)")
         }
@@ -52,7 +68,6 @@ actor NeutroFeverGuardStandard: Standard,
             logger.debug("Received new removed healthkit sample with id \(sample.uuid)")
             return
         }
-        
         do {
             try await healthKitDocument(id: sample.uuid).delete()
         } catch {
@@ -80,6 +95,18 @@ actor NeutroFeverGuardStandard: Standard,
         }
     }
     
+    private func checkForFebrileNeutropenia() async -> String? {
+        let fever = await FeverMonitor.shared.checkForFever()
+        let ancStatus = labResultsManager.getANCStatus()
+
+        if ancStatus.text == "No Data" {
+            return nil  // No notification needed
+        } else if fever && ancStatus.text != "Normal" {
+            return "Febrile Neutropenia"
+        } else {
+            return nil  // No notification needed
+        }
+    }
     
     private func healthKitDocument(id uuid: UUID) async throws -> DocumentReference {
         try await configuration.userDocumentReference

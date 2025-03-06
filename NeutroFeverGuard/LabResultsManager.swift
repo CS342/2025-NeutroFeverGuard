@@ -11,7 +11,6 @@ import SwiftUI
 
 
 @Observable
-@MainActor
 class LabResultsManager: Module, EnvironmentAccessible {
     private let localStorage: LocalStorage
     

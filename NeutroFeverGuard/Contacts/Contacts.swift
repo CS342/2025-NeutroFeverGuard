@@ -17,31 +17,29 @@ struct Contacts: View {
     let contacts = [
         Contact(
             name: PersonNameComponents(
-                givenName: "Leland",
-                familyName: "Stanford"
+                givenName: "Johannes",
+                familyName: "Jung"
             ),
             image: Image(systemName: "figure.wave.circle"), // swiftlint:disable:this accessibility_label_for_image
-            title: "University Founder",
-            description: String(localized: "LELAND_STANFORD_BIO"),
-            organization: "Stanford University",
+            title: "Dr. med.",
+            organization: "Comprehensive Cancer Center München TUM",
             address: {
                 let address = CNMutablePostalAddress()
-                address.country = "USA"
-                address.state = "CA"
-                address.postalCode = "94305"
-                address.city = "Stanford"
-                address.street = "450 Serra Mall"
+                address.country = "Germany"
+                address.postalCode = "81675"
+                address.city = "München"
+                address.street = "Ismaninger Str. 22"
                 return address
             }(),
             contactOptions: [
-                .call("+1 (650) 723-2300"),
-                .text("+1 (650) 723-2300"),
-                .email(addresses: ["contact@stanford.edu"]),
+                .call("+49 89 41406622"),
+                .text("+49 89 41406622"),
+                .email(addresses: ["johannes.jung@mri.tum.de"]),
                 ContactOption(
                     image: Image(systemName: "safari.fill"), // swiftlint:disable:this accessibility_label_for_image
                     title: "Website",
                     action: {
-                        if let url = URL(string: "https://stanford.edu") {
+                        if let url = URL(string: "https://cccm.mri.tum.de/de") {
                             UIApplication.shared.open(url)
                         }
                     }
