@@ -69,8 +69,6 @@
 		A9D83F962B083794000D0C78 /* SpeziFirebaseAccountStorage in Frameworks */ = {isa = PBXBuildFile; productRef = A9D83F952B083794000D0C78 /* SpeziFirebaseAccountStorage */; };
 		A9DFE8A92ABE551400428242 /* AccountButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DFE8A82ABE551400428242 /* AccountButton.swift */; };
 		A9FE7AD02AA39BAB0077B045 /* AccountSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FE7ACF2AA39BAB0077B045 /* AccountSheet.swift */; };
-		B0C95E3A2D78D5F3007A4CA6 /* FeverMonitoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C95E382D78D5F2007A4CA6 /* FeverMonitoring.swift */; };
-		B0C95E3E2D78D635007A4CA6 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C95E3C2D78D635007A4CA6 /* DebugView.swift */; };
 		B0D4C9382D790F65000643C7 /* LabResultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D4C9372D790F5E000643C7 /* LabResultsManager.swift */; };
 		C42B98FF2D769E54005D820B /* SpeziKeychainStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C42B98FE2D769E54005D820B /* SpeziKeychainStorage */; };
 		C42D4DA52D5AC89900B2A169 /* LabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D4DA42D5AC89500B2A169 /* LabView.swift */; };
@@ -146,8 +144,6 @@
 		A9A3DCC72C75CB9A00FC9B69 /* FirebaseConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfiguration.swift; sourceTree = "<group>"; };
 		A9DFE8A82ABE551400428242 /* AccountButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountButton.swift; sourceTree = "<group>"; };
 		A9FE7ACF2AA39BAB0077B045 /* AccountSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSheet.swift; sourceTree = "<group>"; };
-		B0C95E382D78D5F2007A4CA6 /* FeverMonitoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeverMonitoring.swift; sourceTree = "<group>"; };
-		B0C95E3C2D78D635007A4CA6 /* DebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.swift; sourceTree = "<group>"; };
 		B0D4C9372D790F5E000643C7 /* LabResultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabResultsManager.swift; sourceTree = "<group>"; };
 		C42D4DA42D5AC89500B2A169 /* LabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabView.swift; sourceTree = "<group>"; };
 		C49EC8332D501C5C005C3495 /* DataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataType.swift; sourceTree = "<group>"; };
@@ -336,8 +332,6 @@
 				EB7D47E02D51433200CEDC78 /* HealthKitVisualizations */,
 				F22393792D5D4092006C8EB4 /* DataError.swift */,
 				C42D4DA42D5AC89500B2A169 /* LabView.swift */,
-				B0C95E3C2D78D635007A4CA6 /* DebugView.swift */,
-				B0C95E382D78D5F2007A4CA6 /* FeverMonitoring.swift */,
 				C4C0A78E2D518DB500F37EEC /* HelperFunc.swift */,
 				F2E6898E2D52ED8500869C4F /* HealthKitService.swift */,
 				C49EC83F2D5033F9005C3495 /* AddDataView.swift */,
@@ -611,7 +605,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0C95E3A2D78D5F3007A4CA6 /* FeverMonitoring.swift in Sources */,
 				F223937A2D5D4095006C8EB4 /* DataError.swift in Sources */,
 				C49EC8532D5038AC005C3495 /* DataInputForm.swift in Sources */,
 				2FE5DC4129EDD7EE004B9AB4 /* StorageKeys.swift in Sources */,
@@ -642,7 +635,6 @@
 				B0D4C9382D790F65000643C7 /* LabResultsManager.swift in Sources */,
 				653A2551283387FE005D4D48 /* NeutroFeverGuard.swift in Sources */,
 				2FE5DC3629EDD7CA004B9AB4 /* HealthKitPermissions.swift in Sources */,
-				B0C95E3E2D78D635007A4CA6 /* DebugView.swift in Sources */,
 				2F65B44E2A3B8B0600A36932 /* NotificationPermissions.swift in Sources */,
 				2FE5DC2629EDD38A004B9AB4 /* Contacts.swift in Sources */,
 			);

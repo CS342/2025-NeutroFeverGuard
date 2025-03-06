@@ -160,9 +160,6 @@
         }
       }
     },
-    "Check Fever Status" : {
-
-    },
     "Close" : {
       "localizations" : {
         "en" : {
@@ -212,9 +209,6 @@
           }
         }
       }
-    },
-    "Debug" : {
-
     },
     "Delete" : {
 

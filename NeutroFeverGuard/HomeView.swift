@@ -16,7 +16,6 @@ struct HomeView: View {
         case addData
         case labResult
         case schedule
-        case feverdebug
         case contact
     }
 
@@ -25,8 +24,7 @@ struct HomeView: View {
     @AppStorage(StorageKeys.tabViewCustomization) private var tabViewCustomization = TabViewCustomization()
 
     @State private var presentingAccount = false
-    
-    private let labView = LabView(presentingAccount: .constant(false))
+
     
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -56,13 +54,6 @@ struct HomeView: View {
             }
             .customizationID("home.schedule")
             .accessibilityIdentifier("Schedule")
-            
-            // Schedule tab
-            Tab("Debug", systemImage: "list.clipboard", value: .feverdebug) {
-                FeverView(presentingAccount: $presentingAccount)
-            }
-            .customizationID("home.debug")
-            .accessibilityIdentifier("Debug")
             
             // Contacts tab
             Tab("Contacts", systemImage: "person.fill", value: .contact) {
