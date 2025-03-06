@@ -42,34 +42,33 @@ struct ANCView: View {
 
 struct LabResultDetailView: View {
     @Environment(LabResultsManager.self) private var labResultsManager
-    @Environment(\.dismiss) var dismiss
-    
-    @State private var isEditing = false
-    @State private var showDeleteAlert = false
     @State private var editedRecord: LabEntry
     @State private var editedIndex: Int
+    @State private var showDeleteAlert = false
+    @Environment(\.dismiss) var dismiss
 
     var body: some View {
         Form {
             Section {
-                DatePicker("Date", selection: $editedRecord.date, displayedComponents: .date)
-                    .disabled(true)
-                DatePicker("Time", selection: $editedRecord.date, displayedComponents: .hourAndMinute)
-                    .disabled(true)
-                ForEach(LabTestType.allCases, id: \.self) { testType in
-                    HStack {
-                        Text(testType.rawValue)
-                        Spacer()
-                        TextField("Value", text: Binding(
-                            get: { String(editedRecord.values[testType] ?? 0) },
-                            set: { editedRecord.values[testType] = Double($0) }
-                        ))
-                        .keyboardType(.decimalPad)
-                        .multilineTextAlignment(.trailing)
-                        .frame(width: 80)
-                        .disabled(!isEditing)
-                    }
+                HStack {
+                    Text("Date")
+                    Spacer()
+                    Text("\(labResultsManager.formatDate(editedRecord.date))")
                 }
+                HStack {
+                    Text("Time")
+                    Spacer()
+                    Text("\(labResultsManager.formatTime(editedRecord.date))")
+                }
+                labValueRow(type: .whiteBloodCell, unit: "cells/µL")
+                labValueRow(type: .hemoglobin, unit: "g/dL")
+                labValueRow(type: .plateletCount, unit: "cells/µL")
+                labValueRow(type: .neutrophils, unit: "%")
+                labValueRow(type: .lymphocytes, unit: "%")
+                labValueRow(type: .monocytes, unit: "%")
+                labValueRow(type: .eosinophils, unit: "%")
+                labValueRow(type: .basophils, unit: "%")
+                labValueRow(type: .blasts, unit: "%")
             }
             HStack {
                 Spacer()
@@ -80,21 +79,11 @@ struct LabResultDetailView: View {
             }
         }
         .navigationTitle("Lab Details")
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(isEditing ? "Save" : "Edit") {
-                    if isEditing {
-                        saveChanges()
-                    }
-                    isEditing.toggle()
-                }
-            }
-        }
         .alert("Delete Lab Record", isPresented: $showDeleteAlert) {
-            Button("Delete", role: .destructive) {
-                deleteRecord()
-            }
-            Button("Cancel", role: .cancel) {}
+                Button("Delete", role: .destructive) {
+                    deleteRecord()
+                }
+                Button("Cancel", role: .cancel) {}
         } message: {
             Text("Are you sure you want to delete this lab record? This action cannot be undone.")
         }
@@ -104,16 +93,20 @@ struct LabResultDetailView: View {
         _editedRecord = State(initialValue: record)
         _editedIndex = State(initialValue: index)
     }
-
-    private func saveChanges() {
-        labResultsManager.updateLabEntry(at: editedIndex, with: editedRecord)
-        labResultsManager.refresh()
-    }
-
+    
     private func deleteRecord() {
         labResultsManager.deleteLabEntry(at: editedIndex)
         labResultsManager.refresh()
         dismiss()
+    }
+
+    @ViewBuilder
+    private func labValueRow(type: LabTestType, unit: String) -> some View {
+        HStack {
+            Text(type.rawValue)
+            Spacer()
+            Text("\(editedRecord.values[type] ?? 0, specifier: "%.1f") \(unit)")
+        }
     }
 }
 
@@ -171,4 +164,8 @@ struct LabView: View {
             }
         }
     }
+}
+
+#Preview {
+    LabView(presentingAccount: .constant(false))
 }

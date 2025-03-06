@@ -4,6 +4,16 @@
     "" : {
 
     },
+    "%.1f %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$.1f %2$@"
+          }
+        }
+      }
+    },
     "%.1f cells/µL" : {
       "localizations" : {
         "en" : {
@@ -212,6 +222,9 @@
     "Delete Lab Record" : {
 
     },
+    "Details" : {
+
+    },
     "Diastolic (mmHg)" : {
       "localizations" : {
         "en" : {
@@ -221,9 +234,6 @@
           }
         }
       }
-    },
-    "Edit" : {
-
     },
     "Enter Lab Results" : {
 
@@ -443,9 +453,6 @@
           }
         }
       }
-    },
-    "Lab Details" : {
-
     },
     "Lab Results" : {
       "localizations" : {
@@ -668,9 +675,6 @@
         }
       }
     },
-    "Save" : {
-
-    },
     "Schedule" : {
       "localizations" : {
         "en" : {
@@ -810,9 +814,6 @@
           }
         }
       }
-    },
-    "Value" : {
-
     },
     "Vitals Dashboard" : {
       "localizations" : {
