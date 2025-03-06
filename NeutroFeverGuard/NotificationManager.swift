@@ -1,10 +1,10 @@
 //
-//  NotificationManager.swift
-//  NeutroFeverGuard
+// This source file is part of the NeutroFeverGuard based on the Stanford Spezi Template Application project
 //
-//  Created by Merve Cerit on 3/5/25.
+// SPDX-FileCopyrightText: 2025 Stanford University
 //
-
+// SPDX-License-Identifier: MIT
+//
 
 import UserNotifications
 
