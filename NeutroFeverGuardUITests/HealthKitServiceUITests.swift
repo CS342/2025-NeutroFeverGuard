@@ -6,14 +6,11 @@
 // SPDX-License-Identifier: MIT
 //
 
-import HealthKit
-import Testing
 import XCTest
 import XCTHealthKit
 
-@MainActor
 struct HealthKitServiceUITests {
-    @Test
+    @MainActor
     func testAddTemperature() async throws {
         let app = XCUIApplication()
         app.launchArguments = ["--skipOnboarding"]
@@ -30,11 +27,11 @@ struct HealthKitServiceUITests {
         
         app.buttons["Add"].tap()
         
-        #expect(app.buttons["Add Data"].exists)
-        #expect(!app.alerts.element.exists)
+        XCTAssertTrue(app.buttons["Add Data"].exists)
+        XCTAssertFalse(app.alerts.element.exists)
     }
     
-    @Test
+    @MainActor
     func testAddHeartRate() async throws {
         let app = XCUIApplication()
         app.launchArguments = ["--skipOnboarding"]
@@ -48,11 +45,11 @@ struct HealthKitServiceUITests {
         
         app.buttons["Add"].tap()
         
-        #expect(app.buttons["Add Data"].exists)
-        #expect(!app.alerts.element.exists)
+        XCTAssertTrue(app.buttons["Add Data"].exists)
+        XCTAssertFalse(app.alerts.element.exists)
     }
     
-    @Test
+    @MainActor
     func testAddOxygenSaturation() async throws {
         let app = XCUIApplication()
         app.launchArguments = ["--skipOnboarding"]
@@ -66,11 +63,11 @@ struct HealthKitServiceUITests {
         
         app.buttons["Add"].tap()
         
-        #expect(app.buttons["Add Data"].exists)
-        #expect(!app.alerts.element.exists)
+        XCTAssertTrue(app.buttons["Add Data"].exists)
+        XCTAssertFalse(app.alerts.element.exists)
     }
     
-    @Test
+    @MainActor
     func testAddBloodPressure() async throws {
         let app = XCUIApplication()
         app.launchArguments = ["--skipOnboarding"]
@@ -87,11 +84,7 @@ struct HealthKitServiceUITests {
         
         app.buttons["Add"].tap()
         
-        let healthStore = HKHealthStore()
-        let systolicType = HKQuantityType(.bloodPressureSystolic)
-        let diastolicType = HKQuantityType(.bloodPressureDiastolic)
-        
-        #expect(app.buttons["Add Data"].exists)
-        #expect(!app.alerts.element.exists)
+        XCTAssertTrue(app.buttons["Add Data"].exists)
+        XCTAssertFalse(app.alerts.element.exists)
     }
 }
