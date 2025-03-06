@@ -222,9 +222,6 @@
     "Delete Lab Record" : {
 
     },
-    "Details" : {
-
-    },
     "Diastolic (mmHg)" : {
       "localizations" : {
         "en" : {
@@ -453,6 +450,9 @@
           }
         }
       }
+    },
+    "Lab Details" : {
+
     },
     "Lab Results" : {
       "localizations" : {

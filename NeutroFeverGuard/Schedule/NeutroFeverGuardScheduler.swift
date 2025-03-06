@@ -17,9 +17,9 @@ import class ModelsR4.QuestionnaireResponse
 @Observable
 final class NeutroFeverGuardScheduler: Module, DefaultInitializable, EnvironmentAccessible {
     @Dependency(Scheduler.self) @ObservationIgnored private var scheduler
-
+    
     @MainActor var viewState: ViewState = .idle
-
+    
     init() {}
     
     /// Add or update the current list of task upon app startup.
@@ -40,7 +40,7 @@ final class NeutroFeverGuardScheduler: Module, DefaultInitializable, Environment
                 title: "Enter Lab Results",
                 instructions: "You haven't recorded your lab results for last 7 days. Record now!",
                 category: .measurement,
-                schedule: .daily(hour: 9, minute: 0, startingAt: .today),
+                schedule: .daily(hour: 1, minute: 56, startingAt: .today),
                 scheduleNotifications: true
             )
         } catch {
@@ -50,21 +50,37 @@ final class NeutroFeverGuardScheduler: Module, DefaultInitializable, Environment
     
     @MainActor
     func markRecentEventsAsComplete(_ recordTime: Date = Date()) {
-        print("in markRecentEventsAsComplete")
+        //        print("in markRecentEventsAsComplete")
         guard let sevenDaysLater = Calendar.current.date(byAdding: .day, value: 7, to: recordTime)
-                                    else { return }
+        else { return }
         
         do {
             let events = try scheduler.queryEvents(for: recordTime..<sevenDaysLater, predicate: #Predicate { $0.id == "enter-lab-result" })
-//            print("find event")
-//            print(events)
+            //            print("find event")
+            //            print(events)
             for event in events {
                 try event.complete()
-//                print("Marked event \(event.id) as complete")
+                //                print("Marked event \(event.id) as complete")
             }
             scheduler.manuallyScheduleNotificationRefresh()
         } catch {
             print("Error querying or completing events: \(error)")
+        }
+    }
+    
+    @MainActor
+    func restartNotification(from date: Date) {
+        do {
+            try scheduler.createOrUpdateTask(
+                id: "enter-lab-result",
+                title: "Enter Lab Results",
+                instructions: "You haven't recorded your lab results for last 7 days. Record now!",
+                category: .measurement,
+                schedule: .daily(hour: 1, minute: 56, startingAt: date),
+                scheduleNotifications: true
+            )
+        } catch {
+            viewState = .error(AnyLocalizedError(error: error, defaultErrorDescription: "Failed to create or update scheduled tasks."))
         }
     }
 }

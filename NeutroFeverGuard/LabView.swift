@@ -46,6 +46,7 @@ struct LabResultDetailView: View {
     @State private var editedIndex: Int
     @State private var showDeleteAlert = false
     @Environment(\.dismiss) var dismiss
+    @Environment(NeutroFeverGuardScheduler.self) private var scheduler
 
     var body: some View {
         Form {
@@ -97,6 +98,16 @@ struct LabResultDetailView: View {
     private func deleteRecord() {
         labResultsManager.deleteLabEntry(at: editedIndex)
         labResultsManager.refresh()
+        if editedIndex == 0 {
+            if !labResultsManager.labRecords.isEmpty {
+                let nextRecordDate = labResultsManager.labRecords[0].date
+                if let newStartDate = Calendar.current.date(byAdding: .day, value: 7, to: nextRecordDate) {
+                    scheduler.restartNotification(from: newStartDate)
+                }
+            } else {
+                scheduler.restartNotification(from: Date())
+            }
+        }
         dismiss()
     }
 
