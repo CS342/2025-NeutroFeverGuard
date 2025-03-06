@@ -142,4 +142,19 @@ actor HealthKitService {
                 .setData(from: entry)
         }
     }
+    
+    func saveMedication(_ entry: MedicationEntry) async throws {
+        let storageKey = "medications"
+        var medications: [MedicationEntry]
+        
+        do {
+            medications = try localStorage.load(LocalStorageKey<[MedicationEntry]>(storageKey)) ?? []
+        } catch {
+            medications = []
+        }
+        
+        medications.append(entry)
+        
+        try localStorage.store(medications, for: LocalStorageKey(storageKey))
+    }
 }
