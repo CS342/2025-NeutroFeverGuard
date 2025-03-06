@@ -34,8 +34,37 @@ final class NeutroFeverGuardScheduler: Module, DefaultInitializable, Environment
             ) { context in
                 context.questionnaire = Bundle.main.questionnaire(withName: "SocialSupportQuestionnaire")
             }
+            
+            try scheduler.createOrUpdateTask(
+                id: "enter-lab-result",
+                title: "Enter Lab Results",
+                instructions: "You haven't recorded your lab results for last 7 days. Record now!",
+                category: .measurement,
+                schedule: .daily(hour: 18, minute: 0, startingAt: .today),
+                scheduleNotifications: true
+            )
         } catch {
             viewState = .error(AnyLocalizedError(error: error, defaultErrorDescription: "Failed to create or update scheduled tasks."))
+        }
+    }
+    
+    @MainActor
+    func markRecentEventsAsComplete(_ recordTime: Date = Date()) {
+        print("in markRecentEventsAsComplete")
+        guard let sevenDaysLater = Calendar.current.date(byAdding: .day, value: 7, to: recordTime)
+                                    else { return }
+        
+        do {
+            let events = try scheduler.queryEvents(for: recordTime..<sevenDaysLater, predicate: #Predicate { $0.id == "enter-lab-result" })
+            print("find event")
+            print(events)
+            for event in events {
+                try event.complete()
+                print("Marked event \(event.id) as complete")
+            }
+            scheduler.manuallyScheduleNotificationRefresh()
+        } catch {
+            print("Error querying or completing events: \(error)")
         }
     }
 }

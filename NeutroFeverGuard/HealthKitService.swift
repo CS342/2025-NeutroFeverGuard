@@ -126,13 +126,13 @@ actor HealthKitService {
         var labResults: [LabEntry]
         
         do {
-            labResults = try localStorage.read([LabEntry].self, storageKey: storageKey)
+            labResults = try localStorage.load(LocalStorageKey<[LabEntry]>(storageKey)) ?? []
         } catch {
             labResults = []
         }
         
         labResults.append(entry)
-        try localStorage.store(labResults, storageKey: storageKey)
+        try localStorage.store(labResults, for: LocalStorageKey(storageKey))
         
         // Save to Firestore
         if !FeatureFlags.disableFirebase {
