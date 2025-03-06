@@ -41,8 +41,12 @@ struct ANCView: View {
 }
 
 struct LabResultDetailView: View {
-    var record: LabEntry
     @Environment(LabResultsManager.self) private var labResultsManager
+    @State private var editedRecord: LabEntry
+    @State private var editedIndex: Int
+    @State private var showDeleteAlert = false
+    @Environment(\.dismiss) var dismiss
+    @Environment(NeutroFeverGuardScheduler.self) private var scheduler
 
     var body: some View {
         Form {
@@ -50,12 +54,12 @@ struct LabResultDetailView: View {
                 HStack {
                     Text("Date")
                     Spacer()
-                    Text("\(labResultsManager.formatDate(record.date))")
+                    Text("\(labResultsManager.formatDate(editedRecord.date))")
                 }
                 HStack {
                     Text("Time")
                     Spacer()
-                    Text("\(labResultsManager.formatTime(record.date))")
+                    Text("\(labResultsManager.formatTime(editedRecord.date))")
                 }
                 labValueRow(type: .whiteBloodCell, unit: "cells/µL")
                 labValueRow(type: .hemoglobin, unit: "g/dL")
@@ -67,8 +71,44 @@ struct LabResultDetailView: View {
                 labValueRow(type: .basophils, unit: "%")
                 labValueRow(type: .blasts, unit: "%")
             }
+            HStack {
+                Spacer()
+                Button("Delete", role: .destructive) {
+                    showDeleteAlert = true
+                }
+                Spacer()
+            }
         }
-        .navigationTitle("Details")
+        .navigationTitle("Lab Details")
+        .alert("Delete Lab Record", isPresented: $showDeleteAlert) {
+                Button("Delete", role: .destructive) {
+                    deleteRecord()
+                }
+                Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("Are you sure you want to delete this lab record? This action cannot be undone.")
+        }
+    }
+    
+    init(record: LabEntry, index: Int) {
+        _editedRecord = State(initialValue: record)
+        _editedIndex = State(initialValue: index)
+    }
+    
+    private func deleteRecord() {
+        labResultsManager.deleteLabEntry(at: editedIndex)
+        labResultsManager.refresh()
+        if editedIndex == 0 {
+            if !labResultsManager.labRecords.isEmpty {
+                let nextRecordDate = labResultsManager.labRecords[0].date
+                if let newStartDate = Calendar.current.date(byAdding: .day, value: 7, to: nextRecordDate) {
+                    scheduler.restartNotification(from: newStartDate)
+                }
+            } else {
+                scheduler.restartNotification(from: Date())
+            }
+        }
+        dismiss()
     }
 
     @ViewBuilder
@@ -76,7 +116,7 @@ struct LabResultDetailView: View {
         HStack {
             Text(type.rawValue)
             Spacer()
-            Text("\(record.values[type] ?? 0, specifier: "%.1f") \(unit)")
+            Text("\(editedRecord.values[type] ?? 0, specifier: "%.1f") \(unit)")
         }
     }
 }
@@ -104,7 +144,7 @@ struct LabView: View {
         Section(header: Text("Absolute Neutrophil Counts")) {
             if labResultsManager.getAncValue() != nil, !labResultsManager.labRecords.isEmpty {
                 if let latestRecord = labResultsManager.labRecords.first {
-                    NavigationLink(destination: LabResultDetailView(record: latestRecord)) {
+                    NavigationLink(destination: LabResultDetailView(record: latestRecord, index: 0)) {
                         ANCView()
                     }
                 }
@@ -119,8 +159,8 @@ struct LabView: View {
             if labResultsManager.labRecords.isEmpty {
                 Text("No lab results recorded").foregroundColor(.gray)
             } else {
-                ForEach(labResultsManager.labRecords, id: \.date) { record in
-                    NavigationLink(destination: LabResultDetailView(record: record)) {
+                ForEach(Array(labResultsManager.labRecords.enumerated()), id: \.element.date) { index, record in
+                    NavigationLink(destination: LabResultDetailView(record: record, index: index)) {
                         Text(labResultsManager.formatDateTime(record.date))
                     }
                 }

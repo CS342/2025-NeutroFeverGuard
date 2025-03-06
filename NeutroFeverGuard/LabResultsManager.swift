@@ -60,13 +60,13 @@ class LabResultsManager: Module, EnvironmentAccessible {
         saveLabResults()
     }
 
-    func updateLabEntry(at index: Int, with updatedEntry: LabEntry) {
-        guard labRecords.indices.contains(index)
-            else { return }
-        labRecords[index] = updatedEntry
-        saveLabResults()
-    }
-    
+//    func updateLabEntry(at index: Int, with updatedEntry: LabEntry) {
+//        guard labRecords.indices.contains(index)
+//            else { return }
+//        labRecords[index] = updatedEntry
+//        saveLabResults()
+//    }
+  
     private func saveLabResults() {
         do {
             try localStorage.store(labRecords, for: LocalStorageKey<[LabEntry]>("labResults"))
