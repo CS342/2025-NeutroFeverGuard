@@ -135,7 +135,7 @@ struct BloodPressureEntry {
  */
 
 struct LabEntry: Codable {
-    let date: Date
+    var date: Date
     var values: [LabTestType: Double]
     
     init(date: Date, values: [LabTestType: Double]) throws {

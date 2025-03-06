@@ -16,12 +16,12 @@ struct HomeView: View {
         case addData
         case labResult
         case medication
-        case schedule
+//        case schedule
         case contact
     }
 
 
-    @AppStorage(StorageKeys.homeTabSelection) private var selectedTab = Tabs.schedule
+    @AppStorage(StorageKeys.homeTabSelection) private var selectedTab = Tabs.addData
     @AppStorage(StorageKeys.tabViewCustomization) private var tabViewCustomization = TabViewCustomization()
 
     @State private var presentingAccount = false
