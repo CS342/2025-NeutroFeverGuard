@@ -11,7 +11,6 @@ import SpeziLocalStorage
 import SwiftUI
 
 struct ANCView: View {
-    let ancValue: Double
     @Environment(LabResultsManager.self) private var labResultsManager
 
     var body: some View {
@@ -20,7 +19,7 @@ struct ANCView: View {
         VStack(alignment: .leading, spacing: 8) {
             Text("🧪 Latest ANC")
                 .font(.headline)
-            Text("\(ancValue, specifier: "%.1f") cells/µL")
+            Text("\(labResultsManager.ancValue, specifier: "%.1f") cells/µL")
                 .font(.largeTitle)
                 .bold()
                 .foregroundColor(status.color)
@@ -30,7 +29,7 @@ struct ANCView: View {
                 .font(.subheadline)
                 .foregroundColor(status.color)
                 .bold()
-            Text("Last recorded: \(latestRecordedTime)")
+            Text("Last recorded: \(labResultsManager.latestRecordedTime)")
                 .font(.caption)
                 .foregroundColor(.gray)
         }
@@ -82,7 +81,7 @@ struct LabView: View {
                 Section(header: Text("Absolute Neutrophil Counts")) {
                     if let anc = labResultsManager.getAncValue(), let latestRecord = labResultsManager.labRecords.first {
                         NavigationLink(destination: LabResultDetailView(record: latestRecord)) {
-                            ANCView(ancValue: anc, latestRecordedTime: labResultsManager.latestRecordedTime)
+                            ANCView()
                         }
                     } else {
                         Text("No ANC data available")
