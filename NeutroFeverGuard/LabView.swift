@@ -12,10 +12,10 @@ import SwiftUI
 
 struct ANCView: View {
     let ancValue: Double
-    let latestRecordedTime: String
+    @Environment(LabResultsManager.self) private var labResultsManager
 
     var body: some View {
-        let status = getANCStatus(ancValue)
+        let status = labResultsManager.getANCStatus()
 
         VStack(alignment: .leading, spacing: 8) {
             Text("🧪 Latest ANC")
@@ -35,22 +35,13 @@ struct ANCView: View {
                 .foregroundColor(.gray)
         }
     }
-    
-    private func getANCStatus(_ ancValue: Double) -> (text: String, color: Color) {
-        switch ancValue {
-        case let anc where anc >= 500:
-            return ("Normal", .green)
-        case let anc where anc >= 100:
-            return ("Severe Neutropenia", .orange)
-        default:
-            return ("Profound Neutropenia", .red)
-        }
-    }
 }
 
 
 struct LabResultDetailView: View {
     var record: LabEntry
+    
+    @Environment(LabResultsManager.self) private var labResultsManager
 
     var body: some View {
         Form {
@@ -66,7 +57,7 @@ struct LabResultDetailView: View {
                 labValueRow(type: .blasts, unit: "%")
             }
         }
-        .navigationTitle(formatDate(record.date))
+        .navigationTitle(labResultsManager.formatDate(record.date))
     }
 
     @ViewBuilder
@@ -77,37 +68,21 @@ struct LabResultDetailView: View {
             Text("\(record.values[type] ?? 0, specifier: "%.1f") \(unit)")
         }
     }
-
-    private func formatDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        return formatter.string(from: date)
-    }
 }
 
 struct LabView: View {
-    @State private var labRecords: [LabEntry] = []
-    @State private var latestRecordedTime: String = "None"
+    @Environment(LabResultsManager.self) private var labResultsManager
     @Environment(LocalStorage.self) var localStorage
     @Environment(Account.self) private var account: Account?
     @Binding var presentingAccount: Bool
-
-    private var ancValue: Double? {
-        guard let latestRecord = labRecords.first,
-              let neutrophils = latestRecord.values[.neutrophils],
-              let wbc = latestRecord.values[.whiteBloodCell] else {
-            return nil
-        }
-        return (neutrophils / 100.0) * wbc
-    }
 
     var body: some View {
         NavigationView {
             List {
                 Section(header: Text("Absolute Neutrophil Counts")) {
-                    if let anc = ancValue, let latestRecord = labRecords.first {
+                    if let anc = labResultsManager.getAncValue(), let latestRecord = labResultsManager.labRecords.first {
                         NavigationLink(destination: LabResultDetailView(record: latestRecord)) {
-                            ANCView(ancValue: anc, latestRecordedTime: latestRecordedTime)
+                            ANCView(ancValue: anc, latestRecordedTime: labResultsManager.latestRecordedTime)
                         }
                     } else {
                         Text("No ANC data available")
@@ -116,13 +91,13 @@ struct LabView: View {
                 }
                 
                 Section(header: Text("Lab Results History")) {
-                    if labRecords.isEmpty {
+                    if labResultsManager.labRecords.isEmpty {
                         Text("No lab results recorded")
                             .foregroundColor(.gray)
                     } else {
-                        ForEach(labRecords, id: \.date) { record in
+                        ForEach(labResultsManager.labRecords, id: \.date) { record in
                             NavigationLink(destination: LabResultDetailView(record: record)) {
-                                Text(formatDate(record.date))
+                                Text(labResultsManager.formatDate(record.date))
                             }
                         }
                     }
@@ -137,52 +112,9 @@ struct LabView: View {
                 }
             }
             .onAppear {
-                loadLabResults()
+                labResultsManager.refresh()
             }
         }
-    }
-  
-    private func loadLabResults() {
-        if FeatureFlags.mockLabData {
-            do {
-                labRecords = [
-                    try LabEntry(date: Date(), values: [
-                        .whiteBloodCell: 4000, . neutrophils: 40, .hemoglobin: 13.5, .plateletCount: 250000,
-                        .lymphocytes: 30, .monocytes: 5, .eosinophils: 3, .basophils: 1, .blasts: 0
-                    ])
-                ]
-            } catch {
-                print("Failed to load mock data")
-            }
-            if let latestRecord = labRecords.first {
-                latestRecordedTime = formatDate(latestRecord.date)
-            } else {
-                latestRecordedTime = "None"
-            }
-        } else {
-            var results: [LabEntry]
-            do {
-                results = try localStorage.load(LocalStorageKey<[LabEntry]>("labResults")) ?? []
-                results.sort { $0.date > $1.date }
-                labRecords = results
-                
-                if let latestRecord = results.first {
-                    latestRecordedTime = formatDate(latestRecord.date)
-                } else {
-                    latestRecordedTime = "None"
-                }
-            } catch {
-                print("Failed to load lab results: \(error)")
-                labRecords = []
-                latestRecordedTime = "None"
-            }
-        }
-    }
-
-    private func formatDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        return formatter.string(from: date)
     }
 }
 

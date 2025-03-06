@@ -56,6 +56,7 @@ class NeutroFeverGuardDelegate: SpeziAppDelegate {
             Scheduler()
             OnboardingDataSource()
             LocalStorage()
+            LabResultsManager()
             Notifications()
         }
     }
