@@ -27,7 +27,7 @@ enum FeatureFlags {
     /// Requires ``disableFirebase`` to be `false`.
     static let setupTestAccount = CommandLine.arguments.contains("--setupTestAccount")
     
-    static let mockLabData = CommandLine.arguments.contains("--mockLabData")
+//    static let mockLabData = CommandLine.arguments.contains("--mockLabData")
     
     /// Defines whether to use the mock data for testing the application. This should only be set to true in UI tests.
 //     static let mockTestData = CommandLine.arguments.contains("--mockTestData")
