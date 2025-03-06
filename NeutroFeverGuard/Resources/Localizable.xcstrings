@@ -128,7 +128,8 @@
       }
     },
     "Amount" : {
-
+    },
+    "Are you sure you want to delete this lab record? This action cannot be undone." : {
     },
     "Body Temperature (°F)" : {
       "localizations" : {
@@ -211,6 +212,12 @@
       }
     },
     "Date: %@" : {
+
+    },
+    "Delete" : {
+
+    },
+    "Delete Lab Record" : {
 
     },
     "Diastolic (mmHg)" : {
@@ -458,6 +465,9 @@
         }
       }
     },
+    "Lab Details" : {
+
+    },
     "Lab Results" : {
       "localizations" : {
         "en" : {
@@ -479,6 +489,7 @@
       }
     },
     "Lab Values" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
