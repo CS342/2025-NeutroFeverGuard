@@ -45,6 +45,31 @@ struct LabResultsForm: View {
     }
 }
 
+struct MedicationForm: View {
+    @Binding var medicationName: String
+    @Binding var doseValue: String
+    @Binding var doseUnit: DoseUnit
+    
+    var body: some View {
+        HStack {
+            Text("Name")
+            Spacer()
+            TextField("Medication Name", text: $medicationName).multilineTextAlignment(.trailing)
+        }
+        HStack {
+            Text("Dose")
+            Spacer()
+            TextField("Amount", text: $doseValue)
+                .keyboardType(.decimalPad) .multilineTextAlignment(.trailing) .frame(width: 80)
+            Picker("", selection: $doseUnit) {
+                ForEach(DoseUnit.allCases, id: \.self) { unit in Text(unit.rawValue).tag(unit) }
+            }
+            .pickerStyle(.menu) .frame(width: 70)
+        }
+    }
+}
+
+
 struct HeartRateForm: View {
     @Binding var inputValue: String
     
@@ -131,6 +156,9 @@ struct DataInputForm: View {
     @State private var diastolicValue: String = ""
     @State private var temperatureUnit: TemperatureUnit = .fahrenheit
     @State private var labValues: [LabTestType: String] = [:]
+    @State private var medicationName: String = ""
+    @State private var doseValue: String = ""
+    @State private var doseUnit: DoseUnit = .mgUnit
     @State private var alertMessage: String = ""
     @Environment(\.dismiss) var dismiss
     @Environment(NeutroFeverGuardScheduler.self) private var scheduler
@@ -149,6 +177,8 @@ struct DataInputForm: View {
             return LabTestType.allCases.allSatisfy { testType in
                 !(labValues[testType] ?? "").isEmpty
             }
+        case "Medication":
+            return !medicationName.isEmpty && !doseValue.isEmpty
         default:
             return false
         }
@@ -160,7 +190,6 @@ struct DataInputForm: View {
             Form {
                 DatePicker("Date", selection: $date, displayedComponents: .date)
                 DatePicker("Time", selection: $time, displayedComponents: .hourAndMinute)
-                
                 if dataType == "Heart Rate" {
                     HeartRateForm(inputValue: $inputValue)
                 } else if dataType == "Temperature" {
@@ -171,6 +200,8 @@ struct DataInputForm: View {
                     BloodPressureForm(systolicValue: $systolicValue, diastolicValue: $diastolicValue)
                 } else if dataType == "Lab Results" {
                     LabResultsForm(labValues: $labValues)
+                } else if dataType == "Medication" {
+                    MedicationForm( medicationName: $medicationName, doseValue: $doseValue, doseUnit: $doseUnit)
                 }
             }
             .navigationTitle(dataType)
@@ -180,15 +211,11 @@ struct DataInputForm: View {
                     do {
                         try await healthKitService.requestAuthorization()
                         await addData()
-                    } catch {
-                        print("Error requesting HealthKit authorization: \(error)")
-                    }
+                    } catch { print("Error requesting HealthKit authorization: \(error)") }
                 }.disabled(!isFormValid)
             )
             .alert(isPresented: .constant(!alertMessage.isEmpty)) {
-                Alert(
-                    title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")) { alertMessage = "" }
-                )
+                Alert( title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")) { alertMessage = "" })
             }
         }
     }
@@ -209,6 +236,8 @@ struct DataInputForm: View {
             await addBloodPressure()
         case "Lab Results":
             await addLabResult()
+        case "Medication":
+            await addMedication()
         default:
             alertMessage = "Unknown data type"
         }
@@ -305,6 +334,32 @@ struct DataInputForm: View {
             alertMessage = "Error: \(error)"
         }
     }
+    
+    func addMedication() async {
+        guard !medicationName.isEmpty, !doseValue.isEmpty else {
+            alertMessage = "Medication name and dosage cannot be empty"
+            return
+        }
+        
+        do {
+            guard let value = parseLocalizedNumber(doseValue) else {
+                alertMessage = "Dose value must be valid numbers"
+                return
+            }
+            let medicationEntry = try MedicationEntry(
+                date: combineDateAndTime(date, time),
+                name: medicationName,
+                doseValue: value,
+                doseUnit: doseUnit
+            )
+            try await healthKitService.saveMedication(medicationEntry)
+            dismiss()
+        } catch let error as DataError {
+            alertMessage = "Error: \(error.errorMessage)"
+        } catch {
+            alertMessage = "Error: \(error)"
+        }
+    }
 }
 
 #Preview {
@@ -312,5 +367,6 @@ struct DataInputForm: View {
 //    DataInputForm(dataType: "Heart Rate")
 //    DataInputForm(dataType: "Oxygen Saturation")
 //    DataInputForm(dataType: "Blood Pressure")
-    DataInputForm(dataType: "Lab Results")
+//    DataInputForm(dataType: "Lab Results")
+    DataInputForm(dataType: "Medication")
 }

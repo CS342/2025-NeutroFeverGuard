@@ -127,6 +127,9 @@
         }
       }
     },
+    "Amount" : {
+
+    },
     "Body Temperature (°F)" : {
       "localizations" : {
         "en" : {
@@ -211,7 +214,7 @@
       }
     },
     "Details" : {
-
+    "Date: %@" : {
     },
     "Diastolic (mmHg)" : {
       "localizations" : {
@@ -222,6 +225,22 @@
           }
         }
       }
+    },
+    "Dose" : {
+
+    },
+    "Dose: %@ %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Dose: %1$@ %2$@"
+          }
+        }
+      }
+    },
+    "Edit" : {
+
     },
     "Enter Lab Results" : {
 
@@ -514,6 +533,18 @@
         }
       }
     },
+    "Medication" : {
+
+    },
+    "Medication List" : {
+
+    },
+    "Medication Name" : {
+
+    },
+    "Name" : {
+
+    },
     "NeutroFeverGuard" : {
       "localizations" : {
         "en" : {
@@ -562,6 +593,9 @@
       }
     },
     "No lab results recorded" : {
+
+    },
+    "No medications recorded" : {
 
     },
     "No oxygen saturation data available." : {
@@ -645,6 +679,7 @@
       }
     },
     "Please fill out the Social Support Questionnaire every day." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -664,7 +699,11 @@
         }
       }
     },
+    "Save" : {
+
+    },
     "Schedule" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -675,6 +714,7 @@
       }
     },
     "Social Support Questionnaire" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -705,6 +745,7 @@
       }
     },
     "Start Questionnaire" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -755,6 +796,7 @@
       }
     },
     "This type of event is currently unsupported. Please contact the developer of this app." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -785,6 +827,7 @@
       }
     },
     "Unsupported Event" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
