@@ -5,18 +5,16 @@
 //
 // SPDX-License-Identifier: MIT
 //
-
-import UserNotifications
 import Spezi
 import SpeziNotifications
+import UserNotifications
 
 @Observable
 class NotificationManager: Module, NotificationHandler {
     @MainActor
     func receiveIncomingNotification(_ notification: UNNotification) async -> UNNotificationPresentationOptions? {
-        return [.badge, .banner, .list]
+        [.badge, .banner, .list]
     }
-    
     
     func sendLocalNotification(title: String, body: String) {
         let content = UNMutableNotificationContent()
