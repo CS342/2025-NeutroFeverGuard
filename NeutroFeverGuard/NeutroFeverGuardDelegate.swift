@@ -52,7 +52,6 @@ class NeutroFeverGuardDelegate: SpeziAppDelegate {
             if HKHealthStore.isHealthDataAvailable() {
                 healthKit
             }
-            
             NeutroFeverGuardScheduler()
             Scheduler()
             OnboardingDataSource()

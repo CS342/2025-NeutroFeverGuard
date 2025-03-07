@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+import FirebaseFirestore
 import HealthKit
 import SpeziHealthKit
 import SpeziLocalStorage
@@ -13,13 +14,13 @@ import SpeziLocalStorage
 actor HealthKitService {
     internal let healthStore = HKHealthStore()
     private let localStorage: LocalStorage
+    private var firebaseConfig = FirebaseConfiguration()
         
     init(localStorage: LocalStorage) {
         self.localStorage = localStorage
     }
     
     func requestAuthorization() async throws {
-        // Define the types we want to write
         let typesToWrite: Set<HKSampleType> = [
             HeartRateEntry.healthKitType,
             TemperatureEntry.healthKitType,
@@ -69,7 +70,7 @@ actor HealthKitService {
     
     func saveOxygenSaturation(_ entry: OxygenSaturationEntry) async throws {
         let type = OxygenSaturationEntry.healthKitType
-        let quantity = HKQuantity(unit: OxygenSaturationEntry.unit, doubleValue: entry.percentage)
+        let quantity = HKQuantity(unit: OxygenSaturationEntry.unit, doubleValue: entry.percentage / 100.0)
         let metadata: [String: Any] = [
             HKMetadataKeyWasUserEntered: true
         ]
@@ -86,13 +87,13 @@ actor HealthKitService {
     }
     
     func saveBloodPressure(_ entry: BloodPressureEntry) async throws {
+        let systolicQuantity = HKQuantity(unit: BloodPressureEntry.unit, doubleValue: entry.systolic)
+        let diastolicQuantity = HKQuantity(unit: BloodPressureEntry.unit, doubleValue: entry.diastolic)
+        
         let metadata: [String: Any] = [
             HKMetadataKeyWasUserEntered: true
         ]
-
-        let systolicQuantity = HKQuantity(unit: BloodPressureEntry.unit, doubleValue: entry.systolic)
-        let diastolicQuantity = HKQuantity(unit: BloodPressureEntry.unit, doubleValue: entry.diastolic)
-
+        
         let systolicSample = HKQuantitySample(
             type: BloodPressureEntry.systolicType,
             quantity: systolicQuantity,
@@ -100,7 +101,7 @@ actor HealthKitService {
             end: entry.date,
             metadata: metadata
         )
-
+        
         let diastolicSample = HKQuantitySample(
             type: BloodPressureEntry.diastolicType,
             quantity: diastolicQuantity,
@@ -108,23 +109,17 @@ actor HealthKitService {
             end: entry.date,
             metadata: metadata
         )
-
-        guard let bloodPressureType = HKObjectType.correlationType(forIdentifier: .bloodPressure) else {
-            print("HealthKit does not support blood pressure correlation on this device.")
-            return
-        }
-            
-        let bloodPressureCorrelation = HKCorrelation(
+        
+        let bloodPressureType = HKCorrelationType(.bloodPressure)
+        let correlation = HKCorrelation(
             type: bloodPressureType,
             start: entry.date,
             end: entry.date,
-            objects: [systolicSample, diastolicSample],
-            metadata: metadata
+            objects: Set([systolicSample, diastolicSample])
         )
-
-        try await healthStore.save(bloodPressureCorrelation)
+        
+        try await healthStore.save(correlation)
     }
-    
     
     func saveLabEntry(_ entry: LabEntry) async throws {
         let storageKey = "labResults"
@@ -137,7 +132,6 @@ actor HealthKitService {
         }
         
         labResults.append(entry)
-        
         try localStorage.store(labResults, for: LocalStorageKey(storageKey))
     }
     
@@ -154,5 +148,13 @@ actor HealthKitService {
         medications.append(entry)
         
         try localStorage.store(medications, for: LocalStorageKey(storageKey))
+        
+        // Save to Firestore
+        if !FeatureFlags.disableFirebase {
+            try await firebaseConfig.userDocumentReference
+                .collection("Medications")
+                .document(UUID().uuidString)
+                .setData(from: entry)
+        }
     }
 }
