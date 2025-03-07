@@ -133,14 +133,6 @@ actor HealthKitService {
         
         labResults.append(entry)
         try localStorage.store(labResults, for: LocalStorageKey(storageKey))
-        
-        // Save to Firestore
-        if !FeatureFlags.disableFirebase {
-            try await firebaseConfig.userDocumentReference
-                .collection("LabResults")
-                .document(UUID().uuidString)
-                .setData(from: entry)
-        }
     }
     
     func saveMedication(_ entry: MedicationEntry) async throws {
@@ -156,5 +148,14 @@ actor HealthKitService {
         medications.append(entry)
         
         try localStorage.store(medications, for: LocalStorageKey(storageKey))
+        
+        // Save to Firestore
+        if !FeatureFlags.disableFirebase {
+            try await firebaseConfig.userDocumentReference
+                .collection("LabResults")
+                .document(UUID().uuidString)
+                .setData(from: entry)
+        }
+        
     }
 }
