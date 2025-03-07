@@ -83,7 +83,7 @@ struct LabResultDetailView: View {
         .alert("Delete Lab Record", isPresented: $showDeleteAlert) {
                 Button("Delete", role: .destructive) {
                     deleteRecord()
-                }
+                }.accessibilityIdentifier("DeleteAlertButton")
                 Button("Cancel", role: .cancel) {}
         } message: {
             Text("Are you sure you want to delete this lab record? This action cannot be undone.")
@@ -97,7 +97,6 @@ struct LabResultDetailView: View {
     
     private func deleteRecord() {
         labResultsManager.deleteLabEntry(at: editedIndex)
-        labResultsManager.refresh()
         if editedIndex == 0 {
             if !labResultsManager.labRecords.isEmpty {
                 let nextRecordDate = labResultsManager.labRecords[0].date
