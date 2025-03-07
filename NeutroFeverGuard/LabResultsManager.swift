@@ -15,15 +15,12 @@ import SwiftUI
 @Observable
 @MainActor
 class LabResultsManager: Module, EnvironmentAccessible {
-    private let localStorage: LocalStorage
-    private var firebaseConfig = FirebaseConfiguration()
-    
     var latestRecordedTime: String = "None"
     var labRecords: [LabEntry] = []
-        
-    init(localStorage: LocalStorage) {
-        self.localStorage = localStorage
-    }
+    
+    @ObservationIgnored @Dependency(LocalStorage.self) private var localStorage
+    @ObservationIgnored @Dependency(FirebaseConfiguration.self) private var firebaseConfig
+    
     
     func configure() {
         loadLabResults() // Load data on startup

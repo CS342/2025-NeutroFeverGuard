@@ -24,7 +24,6 @@ import SwiftUI
 
 
 class NeutroFeverGuardDelegate: SpeziAppDelegate {
-    private let localStorage = LocalStorage()
     override var configuration: Configuration {
         Configuration(standard: NeutroFeverGuardStandard()) {
             if !FeatureFlags.disableFirebase {
@@ -55,9 +54,10 @@ class NeutroFeverGuardDelegate: SpeziAppDelegate {
             NeutroFeverGuardScheduler()
             Scheduler()
             OnboardingDataSource()
-            localStorage
+            LocalStorage()
             Notifications()
-            LabResultsManager(localStorage: localStorage)
+            LabResultsManager()
+            HealthKitService()
         }
     }
     

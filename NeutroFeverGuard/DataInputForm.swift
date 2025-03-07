@@ -145,9 +145,7 @@ struct DataInputForm: View {
     let dataType: String
     @Environment(LabResultsManager.self) var labResultsManager
     @Environment(LocalStorage.self) var localStorage
-    private var healthKitService: HealthKitService {
-        HealthKitService(localStorage: localStorage)
-    }
+    @Environment(HealthKitService.self) var healthKitService
     
     @State private var date = Date()
     @State private var time = Date()

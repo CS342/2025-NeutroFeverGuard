@@ -8,17 +8,18 @@
 
 import FirebaseFirestore
 import HealthKit
+import Spezi
 import SpeziHealthKit
 import SpeziLocalStorage
 
-actor HealthKitService {
+actor HealthKitService: Module, EnvironmentAccessible {
     internal let healthStore = HKHealthStore()
-    private let localStorage: LocalStorage
-    private var firebaseConfig = FirebaseConfiguration()
-        
-    init(localStorage: LocalStorage) {
-        self.localStorage = localStorage
-    }
+    
+    @ObservationIgnored @Dependency(LocalStorage.self)private var localStorage
+    @ObservationIgnored @Dependency(FirebaseConfiguration.self) private var firebaseConfig
+    
+    @MainActor
+    func configure() { }
     
     func requestAuthorization() async throws {
         let typesToWrite: Set<HKSampleType> = [
