@@ -32,6 +32,20 @@ class LabResultsManager: Module, EnvironmentAccessible {
     }
     
     private func loadLabResults() {
+        if FeatureFlags.mockLabData {
+            do {
+                labRecords = [
+                    try LabEntry(date: Date(), values: [
+                        .whiteBloodCell: 4000, . neutrophils: 40, .hemoglobin: 13.5, .plateletCount: 250000,
+                        .lymphocytes: 30, .monocytes: 5, .eosinophils: 3, .basophils: 1, .blasts: 0
+                    ])
+                ]
+            } catch {
+                print("Failed to load mock data")
+            }
+            return
+        }
+        
         do {
             var results = try localStorage.load(LocalStorageKey<[LabEntry]>("labResults")) ?? []
             results.sort { $0.date > $1.date }
