@@ -156,6 +156,5 @@ actor HealthKitService {
                 .document(UUID().uuidString)
                 .setData(from: entry)
         }
-        
     }
 }
