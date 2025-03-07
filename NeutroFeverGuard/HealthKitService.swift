@@ -152,7 +152,7 @@ actor HealthKitService {
         // Save to Firestore
         if !FeatureFlags.disableFirebase {
             try await firebaseConfig.userDocumentReference
-                .collection("LabResults")
+                .collection("Medications")
                 .document(UUID().uuidString)
                 .setData(from: entry)
         }
