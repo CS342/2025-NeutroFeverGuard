@@ -30,7 +30,6 @@ class LabViewTests: XCTestCase {
 
         XCTAssertTrue(app.navigationBars["Lab Results"].waitForExistence(timeout: 2))
 
-        print(app.debugDescription)
         XCTAssertTrue(app.staticTexts["ABSOLUTE NEUTROPHIL COUNTS"].exists)
         XCTAssertTrue(app.staticTexts["🧪 Latest ANC"].exists)
 

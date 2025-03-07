@@ -119,8 +119,7 @@ struct MedicationView: View {
         NavigationView {
             List {
                 if medicationManager.medications.isEmpty {
-                    Text("No medications recorded")
-                        .font(.headline)
+                    Text("No medications recorded").foregroundColor(.gray)
                 } else {
                     ForEach(Array(medicationManager.medications.enumerated()), id: \.element.date) { index, medication in
                         MedicationRow(medication: medication)
