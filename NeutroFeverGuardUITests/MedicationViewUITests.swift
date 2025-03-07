@@ -64,6 +64,8 @@ class MedicationViewTests: XCTestCase {
         app.cells.firstMatch.swipeLeft()
         XCTAssertTrue(app.buttons["Delete"].waitForExistence(timeout: 2))
         app.buttons["Delete"].tap()
+        
+        XCTAssertTrue(app.staticTexts["No medications recorded"].waitForExistence(timeout: 2))
     }
     
     @MainActor
@@ -83,7 +85,7 @@ class MedicationViewTests: XCTestCase {
         XCTAssertTrue(app.buttons["Cancel"].waitForExistence(timeout: 2))
         app.buttons["Cancel"].tap()
         
-        XCTAssertTrue(app.staticTexts["No medications recorded"].waitForExistence(timeout: 2))
+        XCTAssertTrue(app.navigationBars["Medication List"].waitForExistence(timeout: 2))
     }
     
     @MainActor
