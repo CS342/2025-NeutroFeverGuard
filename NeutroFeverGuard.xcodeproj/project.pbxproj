@@ -66,6 +66,9 @@
 		A9DFE8A92ABE551400428242 /* AccountButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DFE8A82ABE551400428242 /* AccountButton.swift */; };
 		A9FE7AD02AA39BAB0077B045 /* AccountSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FE7ACF2AA39BAB0077B045 /* AccountSheet.swift */; };
 		B0D4C9382D790F65000643C7 /* LabResultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D4C9372D790F5E000643C7 /* LabResultsManager.swift */; };
+		B0DF8DD42D7A88EE00581A00 /* SpeziBluetooth in Frameworks */ = {isa = PBXBuildFile; productRef = B0DF8DD32D7A88EE00581A00 /* SpeziBluetooth */; };
+		B0DF8DD62D7A88EE00581A00 /* SpeziBluetoothServices in Frameworks */ = {isa = PBXBuildFile; productRef = B0DF8DD52D7A88EE00581A00 /* SpeziBluetoothServices */; };
+		B0DF8DD82D7A893900581A00 /* BluetoothService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DF8DD72D7A893100581A00 /* BluetoothService.swift */; };
 		C42B98FF2D769E54005D820B /* SpeziKeychainStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C42B98FE2D769E54005D820B /* SpeziKeychainStorage */; };
 		C42C1B312D782A7600EA417F /* MedicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C1B302D782A7100EA417F /* MedicationView.swift */; };
 		C42D4DA52D5AC89900B2A169 /* LabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D4DA42D5AC89500B2A169 /* LabView.swift */; };
@@ -141,8 +144,9 @@
 		A9A3DCC72C75CB9A00FC9B69 /* FirebaseConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfiguration.swift; sourceTree = "<group>"; };
 		A9DFE8A82ABE551400428242 /* AccountButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountButton.swift; sourceTree = "<group>"; };
 		A9FE7ACF2AA39BAB0077B045 /* AccountSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSheet.swift; sourceTree = "<group>"; };
-		C42C1B302D782A7100EA417F /* MedicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationView.swift; sourceTree = "<group>"; };
 		B0D4C9372D790F5E000643C7 /* LabResultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabResultsManager.swift; sourceTree = "<group>"; };
+		B0DF8DD72D7A893100581A00 /* BluetoothService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothService.swift; sourceTree = "<group>"; };
+		C42C1B302D782A7100EA417F /* MedicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationView.swift; sourceTree = "<group>"; };
 		C42D4DA42D5AC89500B2A169 /* LabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabView.swift; sourceTree = "<group>"; };
 		C49EC8332D501C5C005C3495 /* DataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataType.swift; sourceTree = "<group>"; };
 		C49EC8372D5026EE005C3495 /* DataTypeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTypeTest.swift; sourceTree = "<group>"; };
@@ -180,6 +184,7 @@
 				9733CFC62A8066DE001B7ABC /* SpeziOnboarding in Frameworks */,
 				2FE5DC6429EDD883004B9AB4 /* SpeziAccount in Frameworks */,
 				A9947BF02CC131ED0068AA8A /* SpeziSchedulerUI in Frameworks */,
+				B0DF8DD62D7A88EE00581A00 /* SpeziBluetoothServices in Frameworks */,
 				2FB099AF2A875DF100B20952 /* FirebaseAuth in Frameworks */,
 				97D73D6A2AD860AD00B47FA0 /* SpeziFirebaseStorage in Frameworks */,
 				2FE5DC6729EDD894004B9AB4 /* SpeziContact in Frameworks */,
@@ -198,6 +203,7 @@
 				2F49B7762980407C00BCB272 /* Spezi in Frameworks */,
 				2FE5DC8F29EDD980004B9AB4 /* SpeziViews in Frameworks */,
 				2F3D4ABC2A4E7C290068FB2F /* SpeziScheduler in Frameworks */,
+				B0DF8DD42D7A88EE00581A00 /* SpeziBluetooth in Frameworks */,
 				2FBD738C2A3BD150004228E7 /* SpeziScheduler in Frameworks */,
 				2FE5DC7929EDD8E6004B9AB4 /* SpeziFirestore in Frameworks */,
 				2FE5DC7729EDD8E6004B9AB4 /* SpeziFirebaseConfiguration in Frameworks */,
@@ -316,6 +322,7 @@
 		653A254F283387FE005D4D48 /* NeutroFeverGuard */ = {
 			isa = PBXGroup;
 			children = (
+				B0DF8DD72D7A893100581A00 /* BluetoothService.swift */,
 				B0D4C9372D790F5E000643C7 /* LabResultsManager.swift */,
 				EB7D47E02D51433200CEDC78 /* HealthKitVisualizations */,
 				F22393792D5D4092006C8EB4 /* DataError.swift */,
@@ -444,6 +451,8 @@
 				A94DDFFC2CBD1190004930BD /* SpeziNotifications */,
 				A9947BEF2CC131ED0068AA8A /* SpeziSchedulerUI */,
 				C42B98FE2D769E54005D820B /* SpeziKeychainStorage */,
+				B0DF8DD32D7A88EE00581A00 /* SpeziBluetooth */,
+				B0DF8DD52D7A88EE00581A00 /* SpeziBluetoothServices */,
 			);
 			productName = NeutroFeverGuard;
 			productReference = 653A254D283387FE005D4D48 /* NeutroFeverGuard.app */;
@@ -547,6 +556,7 @@
 				2F66D20D2BB723180010D555 /* XCRemoteSwiftPackageReference "SwiftLint" */,
 				A945FCD32C9C6BFA00B9EBC7 /* XCRemoteSwiftPackageReference "ResearchKitOnFHIR" */,
 				A94DDFFB2CBD1190004930BD /* XCRemoteSwiftPackageReference "SpeziNotifications" */,
+				B0DF8DD22D7A88EE00581A00 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */,
 			);
 			productRefGroup = 653A254E283387FE005D4D48 /* Products */;
 			projectDirPath = "";
@@ -596,6 +606,7 @@
 			files = (
 				F223937A2D5D4095006C8EB4 /* DataError.swift in Sources */,
 				C49EC8532D5038AC005C3495 /* DataInputForm.swift in Sources */,
+				B0DF8DD82D7A893900581A00 /* BluetoothService.swift in Sources */,
 				2FE5DC4129EDD7EE004B9AB4 /* StorageKeys.swift in Sources */,
 				C42C1B312D782A7600EA417F /* MedicationView.swift in Sources */,
 				2FE5DCB129EE6107004B9AB4 /* AccountOnboarding.swift in Sources */,
@@ -1325,6 +1336,14 @@
 				minimumVersion = 1.0.2;
 			};
 		};
+		B0DF8DD22D7A88EE00581A00 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/StanfordSpezi/SpeziBluetooth.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.2.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1481,6 +1500,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2F66D20D2BB723180010D555 /* XCRemoteSwiftPackageReference "SwiftLint" */;
 			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+		B0DF8DD32D7A88EE00581A00 /* SpeziBluetooth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B0DF8DD22D7A88EE00581A00 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */;
+			productName = SpeziBluetooth;
+		};
+		B0DF8DD52D7A88EE00581A00 /* SpeziBluetoothServices */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B0DF8DD22D7A88EE00581A00 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */;
+			productName = SpeziBluetoothServices;
 		};
 		C42B98FE2D769E54005D820B /* SpeziKeychainStorage */ = {
 			isa = XCSwiftPackageProductDependency;

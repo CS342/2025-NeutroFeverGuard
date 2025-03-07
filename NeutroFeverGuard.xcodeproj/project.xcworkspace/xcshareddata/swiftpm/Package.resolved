@@ -1,5 +1,5 @@
 {
-  "originHash" : "db91c54ac80b4652c5d1b19cb32a4d0a53d2e435c933b5bd074867152f598a36",
+  "originHash" : "25709a6e1f84c0e5a577e40443e0996707ab0f3eecf793ae7752a2cd3b1a3cdf",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -200,6 +200,15 @@
       }
     },
     {
+      "identity" : "spezibluetooth",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/StanfordSpezi/SpeziBluetooth.git",
+      "state" : {
+        "revision" : "e2600a2fd0b8c59513ac0b549785b123c1508894",
+        "version" : "3.2.0"
+      }
+    },
+    {
       "identity" : "spezicontact",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziContact.git",
@@ -242,6 +251,15 @@
       "state" : {
         "revision" : "2249ce615a624a072834e31e7906b779ba82b824",
         "version" : "0.1.1"
+      }
+    },
+    {
+      "identity" : "spezinetworking",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/StanfordSpezi/SpeziNetworking",
+      "state" : {
+        "revision" : "89fad797897bb741fc148027859c1bab3129999a",
+        "version" : "2.2.0"
       }
     },
     {
@@ -335,6 +353,15 @@
       }
     },
     {
+      "identity" : "swift-nio",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-nio.git",
+      "state" : {
+        "revision" : "c51907a839e63ebf0ba2076bba73dd96436bd1b9",
+        "version" : "2.81.0"
+      }
+    },
+    {
       "identity" : "swift-numerics",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-numerics.git",
@@ -368,6 +395,15 @@
       "state" : {
         "revision" : "cb53fa1bd3219b0b23ded7dfdd3b2baff266fd25",
         "version" : "600.0.0"
+      }
+    },
+    {
+      "identity" : "swift-system",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-system.git",
+      "state" : {
+        "revision" : "a34201439c74b53f0fd71ef11741af7e7caf01e1",
+        "version" : "1.4.2"
       }
     },
     {
