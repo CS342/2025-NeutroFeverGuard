@@ -23,7 +23,7 @@ struct MedicationRow: View {
                 .font(.subheadline)
         }
     }
-    
+
     private func formatDate(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -33,17 +33,19 @@ struct MedicationRow: View {
 }
 
 struct MedicationEditForm: View {
-    @Binding var medication: MedicationEntry
+    @Environment(MedicationManager.self) private var medicationManager
+    @State var medication: MedicationEntry
     @State private var date: Date
     @State private var time: Date
+    @State private var name: String
     @State private var doseValue: String
-    @State private var alertMessage: String = ""
-    var onSave: () -> Void
+    @State private var doseUnit: DoseUnit
+    var onSave: (MedicationEntry) -> Void
     var onCancel: () -> Void
+    @State private var alertMessage: String = ""
     
     var isFormValid: Bool {
-        let ret = !medication.name.isEmpty && !doseValue.isEmpty
-        return ret
+        !name.isEmpty && !doseValue.isEmpty
     }
     
     var body: some View {
@@ -54,28 +56,27 @@ struct MedicationEditForm: View {
                 HStack {
                     Text("Name")
                     Spacer()
-                    TextField("Medication Name", text: $medication.name) .multilineTextAlignment(.trailing)
+                    TextField("Medication Name", text: $medication.name)
+                        .multilineTextAlignment(.trailing)
                 }
                 HStack {
                     Text("Dose")
                     Spacer()
-                    TextField("Amount", text: $doseValue) .keyboardType(.decimalPad) .multilineTextAlignment(.trailing) .frame(width: 80)
-                    Picker("", selection: $medication.doseUnit) {
+                    TextField("Amount", text: $doseValue).keyboardType(.decimalPad) .multilineTextAlignment(.trailing) .frame(width: 80)
+                    Picker("", selection: $doseUnit) {
                         ForEach(DoseUnit.allCases, id: \.self) { unit in Text(unit.rawValue).tag(unit) }
-                    }.pickerStyle(.menu).frame(width: 70)
+                    } .pickerStyle(.menu) .frame(width: 70)
                 }
             }
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) { Button("Cancel") { onCancel() } }
-                ToolbarItem { Button("Save") {
-                    guard let value = parseLocalizedNumber(doseValue) else {
-                        alertMessage = "Invalid dose value. Please enter a number."
-                        return
-                    }
-                    medication.doseValue = value
-                    medication.date = combineDateAndTime(date, time)
-                    onSave()
-                }.disabled(!isFormValid)
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Cancel") { onCancel() }
+                }
+                ToolbarItem {
+                    Button("Save") {
+                        checkMed()
+                        onSave(medication)
+                    }.disabled(!isFormValid)
                 }
             }
             .alert(isPresented: .constant(!alertMessage.isEmpty)) {
@@ -86,19 +87,30 @@ struct MedicationEditForm: View {
         }
     }
     
-    init(medication: Binding<MedicationEntry>, onSave: @escaping () -> Void, onCancel: @escaping () -> Void) {
-        self._medication = medication
-        self._date = State(initialValue: medication.wrappedValue.date)
-        self._time = State(initialValue: medication.wrappedValue.date)
-        self._doseValue = State(initialValue: String(medication.wrappedValue.doseValue))
+    init(medication: MedicationEntry, onSave: @escaping (MedicationEntry) -> Void, onCancel: @escaping () -> Void) {
+        self.medication = medication
+        self.date = medication.date
+        self.time = medication.date
+        self.name = medication.name
+        self.doseValue = String(medication.doseValue)
+        self.doseUnit = medication.doseUnit
         self.onSave = onSave
         self.onCancel = onCancel
+    }
+    
+    private func checkMed() {
+        guard let value = parseLocalizedNumber(doseValue) else {
+            alertMessage = "Invalid dose value. Please enter a number."
+            return
+        }
+        medication.doseValue = value
+        medication.date = combineDateAndTime(date, time)
+        medication.doseUnit = doseUnit
     }
 }
 
 struct MedicationView: View {
-    @State private var medications: [MedicationEntry] = []
-    @Environment(LocalStorage.self) var localStorage
+    @Environment(MedicationManager.self) private var medicationManager
     @Environment(Account.self) private var account: Account?
     @State private var isEditing = false
     @State private var editingMedicationIndex: Int = 0
@@ -107,33 +119,34 @@ struct MedicationView: View {
     var body: some View {
         NavigationView {
             List {
-                if medications.isEmpty {
-                    Text("No medications recorded").font(.headline)
+                if medicationManager.medications.isEmpty {
+                    Text("No medications recorded")
+                        .font(.headline)
                 } else {
-                    ForEach(Array(medications.enumerated()), id: \.element.name) { index, medication in
+                    ForEach(Array(medicationManager.medications.enumerated()), id: \.element.date) { index, medication in
                         MedicationRow(medication: medication)
                             .swipeActions(edge: .leading) {
-                                Button("Edit") { editMedication(at: index) }.tint(.blue)
+                                Button("Edit") {
+                                    editingMedicationIndex = index
+                                    isEditing = true
+                                }.tint(.blue)
                             }
                     }
-                    .onDelete(perform: deleteMedication)
+                    .onDelete { offsets in medicationManager.deleteMedEntry(at: offsets) }
                 }
             }
             .navigationTitle("Medication List")
-            .onAppear { loadMedications() }
+            .onAppear { medicationManager.refresh() }
             .listStyle(.insetGrouped)
             .background(Color(.systemGray6))
-            .toolbar {
-                if account != nil { AccountButton(isPresented: $presentingAccount) }
-            }
+            .toolbar { if account != nil { AccountButton(isPresented: $presentingAccount) } }
             .sheet(isPresented: $isEditing) {
-                let ind = editingMedicationIndex
+                let index = editingMedicationIndex
                 MedicationEditForm(
-                    medication: $medications[ind],
-                    onSave: {
-                        saveMedications()
+                    medication: medicationManager.medications[index],
+                    onSave: {updatedMedication in
+                        medicationManager.updateMedEntry(at: index, with: updatedMedication)
                         isEditing = false
-                        loadMedications()
                     },
                     onCancel: {
                         isEditing = false
@@ -141,33 +154,5 @@ struct MedicationView: View {
                 )
             }
         }
-    }
-
-    private func loadMedications() {
-        do {
-            medications = try localStorage.load(LocalStorageKey<[MedicationEntry]>("medications")) ?? []
-            medications.sort { $0.date > $1.date }
-        } catch {
-            print("Failed to load medications: \(error)")
-            medications = []
-        }
-    }
-    
-    private func deleteMedication(at offsets: IndexSet) {
-        medications.remove(atOffsets: offsets)
-        saveMedications()
-    }
-
-    private func saveMedications() {
-        do {
-            try localStorage.store(medications, for: LocalStorageKey<[MedicationEntry]>("medications"))
-        } catch {
-            print("Failed to save medications: \(error)")
-        }
-    }
-    
-    private func editMedication(at index: Int) {
-        editingMedicationIndex = index
-        isEditing = true
     }
 }

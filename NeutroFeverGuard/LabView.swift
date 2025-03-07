@@ -97,7 +97,6 @@ struct LabResultDetailView: View {
     
     private func deleteRecord() {
         labResultsManager.deleteLabEntry(at: editedIndex)
-        labResultsManager.refresh()
         if editedIndex == 0 {
             if !labResultsManager.labRecords.isEmpty {
                 let nextRecordDate = labResultsManager.labRecords[0].date

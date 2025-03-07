@@ -121,41 +121,4 @@ actor HealthKitService: Module, EnvironmentAccessible {
         
         try await healthStore.save(correlation)
     }
-    
-    func saveLabEntry(_ entry: LabEntry) async throws {
-        let storageKey = "labResults"
-        var labResults: [LabEntry]
-        
-        do {
-            labResults = try localStorage.load(LocalStorageKey<[LabEntry]>(storageKey)) ?? []
-        } catch {
-            labResults = []
-        }
-        
-        labResults.append(entry)
-        try localStorage.store(labResults, for: LocalStorageKey(storageKey))
-    }
-    
-    func saveMedication(_ entry: MedicationEntry) async throws {
-        let storageKey = "medications"
-        var medications: [MedicationEntry]
-        
-        do {
-            medications = try localStorage.load(LocalStorageKey<[MedicationEntry]>(storageKey)) ?? []
-        } catch {
-            medications = []
-        }
-        
-        medications.append(entry)
-        
-        try localStorage.store(medications, for: LocalStorageKey(storageKey))
-        
-        // Save to Firestore
-        if !FeatureFlags.disableFirebase {
-            try await firebaseConfig.userDocumentReference
-                .collection("Medications")
-                .document(UUID().uuidString)
-                .setData(from: entry)
-        }
-    }
 }

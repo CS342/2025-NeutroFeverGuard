@@ -91,6 +91,7 @@ class LabResultsManager: Module, EnvironmentAccessible {
                     .document(UUID().uuidString)
                     .setData(from: labRecords)
             }
+            refresh()
         } catch {
             print("Failed to save lab results: \(error)")
         }

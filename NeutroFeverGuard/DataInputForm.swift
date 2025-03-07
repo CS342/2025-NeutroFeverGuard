@@ -144,7 +144,7 @@ struct BloodPressureForm: View {
 struct DataInputForm: View {
     let dataType: String
     @Environment(LabResultsManager.self) var labResultsManager
-//    @Environment(LocalStorage.self) var localStorage
+    @Environment(MedicationManager.self) private var medicationManager
     @Environment(HealthKitService.self) var healthKitService
     
     @State private var date = Date()
@@ -320,10 +320,7 @@ struct DataInputForm: View {
         
         do {
             let labEntry = try LabEntry(date: combineDateAndTime(date, time), values: parsedValues)
-            try await healthKitService.saveLabEntry(labEntry)
-            
             labResultsManager.addLabEntry(labEntry)
-            labResultsManager.refresh()
             
             scheduler.markRecentEventsAsComplete(combineDateAndTime(date, time))
             
@@ -350,7 +347,7 @@ struct DataInputForm: View {
                 doseValue: value,
                 doseUnit: doseUnit
             )
-            try await healthKitService.saveMedication(medicationEntry)
+            medicationManager.addMedEntry(medicationEntry)
             dismiss()
         } catch let error as DataError {
             alertMessage = "Error: \(error.errorMessage)"

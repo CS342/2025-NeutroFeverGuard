@@ -57,6 +57,7 @@ class NeutroFeverGuardDelegate: SpeziAppDelegate {
             LocalStorage()
             Notifications()
             LabResultsManager()
+            MedicationManager()
             HealthKitService()
         }
     }
