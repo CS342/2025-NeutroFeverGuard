@@ -33,7 +33,6 @@ struct MedicationRow: View {
 }
 
 struct MedicationEditForm: View {
-    @Environment(MedicationManager.self) private var medicationManager
     @State var medication: MedicationEntry
     @State private var date: Date
     @State private var time: Date

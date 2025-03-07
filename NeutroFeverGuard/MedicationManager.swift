@@ -83,22 +83,22 @@ class MedicationManager: Module, EnvironmentAccessible {
         }
     }
     
-    func formatDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        return formatter.string(from: date)
-    }
-    
-    func formatDateTime(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .short
-        return formatter.string(from: date)
-    }
-    
-    func formatTime(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.timeStyle = .short
-        return formatter.string(from: date)
-    }
+//    func formatDate(_ date: Date) -> String {
+//        let formatter = DateFormatter()
+//        formatter.dateStyle = .medium
+//        return formatter.string(from: date)
+//    }
+//    
+//    func formatDateTime(_ date: Date) -> String {
+//        let formatter = DateFormatter()
+//        formatter.dateStyle = .medium
+//        formatter.timeStyle = .short
+//        return formatter.string(from: date)
+//    }
+//    
+//    func formatTime(_ date: Date) -> String {
+//        let formatter = DateFormatter()
+//        formatter.timeStyle = .short
+//        return formatter.string(from: date)
+//    }
 }

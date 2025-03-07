@@ -15,9 +15,6 @@ import SpeziLocalStorage
 actor HealthKitService: Module, EnvironmentAccessible {
     internal let healthStore = HKHealthStore()
     
-    @ObservationIgnored @Dependency(LocalStorage.self)private var localStorage
-    @ObservationIgnored @Dependency(FirebaseConfiguration.self) private var firebaseConfig
-    
     @MainActor
     func configure() { }
     
