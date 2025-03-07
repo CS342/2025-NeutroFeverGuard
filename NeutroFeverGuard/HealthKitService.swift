@@ -8,17 +8,15 @@
 
 import FirebaseFirestore
 import HealthKit
+import Spezi
 import SpeziHealthKit
 import SpeziLocalStorage
 
-actor HealthKitService {
+actor HealthKitService: Module, EnvironmentAccessible {
     internal let healthStore = HKHealthStore()
-    private let localStorage: LocalStorage
-    private var firebaseConfig = FirebaseConfiguration()
-        
-    init(localStorage: LocalStorage) {
-        self.localStorage = localStorage
-    }
+    
+    @MainActor
+    func configure() { }
     
     func requestAuthorization() async throws {
         let typesToWrite: Set<HKSampleType> = [
@@ -119,42 +117,5 @@ actor HealthKitService {
         )
         
         try await healthStore.save(correlation)
-    }
-    
-    func saveLabEntry(_ entry: LabEntry) async throws {
-        let storageKey = "labResults"
-        var labResults: [LabEntry]
-        
-        do {
-            labResults = try localStorage.load(LocalStorageKey<[LabEntry]>(storageKey)) ?? []
-        } catch {
-            labResults = []
-        }
-        
-        labResults.append(entry)
-        try localStorage.store(labResults, for: LocalStorageKey(storageKey))
-    }
-    
-    func saveMedication(_ entry: MedicationEntry) async throws {
-        let storageKey = "medications"
-        var medications: [MedicationEntry]
-        
-        do {
-            medications = try localStorage.load(LocalStorageKey<[MedicationEntry]>(storageKey)) ?? []
-        } catch {
-            medications = []
-        }
-        
-        medications.append(entry)
-        
-        try localStorage.store(medications, for: LocalStorageKey(storageKey))
-        
-        // Save to Firestore
-        if !FeatureFlags.disableFirebase {
-            try await firebaseConfig.userDocumentReference
-                .collection("Medications")
-                .document(UUID().uuidString)
-                .setData(from: entry)
-        }
     }
 }

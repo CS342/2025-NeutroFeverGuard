@@ -14,18 +14,29 @@ import SwiftUI
 
 @Observable
 class LabResultsManager: Module, EnvironmentAccessible {
-    private let localStorage: LocalStorage
-    private var firebaseConfig = FirebaseConfiguration()
-    
     var latestRecordedTime: String = "None"
     var labRecords: [LabEntry] = []
-        
-    init(localStorage: LocalStorage) {
-        self.localStorage = localStorage
-    }
+    var mockLabData: [LabEntry] = []
+    
+    @ObservationIgnored @Dependency(LocalStorage.self) private var localStorage
+    @ObservationIgnored @Dependency(FirebaseConfiguration.self) private var firebaseConfig
+    
     
     func configure() {
         loadLabResults() // Load data on startup
+        if FeatureFlags.mockLabData {
+            do {
+                mockLabData = [
+                    try LabEntry(date: Date(), values: [
+                        .whiteBloodCell: 4000, . neutrophils: 40, .hemoglobin: 13.5, .plateletCount: 250000,
+                        .lymphocytes: 30, .monocytes: 5, .eosinophils: 3, .basophils: 1, .blasts: 0
+                    ])
+                ]
+            } catch {
+                print("Failed to load mock data")
+            }
+            return
+        }
     }
     
     func refresh() {
@@ -33,19 +44,23 @@ class LabResultsManager: Module, EnvironmentAccessible {
     }
     
     private func loadLabResults() {
+        var results: [LabEntry] = []
+        
         do {
-            var results = try localStorage.load(LocalStorageKey<[LabEntry]>("labResults")) ?? []
-            results.sort { $0.date > $1.date }
-            self.labRecords = results
-            
-            if let latestRecord = results.first {
-                latestRecordedTime = formatDate(latestRecord.date)
+            if FeatureFlags.mockLabData {
+                results = mockLabData
             } else {
-                latestRecordedTime = "None"
+                results = try localStorage.load(LocalStorageKey<[LabEntry]>("labResults")) ?? []
             }
         } catch {
             print("Failed to load lab results: \(error)")
-            self.labRecords = []
+            results = []
+        }
+        
+        self.labRecords = results
+        if let latestRecord = results.first {
+            latestRecordedTime = formatDate(latestRecord.date)
+        } else {
             latestRecordedTime = "None"
         }
     }
@@ -73,6 +88,9 @@ class LabResultsManager: Module, EnvironmentAccessible {
   
     @MainActor
     private func saveLabResults() {
+        if FeatureFlags.mockLabData {
+            mockLabData = labRecords
+        }
         do {
             try localStorage.store(labRecords, for: LocalStorageKey<[LabEntry]>("labResults"))
             // Save to Firestore
@@ -82,6 +100,7 @@ class LabResultsManager: Module, EnvironmentAccessible {
                     .document(UUID().uuidString)
                     .setData(from: labRecords)
             }
+            refresh()
         } catch {
             print("Failed to save lab results: \(error)")
         }
