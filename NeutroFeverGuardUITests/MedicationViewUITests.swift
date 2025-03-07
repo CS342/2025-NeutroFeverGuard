@@ -42,14 +42,15 @@ class MedicationViewTests: XCTestCase {
         app.buttons["Edit"].tap()
         
         let nameField = app.textFields["Medication Name"]
-        XCTAssertTrue(nameField.exists)
+        XCTAssertTrue(nameField.waitForExistence(timeout: 2))
         
         let doseField = app.textFields["Amount"]
-        XCTAssertTrue(doseField.exists)
+        XCTAssertTrue(doseField.waitForExistence(timeout: 2))
         
-        XCTAssertTrue(app.buttons["Save"].exists)
+        XCTAssertTrue(app.buttons["Save"].waitForExistence(timeout: 2))
         app.buttons["Save"].tap()
     }
+    
     @MainActor
     func testMedDelete() throws {
         let app = XCUIApplication()
@@ -63,5 +64,40 @@ class MedicationViewTests: XCTestCase {
         app.cells.firstMatch.swipeLeft()
         XCTAssertTrue(app.buttons["Delete"].waitForExistence(timeout: 2))
         app.buttons["Delete"].tap()
+    }
+    
+    @MainActor
+    func testMedEditCancel() throws {
+        let app = XCUIApplication()
+
+        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 2.0))
+
+        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Medication"].waitForExistence(timeout: 2))
+        app.tabBars["Tab Bar"].buttons["Medication"].tap()
+
+        
+        app.cells.firstMatch.swipeRight()
+        XCTAssertTrue(app.buttons["Edit"].waitForExistence(timeout: 2))
+        app.buttons["Edit"].tap()
+        
+        XCTAssertTrue(app.buttons["Cancel"].waitForExistence(timeout: 2))
+        app.buttons["Cancel"].tap()
+        
+        XCTAssertTrue(app.staticTexts["No medications recorded"].waitForExistence(timeout: 2))
+    }
+    
+    @MainActor
+    func testMedEditInvalid() throws {
+        let app = XCUIApplication()
+
+        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 2.0))
+
+        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Medication"].waitForExistence(timeout: 2))
+        app.tabBars["Tab Bar"].buttons["Medication"].tap()
+
+        
+        app.cells.firstMatch.swipeRight()
+        XCTAssertTrue(app.buttons["Edit"].waitForExistence(timeout: 2))
+        app.buttons["Edit"].tap()
     }
 }
