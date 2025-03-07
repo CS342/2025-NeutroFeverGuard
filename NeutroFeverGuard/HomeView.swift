@@ -79,9 +79,6 @@ struct HomeView: View {
         .accountRequired(!FeatureFlags.disableFirebase && !FeatureFlags.skipOnboarding) {
             AccountSheet()
         }
-        .onAppear {
-            UNUserNotificationCenter.current().delegate = NotificationManager.shared
-        }
     }
 }
 

@@ -51,7 +51,7 @@ struct Contacts: View {
                 givenName: "Emergency",
                 familyName: "Department"
             ),
-            image: Image(systemName: "cross.case"), // swiftlint:disable:this accessibility_label_for_image,
+            image: Image(systemName: "cross.case"), // swiftlint:disable:this accessibility_label_for_image
             organization: "Zentrale Interdisziplinäre Notaufnahme TUM",
             address: {
                 let address = CNMutablePostalAddress()
