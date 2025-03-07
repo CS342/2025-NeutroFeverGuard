@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+import FirebaseFirestore
 import Spezi
 import SpeziLocalStorage
 import SwiftUI
@@ -14,6 +15,7 @@ import SwiftUI
 @Observable
 class LabResultsManager: Module, EnvironmentAccessible {
     private let localStorage: LocalStorage
+    private var firebaseConfig = FirebaseConfiguration()
     
     var latestRecordedTime: String = "None"
     var labRecords: [LabEntry] = []
@@ -70,6 +72,13 @@ class LabResultsManager: Module, EnvironmentAccessible {
     private func saveLabResults() {
         do {
             try localStorage.store(labRecords, for: LocalStorageKey<[LabEntry]>("labResults"))
+            // Save to Firestore
+            if !FeatureFlags.disableFirebase {
+                try firebaseConfig.userDocumentReference
+                    .collection("LabResults")
+                    .document(UUID().uuidString)
+                    .setData(from: labRecords)
+            }
         } catch {
             print("Failed to save lab results: \(error)")
         }
