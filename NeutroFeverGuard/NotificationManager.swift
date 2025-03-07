@@ -7,22 +7,17 @@
 //
 
 import UserNotifications
+import Spezi
+import SpeziNotifications
 
-@MainActor
-class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
-    static let shared = NotificationManager()
-    
-    // Show banner even when app is in the foreground
-    nonisolated func userNotificationCenter
-    (
-        _ center: UNUserNotificationCenter,
-        willPresent notification: UNNotification,
-        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
-    ) {
-        completionHandler([.banner, .sound])  // Show as a banner even when in foreground
-    }
-
+@Observable
+class NotificationManager: Module, NotificationHandler {
     @MainActor
+    func receiveIncomingNotification(_ notification: UNNotification) async -> UNNotificationPresentationOptions? {
+        return [.badge, .banner, .list]
+    }
+    
+    
     func sendLocalNotification(title: String, body: String) {
         let content = UNMutableNotificationContent()
         content.title = title

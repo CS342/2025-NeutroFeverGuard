@@ -30,7 +30,7 @@ actor NeutroFeverGuardStandard: Standard,
 
     @Dependency(FirebaseConfiguration.self) private var configuration
     @Dependency(LabResultsManager.self) private var labResultsManager
-
+    @Dependency(NotificationManager.self) private var notificationManager
     init() {}
 
 
@@ -38,12 +38,10 @@ actor NeutroFeverGuardStandard: Standard,
         if FeatureFlags.disableFirebase {
             logger.debug("Received new HealthKit sample: \(sample)")
             if let condition = await checkForFebrileNeutropenia() {
-                await MainActor.run {
-                    NotificationManager.shared.sendLocalNotification(
-                        title: "Health Alert",
-                        body: "Risk detected: \(condition), please contact your care provider."
-                    )
-                }
+                await notificationManager.sendLocalNotification(
+                    title: "Health Alert",
+                    body: "Risk detected: \(condition), please contact your care provider."
+                )
             }
             return
         }
@@ -53,7 +51,7 @@ actor NeutroFeverGuardStandard: Standard,
                 .setData(from: sample.resource)
             // Check if the condition is met before sending a notification
             if let condition = await checkForFebrileNeutropenia() {
-                await NotificationManager.shared.sendLocalNotification(
+                await notificationManager.sendLocalNotification(
                     title: "Health Alert",
                     body: "Risk detected: \(condition), please contact your care provider."
                 )

@@ -50,11 +50,13 @@ class LabResultsManager: Module, EnvironmentAccessible {
         }
     }
     
+    @MainActor
     func addLabEntry(_ newEntry: LabEntry) {
         labRecords.append(newEntry)
         saveLabResults()
     }
     
+    @MainActor
     func deleteLabEntry(at index: Int) {
         guard labRecords.indices.contains(index)
             else { return }
@@ -69,6 +71,7 @@ class LabResultsManager: Module, EnvironmentAccessible {
 //        saveLabResults()
 //    }
   
+    @MainActor
     private func saveLabResults() {
         do {
             try localStorage.store(labRecords, for: LocalStorageKey<[LabEntry]>("labResults"))
