@@ -83,7 +83,7 @@ struct LabResultDetailView: View {
         .alert("Delete Lab Record", isPresented: $showDeleteAlert) {
                 Button("Delete", role: .destructive) {
                     deleteRecord()
-                }
+                }.accessibilityIdentifier("DeleteAlertButton")
                 Button("Cancel", role: .cancel) {}
         } message: {
             Text("Are you sure you want to delete this lab record? This action cannot be undone.")

@@ -60,7 +60,6 @@ class MedicationViewTests: XCTestCase {
         XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Medication"].waitForExistence(timeout: 2))
         app.tabBars["Tab Bar"].buttons["Medication"].tap()
 
-        
         app.cells.firstMatch.swipeLeft()
         XCTAssertTrue(app.buttons["Delete"].waitForExistence(timeout: 2))
         app.buttons["Delete"].tap()

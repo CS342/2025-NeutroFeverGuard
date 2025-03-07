@@ -16,6 +16,7 @@ import SwiftUI
 @MainActor
 class MedicationManager: Module, EnvironmentAccessible {
     var medications: [MedicationEntry] = []
+    var mockMedData: [MedicationEntry] = []
     
     @ObservationIgnored @Dependency(LocalStorage.self) private var localStorage
     @ObservationIgnored @Dependency(FirebaseConfiguration.self) private var firebaseConfig
@@ -23,6 +24,15 @@ class MedicationManager: Module, EnvironmentAccessible {
     
     func configure() {
         loadMedications() // Load data on startup
+        if FeatureFlags.mockMedData {
+            do {
+                mockMedData = [
+                    try MedicationEntry(date: Date(), name: "test", doseValue: 1, doseUnit: .mgUnit)
+                ]
+            } catch {
+                print("Failed to load mock medication data")
+            }
+        }
     }
     
     func refresh() {
@@ -31,16 +41,9 @@ class MedicationManager: Module, EnvironmentAccessible {
     
     private func loadMedications() {
         if FeatureFlags.mockMedData {
-            do {
-                medications = [
-                    try MedicationEntry(date: Date(), name: "test", doseValue: 1, doseUnit: .mgUnit)
-                ]
-            } catch {
-                print("Failed to load mock medication data")
-            }
+            medications = mockMedData
             return
         }
-        
         do {
             medications = try localStorage.load(LocalStorageKey<[MedicationEntry]>("medications")) ?? []
             medications.sort { $0.date > $1.date }
@@ -68,6 +71,10 @@ class MedicationManager: Module, EnvironmentAccessible {
     }
     
     private func saveMedResults() {
+        if FeatureFlags.mockMedData {
+            mockMedData = medications
+            return
+        }
         do {
             try localStorage.store(medications, for: LocalStorageKey<[MedicationEntry]>("medications"))
             // Save to Firestore
