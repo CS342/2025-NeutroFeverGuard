@@ -144,7 +144,7 @@ struct BloodPressureForm: View {
 struct DataInputForm: View {
     let dataType: String
     @Environment(LabResultsManager.self) var labResultsManager
-    @Environment(LocalStorage.self) var localStorage
+//    @Environment(LocalStorage.self) var localStorage
     @Environment(HealthKitService.self) var healthKitService
     
     @State private var date = Date()
