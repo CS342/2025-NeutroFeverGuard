@@ -128,8 +128,10 @@
       }
     },
     "Amount" : {
+
     },
     "Are you sure you want to delete this lab record? This action cannot be undone." : {
+
     },
     "Body Temperature (°F)" : {
       "localizations" : {
@@ -215,6 +217,7 @@
       }
     },
     "Date: %@" : {
+
     },
     "Delete" : {
 
@@ -402,7 +405,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Interesting Modules"
+            "value" : "What To Do"
           }
         }
       }
@@ -412,7 +415,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The onboarding module allows you to build an onboarding flow like this one."
+            "value" : "Sign informed consent form to participate in this research."
           }
         }
       }
@@ -422,7 +425,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The application uses HL7 FHIR to provide a common standard to encode data gathered by the application."
+            "value" : "Make sure to give permissions to read/write health data, and get notifications."
           }
         }
       }
@@ -432,7 +435,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The contact module allows you to display contact information in your application."
+            "value" : "Create an account."
           }
         }
       }
@@ -442,7 +445,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The HealthKit data source module allows you to fetch data from HealthKit and e.g. transform it to FHIR resources."
+            "value" : "If you use Apple Watch, or Health app, your vitals will be fetched automatically. You will be asked to enter your lab values and medications manually."
           }
         }
       }
@@ -452,7 +455,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Here are a few Spezi modules that are interesting to know about ..."
+            "value" : "Here are what we expect you to do:"
           }
         }
       }
@@ -871,7 +874,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The Spezi Framework builds the foundation of this application."
+            "value" : "Record and track your vitals, lab values, medications and symptoms."
           }
         }
       }
@@ -881,7 +884,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Spezi uses the Swift Package Manager to import it as a dependency."
+            "value" : "Sync your data with Apple Health App and see visualizations of your health data. "
           }
         }
       }
@@ -891,7 +894,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Spezi offers several modules including HealthKit integration, questionnaires, and more ..."
+            "value" : "Get reminders to upload lab values and notifications in case of febrile neutropenia risk."
           }
         }
       }
@@ -901,7 +904,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This application demonstrates several Spezi features & modules."
+            "value" : "This application is built to track symptoms of chemotherapy patients and early detection of febrile neutropenia."
           }
         }
       }
