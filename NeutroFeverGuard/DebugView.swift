@@ -10,6 +10,7 @@ import SpeziAccount
 import SpeziLocalStorage
 import SwiftUI
 
+// periphery:ignore
 struct FeverView: View {
     @State private var feverStatus: String = ""
     @Environment(Account.self) private var account: Account?
