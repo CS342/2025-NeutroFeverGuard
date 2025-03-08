@@ -13,7 +13,6 @@ import SwiftUI
 
 
 @Observable
-@MainActor
 class LabResultsManager: Module, EnvironmentAccessible {
     var latestRecordedTime: String = "None"
     var labRecords: [LabEntry] = []
@@ -66,11 +65,13 @@ class LabResultsManager: Module, EnvironmentAccessible {
         }
     }
     
+    @MainActor
     func addLabEntry(_ newEntry: LabEntry) {
         labRecords.append(newEntry)
         saveLabResults()
     }
     
+    @MainActor
     func deleteLabEntry(at index: Int) {
         guard labRecords.indices.contains(index)
             else { return }
@@ -84,7 +85,8 @@ class LabResultsManager: Module, EnvironmentAccessible {
 //        labRecords[index] = updatedEntry
 //        saveLabResults()
 //    }
-    
+  
+    @MainActor
     private func saveLabResults() {
         if FeatureFlags.mockLabData {
             mockLabData = labRecords

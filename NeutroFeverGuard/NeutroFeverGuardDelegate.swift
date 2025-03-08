@@ -56,6 +56,7 @@ class NeutroFeverGuardDelegate: SpeziAppDelegate {
             OnboardingDataSource()
             LocalStorage()
             Notifications()
+            NotificationManager()
             LabResultsManager()
             MedicationManager()
             HealthKitService()
