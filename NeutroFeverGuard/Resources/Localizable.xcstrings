@@ -176,9 +176,6 @@
         }
       }
     },
-    "Consent Form" : {
-
-    },
     "CONSENT_LOADING_ERROR" : {
       "localizations" : {
         "en" : {
@@ -258,9 +255,6 @@
     "Enter Lab Results" : {
 
     },
-    "Entering Your Data" : {
-
-    },
     "Error" : {
       "localizations" : {
         "en" : {
@@ -272,6 +266,9 @@
       }
     },
     "Get Timely Warnings" : {
+
+    },
+    "Give Permissions" : {
 
     },
     "Grant Access" : {
@@ -411,6 +408,9 @@
           }
         }
       }
+    },
+    "How to Start?" : {
+
     },
     "Interesting Modules" : {
       "extractionState" : "stale",
@@ -575,7 +575,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Spezi\nNeutroFeverGuard"
+            "value" : "NeutroFeverGuard"
           }
         }
       }
@@ -638,7 +638,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The Spezi Scheduler module enables to send out local notifications when a new event of a task is scheduled."
+            "value" : "Please provide permissions for notifications."
           }
         }
       }
@@ -704,9 +704,6 @@
         }
       }
     },
-    "Permissions" : {
-
-    },
     "Please fill out the Social Support Questionnaire every day." : {
       "extractionState" : "stale",
       "localizations" : {
@@ -717,6 +714,9 @@
           }
         }
       }
+    },
+    "Provide Your Data" : {
+
     },
     "Rate (bpm)" : {
       "localizations" : {
@@ -745,7 +745,10 @@
         }
       }
     },
-    "Signing up" : {
+    "Sign the Consent Form" : {
+
+    },
+    "Sign up" : {
 
     },
     "Social Support Questionnaire" : {
@@ -947,9 +950,6 @@
           }
         }
       }
-    },
-    "What To Do" : {
-
     },
     "You haven't recorded your lab results for last 7 days. Record now!" : {
 
