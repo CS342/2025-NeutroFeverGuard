@@ -163,9 +163,6 @@
         }
       }
     },
-    "Check Fever Status" : {
-
-    },
     "Close" : {
       "localizations" : {
         "en" : {
@@ -281,7 +278,11 @@
         }
       }
     },
+    "Health Data Access" : {
+
+    },
     "HealthKit Access" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
