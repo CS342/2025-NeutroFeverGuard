@@ -774,6 +774,7 @@
       }
     },
     "Spezi Scheduler Notifications." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -866,6 +867,9 @@
           }
         }
       }
+    },
+    "Timely Warning Notifications." : {
+
     },
     "Unsupported Event" : {
       "extractionState" : "stale",
