@@ -148,7 +148,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Basal Body Temperature Over Time"
+            "value" : "Body Temperature Over Time"
           }
         }
       }
@@ -176,6 +176,9 @@
         }
       }
     },
+    "Consent Form" : {
+
+    },
     "CONSENT_LOADING_ERROR" : {
       "localizations" : {
         "en" : {
@@ -187,6 +190,7 @@
       }
     },
     "Contact" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -254,6 +258,9 @@
     "Enter Lab Results" : {
 
     },
+    "Entering Your Data" : {
+
+    },
     "Error" : {
       "localizations" : {
         "en" : {
@@ -263,6 +270,9 @@
           }
         }
       }
+    },
+    "Get Timely Warnings" : {
+
     },
     "Grant Access" : {
       "localizations" : {
@@ -285,6 +295,7 @@
       }
     },
     "HealthKit Data Source" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -299,7 +310,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This onboarding step allows you to customize the onboarding flow to explain how the application uses the HealthKit data and allows a user to customize the selection."
+            "value" : "Please provide access to following health data."
           }
         }
       }
@@ -309,7 +320,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Spezi can access data from HealthKit using the HealthKitDataSource module."
+            "value" : "This app can access data from Health app."
           }
         }
       }
@@ -391,6 +402,7 @@
 
     },
     "HL7 FHIR" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -401,11 +413,12 @@
       }
     },
     "Interesting Modules" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "What To Do"
+            "value" : "How to Start?"
           }
         }
       }
@@ -455,7 +468,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Here are what we expect you to do:"
+            "value" : "Following are what we expect you to do to start using the app, don’t worry, we will guide you through it."
           }
         }
       }
@@ -651,6 +664,7 @@
       }
     },
     "Onboarding" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -690,6 +704,9 @@
         }
       }
     },
+    "Permissions" : {
+
+    },
     "Please fill out the Social Support Questionnaire every day." : {
       "extractionState" : "stale",
       "localizations" : {
@@ -711,6 +728,9 @@
         }
       }
     },
+    "Record & Track Symptoms" : {
+
+    },
     "Save" : {
 
     },
@@ -725,6 +745,9 @@
         }
       }
     },
+    "Signing up" : {
+
+    },
     "Social Support Questionnaire" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -737,6 +760,7 @@
       }
     },
     "Spezi Modules" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -768,6 +792,7 @@
       }
     },
     "Swift Package Manager" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -798,6 +823,7 @@
       }
     },
     "The Spezi Framework" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -859,6 +885,9 @@
         }
       }
     },
+    "Visualize & Share across Apps" : {
+
+    },
     "Vitals Dashboard" : {
       "localizations" : {
         "en" : {
@@ -918,6 +947,9 @@
           }
         }
       }
+    },
+    "What To Do" : {
+
     },
     "You haven't recorded your lab results for last 7 days. Record now!" : {
 

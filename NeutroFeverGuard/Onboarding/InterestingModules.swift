@@ -16,23 +16,23 @@ struct InterestingModules: View {
     
     var body: some View {
         SequentialOnboardingView(
-            title: "What To Do",
+            title: "How to Start?",
             subtitle: "INTERESTING_MODULES_SUBTITLE",
             content: [
                 SequentialOnboardingView.Content(
-                    title: "Consent Form",
+                    title: "Sign the Consent Form",
                     description: "INTERESTING_MODULES_AREA1_DESCRIPTION"
                 ),
                 SequentialOnboardingView.Content(
-                    title: "Permissions",
+                    title: "Give Permissions",
                     description: "INTERESTING_MODULES_AREA2_DESCRIPTION"
                 ),
                 SequentialOnboardingView.Content(
-                    title: "Signing up",
+                    title: "Sign up",
                     description: "INTERESTING_MODULES_AREA3_DESCRIPTION"
                 ),
                 SequentialOnboardingView.Content(
-                    title: "Entering Your Data",
+                    title: "Provide Your Data",
                     description: "INTERESTING_MODULES_AREA4_DESCRIPTION"
                 )
             ],
