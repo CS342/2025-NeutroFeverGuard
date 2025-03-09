@@ -68,7 +68,6 @@
 		B03D0E432D7D22700024F2CA /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E6898E2D52ED8500869C4F /* HealthKitService.swift */; };
 		B03D0E462D7D24030024F2CA /* DataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8332D501C5C005C3495 /* DataType.swift */; };
 		B03D0E482D7D24AA0024F2CA /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22393792D5D4092006C8EB4 /* DataError.swift */; };
-		B03D0E4F2D7D425B0024F2CA /* HealthkitServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03D0E4E2D7D42540024F2CA /* HealthkitServiceTests.swift */; };
 		B08E39F92D7C416000077929 /* FeverMonitoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C95E382D78D5F2007A4CA6 /* FeverMonitoring.swift */; };
 		B0C95E3A2D78D5F3007A4CA6 /* FeverMonitoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C95E382D78D5F2007A4CA6 /* FeverMonitoring.swift */; };
 		B0D4C9382D790F65000643C7 /* LabResultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D4C9372D790F5E000643C7 /* LabResultsManager.swift */; };
@@ -152,7 +151,6 @@
 		A9A3DCC72C75CB9A00FC9B69 /* FirebaseConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfiguration.swift; sourceTree = "<group>"; };
 		A9DFE8A82ABE551400428242 /* AccountButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountButton.swift; sourceTree = "<group>"; };
 		A9FE7ACF2AA39BAB0077B045 /* AccountSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSheet.swift; sourceTree = "<group>"; };
-		B03D0E4E2D7D42540024F2CA /* HealthkitServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthkitServiceTests.swift; sourceTree = "<group>"; };
 		B0C95E382D78D5F2007A4CA6 /* FeverMonitoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeverMonitoring.swift; sourceTree = "<group>"; };
 		B0D4C9372D790F5E000643C7 /* LabResultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabResultsManager.swift; sourceTree = "<group>"; };
 		B0DF8DF62D7BFEF600581A00 /* FeverMonitorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeverMonitorTests.swift; sourceTree = "<group>"; };
@@ -367,7 +365,6 @@
 		653A256028338800005D4D48 /* NeutroFeverGuardTests */ = {
 			isa = PBXGroup;
 			children = (
-				B03D0E4E2D7D42540024F2CA /* HealthkitServiceTests.swift */,
 				B0DF8DF62D7BFEF600581A00 /* FeverMonitorTests.swift */,
 				653A256128338800005D4D48 /* NeutroFeverGuardTests.swift */,
 				C4A367C72D73C1E1009923C9 /* DataErrorTests.swift */,
@@ -661,7 +658,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4A367C82D73C1EC009923C9 /* DataErrorTests.swift in Sources */,
-				B03D0E4F2D7D425B0024F2CA /* HealthkitServiceTests.swift in Sources */,
 				B08E39F92D7C416000077929 /* FeverMonitoring.swift in Sources */,
 				EB02C6612D5D52E90035AA89 /* NeutroFeverGuardTests.swift in Sources */,
 				B0DF8DFD2D7C123200581A00 /* HealthDataFetchable.swift in Sources */,
