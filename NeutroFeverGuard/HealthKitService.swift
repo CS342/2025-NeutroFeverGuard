@@ -12,7 +12,7 @@ import Spezi
 import SpeziHealthKit
 import SpeziLocalStorage
 
-actor HealthKitService: Module, EnvironmentAccessible {
+actor HealthKitService: Module, EnvironmentAccessible, HealthDataFetchable {
     internal let healthStore = HKHealthStore()
     
     @MainActor
@@ -117,5 +117,36 @@ actor HealthKitService: Module, EnvironmentAccessible {
         )
         
         try await healthStore.save(correlation)
+    }
+    
+    func queryTemperatureData() async throws -> [HKQuantitySample] {
+        guard let bodyTemperatureType = HKQuantityType.quantityType(forIdentifier: .bodyTemperature) else {
+            print("HealthKit body temperature data is not available on this device.")
+            return []
+        }
+
+        let now = Date()
+        guard let hourAgo = Calendar.current.date(byAdding: .hour, value: -1, to: now) else {
+            return []
+        }
+
+        let predicate = HKQuery.predicateForSamples(withStart: hourAgo, end: now)
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
+
+        return try await withCheckedThrowingContinuation { continuation in
+            let query = HKSampleQuery(
+                sampleType: bodyTemperatureType,
+                predicate: predicate,
+                limit: HKObjectQueryNoLimit,
+                sortDescriptors: [sortDescriptor]
+            ) { _, samples, error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                    return
+                }
+                continuation.resume(returning: samples as? [HKQuantitySample] ?? [])
+            }
+            healthStore.execute(query)
+        }
     }
 }

@@ -11,91 +11,70 @@ import HealthKit
 
 actor FeverMonitor: Sendable {
     static let shared = FeverMonitor()
-    private let healthStore = HKHealthStore()
-    private init() {}
+    // private let healthStore = HKHealthStore()
+    // private init() {}
+    
+    private let healthDataFetcher: HealthDataFetchable
+
+    init(healthDataFetcher: HealthDataFetchable = HealthKitService()) {
+        self.healthDataFetcher = healthDataFetcher
+    }
 
     func checkForFever() async -> Bool {
-        guard let bodyTemperatureType = HKQuantityType.quantityType(forIdentifier: .bodyTemperature) else {
-            print("HealthKit body temperature data is not available on this device.")
-            return false
-        }
-
-        let now = Date()
-        guard let hourAgo = Calendar.current.date(byAdding: .hour, value: -1, to: now) else {
-            return false
-        }
-
-        let hourPredicate = HKQuery.predicateForSamples(withStart: hourAgo, end: now)
-        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
-
         do {
-            let samples = try await queryHealthData(
-                store: healthStore,
-                sampleType: bodyTemperatureType,
-                predicate: hourPredicate,
-                sortDescriptors: [sortDescriptor]
-            )
+            let temperatures = try await healthDataFetcher.queryTemperatureData()
 
-            print("Fetched \(samples.count) temperature samples")
+            print("Fetched \(temperatures.count) temperature samples")
 
-            guard let temperatures = samples as? [HKQuantitySample], !temperatures.isEmpty else {
+            guard !temperatures.isEmpty else {
                 print("No temperature samples found")
                 return false
             }
 
             for temp in temperatures {
-                let tempValue = temp.quantity.doubleValue(for: HKUnit.degreeFahrenheit())
-                print("Temperature: \(tempValue)°F at \(temp.startDate)")
+                let tempFahrenheit = convertToFahrenheit(temp.quantity)
+                print("Temperature: \(tempFahrenheit)°F at \(temp.startDate)")
             }
 
             if let latest = temperatures.first {
-                let latestTemp = latest.quantity.doubleValue(for: HKUnit.degreeFahrenheit())
-                print("Latest temperature: \(latestTemp)°F")
-                if latestTemp >= 101.0 {
+                let latestTempFahrenheit = convertToFahrenheit(latest.quantity)
+                print("Latest temperature: \(latestTempFahrenheit)°F")
+                if latestTempFahrenheit >= 101.0 {
                     print("Fever detected: Latest temperature is >= 101.0°F")
                     return true
                 }
             }
 
             let allHighTemps = temperatures.allSatisfy { sample in
-                let temp = sample.quantity.doubleValue(for: HKUnit.degreeFahrenheit())
-                return temp >= 100.4
+                let tempFahrenheit = convertToFahrenheit(sample.quantity)
+                return tempFahrenheit >= 100.4
             }
 
             if allHighTemps {
                 print("Fever detected: All temperatures in the last hour are >= 100.4°F")
+                return true
             } else {
                 print("No fever detected")
+                return false
             }
-
-            return allHighTemps
         } catch {
             print("Error fetching health data: \(error)")
             return false
         }
     }
 
-    private func queryHealthData(
-        store: HKHealthStore,
-        sampleType: HKSampleType,
-        predicate: NSPredicate?,
-        sortDescriptors: [NSSortDescriptor]
-    ) async throws -> [HKSample] {
-        try await withCheckedThrowingContinuation { continuation in
-            let query = HKSampleQuery(
-                sampleType: sampleType,
-                predicate: predicate,
-                limit: HKObjectQueryNoLimit,
-                sortDescriptors: sortDescriptors
-            ) { _, samples, error in
-                if let error = error {
-                    continuation.resume(throwing: error)
-                    return
-                }
-                
-                continuation.resume(returning: samples ?? [])
-            }
-            store.execute(query)
+    private func convertToFahrenheit(_ quantity: HKQuantity) -> Double {
+        if quantity.is(compatibleWith: HKUnit.degreeFahrenheit()) {
+            return quantity.doubleValue(for: HKUnit.degreeFahrenheit())
+        } else if quantity.is(compatibleWith: HKUnit.degreeCelsius()) {
+            return celsiusToFahrenheit(quantity.doubleValue(for: HKUnit.degreeCelsius()))
+        } else {
+            print("Unknown temperature unit!")
+            return 0.0  // Fallback in case of an unknown unit
         }
+    }
+
+    private func celsiusToFahrenheit(_ tempCelsius: Double) -> Double {
+        (tempCelsius * 9 / 5) + 32
     }
 }
