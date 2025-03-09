@@ -60,7 +60,7 @@ class NeutroFeverGuardDelegate: SpeziAppDelegate {
             Notifications()
             LabResultsManager(localStorage: localStorage)
             Bluetooth {
-                Discover(MyDevice.self, by: .advertisedService("FFF0"))
+                Discover(CoreSensor.self, by: .advertisedService("00002100-5B1E-4347-B07C-97B514DAE121"))
             }
         }
     }
