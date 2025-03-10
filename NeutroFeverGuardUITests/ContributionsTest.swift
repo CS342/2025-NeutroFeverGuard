@@ -34,7 +34,7 @@ final class ContributionsTest: XCTestCase {
         // XCTAssertTrue(app.buttons["License Information"].waitForExistence(timeout: 10))
         // app.buttons["License Information"].tap()
         // Test if the sheet opens by checking if the title of the sheet is present
-        // XCTAssertTrue(app.staticTexts["This project is licensed under the MIT License."].waitForExistence(timeout: 2))
-        // XCTAssertTrue(app.buttons["Repository Link"].exists)
+        XCTAssertTrue(app.staticTexts["This project is licensed under the MIT License."].waitForExistence(timeout: 2))
+        XCTAssertTrue(app.buttons["Repository Link"].exists)
     }
 }

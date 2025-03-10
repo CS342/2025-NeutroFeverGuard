@@ -29,19 +29,33 @@ actor NeutroFeverGuardStandard: Standard,
     @Application(\.logger) private var logger
 
     @Dependency(FirebaseConfiguration.self) private var configuration
-
+    @Dependency(LabResultsManager.self) private var labResultsManager
+    @Dependency(NotificationManager.self) private var notificationManager
     init() {}
 
 
     func add(sample: HKSample) async {
         if FeatureFlags.disableFirebase {
             logger.debug("Received new HealthKit sample: \(sample)")
+            if let condition = await checkForFebrileNeutropenia() {
+                notificationManager.sendLocalNotification(
+                    title: "Health Alert",
+                    body: "Risk detected: \(condition), please contact your care provider."
+                )
+            }
             return
         }
         
         do {
             try await healthKitDocument(id: sample.id)
                 .setData(from: sample.resource)
+            // Check if the condition is met before sending a notification
+            if let condition = await checkForFebrileNeutropenia() {
+                notificationManager.sendLocalNotification(
+                    title: "Health Alert",
+                    body: "Risk detected: \(condition), please contact your care provider."
+                )
+            }
         } catch {
             logger.error("Could not store HealthKit sample: \(error)")
         }
@@ -52,7 +66,6 @@ actor NeutroFeverGuardStandard: Standard,
             logger.debug("Received new removed healthkit sample with id \(sample.uuid)")
             return
         }
-        
         do {
             try await healthKitDocument(id: sample.uuid).delete()
         } catch {
@@ -61,25 +74,37 @@ actor NeutroFeverGuardStandard: Standard,
     }
 
     // periphery:ignore:parameters isolation
-    func add(response: ModelsR4.QuestionnaireResponse, isolation: isolated (any Actor)? = #isolation) async {
-        let id = response.identifier?.value?.value?.string ?? UUID().uuidString
-        
-        if FeatureFlags.disableFirebase {
-            let jsonRepresentation = (try? String(data: JSONEncoder().encode(response), encoding: .utf8)) ?? ""
-            await logger.debug("Received questionnaire response: \(jsonRepresentation)")
-            return
-        }
-        
-        do {
-            try await configuration.userDocumentReference
-                .collection("QuestionnaireResponse") // Add all HealthKit sources in a /QuestionnaireResponse collection.
-                .document(id) // Set the document identifier to the id of the response.
-                .setData(from: response)
-        } catch {
-            await logger.error("Could not store questionnaire response: \(error)")
+//    func add(response: ModelsR4.QuestionnaireResponse, isolation: isolated (any Actor)? = #isolation) async {
+//        let id = response.identifier?.value?.value?.string ?? UUID().uuidString
+//        
+//        if FeatureFlags.disableFirebase {
+//            let jsonRepresentation = (try? String(data: JSONEncoder().encode(response), encoding: .utf8)) ?? ""
+//            await logger.debug("Received questionnaire response: \(jsonRepresentation)")
+//            return
+//        }
+//        
+//        do {
+//            try await configuration.userDocumentReference
+//                .collection("QuestionnaireResponse") // Add all HealthKit sources in a /QuestionnaireResponse collection.
+//                .document(id) // Set the document identifier to the id of the response.
+//                .setData(from: response)
+//        } catch {
+//            await logger.error("Could not store questionnaire response: \(error)")
+//        }
+//    }
+    
+    private func checkForFebrileNeutropenia() async -> String? {
+        let fever = await FeverMonitor.shared.checkForFever()
+        let ancStatus = labResultsManager.getANCStatus()
+
+        if ancStatus.text == "No Data" {
+            return nil  // No notification needed
+        } else if fever && ancStatus.text != "Normal" {
+            return "Febrile Neutropenia"
+        } else {
+            return nil  // No notification needed
         }
     }
-    
     
     private func healthKitDocument(id uuid: UUID) async throws -> DocumentReference {
         try await configuration.userDocumentReference

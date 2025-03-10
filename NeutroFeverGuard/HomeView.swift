@@ -12,46 +12,55 @@ import SwiftUI
 
 struct HomeView: View {
     enum Tabs: String {
-        case dashboard
+//        case dashboard
         case addData
         case labResult
-        case schedule
+        case medication
+//        case schedule
         case contact
     }
 
 
-    @AppStorage(StorageKeys.homeTabSelection) private var selectedTab = Tabs.dashboard
+    @AppStorage(StorageKeys.homeTabSelection) private var selectedTab = Tabs.addData
     @AppStorage(StorageKeys.tabViewCustomization) private var tabViewCustomization = TabViewCustomization()
 
     @State private var presentingAccount = false
-
-    
+        
     var body: some View {
         TabView(selection: $selectedTab) {
             // Dashboard tab (HKVisualization)
-            Tab("Dashboard", systemImage: "heart.text.square", value: .dashboard) {
-                HKVisualization()
-            }
-            .customizationID("home.dashboard")
+//            Tab("Dashboard", systemImage: "heart.text.square", value: .dashboard) {
+//                HKVisualization()
+//            }
+//            .customizationID("home.dashboard")
             
             // Add Data tab
             Tab("Add Data", systemImage: "plus.app.fill", value: .addData) {
                 AddDataView(presentingAccount: $presentingAccount)
             }
             .customizationID("home.addData")
+            .accessibilityIdentifier("Add Data")
             
             // Lab tab
             Tab("Lab", systemImage: "flask", value: .labResult) {
                 LabView(presentingAccount: $presentingAccount)
             }
             .customizationID("home.lab")
+            .accessibilityIdentifier("Lab")
+            
+            // Medication tab
+            Tab("Medication", systemImage: "pills", value: .medication) {
+                MedicationView(presentingAccount: $presentingAccount)
+            }
+            .customizationID("home.medication")
+            .accessibilityIdentifier("Medication")
             
             // Schedule tab
-            Tab("Schedule", systemImage: "list.clipboard", value: .schedule) {
-                ScheduleView(presentingAccount: $presentingAccount)
-            }
-            .customizationID("home.schedule")
-            .accessibilityIdentifier("Schedule")
+//            Tab("Schedule", systemImage: "list.clipboard", value: .schedule) {
+//                ScheduleView(presentingAccount: $presentingAccount)
+//            }
+//            .customizationID("home.schedule")
+//            .accessibilityIdentifier("Schedule")
             
             // Contacts tab
             Tab("Contacts", systemImage: "person.fill", value: .contact) {

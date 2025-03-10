@@ -6,20 +6,19 @@
 // SPDX-License-Identifier: MIT
 //
 
+import FirebaseFirestore
 import HealthKit
+import Spezi
 import SpeziHealthKit
 import SpeziLocalStorage
 
-actor HealthKitService {
+actor HealthKitService: Module, EnvironmentAccessible, HealthDataFetchable {
     internal let healthStore = HKHealthStore()
-    private let localStorage: LocalStorage
-        
-    init(localStorage: LocalStorage) {
-        self.localStorage = localStorage
-    }
+    
+    @MainActor
+    func configure() { }
     
     func requestAuthorization() async throws {
-        // Define the types we want to write
         let typesToWrite: Set<HKSampleType> = [
             HeartRateEntry.healthKitType,
             TemperatureEntry.healthKitType,
@@ -69,7 +68,7 @@ actor HealthKitService {
     
     func saveOxygenSaturation(_ entry: OxygenSaturationEntry) async throws {
         let type = OxygenSaturationEntry.healthKitType
-        let quantity = HKQuantity(unit: OxygenSaturationEntry.unit, doubleValue: entry.percentage)
+        let quantity = HKQuantity(unit: OxygenSaturationEntry.unit, doubleValue: entry.percentage / 100.0)
         let metadata: [String: Any] = [
             HKMetadataKeyWasUserEntered: true
         ]
@@ -86,13 +85,13 @@ actor HealthKitService {
     }
     
     func saveBloodPressure(_ entry: BloodPressureEntry) async throws {
+        let systolicQuantity = HKQuantity(unit: BloodPressureEntry.unit, doubleValue: entry.systolic)
+        let diastolicQuantity = HKQuantity(unit: BloodPressureEntry.unit, doubleValue: entry.diastolic)
+        
         let metadata: [String: Any] = [
             HKMetadataKeyWasUserEntered: true
         ]
-
-        let systolicQuantity = HKQuantity(unit: BloodPressureEntry.unit, doubleValue: entry.systolic)
-        let diastolicQuantity = HKQuantity(unit: BloodPressureEntry.unit, doubleValue: entry.diastolic)
-
+        
         let systolicSample = HKQuantitySample(
             type: BloodPressureEntry.systolicType,
             quantity: systolicQuantity,
@@ -100,7 +99,7 @@ actor HealthKitService {
             end: entry.date,
             metadata: metadata
         )
-
+        
         let diastolicSample = HKQuantitySample(
             type: BloodPressureEntry.diastolicType,
             quantity: diastolicQuantity,
@@ -108,25 +107,46 @@ actor HealthKitService {
             end: entry.date,
             metadata: metadata
         )
-
-        guard let bloodPressureType = HKObjectType.correlationType(forIdentifier: .bloodPressure) else {
-            print("HealthKit does not support blood pressure correlation on this device.")
-            return
-        }
-            
-        let bloodPressureCorrelation = HKCorrelation(
+        
+        let bloodPressureType = HKCorrelationType(.bloodPressure)
+        let correlation = HKCorrelation(
             type: bloodPressureType,
             start: entry.date,
             end: entry.date,
-            objects: [systolicSample, diastolicSample],
-            metadata: metadata
+            objects: Set([systolicSample, diastolicSample])
         )
-
-        try await healthStore.save(bloodPressureCorrelation)
+        
+        try await healthStore.save(correlation)
     }
+    
+    func queryTemperatureData() async throws -> [HKQuantitySample] {
+        guard let bodyTemperatureType = HKQuantityType.quantityType(forIdentifier: .bodyTemperature) else {
+            print("HealthKit body temperature data is not available on this device.")
+            return []
+        }
 
-    func saveLabEntry(_ entry: LabEntry, key: String? = nil) async throws {
-        let finalKey = key ?? "labEntry-\(UUID().uuidString)"
-        try localStorage.store(entry, storageKey: finalKey)
+        let now = Date()
+        guard let hourAgo = Calendar.current.date(byAdding: .hour, value: -1, to: now) else {
+            return []
+        }
+
+        let predicate = HKQuery.predicateForSamples(withStart: hourAgo, end: now)
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
+
+        return try await withCheckedThrowingContinuation { continuation in
+            let query = HKSampleQuery(
+                sampleType: bodyTemperatureType,
+                predicate: predicate,
+                limit: HKObjectQueryNoLimit,
+                sortDescriptors: [sortDescriptor]
+            ) { _, samples, error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                    return
+                }
+                continuation.resume(returning: samples as? [HKQuantitySample] ?? [])
+            }
+            healthStore.execute(query)
+        }
     }
 }

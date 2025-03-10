@@ -16,13 +16,12 @@ import SwiftUI
 struct NeutroFeverGuard: App {
     @UIApplicationDelegateAdaptor(NeutroFeverGuardDelegate.self) var appDelegate
     @AppStorage(StorageKeys.onboardingFlowComplete) var completedOnboardingFlow = false
-
     
     var body: some Scene {
         WindowGroup {
             ZStack {
                 if completedOnboardingFlow {
-                      HomeView()
+                    HomeView()
                 } else {
                     EmptyView()
                 }

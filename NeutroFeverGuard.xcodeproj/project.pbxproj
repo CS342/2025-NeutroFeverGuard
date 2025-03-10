@@ -32,7 +32,6 @@
 		2FE5DC3A29EDD7CA004B9AB4 /* Welcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DC3429EDD7CA004B9AB4 /* Welcome.swift */; };
 		2FE5DC4029EDD7EE004B9AB4 /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DC3E29EDD7ED004B9AB4 /* FeatureFlags.swift */; };
 		2FE5DC4129EDD7EE004B9AB4 /* StorageKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DC3F29EDD7EE004B9AB4 /* StorageKeys.swift */; };
-		2FE5DC4E29EDD7FA004B9AB4 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DC4829EDD7FA004B9AB4 /* ScheduleView.swift */; };
 		2FE5DC5229EDD7FA004B9AB4 /* NeutroFeverGuardScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DC4C29EDD7FA004B9AB4 /* NeutroFeverGuardScheduler.swift */; };
 		2FE5DC5329EDD7FA004B9AB4 /* Bundle+Questionnaire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DC4D29EDD7FA004B9AB4 /* Bundle+Questionnaire.swift */; };
 		2FE5DC6429EDD883004B9AB4 /* SpeziAccount in Frameworks */ = {isa = PBXBuildFile; productRef = 2FE5DC6329EDD883004B9AB4 /* SpeziAccount */; };
@@ -43,7 +42,6 @@
 		2FE5DC7929EDD8E6004B9AB4 /* SpeziFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 2FE5DC7829EDD8E6004B9AB4 /* SpeziFirestore */; };
 		2FE5DC8429EDD934004B9AB4 /* SpeziQuestionnaire in Frameworks */ = {isa = PBXBuildFile; productRef = 2FE5DC8329EDD934004B9AB4 /* SpeziQuestionnaire */; };
 		2FE5DC8A29EDD972004B9AB4 /* SpeziLocalStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 2FE5DC8929EDD972004B9AB4 /* SpeziLocalStorage */; };
-		2FE5DC8C29EDD972004B9AB4 /* SpeziSecureStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 2FE5DC8B29EDD972004B9AB4 /* SpeziSecureStorage */; };
 		2FE5DC8F29EDD980004B9AB4 /* SpeziViews in Frameworks */ = {isa = PBXBuildFile; productRef = 2FE5DC8E29EDD980004B9AB4 /* SpeziViews */; };
 		2FE5DC9929EDD9D9004B9AB4 /* XCTestExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = 2FE5DC9829EDD9D9004B9AB4 /* XCTestExtensions */; };
 		2FE5DC9C29EDD9EF004B9AB4 /* XCTHealthKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2FE5DC9B29EDD9EF004B9AB4 /* XCTHealthKit */; };
@@ -60,7 +58,6 @@
 		97D73D6A2AD860AD00B47FA0 /* SpeziFirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 97D73D692AD860AD00B47FA0 /* SpeziFirebaseStorage */; };
 		A94DDFFD2CBD1190004930BD /* SpeziNotifications in Frameworks */ = {isa = PBXBuildFile; productRef = A94DDFFC2CBD1190004930BD /* SpeziNotifications */; };
 		A9720E432ABB68CC00872D23 /* AccountSetupHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9720E422ABB68CC00872D23 /* AccountSetupHeader.swift */; };
-		A98FF2B12CD131F500DFC949 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98FF2B02CD131F500DFC949 /* EventView.swift */; };
 		A994264E2CD25EB3002F8BD5 /* XCTSpeziAccount in Frameworks */ = {isa = PBXBuildFile; productRef = A994264D2CD25EB3002F8BD5 /* XCTSpeziAccount */; };
 		A9947BF02CC131ED0068AA8A /* SpeziSchedulerUI in Frameworks */ = {isa = PBXBuildFile; productRef = A9947BEF2CC131ED0068AA8A /* SpeziSchedulerUI */; };
 		A9947BF42CC142BD0068AA8A /* XCTSpeziNotifications in Frameworks */ = {isa = PBXBuildFile; productRef = A9947BF32CC142BD0068AA8A /* XCTSpeziNotifications */; };
@@ -68,14 +65,34 @@
 		A9D83F962B083794000D0C78 /* SpeziFirebaseAccountStorage in Frameworks */ = {isa = PBXBuildFile; productRef = A9D83F952B083794000D0C78 /* SpeziFirebaseAccountStorage */; };
 		A9DFE8A92ABE551400428242 /* AccountButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DFE8A82ABE551400428242 /* AccountButton.swift */; };
 		A9FE7AD02AA39BAB0077B045 /* AccountSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FE7ACF2AA39BAB0077B045 /* AccountSheet.swift */; };
+		B03D0E432D7D22700024F2CA /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E6898E2D52ED8500869C4F /* HealthKitService.swift */; };
+		B03D0E462D7D24030024F2CA /* DataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8332D501C5C005C3495 /* DataType.swift */; };
+		B03D0E482D7D24AA0024F2CA /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22393792D5D4092006C8EB4 /* DataError.swift */; };
+		B08E39F92D7C416000077929 /* FeverMonitoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C95E382D78D5F2007A4CA6 /* FeverMonitoring.swift */; };
+		B0C95E3A2D78D5F3007A4CA6 /* FeverMonitoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C95E382D78D5F2007A4CA6 /* FeverMonitoring.swift */; };
+		B0D4C9382D790F65000643C7 /* LabResultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D4C9372D790F5E000643C7 /* LabResultsManager.swift */; };
+		B0DF8DF72D7BFEFB00581A00 /* FeverMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DF8DF62D7BFEF600581A00 /* FeverMonitorTests.swift */; };
+		B0DF8DFC2D7C117800581A00 /* HealthDataFetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DF8DFB2D7C114900581A00 /* HealthDataFetchable.swift */; };
+		B0DF8DFD2D7C123200581A00 /* HealthDataFetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DF8DFB2D7C114900581A00 /* HealthDataFetchable.swift */; };
+		B0FF4DD22D797FEA0076A043 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FF4DD12D797FEA0076A043 /* NotificationManager.swift */; };
+		C42B98FF2D769E54005D820B /* SpeziKeychainStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C42B98FE2D769E54005D820B /* SpeziKeychainStorage */; };
+		C42C1B312D782A7600EA417F /* MedicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C1B302D782A7100EA417F /* MedicationView.swift */; };
+		C42C1C6B2D7A985B00EA417F /* MedicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C1C6A2D7A985B00EA417F /* MedicationManager.swift */; };
+		C42C1C712D7AB84300EA417F /* MedicationViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C1C702D7AB84300EA417F /* MedicationViewUITests.swift */; };
 		C42D4DA52D5AC89900B2A169 /* LabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D4DA42D5AC89500B2A169 /* LabView.swift */; };
 		C49EC8342D501C62005C3495 /* DataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8332D501C5C005C3495 /* DataType.swift */; };
 		C49EC8382D5026EE005C3495 /* DataTypeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8372D5026EE005C3495 /* DataTypeTest.swift */; };
 		C49EC8402D5033F9005C3495 /* AddDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC83F2D5033F9005C3495 /* AddDataView.swift */; };
 		C49EC8532D5038AC005C3495 /* DataInputForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8522D5038AC005C3495 /* DataInputForm.swift */; };
+		C4A367C82D73C1EC009923C9 /* DataErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A367C72D73C1E1009923C9 /* DataErrorTests.swift */; };
 		C4C0A78F2D518DBC00F37EEC /* HelperFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C0A78E2D518DB500F37EEC /* HelperFunc.swift */; };
+		C4C8A35F2D6F950600F313AE /* AddDataViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C8A35E2D6F950600F313AE /* AddDataViewTests.swift */; };
+		C4C8A3682D6F9E2100F313AE /* LabViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C8A3672D6F9E1A00F313AE /* LabViewUITests.swift */; };
+		C4C8A3B32D71204200F313AE /* HelperFuncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C8A3B22D71204200F313AE /* HelperFuncTests.swift */; };
 		EB02C6612D5D52E90035AA89 /* NeutroFeverGuardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653A256128338800005D4D48 /* NeutroFeverGuardTests.swift */; };
 		F223937A2D5D4095006C8EB4 /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22393792D5D4092006C8EB4 /* DataError.swift */; };
+		F279F70C2D780462005C2927 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = F2A54D362D5DE24400A20113 /* FirebaseCore */; };
+		F279F70D2D780462005C2927 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F2A54D382D5DE24E00A20113 /* FirebaseFirestore */; };
 		F2E6898F2D52ED8600869C4F /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E6898E2D52ED8500869C4F /* HealthKitService.swift */; };
 /* End PBXBuildFile section */
 
@@ -105,7 +122,6 @@
 		2F65B44D2A3B8B0600A36932 /* NotificationPermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermissions.swift; sourceTree = "<group>"; };
 		2FA0BFEC2ACC977500E0EF83 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		2FAEC07F297F583900C11C42 /* NeutroFeverGuard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NeutroFeverGuard.entitlements; sourceTree = "<group>"; };
-		2FC94CD4298B0A1D009C8209 /* NeutroFeverGuard.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = NeutroFeverGuard.xctestplan; sourceTree = "<group>"; };
 		2FC975A72978F11A00BA99FE /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		2FE5DC2529EDD38A004B9AB4 /* Contacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contacts.swift; sourceTree = "<group>"; };
 		2FE5DC2A29EDD78D004B9AB4 /* AppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon.png; sourceTree = "<group>"; };
@@ -117,7 +133,6 @@
 		2FE5DC3429EDD7CA004B9AB4 /* Welcome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Welcome.swift; sourceTree = "<group>"; };
 		2FE5DC3E29EDD7ED004B9AB4 /* FeatureFlags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureFlags.swift; sourceTree = "<group>"; };
 		2FE5DC3F29EDD7EE004B9AB4 /* StorageKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageKeys.swift; sourceTree = "<group>"; };
-		2FE5DC4829EDD7FA004B9AB4 /* ScheduleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		2FE5DC4C29EDD7FA004B9AB4 /* NeutroFeverGuardScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeutroFeverGuardScheduler.swift; sourceTree = "<group>"; };
 		2FE5DC4D29EDD7FA004B9AB4 /* Bundle+Questionnaire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle+Questionnaire.swift"; sourceTree = "<group>"; };
 		2FE5DC5529EDD811004B9AB4 /* SocialSupportQuestionnaire.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SocialSupportQuestionnaire.json; sourceTree = "<group>"; };
@@ -133,16 +148,27 @@
 		653A256B28338800005D4D48 /* SchedulerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerTests.swift; sourceTree = "<group>"; };
 		653A258928339462005D4D48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9720E422ABB68CC00872D23 /* AccountSetupHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSetupHeader.swift; sourceTree = "<group>"; };
-		A98FF2B02CD131F500DFC949 /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
 		A9A3DCC72C75CB9A00FC9B69 /* FirebaseConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfiguration.swift; sourceTree = "<group>"; };
 		A9DFE8A82ABE551400428242 /* AccountButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountButton.swift; sourceTree = "<group>"; };
 		A9FE7ACF2AA39BAB0077B045 /* AccountSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSheet.swift; sourceTree = "<group>"; };
+		B0C95E382D78D5F2007A4CA6 /* FeverMonitoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeverMonitoring.swift; sourceTree = "<group>"; };
+		B0D4C9372D790F5E000643C7 /* LabResultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabResultsManager.swift; sourceTree = "<group>"; };
+		B0DF8DF62D7BFEF600581A00 /* FeverMonitorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeverMonitorTests.swift; sourceTree = "<group>"; };
+		B0DF8DFB2D7C114900581A00 /* HealthDataFetchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthDataFetchable.swift; sourceTree = "<group>"; };
+		B0FF4DD12D797FEA0076A043 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		C42C1B302D782A7100EA417F /* MedicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationView.swift; sourceTree = "<group>"; };
+		C42C1C6A2D7A985B00EA417F /* MedicationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationManager.swift; sourceTree = "<group>"; };
+		C42C1C702D7AB84300EA417F /* MedicationViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationViewUITests.swift; sourceTree = "<group>"; };
 		C42D4DA42D5AC89500B2A169 /* LabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabView.swift; sourceTree = "<group>"; };
 		C49EC8332D501C5C005C3495 /* DataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataType.swift; sourceTree = "<group>"; };
 		C49EC8372D5026EE005C3495 /* DataTypeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTypeTest.swift; sourceTree = "<group>"; };
 		C49EC83F2D5033F9005C3495 /* AddDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDataView.swift; sourceTree = "<group>"; };
 		C49EC8522D5038AC005C3495 /* DataInputForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataInputForm.swift; sourceTree = "<group>"; };
+		C4A367C72D73C1E1009923C9 /* DataErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataErrorTests.swift; sourceTree = "<group>"; };
 		C4C0A78E2D518DB500F37EEC /* HelperFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunc.swift; sourceTree = "<group>"; };
+		C4C8A35E2D6F950600F313AE /* AddDataViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDataViewTests.swift; sourceTree = "<group>"; };
+		C4C8A3672D6F9E1A00F313AE /* LabViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabViewUITests.swift; sourceTree = "<group>"; };
+		C4C8A3B22D71204200F313AE /* HelperFuncTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFuncTests.swift; sourceTree = "<group>"; };
 		F22393792D5D4092006C8EB4 /* DataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataError.swift; sourceTree = "<group>"; };
 		F2E6898E2D52ED8500869C4F /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -156,18 +182,10 @@
 			);
 			target = 653A255C28338800005D4D48 /* NeutroFeverGuardTests */;
 		};
-		EB02C65D2D5D52800035AA89 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				HKVisualization.swift,
-				HKVisualizationItem.swift,
-			);
-			target = 653A256628338800005D4D48 /* NeutroFeverGuardUITests */;
-		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		EB7D47E02D51433200CEDC78 /* HealthKitVisualizations */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (EB02C65C2D5D52800035AA89 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, EB02C65D2D5D52800035AA89 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = HealthKitVisualizations; sourceTree = "<group>"; };
+		EB7D47E02D51433200CEDC78 /* HealthKitVisualizations */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (EB02C65C2D5D52800035AA89 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = HealthKitVisualizations; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,13 +201,13 @@
 				2FE5DC6729EDD894004B9AB4 /* SpeziContact in Frameworks */,
 				2FE5DC8429EDD934004B9AB4 /* SpeziQuestionnaire in Frameworks */,
 				2FB099B12A875DF100B20952 /* FirebaseFirestore in Frameworks */,
+				C42B98FF2D769E54005D820B /* SpeziKeychainStorage in Frameworks */,
 				A94DDFFD2CBD1190004930BD /* SpeziNotifications in Frameworks */,
 				A9D83F962B083794000D0C78 /* SpeziFirebaseAccountStorage in Frameworks */,
 				2FB099B62A875E2B00B20952 /* HealthKitOnFHIR in Frameworks */,
 				56E7083B2BB06F6F00B08F0A /* SwiftPackageList in Frameworks */,
 				56E708352BB06B7100B08F0A /* SpeziLicense in Frameworks */,
 				2FE5DC8A29EDD972004B9AB4 /* SpeziLocalStorage in Frameworks */,
-				2FE5DC8C29EDD972004B9AB4 /* SpeziSecureStorage in Frameworks */,
 				2FE5DC7529EDD8E6004B9AB4 /* SpeziFirebaseAccount in Frameworks */,
 				9739A0C62AD7B5730084BEA5 /* FirebaseStorage in Frameworks */,
 				2FE5DC7229EDD8D3004B9AB4 /* SpeziHealthKit in Frameworks */,
@@ -213,6 +231,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F279F70D2D780462005C2927 /* FirebaseFirestore in Frameworks */,
+				F279F70C2D780462005C2927 /* FirebaseCore in Frameworks */,
 				2FE5DC9929EDD9D9004B9AB4 /* XCTestExtensions in Frameworks */,
 				2FE5DC9C29EDD9EF004B9AB4 /* XCTHealthKit in Frameworks */,
 				A994264E2CD25EB3002F8BD5 /* XCTSpeziAccount in Frameworks */,
@@ -272,8 +292,6 @@
 			isa = PBXGroup;
 			children = (
 				2FE5DC4D29EDD7FA004B9AB4 /* Bundle+Questionnaire.swift */,
-				2FE5DC4829EDD7FA004B9AB4 /* ScheduleView.swift */,
-				A98FF2B02CD131F500DFC949 /* EventView.swift */,
 				2FE5DC4C29EDD7FA004B9AB4 /* NeutroFeverGuardScheduler.swift */,
 			);
 			path = Schedule;
@@ -291,7 +309,6 @@
 		653A2544283387FE005D4D48 = {
 			isa = PBXGroup;
 			children = (
-				2FC94CD4298B0A1D009C8209 /* NeutroFeverGuard.xctestplan */,
 				653A254F283387FE005D4D48 /* NeutroFeverGuard */,
 				653A256028338800005D4D48 /* NeutroFeverGuardTests */,
 				653A256A28338800005D4D48 /* NeutroFeverGuardUITests */,
@@ -314,9 +331,15 @@
 		653A254F283387FE005D4D48 /* NeutroFeverGuard */ = {
 			isa = PBXGroup;
 			children = (
+				B0DF8DFB2D7C114900581A00 /* HealthDataFetchable.swift */,
+				B0FF4DD12D797FEA0076A043 /* NotificationManager.swift */,
+				B0D4C9372D790F5E000643C7 /* LabResultsManager.swift */,
+				C42C1C6A2D7A985B00EA417F /* MedicationManager.swift */,
 				EB7D47E02D51433200CEDC78 /* HealthKitVisualizations */,
 				F22393792D5D4092006C8EB4 /* DataError.swift */,
 				C42D4DA42D5AC89500B2A169 /* LabView.swift */,
+				B0C95E382D78D5F2007A4CA6 /* FeverMonitoring.swift */,
+				C42C1B302D782A7100EA417F /* MedicationView.swift */,
 				C4C0A78E2D518DB500F37EEC /* HelperFunc.swift */,
 				F2E6898E2D52ED8500869C4F /* HealthKitService.swift */,
 				C49EC83F2D5033F9005C3495 /* AddDataView.swift */,
@@ -342,7 +365,10 @@
 		653A256028338800005D4D48 /* NeutroFeverGuardTests */ = {
 			isa = PBXGroup;
 			children = (
+				B0DF8DF62D7BFEF600581A00 /* FeverMonitorTests.swift */,
 				653A256128338800005D4D48 /* NeutroFeverGuardTests.swift */,
+				C4A367C72D73C1E1009923C9 /* DataErrorTests.swift */,
+				C4C8A3B22D71204200F313AE /* HelperFuncTests.swift */,
 				C49EC8372D5026EE005C3495 /* DataTypeTest.swift */,
 			);
 			path = NeutroFeverGuardTests;
@@ -351,7 +377,10 @@
 		653A256A28338800005D4D48 /* NeutroFeverGuardUITests */ = {
 			isa = PBXGroup;
 			children = (
+				C4C8A3672D6F9E1A00F313AE /* LabViewUITests.swift */,
+				C42C1C702D7AB84300EA417F /* MedicationViewUITests.swift */,
 				653A256B28338800005D4D48 /* SchedulerTests.swift */,
+				C4C8A35E2D6F950600F313AE /* AddDataViewTests.swift */,
 				2F4E23862989DB360013F3D9 /* ContactsTests.swift */,
 				5680DD3D2AB8CD84004E6D4A /* ContributionsTest.swift */,
 			);
@@ -421,7 +450,6 @@
 				2FE5DC7829EDD8E6004B9AB4 /* SpeziFirestore */,
 				2FE5DC8329EDD934004B9AB4 /* SpeziQuestionnaire */,
 				2FE5DC8929EDD972004B9AB4 /* SpeziLocalStorage */,
-				2FE5DC8B29EDD972004B9AB4 /* SpeziSecureStorage */,
 				2FE5DC8E29EDD980004B9AB4 /* SpeziViews */,
 				2FBD738B2A3BD150004228E7 /* SpeziScheduler */,
 				2F3D4ABB2A4E7C290068FB2F /* SpeziScheduler */,
@@ -436,6 +464,7 @@
 				56E7083A2BB06F6F00B08F0A /* SwiftPackageList */,
 				A94DDFFC2CBD1190004930BD /* SpeziNotifications */,
 				A9947BEF2CC131ED0068AA8A /* SpeziSchedulerUI */,
+				C42B98FE2D769E54005D820B /* SpeziKeychainStorage */,
 			);
 			productName = NeutroFeverGuard;
 			productReference = 653A254D283387FE005D4D48 /* NeutroFeverGuard.app */;
@@ -495,7 +524,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1600;
+				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					653A254C283387FE005D4D48 = {
 						CreatedOnToolsVersion = 13.4;
@@ -586,16 +615,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0C95E3A2D78D5F3007A4CA6 /* FeverMonitoring.swift in Sources */,
 				F223937A2D5D4095006C8EB4 /* DataError.swift in Sources */,
 				C49EC8532D5038AC005C3495 /* DataInputForm.swift in Sources */,
 				2FE5DC4129EDD7EE004B9AB4 /* StorageKeys.swift in Sources */,
+				C42C1B312D782A7600EA417F /* MedicationView.swift in Sources */,
 				2FE5DCB129EE6107004B9AB4 /* AccountOnboarding.swift in Sources */,
 				2FE5DC3A29EDD7CA004B9AB4 /* Welcome.swift in Sources */,
 				2FE5DC3829EDD7CA004B9AB4 /* InterestingModules.swift in Sources */,
 				2FE5DC3529EDD7CA004B9AB4 /* Consent.swift in Sources */,
+				B0FF4DD22D797FEA0076A043 /* NotificationManager.swift in Sources */,
 				2FC975A82978F11A00BA99FE /* HomeView.swift in Sources */,
-				2FE5DC4E29EDD7FA004B9AB4 /* ScheduleView.swift in Sources */,
 				A9DFE8A92ABE551400428242 /* AccountButton.swift in Sources */,
+				C42C1C6B2D7A985B00EA417F /* MedicationManager.swift in Sources */,
+				B0DF8DFC2D7C117800581A00 /* HealthDataFetchable.swift in Sources */,
 				A9A3DCC82C75CBBD00FC9B69 /* FirebaseConfiguration.swift in Sources */,
 				2FE5DC3729EDD7CA004B9AB4 /* OnboardingFlow.swift in Sources */,
 				2F1AC9DF2B4E840E00C24973 /* NeutroFeverGuard.docc in Sources */,
@@ -606,13 +639,13 @@
 				C4C0A78F2D518DBC00F37EEC /* HelperFunc.swift in Sources */,
 				C49EC8402D5033F9005C3495 /* AddDataView.swift in Sources */,
 				C42D4DA52D5AC89900B2A169 /* LabView.swift in Sources */,
-				A98FF2B12CD131F500DFC949 /* EventView.swift in Sources */,
 				F2E6898F2D52ED8600869C4F /* HealthKitService.swift in Sources */,
 				C49EC8342D501C62005C3495 /* DataType.swift in Sources */,
 				2FE5DC5329EDD7FA004B9AB4 /* Bundle+Questionnaire.swift in Sources */,
 				2F5E32BD297E05EA003432F8 /* NeutroFeverGuardDelegate.swift in Sources */,
 				2FE5DC5229EDD7FA004B9AB4 /* NeutroFeverGuardScheduler.swift in Sources */,
 				A9FE7AD02AA39BAB0077B045 /* AccountSheet.swift in Sources */,
+				B0D4C9382D790F65000643C7 /* LabResultsManager.swift in Sources */,
 				653A2551283387FE005D4D48 /* NeutroFeverGuard.swift in Sources */,
 				2FE5DC3629EDD7CA004B9AB4 /* HealthKitPermissions.swift in Sources */,
 				2F65B44E2A3B8B0600A36932 /* NotificationPermissions.swift in Sources */,
@@ -624,8 +657,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4A367C82D73C1EC009923C9 /* DataErrorTests.swift in Sources */,
+				B08E39F92D7C416000077929 /* FeverMonitoring.swift in Sources */,
 				EB02C6612D5D52E90035AA89 /* NeutroFeverGuardTests.swift in Sources */,
-				C49EC8382D5026EE005C3495 /* DataTypeTest.swift in Sources */,
+				B0DF8DFD2D7C123200581A00 /* HealthDataFetchable.swift in Sources */,
+				B0DF8DF72D7BFEFB00581A00 /* FeverMonitorTests.swift in Sources */,
+				B03D0E482D7D24AA0024F2CA /* DataError.swift in Sources */,
+				C4C8A3B32D71204200F313AE /* HelperFuncTests.swift in Sources */,
+				B03D0E432D7D22700024F2CA /* HealthKitService.swift in Sources */,
+				B03D0E462D7D24030024F2CA /* DataType.swift in Sources */,
 				C49EC8382D5026EE005C3495 /* DataTypeTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -635,6 +675,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5680DD3E2AB8CD84004E6D4A /* ContributionsTest.swift in Sources */,
+				C4C8A3682D6F9E2100F313AE /* LabViewUITests.swift in Sources */,
+				C42C1C712D7AB84300EA417F /* MedicationViewUITests.swift in Sources */,
+				C4C8A35F2D6F950600F313AE /* AddDataViewTests.swift in Sources */,
 				2F4E23872989DB360013F3D9 /* ContactsTests.swift in Sources */,
 				653A256C28338800005D4D48 /* SchedulerTests.swift in Sources */,
 			);
@@ -744,7 +787,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "NeutroFeverGuard/Supporting Files/NeutroFeverGuard.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = "";
@@ -997,10 +1040,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "NeutroFeverGuard/Supporting Files/NeutroFeverGuard.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 637867499T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "NeutroFeverGuard/Supporting Files/Info.plist";
@@ -1026,6 +1071,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs342.2025.neutrofeverguard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "CS342 2025 NeutroFeverGuard";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1163,8 +1209,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziScheduler.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.0;
+				branch = "lukas/improve-shadowed-outcome-handling";
+				kind = branch;
 			};
 		};
 		2F49B7742980407B00BCB272 /* XCRemoteSwiftPackageReference "Spezi" */ = {
@@ -1211,8 +1257,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziHealthKit.git";
 			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 0.6.0;
+				kind = exactVersion;
+				version = "1.0.0-beta.3";
 			};
 		};
 		2FE5DC7329EDD8E6004B9AB4 /* XCRemoteSwiftPackageReference "SpeziFirebase" */ = {
@@ -1236,7 +1282,7 @@
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziStorage.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.1;
+				minimumVersion = 2.0.0;
 			};
 		};
 		2FE5DC8D29EDD980004B9AB4 /* XCRemoteSwiftPackageReference "SpeziViews" */ = {
@@ -1388,11 +1434,6 @@
 			package = 2FE5DC8829EDD972004B9AB4 /* XCRemoteSwiftPackageReference "SpeziStorage" */;
 			productName = SpeziLocalStorage;
 		};
-		2FE5DC8B29EDD972004B9AB4 /* SpeziSecureStorage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2FE5DC8829EDD972004B9AB4 /* XCRemoteSwiftPackageReference "SpeziStorage" */;
-			productName = SpeziSecureStorage;
-		};
 		2FE5DC8E29EDD980004B9AB4 /* SpeziViews */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2FE5DC8D29EDD980004B9AB4 /* XCRemoteSwiftPackageReference "SpeziViews" */;
@@ -1472,6 +1513,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2F66D20D2BB723180010D555 /* XCRemoteSwiftPackageReference "SwiftLint" */;
 			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+		C42B98FE2D769E54005D820B /* SpeziKeychainStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2FE5DC8829EDD972004B9AB4 /* XCRemoteSwiftPackageReference "SpeziStorage" */;
+			productName = SpeziKeychainStorage;
 		};
 		F2A54D362D5DE24400A20113 /* FirebaseCore */ = {
 			isa = XCSwiftPackageProductDependency;

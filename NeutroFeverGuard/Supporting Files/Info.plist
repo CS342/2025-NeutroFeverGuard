@@ -19,6 +19,11 @@
 	<array>
 		<string>fetch</string>
 		<string>audio</string>
+		<string>processing</string>
 	</array>
+    <key>BGTaskSchedulerPermittedIdentifiers</key>
+    <array>
+        <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    </array>
 </dict>
 </plist>

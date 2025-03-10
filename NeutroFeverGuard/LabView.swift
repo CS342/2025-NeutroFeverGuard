@@ -7,53 +7,60 @@
 //
 
 import SpeziAccount
+import SpeziLocalStorage
 import SwiftUI
 
 struct ANCView: View {
-    let ancValue: Double
-    let latestRecordedTime: String
+    @Environment(LabResultsManager.self) private var labResultsManager
 
     var body: some View {
-        let status = getANCStatus(ancValue)
+        let status = labResultsManager.getANCStatus()
 
         VStack(alignment: .leading, spacing: 8) {
             Text("🧪 Latest ANC")
                 .font(.headline)
-            Text("\(ancValue, specifier: "%.1f") cells/µL")
-                .font(.largeTitle)
-                .bold()
-                .foregroundColor(status.color)
-                .padding(.vertical, 8)
-            
+            if let ancValue = labResultsManager.getAncValue() {
+                Text("\(ancValue, specifier: "%.1f") cells/µL")
+                    .font(.largeTitle)
+                    .bold()
+                    .foregroundColor(status.color)
+                    .padding(.vertical, 8)
+            } else {
+                Text("No ANC data available")
+                    .foregroundColor(.gray)
+            }
             Text(status.text)
                 .font(.subheadline)
                 .foregroundColor(status.color)
                 .bold()
-            Text("Last recorded: \(latestRecordedTime)")
+            Text("Last recorded: \(labResultsManager.latestRecordedTime)")
                 .font(.caption)
                 .foregroundColor(.gray)
         }
     }
-    
-    private func getANCStatus(_ ancValue: Double) -> (text: String, color: Color) {
-        switch ancValue {
-        case let anc where anc >= 500:
-            return ("Normal", .green)
-        case let anc where anc >= 100:
-            return ("Severe Neutropenia", .orange)
-        default:
-            return ("Profound Neutropenia", .red)
-        }
-    }
 }
 
-
 struct LabResultDetailView: View {
-    var record: LabEntry
+    @Environment(LabResultsManager.self) private var labResultsManager
+    @State private var editedRecord: LabEntry
+    @State private var editedIndex: Int
+    @State private var showDeleteAlert = false
+    @Environment(\.dismiss) var dismiss
+    @Environment(NeutroFeverGuardScheduler.self) private var scheduler
 
     var body: some View {
         Form {
-            Section(header: Text("Lab Values")) {
+            Section {
+                HStack {
+                    Text("Date")
+                    Spacer()
+                    Text("\(labResultsManager.formatDate(editedRecord.date))")
+                }
+                HStack {
+                    Text("Time")
+                    Spacer()
+                    Text("\(labResultsManager.formatTime(editedRecord.date))")
+                }
                 labValueRow(type: .whiteBloodCell, unit: "cells/µL")
                 labValueRow(type: .hemoglobin, unit: "g/dL")
                 labValueRow(type: .plateletCount, unit: "cells/µL")
@@ -64,8 +71,43 @@ struct LabResultDetailView: View {
                 labValueRow(type: .basophils, unit: "%")
                 labValueRow(type: .blasts, unit: "%")
             }
+            HStack {
+                Spacer()
+                Button("Delete", role: .destructive) {
+                    showDeleteAlert = true
+                }
+                Spacer()
+            }
         }
-        .navigationTitle(formatDate(record.date))
+        .navigationTitle("Lab Details")
+        .alert("Delete Lab Record", isPresented: $showDeleteAlert) {
+                Button("Delete", role: .destructive) {
+                    deleteRecord()
+                }.accessibilityIdentifier("DeleteAlertButton")
+                Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("Are you sure you want to delete this lab record? This action cannot be undone.")
+        }
+    }
+    
+    init(record: LabEntry, index: Int) {
+        _editedRecord = State(initialValue: record)
+        _editedIndex = State(initialValue: index)
+    }
+    
+    private func deleteRecord() {
+        labResultsManager.deleteLabEntry(at: editedIndex)
+        if editedIndex == 0 {
+            if !labResultsManager.labRecords.isEmpty {
+                let nextRecordDate = labResultsManager.labRecords[0].date
+                if let newStartDate = Calendar.current.date(byAdding: .day, value: 7, to: nextRecordDate) {
+                    scheduler.restartNotification(from: newStartDate)
+                }
+            } else {
+                scheduler.restartNotification(from: Date())
+            }
+        }
+        dismiss()
     }
 
     @ViewBuilder
@@ -73,104 +115,68 @@ struct LabResultDetailView: View {
         HStack {
             Text(type.rawValue)
             Spacer()
-            Text("\(record.values[type] ?? 0, specifier: "%.1f") \(unit)")
+            Text("\(editedRecord.values[type] ?? 0, specifier: "%.1f") \(unit)")
         }
     }
-
-    private func formatDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        return formatter.string(from: date)
-    }
 }
-
-// for simple view
-func createLabEntry(daysAgo: Int, values: [LabTestType: Double]) throws -> LabEntry {
-    guard let date = Calendar.current.date(byAdding: .day, value: -daysAgo, to: Date()) else {
-        throw NSError(domain: "Invalid date", code: 1, userInfo: nil)
-    }
-    return try LabEntry(date: date, values: values)
-}
-
 
 struct LabView: View {
-    @State private var latestNeutrophilPercentage: Double = 99.0
-    @State private var latestLeukocyteCount: Double = 200.0
-    @State private var latestRecordedTime = Date()
-    @State private var labRecords: [LabEntry] = {
-        do {
-            let record1 = try createLabEntry(daysAgo: 0, values: [
-                .whiteBloodCell: 4500, .hemoglobin: 13.5,
-                .plateletCount: 250000, .neutrophils: 55,
-                .lymphocytes: 35, .monocytes: 6,
-                .eosinophils: 2, .basophils: 1,
-                .blasts: 0
-            ])
-            let record2 = try createLabEntry(daysAgo: 7, values: [
-                .whiteBloodCell: 5000,
-                .hemoglobin: 14.0,
-                .plateletCount: 260000,
-                .neutrophils: 52,
-                .lymphocytes: 37,
-                .monocytes: 5,
-                .eosinophils: 3,
-                .basophils: 1,
-                .blasts: 0
-            ])
-            let record3 = try createLabEntry(daysAgo: 14, values: [
-                .whiteBloodCell: 4800,
-                .hemoglobin: 13.8,
-                .plateletCount: 255000,
-                .neutrophils: 53,
-                .lymphocytes: 36,
-                .monocytes: 6,
-                .eosinophils: 2,
-                .basophils: 1,
-                .blasts: 0
-            ])
-            return [record1, record2, record3]
-        } catch {
-            fatalError("Error initializing lab records: \(error)")
-        }
-    }()
+    @Environment(LabResultsManager.self) private var labResultsManager
     @Environment(Account.self) private var account: Account?
     @Binding var presentingAccount: Bool
-
-    private var ancValue: Double {
-        (latestNeutrophilPercentage / 100.0) * latestLeukocyteCount
-    }
+//    @Environment(NeutroFeverGuardScheduler.self) private var scheduler
 
     var body: some View {
         NavigationView {
             List {
-                Section(header: Text("Absolute Neutrophil Counts")) {
-                    NavigationLink(destination: LabResultDetailView(record: labRecords[0])) {
-                        ANCView(ancValue: ancValue, latestRecordedTime: formatDate(latestRecordedTime))
-                    }
-                }
-                Section(header: Text("Lab Results History")) {
-                    ForEach(labRecords, id: \.date) { record in
-                        NavigationLink(destination: LabResultDetailView(record: record)) {
-                            Text(formatDate(record.date))
-                        }
-                    }
-                }
+                ancSection()
+                labHistorySection()
             }
             .listStyle(.insetGrouped)
             .navigationTitle("Lab Results")
             .background(Color(.systemGray6))
-            .toolbar {
-                if account != nil {
-                    AccountButton(isPresented: $presentingAccount)
+            .toolbar { toolbarContent() }
+            .onAppear {
+                labResultsManager.refresh()
+//                scheduler.printUpcomingLabResultEvents()
+            }
+        }
+    }
+    
+    private func ancSection() -> some View {
+        Section(header: Text("Absolute Neutrophil Counts")) {
+            if labResultsManager.getAncValue() != nil, !labResultsManager.labRecords.isEmpty {
+                if let latestRecord = labResultsManager.labRecords.first {
+                    NavigationLink(destination: LabResultDetailView(record: latestRecord, index: 0)) {
+                        ANCView()
+                    }
+                }
+            } else {
+                Text("No ANC data available").foregroundColor(.gray)
+            }
+        }
+    }
+
+    private func labHistorySection() -> some View {
+        Section(header: Text("Lab Results History")) {
+            if labResultsManager.labRecords.isEmpty {
+                Text("No lab results recorded").foregroundColor(.gray)
+            } else {
+                ForEach(Array(labResultsManager.labRecords.enumerated()), id: \.element.date) { index, record in
+                    NavigationLink(destination: LabResultDetailView(record: record, index: index)) {
+                        Text(labResultsManager.formatDateTime(record.date))
+                    }
                 }
             }
         }
     }
 
-    private func formatDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        return formatter.string(from: date)
+    private func toolbarContent() -> some ToolbarContent {
+        ToolbarItem {
+            if account != nil {
+                AccountButton(isPresented: $presentingAccount)
+            }
+        }
     }
 }
 

@@ -133,14 +133,45 @@ struct BloodPressureEntry {
  - Name of lab: white blood cell count, hemoglobin, platelet count, %neutrophils, %lymphocytes, %monocytes, %eosinophils, %basophils, %blasts
  - Lab values: include the number associated with the lab name above
  */
-// periphery:ignore
+
 struct LabEntry: Codable {
-    let date: Date
+    var date: Date
     var values: [LabTestType: Double]
     
     init(date: Date, values: [LabTestType: Double]) throws {
         try isValidDate(date)
         self.date = date
         self.values = values
+    }
+}
+
+/*
+ Medication administrations for chemotherapy:
+ - Start date and time of administration
+ - Optional end date and time of administration
+ - Medication name
+ - Medication dose
+ */
+
+enum DoseUnit: String, CaseIterable, Codable {
+    case mgUnit = "mg"
+    case mcgUnit = "mcg"
+    case gUnit = "g"
+    case mLUnit = "mL"
+    case percentUnit = "%"
+}
+
+struct MedicationEntry: Codable {
+    var date: Date
+    var name: String
+    var doseValue: Double
+    var doseUnit: DoseUnit
+
+    init(date: Date, name: String, doseValue: Double, doseUnit: DoseUnit) throws {
+        try isValidDate(date)
+        self.date = date
+        self.name = name
+        self.doseValue = doseValue
+        self.doseUnit = doseUnit
     }
 }
