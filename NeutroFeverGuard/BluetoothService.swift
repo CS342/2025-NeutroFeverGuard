@@ -1,9 +1,11 @@
 //
-//  BluetoothService.swift
-//  NeutroFeverGuard
+// This source file is part of the NeutroFeverGuard based on the Stanford Spezi Template Application project
 //
-//  Created by Merve Cerit on 3/6/25.
+// SPDX-FileCopyrightText: 2025 Stanford University
 //
+// SPDX-License-Identifier: MIT
+//
+
 import Foundation
 import Spezi
 import SpeziBluetooth
@@ -15,7 +17,8 @@ struct DeviceInformationService: BluetoothService {
     @Characteristic(id: "2A26") var firmwareRevision: String?
 }
 
-class CoreSensor: BluetoothDevice {
+@MainActor
+final class CoreSensor: BluetoothDevice {
     @DeviceState(\.id) var id: UUID
     @DeviceState(\.name) var name: String?
     @DeviceState(\.state) var state: PeripheralState
@@ -25,5 +28,5 @@ class CoreSensor: BluetoothDevice {
     @DeviceAction(\.connect) var connect
     @DeviceAction(\.disconnect) var disconnect
     
-    required init() {}
+    nonisolated required init() {}
 }

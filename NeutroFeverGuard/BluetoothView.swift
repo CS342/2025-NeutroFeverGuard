@@ -1,8 +1,9 @@
 //
-//  BluetoothView.swift
-//  NeutroFeverGuard
+// This source file is part of the NeutroFeverGuard based on the Stanford Spezi Template Application project
 //
-//  Created by Merve Cerit on 3/9/25.
+// SPDX-FileCopyrightText: 2025 Stanford University
+//
+// SPDX-License-Identifier: MIT
 //
 
 import SpeziBluetooth
@@ -10,10 +11,8 @@ import SwiftUI
 
 
 struct BluetoothView: View {
-    @Environment(Bluetooth.self)
-    var bluetooth
-    @Environment(CoreSensor.self)
-    var myDevice: CoreSensor?
+    @Environment(Bluetooth.self) var bluetooth
+    @Environment(CoreSensor.self) var myDevice: CoreSensor?
 
 
     var body: some View {
@@ -28,7 +27,7 @@ struct BluetoothView: View {
 
 
             Section {
-                ForEach(bluetooth.nearbyDevices(for: MyDevice.self), id: \.id) { device in
+                ForEach(bluetooth.nearbyDevices(for: CoreSensor.self), id: \.id) { device in
                     Text("\(device.name ?? "unknown")")
                 }
             } header: {

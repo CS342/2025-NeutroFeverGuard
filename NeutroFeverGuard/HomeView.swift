@@ -18,6 +18,7 @@ struct HomeView: View {
         case medication
 //        case schedule
         case contact
+        case sensor
     }
 
 
@@ -69,6 +70,12 @@ struct HomeView: View {
             }
             .customizationID("home.contacts")
             .accessibilityIdentifier("Contacts")
+            
+            Tab("Connect to Sensor", systemImage: "medical.thermometer.fill", value: .sensor) {
+                AddDataView(presentingAccount: $presentingAccount)
+            }
+            .customizationID("home.sensor")
+            .accessibilityIdentifier("Connect to Sensor")
         }
         .tabViewStyle(.sidebarAdaptable)
         .tabViewCustomization($tabViewCustomization)
