@@ -26,5 +26,7 @@
 		<string>processing</string>
 		<string>bluetooth-central</string>
 	</array>
+    <key>NSBluetoothAlwaysUsageDescription</key>
+    <string>This app uses Bluetooth to connect to external devices for enhanced functionality.</string>
 </dict>
 </plist>
