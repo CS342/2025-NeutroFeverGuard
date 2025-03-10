@@ -388,6 +388,9 @@
     "HKVIZ_MIN_STRING: " : {
 
     },
+    "HKVIZ_NAVIGATION_TITLE" : {
+
+    },
     "HKVIZ_SUMMARY" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -900,6 +903,7 @@
 
     },
     "Vitals Dashboard" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

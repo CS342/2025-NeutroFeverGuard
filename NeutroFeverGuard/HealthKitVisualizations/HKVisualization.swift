@@ -9,6 +9,7 @@
 import Charts
 import Foundation
 import HealthKit
+import SpeziAccount
 import SwiftUI
 
 struct HKData: Identifiable {
@@ -29,91 +30,101 @@ struct HKVisualization: View {
     @State var oxygenSaturationScatterData: [HKData] = []
     @State var bodyTemperatureScatterData: [HKData] = []
     
-    var body: some View {
-        // swiftlint:disable closure_body_length
-        NavigationStack {
-            List {
-                Section {
-                    if !heartRateData.isEmpty {
-                        HKVisualizationItem(
-                            data: heartRateData,
-                            xName: "Time",
-                            yName: "Heart Rate (bpm)",
-                            title: "Heart Rate Over Time",
-                            threshold: 100,
-                            scatterData: heartRateScatterData
-                        )
-                    } else {
-                        Text("No heart rate data available.")
-                            .foregroundColor(.gray)
-                    }
-                }
-                Section {
-                    if !bodyTemperatureData.isEmpty {
-                        HKVisualizationItem(
-                            data: bodyTemperatureData,
-                            xName: "Time",
-                            yName: "Body Temperature (°F)",
-                            title: "Body Temperature Over Time",
-                            threshold: 99.0,
-                            scatterData: bodyTemperatureScatterData
-                        )
-                    } else {
-                        Text("No body temperature data available.")
-                            .foregroundColor(.gray)
-                    }
-                }
-                Section {
-                    if !oxygenSaturationData.isEmpty {
-                        HKVisualizationItem(
-                            data: oxygenSaturationData,
-                            xName: "Time",
-                            yName: "Oxygen Saturation (%)",
-                            title: "Oxygen Saturation Over Time",
-                            threshold: 94.0,
-                            scatterData: oxygenSaturationScatterData
-                        )
-                    } else {
-                        Text("No oxygen saturation data available.")
-                            .foregroundColor(.gray)
-                    }
+    var vizList: some View {
+        self.readAllHKData()
+        return List {
+            Section {
+                if !heartRateData.isEmpty {
+                    HKVisualizationItem(
+                        data: heartRateData,
+                        xName: "Time",
+                        yName: "Heart Rate (bpm)",
+                        title: "Heart Rate Over Time",
+                        threshold: 100,
+                        scatterData: heartRateScatterData
+                    )
+                } else {
+                    Text("No heart rate data available.")
+                        .foregroundColor(.gray)
                 }
             }
-            .navigationTitle("Vitals Dashboard")
-            .onAppear {
-                Task {
-                    if ProcessInfo.processInfo.environment["IS_UITEST"] == "1" {
-                        loadMockData()
-                    } else {
-                        await readAllHKData()
-                    }
+            Section {
+                if !bodyTemperatureData.isEmpty {
+                    HKVisualizationItem(
+                        data: bodyTemperatureData,
+                        xName: "Time",
+                        yName: "Body Temperature (°F)",
+                        title: "Body Temperature Over Time",
+                        threshold: 99.0,
+                        scatterData: bodyTemperatureScatterData
+                    )
+                } else {
+                    Text("No body temperature data available.")
+                        .foregroundColor(.gray)
+                }
+            }
+            Section {
+                if !oxygenSaturationData.isEmpty {
+                    HKVisualizationItem(
+                        data: oxygenSaturationData,
+                        xName: "Time",
+                        yName: "Oxygen Saturation (%)",
+                        title: "Oxygen Saturation Over Time",
+                        threshold: 94.0,
+                        scatterData: oxygenSaturationScatterData
+                    )
+                } else {
+                    Text("No oxygen saturation data available.")
+                        .foregroundColor(.gray)
                 }
             }
         }
-    // swiftlint:enable closure_body_length
     }
     
-    func readAllHKData(ensureUpdate: Bool = false) async {
-            print("Reading all HealthKit data with ensureUpdate: \(ensureUpdate)")
-            let dateRange = generateDateRange()
-            guard let startDate = dateRange[0] as? Date else {
-                fatalError("*** Start date was not properly formatted ***")
-            }
-            guard let endDate = dateRange[1] as? Date else {
-                fatalError("*** End date was not properly formatted ***")
-            }
-            guard let predicate = dateRange[2] as? NSPredicate else {
-                fatalError("*** Predicate was not properly formatted ***")
-            }
-            
-            print("Date Range: \(startDate) - \(endDate)")
-            
-            await readHealthData(for: .heartRate, ensureUpdate: ensureUpdate, startDate: startDate, endDate: endDate, predicate: predicate)
-            await readHealthData(for: .oxygenSaturation, ensureUpdate: ensureUpdate, startDate: startDate, endDate: endDate, predicate: predicate)
-            await readHealthData(for: .bodyTemperature, ensureUpdate: ensureUpdate, startDate: startDate, endDate: endDate, predicate: predicate)
-            
-            print("Finished reading all HealthKit data.")
+    @Environment(Account.self) private var account: Account?
+    @Binding var presentingAccount: Bool
+    
+    var body: some View {
+        self.readAllHKData()
+        
+        return NavigationStack {
+            vizList
+                .navigationTitle("HKVIZ_NAVIGATION_TITLE")
+                .toolbar {if account != nil {AccountButton(isPresented: $presentingAccount)}
+                }
+                .onAppear {
+                    // Ensure that the data are up-to-date when the view is activated.
+                    self.readAllHKData(ensureUpdate: true)
+                }
         }
+    }
+    
+    func readAllHKData(ensureUpdate: Bool = false) {
+        if FeatureFlags.vizMockTestData {
+            // Use the mockData directly and no need to query HK data.
+            loadMockData()
+            return
+        }
+        print("Reading all HealthKit data with ensureUpdate: \(ensureUpdate)")
+        let dateRange = generateDateRange()
+        guard let startDate = dateRange[0] as? Date else {
+            fatalError("*** Start date was not properly formatted ***")
+        }
+        guard let endDate = dateRange[1] as? Date else {
+            fatalError("*** End date was not properly formatted ***")
+        }
+        guard let predicate = dateRange[2] as? NSPredicate else {
+            fatalError("*** Predicate was not properly formatted ***")
+        }
+            
+        print("Date Range: \(startDate) - \(endDate)")
+            
+        readHealthData(for: .heartRate, ensureUpdate: ensureUpdate, startDate: startDate, endDate: endDate, predicate: predicate)
+        readHealthData(for: .oxygenSaturation, ensureUpdate: ensureUpdate, startDate: startDate, endDate: endDate, predicate: predicate)
+        readHealthData(for: .bodyTemperature, ensureUpdate: ensureUpdate, startDate: startDate, endDate: endDate, predicate: predicate)
+            
+        print("Finished reading all HealthKit data.")
+    }
 
     private func generateDateRange() -> [Any] {
         let startOfToday = Calendar.current.startOfDay(for: Date())
@@ -134,22 +145,22 @@ struct HKVisualization: View {
                                 startDate: Date,
                                 endDate: Date,
                                 predicate: NSPredicate
-    ) async {
+    ) {
         switch identifier {
         case .heartRate:
             if self.heartRateData.isEmpty || ensureUpdate {
                 readHKStats(startDate: startDate, endDate: endDate, predicate: predicate, quantityTypeIDF: identifier)
-                await readFromSampleQuery(predicate: predicate, quantityTypeIDF: identifier)
+                readFromSampleQuery(predicate: predicate, quantityTypeIDF: identifier)
             }
         case .oxygenSaturation:
             if self.oxygenSaturationData.isEmpty || ensureUpdate {
                 readHKStats(startDate: startDate, endDate: endDate, predicate: predicate, quantityTypeIDF: identifier)
-                await readFromSampleQuery(predicate: predicate, quantityTypeIDF: identifier)
+                readFromSampleQuery(predicate: predicate, quantityTypeIDF: identifier)
             }
         case .bodyTemperature:
             if self.bodyTemperatureData.isEmpty || ensureUpdate {
                 readHKStats(startDate: startDate, endDate: endDate, predicate: predicate, quantityTypeIDF: identifier)
-                await readFromSampleQuery(predicate: predicate, quantityTypeIDF: identifier)
+                readFromSampleQuery(predicate: predicate, quantityTypeIDF: identifier)
             }
         default:
             print("Unsupported identifier: \(identifier.rawValue)")
@@ -204,7 +215,7 @@ struct HKVisualization: View {
         }
     }
     
-    func readFromSampleQuery(predicate: NSPredicate, quantityTypeIDF: HKQuantityTypeIdentifier) async {
+    func readFromSampleQuery(predicate: NSPredicate, quantityTypeIDF: HKQuantityTypeIdentifier) {
          let healthStore = HKHealthStore()
          // Run a HKSampleQuery to fetch the health kit data.
          guard let quantityType = HKObjectType.quantityType(forIdentifier: quantityTypeIDF) else {
@@ -215,12 +226,16 @@ struct HKVisualization: View {
             HKQuantityType(.bodyTemperature),
             HKQuantityType(.oxygenSaturation)
          ]
-         do {
-             try await healthStore.requestAuthorization(toShare: typesToWrite, read: typesToWrite)
-             print("HealthKit authorization granted.")
-         } catch {
-             handleAuthorizationError(error)
-         }
+        
+        healthStore.requestAuthorization(toShare: typesToWrite, read: typesToWrite) { success, error in
+            if success {
+                print("HealthKit authorization granted.")
+            } else if let error = error {
+                Task { @MainActor in
+                    handleAuthorizationError(error)
+                }
+            }
+        }
 
          let sortDescriptors = [
              NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
