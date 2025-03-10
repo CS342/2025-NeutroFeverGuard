@@ -26,8 +26,7 @@ struct HomeView: View {
     @AppStorage(StorageKeys.tabViewCustomization) private var tabViewCustomization = TabViewCustomization()
 
     @State private var presentingAccount = false
-
-    
+        
     var body: some View {
         TabView(selection: $selectedTab) {
             // Dashboard tab (HKVisualization)

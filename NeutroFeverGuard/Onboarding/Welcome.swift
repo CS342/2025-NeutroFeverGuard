@@ -21,26 +21,26 @@ struct Welcome: View {
             areas: [
                 OnboardingInformationView.Content(
                     icon: {
-                        Image(systemName: "apps.iphone")
+                        Image(systemName: "thermometer.variable.and.figure")
                             .accessibilityHidden(true)
                     },
-                    title: "The Spezi Framework",
+                    title: "Record & Track Symptoms",
                     description: "WELCOME_AREA1_DESCRIPTION"
                 ),
                 OnboardingInformationView.Content(
                     icon: {
-                        Image(systemName: "shippingbox.fill")
+                        Image(systemName: "chart.line.text.clipboard.fill")
                             .accessibilityHidden(true)
                     },
-                    title: "Swift Package Manager",
+                    title: "Visualize & Share across Apps",
                     description: "WELCOME_AREA2_DESCRIPTION"
                 ),
                 OnboardingInformationView.Content(
                     icon: {
-                        Image(systemName: "list.bullet.clipboard.fill")
+                        Image(systemName: "exclamationmark.bubble.fill")
                             .accessibilityHidden(true)
                     },
-                    title: "Spezi Modules",
+                    title: "Get Timely Warnings",
                     description: "WELCOME_AREA3_DESCRIPTION"
                 )
             ],

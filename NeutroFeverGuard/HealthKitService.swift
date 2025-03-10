@@ -8,17 +8,15 @@
 
 import FirebaseFirestore
 import HealthKit
+import Spezi
 import SpeziHealthKit
 import SpeziLocalStorage
 
-actor HealthKitService {
+actor HealthKitService: Module, EnvironmentAccessible, HealthDataFetchable {
     internal let healthStore = HKHealthStore()
-    private let localStorage: LocalStorage
-    private var firebaseConfig = FirebaseConfiguration()
-        
-    init(localStorage: LocalStorage) {
-        self.localStorage = localStorage
-    }
+    
+    @MainActor
+    func configure() { }
     
     func requestAuthorization() async throws {
         let typesToWrite: Set<HKSampleType> = [
@@ -121,40 +119,34 @@ actor HealthKitService {
         try await healthStore.save(correlation)
     }
     
-    func saveLabEntry(_ entry: LabEntry) async throws {
-        let storageKey = "labResults"
-        var labResults: [LabEntry]
-        
-        do {
-            labResults = try localStorage.load(LocalStorageKey<[LabEntry]>(storageKey)) ?? []
-        } catch {
-            labResults = []
+    func queryTemperatureData() async throws -> [HKQuantitySample] {
+        guard let bodyTemperatureType = HKQuantityType.quantityType(forIdentifier: .bodyTemperature) else {
+            print("HealthKit body temperature data is not available on this device.")
+            return []
         }
-        
-        labResults.append(entry)
-        try localStorage.store(labResults, for: LocalStorageKey(storageKey))
-    }
-    
-    func saveMedication(_ entry: MedicationEntry) async throws {
-        let storageKey = "medications"
-        var medications: [MedicationEntry]
-        
-        do {
-            medications = try localStorage.load(LocalStorageKey<[MedicationEntry]>(storageKey)) ?? []
-        } catch {
-            medications = []
+
+        let now = Date()
+        guard let hourAgo = Calendar.current.date(byAdding: .hour, value: -1, to: now) else {
+            return []
         }
-        
-        medications.append(entry)
-        
-        try localStorage.store(medications, for: LocalStorageKey(storageKey))
-        
-        // Save to Firestore
-        if !FeatureFlags.disableFirebase {
-            try await firebaseConfig.userDocumentReference
-                .collection("Medications")
-                .document(UUID().uuidString)
-                .setData(from: entry)
+
+        let predicate = HKQuery.predicateForSamples(withStart: hourAgo, end: now)
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
+
+        return try await withCheckedThrowingContinuation { continuation in
+            let query = HKSampleQuery(
+                sampleType: bodyTemperatureType,
+                predicate: predicate,
+                limit: HKObjectQueryNoLimit,
+                sortDescriptors: [sortDescriptor]
+            ) { _, samples, error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                    return
+                }
+                continuation.resume(returning: samples as? [HKQuantitySample] ?? [])
+            }
+            healthStore.execute(query)
         }
     }
 }
