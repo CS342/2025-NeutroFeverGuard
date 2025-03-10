@@ -69,7 +69,7 @@ Interactive graphs display trends for: heart rate, temperature, oxygen saturatio
    - ANC < 100: Profound Neutropenia (Red)
 
 > [!NOTE]  
-> Want to understand how background checking and lab results reminders work? Check out the detailed explanation in [Background Checking & Lab Notification](Notification.md).
+> Want to understand how background checking and lab results reminders work? Check out the detailed explanation in [Background Checking & Lab Notification](Documentation/Notification.md).
 
 
 ## Setup Instructions
