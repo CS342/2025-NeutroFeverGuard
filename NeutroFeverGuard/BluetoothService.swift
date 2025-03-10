@@ -86,7 +86,7 @@ final class CoreSensor: BluetoothDevice, @unchecked Sendable, Identifiable {
 
     func configure() {
         skinTemperatureService.$skinTemperature.onChange { [weak self] skintemperature in
-            guard let self = self else {
+            guard self != nil else {
                 return
             }
 
