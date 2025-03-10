@@ -65,6 +65,7 @@
 		A9D83F962B083794000D0C78 /* SpeziFirebaseAccountStorage in Frameworks */ = {isa = PBXBuildFile; productRef = A9D83F952B083794000D0C78 /* SpeziFirebaseAccountStorage */; };
 		A9DFE8A92ABE551400428242 /* AccountButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DFE8A82ABE551400428242 /* AccountButton.swift */; };
 		A9FE7AD02AA39BAB0077B045 /* AccountSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FE7ACF2AA39BAB0077B045 /* AccountSheet.swift */; };
+		B0A824962D7E636A00919595 /* BluetoothView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A824952D7E635000919595 /* BluetoothView.swift */; };
 		B0D4C9382D790F65000643C7 /* LabResultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D4C9372D790F5E000643C7 /* LabResultsManager.swift */; };
 		B0DF8DD42D7A88EE00581A00 /* SpeziBluetooth in Frameworks */ = {isa = PBXBuildFile; productRef = B0DF8DD32D7A88EE00581A00 /* SpeziBluetooth */; };
 		B0DF8DD62D7A88EE00581A00 /* SpeziBluetoothServices in Frameworks */ = {isa = PBXBuildFile; productRef = B0DF8DD52D7A88EE00581A00 /* SpeziBluetoothServices */; };
@@ -144,6 +145,7 @@
 		A9A3DCC72C75CB9A00FC9B69 /* FirebaseConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfiguration.swift; sourceTree = "<group>"; };
 		A9DFE8A82ABE551400428242 /* AccountButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountButton.swift; sourceTree = "<group>"; };
 		A9FE7ACF2AA39BAB0077B045 /* AccountSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSheet.swift; sourceTree = "<group>"; };
+		B0A824952D7E635000919595 /* BluetoothView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothView.swift; sourceTree = "<group>"; };
 		B0D4C9372D790F5E000643C7 /* LabResultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabResultsManager.swift; sourceTree = "<group>"; };
 		B0DF8DD72D7A893100581A00 /* BluetoothService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothService.swift; sourceTree = "<group>"; };
 		C42C1B302D782A7100EA417F /* MedicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationView.swift; sourceTree = "<group>"; };
@@ -322,6 +324,7 @@
 		653A254F283387FE005D4D48 /* NeutroFeverGuard */ = {
 			isa = PBXGroup;
 			children = (
+				B0A824952D7E635000919595 /* BluetoothView.swift */,
 				B0DF8DD72D7A893100581A00 /* BluetoothService.swift */,
 				B0D4C9372D790F5E000643C7 /* LabResultsManager.swift */,
 				EB7D47E02D51433200CEDC78 /* HealthKitVisualizations */,
@@ -605,6 +608,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F223937A2D5D4095006C8EB4 /* DataError.swift in Sources */,
+				B0A824962D7E636A00919595 /* BluetoothView.swift in Sources */,
 				C49EC8532D5038AC005C3495 /* DataInputForm.swift in Sources */,
 				B0DF8DD82D7A893900581A00 /* BluetoothService.swift in Sources */,
 				2FE5DC4129EDD7EE004B9AB4 /* StorageKeys.swift in Sources */,
