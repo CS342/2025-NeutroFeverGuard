@@ -204,6 +204,9 @@
         }
       }
     },
+    "Dashboard" : {
+
+    },
     "Date" : {
       "localizations" : {
         "en" : {
@@ -383,6 +386,9 @@
       }
     },
     "HKVIZ_MIN_STRING: " : {
+
+    },
+    "HKVIZ_NAVIGATION_TITLE" : {
 
     },
     "HKVIZ_SUMMARY" : {
@@ -897,6 +903,7 @@
 
     },
     "Vitals Dashboard" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
