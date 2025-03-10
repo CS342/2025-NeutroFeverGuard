@@ -23,21 +23,22 @@ class MedicationViewTests: XCTestCase {
     func testMedView() throws {
         let app = XCUIApplication()
 
-        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 2.0))
-
-        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Medication"].waitForExistence(timeout: 2))
-        app.tabBars["Tab Bar"].buttons["Medication"].tap()
+        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Records"].waitForExistence(timeout: 2))
+        app.tabBars["Tab Bar"].buttons["Records"].tap()
+        
+        let segmentedControl = app.segmentedControls.element(boundBy: 0)
+        let medicationsButton = segmentedControl.buttons["Medications"]
+        XCTAssertTrue(medicationsButton.waitForExistence(timeout: 2))
+        medicationsButton.tap()
 
         XCTAssertTrue(app.navigationBars["Medication List"].waitForExistence(timeout: 2))
 
-        print(app.debugDescription)
         XCTAssertTrue(app.staticTexts["test"].exists)
         XCTAssertTrue(app.staticTexts["Dose: 1.00 mg"].exists)
 
         let dateExists = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH[c] 'Date:'")).firstMatch.exists
         XCTAssertTrue(dateExists, "Date label should be displayed")
         
-        app.cells.firstMatch.swipeRight()
         XCTAssertTrue(app.buttons["Edit"].waitForExistence(timeout: 2))
         app.buttons["Edit"].tap()
         
@@ -55,14 +56,20 @@ class MedicationViewTests: XCTestCase {
     func testMedDelete() throws {
         let app = XCUIApplication()
 
-        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 2.0))
+        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Records"].waitForExistence(timeout: 2))
+        app.tabBars["Tab Bar"].buttons["Records"].tap()
+        
+        let segmentedControl = app.segmentedControls.element(boundBy: 0)
+        let medicationsButton = segmentedControl.buttons["Medications"]
+        XCTAssertTrue(medicationsButton.waitForExistence(timeout: 2))
+        medicationsButton.tap()
 
-        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Medication"].waitForExistence(timeout: 2))
-        app.tabBars["Tab Bar"].buttons["Medication"].tap()
-
-        app.cells.firstMatch.swipeLeft()
         XCTAssertTrue(app.buttons["Delete"].waitForExistence(timeout: 2))
         app.buttons["Delete"].tap()
+        
+        let deleteAlertButton = app.buttons["MedDeleteAlertButton"]
+        XCTAssertTrue(deleteAlertButton.waitForExistence(timeout: 2))
+        deleteAlertButton.tap()
         
         XCTAssertTrue(app.staticTexts["No medications recorded"].waitForExistence(timeout: 2))
     }
@@ -71,13 +78,14 @@ class MedicationViewTests: XCTestCase {
     func testMedEditCancel() throws {
         let app = XCUIApplication()
 
-        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 2.0))
-
-        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Medication"].waitForExistence(timeout: 2))
-        app.tabBars["Tab Bar"].buttons["Medication"].tap()
-
+        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Records"].waitForExistence(timeout: 2))
+        app.tabBars["Tab Bar"].buttons["Records"].tap()
         
-        app.cells.firstMatch.swipeRight()
+        let segmentedControl = app.segmentedControls.element(boundBy: 0)
+        let medicationsButton = segmentedControl.buttons["Medications"]
+        XCTAssertTrue(medicationsButton.waitForExistence(timeout: 2))
+        medicationsButton.tap()
+
         XCTAssertTrue(app.buttons["Edit"].waitForExistence(timeout: 2))
         app.buttons["Edit"].tap()
         
@@ -91,13 +99,14 @@ class MedicationViewTests: XCTestCase {
     func testMedEditInvalid() throws {
         let app = XCUIApplication()
 
-        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 2.0))
-
-        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Medication"].waitForExistence(timeout: 2))
-        app.tabBars["Tab Bar"].buttons["Medication"].tap()
-
+        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Records"].waitForExistence(timeout: 2))
+        app.tabBars["Tab Bar"].buttons["Records"].tap()
         
-        app.cells.firstMatch.swipeRight()
+        let segmentedControl = app.segmentedControls.element(boundBy: 0)
+        let medicationsButton = segmentedControl.buttons["Medications"]
+        XCTAssertTrue(medicationsButton.waitForExistence(timeout: 2))
+        medicationsButton.tap()
+
         XCTAssertTrue(app.buttons["Edit"].waitForExistence(timeout: 2))
         app.buttons["Edit"].tap()
     }

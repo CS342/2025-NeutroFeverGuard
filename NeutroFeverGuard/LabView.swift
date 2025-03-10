@@ -6,7 +6,6 @@
 // SPDX-License-Identifier: MIT
 //
 
-import SpeziAccount
 import SpeziLocalStorage
 import SwiftUI
 
@@ -122,24 +121,19 @@ struct LabResultDetailView: View {
 
 struct LabView: View {
     @Environment(LabResultsManager.self) private var labResultsManager
-    @Environment(Account.self) private var account: Account?
-    @Binding var presentingAccount: Bool
 //    @Environment(NeutroFeverGuardScheduler.self) private var scheduler
 
     var body: some View {
-        NavigationView {
-            List {
-                ancSection()
-                labHistorySection()
-            }
-            .listStyle(.insetGrouped)
-            .navigationTitle("Lab Results")
-            .background(Color(.systemGray6))
-            .toolbar { toolbarContent() }
-            .onAppear {
-                labResultsManager.refresh()
+        List {
+            ancSection()
+            labHistorySection()
+        }
+        .listStyle(.insetGrouped)
+        .navigationTitle("Lab Results")
+        .background(Color(.systemGray6))
+        .onAppear {
+            labResultsManager.refresh()
 //                scheduler.printUpcomingLabResultEvents()
-            }
         }
     }
     
@@ -170,16 +164,8 @@ struct LabView: View {
             }
         }
     }
-
-    private func toolbarContent() -> some ToolbarContent {
-        ToolbarItem {
-            if account != nil {
-                AccountButton(isPresented: $presentingAccount)
-            }
-        }
-    }
 }
 
 #Preview {
-    LabView(presentingAccount: .constant(false))
+    LabView()
 }

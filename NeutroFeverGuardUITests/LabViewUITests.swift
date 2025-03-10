@@ -25,8 +25,13 @@ class LabViewTests: XCTestCase {
 
         XCTAssertTrue(app.wait(for: .runningForeground, timeout: 2.0))
 
-        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Lab"].waitForExistence(timeout: 2))
-        app.tabBars["Tab Bar"].buttons["Lab"].tap()
+        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Records"].waitForExistence(timeout: 2))
+        app.tabBars["Tab Bar"].buttons["Records"].tap()
+        
+        let segmentedControl = app.segmentedControls.element(boundBy: 0)
+        let labResultsButton = segmentedControl.buttons["Lab Results"]
+        XCTAssertTrue(labResultsButton.waitForExistence(timeout: 2))
+        labResultsButton.tap()
 
         XCTAssertTrue(app.navigationBars["Lab Results"].waitForExistence(timeout: 2))
 
@@ -37,8 +42,9 @@ class LabViewTests: XCTestCase {
         XCTAssertTrue(ancValueExists, "ANC value should be displayed")
 
         XCTAssertTrue(app.staticTexts["LAB RESULTS HISTORY"].exists)
+//        print(app.debugDescription)
 
-        let firstLabResult = app.cells.element(boundBy: 1) // The first cell after the ANC section
+        let firstLabResult = app.cells.element(boundBy: 2) // The first cell after the ANC section
         XCTAssertTrue(firstLabResult.waitForExistence(timeout: 2))
         firstLabResult.tap()
 
@@ -59,10 +65,13 @@ class LabViewTests: XCTestCase {
     func testLabDelete() throws {
         let app = XCUIApplication()
 
-        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 2.0))
-
-        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Lab"].waitForExistence(timeout: 2))
-        app.tabBars["Tab Bar"].buttons["Lab"].tap()
+        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Records"].waitForExistence(timeout: 2))
+        app.tabBars["Tab Bar"].buttons["Records"].tap()
+        
+        let segmentedControl = app.segmentedControls.element(boundBy: 0)
+        let labResultsButton = segmentedControl.buttons["Lab Results"]
+        XCTAssertTrue(labResultsButton.waitForExistence(timeout: 2))
+        labResultsButton.tap()
 
         XCTAssertTrue(app.navigationBars["Lab Results"].waitForExistence(timeout: 2))
 
@@ -74,16 +83,12 @@ class LabViewTests: XCTestCase {
 
         XCTAssertTrue(app.staticTexts["LAB RESULTS HISTORY"].waitForExistence(timeout: 2))
 
-        let firstLabResult = app.cells.element(boundBy: 1) // The first cell after the ANC section
+        let firstLabResult = app.cells.element(boundBy: 2) // The first cell after the ANC section
         XCTAssertTrue(firstLabResult.waitForExistence(timeout: 2))
         firstLabResult.tap()
-
-        print(app.debugDescription)
         
         XCTAssertTrue(app.buttons["Delete"].waitForExistence(timeout: 2))
         app.buttons["Delete"].tap()
-        
-        print(app.debugDescription)
         
         XCTAssertTrue(app.staticTexts["Delete Lab Record"].waitForExistence(timeout: 2))
         

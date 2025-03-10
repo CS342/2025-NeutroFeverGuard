@@ -110,47 +110,64 @@ struct MedicationEditForm: View {
 
 struct MedicationView: View {
     @Environment(MedicationManager.self) private var medicationManager
-    @Environment(Account.self) private var account: Account?
     @State private var isEditing = false
     @State private var editingMedicationIndex: Int = 0
-    @Binding var presentingAccount: Bool
+    @State private var deleteMedicationIndex: Int = 0
+    @State private var showDeleteAlert = false
 
     var body: some View {
-        NavigationView {
-            List {
-                if medicationManager.medications.isEmpty {
-                    Text("No medications recorded").foregroundColor(.gray)
-                } else {
-                    ForEach(Array(medicationManager.medications.enumerated()), id: \.element.date) { index, medication in
+        List {
+            if medicationManager.medications.isEmpty {
+                Text("No medications recorded").foregroundColor(.gray)
+            } else {
+                ForEach(Array(medicationManager.medications.enumerated()), id: \.element.date) { index, medication in
+                    HStack {
                         MedicationRow(medication: medication)
-                            .swipeActions(edge: .leading) {
-                                Button("Edit") {
-                                    editingMedicationIndex = index
-                                    isEditing = true
-                                }.tint(.blue)
+                        Spacer()
+                        VStack {
+                            Button("Edit") {
+                                editingMedicationIndex = index
+                                isEditing = true
                             }
+                            .buttonStyle(.plain)
+                            .foregroundColor(.blue)
+                            .padding(.bottom, 4)
+                            
+                            Button("Delete") {
+                                deleteMedicationIndex = index
+                                showDeleteAlert = true
+                            }
+                            .buttonStyle(.plain)
+                            .foregroundColor(.red)
+                        }
                     }
-                    .onDelete { offsets in medicationManager.deleteMedEntry(at: offsets) }
                 }
             }
-            .navigationTitle("Medication List")
-            .onAppear { medicationManager.refresh() }
-            .listStyle(.insetGrouped)
-            .background(Color(.systemGray6))
-            .toolbar { if account != nil { AccountButton(isPresented: $presentingAccount) } }
-            .sheet(isPresented: $isEditing) {
-                let index = editingMedicationIndex
-                MedicationEditForm(
-                    medication: medicationManager.medications[index],
-                    onSave: {updatedMedication in
-                        medicationManager.updateMedEntry(at: index, with: updatedMedication)
-                        isEditing = false
-                    },
-                    onCancel: {
-                        isEditing = false
-                    }
-                )
-            }
+        }
+        .navigationTitle("Medication List")
+        .onAppear { medicationManager.refresh() }
+        .listStyle(.insetGrouped)
+        .background(Color(.systemGray6))
+        .sheet(isPresented: $isEditing) {
+            let index = editingMedicationIndex
+            MedicationEditForm(
+                medication: medicationManager.medications[index],
+                onSave: {updatedMedication in
+                    medicationManager.updateMedEntry(at: index, with: updatedMedication)
+                    isEditing = false
+                },
+                onCancel: {
+                    isEditing = false
+                }
+            )
+        }
+        .alert("Delete Medication", isPresented: $showDeleteAlert) {
+                Button("Delete", role: .destructive) {
+                    medicationManager.deleteMedEntry(at: deleteMedicationIndex)
+                }.accessibilityIdentifier("MedDeleteAlertButton")
+                Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("Are you sure you want to delete this medication record? This action cannot be undone.")
         }
     }
 }

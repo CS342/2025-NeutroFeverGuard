@@ -58,8 +58,10 @@ class MedicationManager: Module, EnvironmentAccessible {
         saveMedResults()
     }
     
-    func deleteMedEntry(at offsets: IndexSet) {
-        medications.remove(atOffsets: offsets)
+    func deleteMedEntry(at index: Int) {
+        guard medications.indices.contains(index)
+            else { return }
+        medications.remove(at: index)
         saveMedResults()
     }
 
