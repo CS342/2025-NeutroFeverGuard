@@ -71,11 +71,11 @@ struct HomeView: View {
             .customizationID("home.contacts")
             .accessibilityIdentifier("Contacts")
             
-            Tab("Connect to Sensor", systemImage: "medical.thermometer.fill", value: .sensor) {
-                AddDataView(presentingAccount: $presentingAccount)
+            Tab("Connect", systemImage: "medical.thermometer.fill", value: .sensor) {
+                BluetoothView()
             }
             .customizationID("home.sensor")
-            .accessibilityIdentifier("Connect to Sensor")
+            .accessibilityIdentifier("Connect")
         }
         .tabViewStyle(.sidebarAdaptable)
         .tabViewCustomization($tabViewCustomization)
