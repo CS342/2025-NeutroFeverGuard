@@ -17,7 +17,6 @@ struct DeviceInformationService: BluetoothService {
     @Characteristic(id: "2A26") var firmwareRevision: String?
 }
 
-@MainActor
 final class CoreSensor: BluetoothDevice, @unchecked Sendable, Identifiable {
     @DeviceState(\.id) var id: UUID
     @DeviceState(\.name) var name: String?
@@ -28,5 +27,5 @@ final class CoreSensor: BluetoothDevice, @unchecked Sendable, Identifiable {
     @DeviceAction(\.connect) var connect
     @DeviceAction(\.disconnect) var disconnect
     
-    nonisolated init() {}
+    init() {}
 }
