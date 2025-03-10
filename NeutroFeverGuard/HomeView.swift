@@ -72,7 +72,7 @@ struct HomeView: View {
             .accessibilityIdentifier("Contacts")
             
             Tab("Connect", systemImage: "medical.thermometer.fill", value: .sensor) {
-                BluetoothView()
+                BluetoothView(presentingAccount: $presentingAccount, selectedTab: $selectedTab)
             }
             .customizationID("home.sensor")
             .accessibilityIdentifier("Connect")
