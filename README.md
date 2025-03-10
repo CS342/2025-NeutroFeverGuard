@@ -19,16 +19,63 @@ This repository contains the NeutroFeverGuard application.
 NeutroFeverGuard is using the [Spezi](https://github.com/StanfordSpezi/Spezi) ecosystem and builds on top of the [Stanford Spezi Template Application](https://github.com/StanfordSpezi/SpeziTemplateApplication).
 
 > [!TIP]
-> Do you want to test the NeutroFeverGuard application on your device? [You can downloard it on TestFlight](https://testflight.apple.com/join/CAuYHs84).
+> Do you want to test the NeutroFeverGuard application on your device? [You can download it on TestFlight](https://testflight.apple.com/join/CAuYHs84).
 
+## Overview
+**NeutroFeverGuard** is designed to monitor symptoms of chemotherapy patients and enable early detection of febrile neutropenia. The app empowers users to:  
+1. Record and track vitals, lab values, medications, and symptoms.  
+2. Sync data with the Apple Health app and view interactive visualizations of health trends.  
+3. Receive reminders for uploading lab results and notifications in case of febrile neutropenia risk.
 
-## NeutroFeverGuard Features
+## Features
 
-*Provide a comprehensive description of your application, including figures showing the application. You can learn more on how to structure a README in the [Stanford Spezi Documentation Guide](https://swiftpackageindex.com/stanfordspezi/spezi/documentation/spezi/documentation-guide)*
+Screenshots table:
+
+1. Visualization page
+2. Add data page
+3. Lab page
+4. Medication page
+5. Contact page (?)
+6. On boarding page / schedule 
+
+### I. Health Record Tracking
+
+#### Health Data Sources:
+1. **Apple Health App**: Data recorded by Apple Watch or other Bluetooth-enabled sensors via HealthKit.  
+2. **Manual Entry**: Users can manually add health data, including vital signs and lab values.
 
 > [!NOTE]  
-> Do you want to learn more about the Stanford Spezi Template Application and how to use, extend, and modify this application? Check out the [Stanford Spezi Template Application documentation](https://stanfordspezi.github.io/SpeziTemplateApplication)
+> How is the data being processed and stored? NeutroFeverGuard use [Spezi Local Storage](https://github.com/StanfordSpezi/SpeziStorage) to store lab results and medication data locally. Other health data is stored in [Healthkit](https://github.com/StanfordSpezi/SpeziHealthKit). For cloud storage, data is stored as [FHIR](https://github.com/StanfordSpezi/SpeziFHIR) elements on [Firebase](https://github.com/StanfordSpezi/SpeziFirebase).
 
+
+#### Visualization:
+Interactive graphs display trends for: heart rate, temperature, oxygen saturation, absolute neutrophil count (ANC). Visuals include trend lines and daily average readings to help users and clinicians better understand health fluctuations.
+
+### II. Notifications & Alerts
+1. **Critical Health Alerts:**  
+   The app sends immediate alerts if:  
+   - **Fever Detected:** Elevated body temperature, especially when ANC is low (e.g., < 500/µL).  
+   - **Increased Resting Heart Rate:** Heart rate exceeds 100 BPM. 
+   
+   Users receive a push notification advising them to seek medical attention.
+
+2. **Lab Results Reminders:**  
+   If no lab results are logged for over a week, the app sends a reminder to encourage regular data updates.
+
+3. **Neutropenia Severity Classification:**  
+   ANC is automatically calculated based on patient-provided lab values, with severity color codes:  
+   - ANC ≥ 500: Normal (Green)
+   - 100 ≤ ANC < 500: Severe Neutropenia (Orange)  
+   - ANC < 100: Profound Neutropenia (Red)
+
+> [!NOTE]  
+> Want to understand how background checking and lab results reminders work? Check out the detailed explanation in [Background Checking & Lab Notification](Notification.md).
+
+
+## Setup Instructions
+Use [TestFlight](https://testflight.apple.com/join/CAuYHs84) to download NeutroFeverGuard. Following the instruction when onboarding: sign the consent form, give permissions to health data and notification, sign up and provide your data. 
+
+Enjoy!
 
 ## Contributing
 
