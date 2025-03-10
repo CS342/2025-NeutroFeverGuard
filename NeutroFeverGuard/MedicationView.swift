@@ -164,7 +164,7 @@ struct MedicationView: View {
         .alert("Delete Medication", isPresented: $showDeleteAlert) {
                 Button("Delete", role: .destructive) {
                     medicationManager.deleteMedEntry(at: deleteMedicationIndex)
-                }.accessibilityIdentifier("DeleteAlertButton")
+                }.accessibilityIdentifier("MedDeleteAlertButton")
                 Button("Cancel", role: .cancel) {}
         } message: {
             Text("Are you sure you want to delete this medication record? This action cannot be undone.")
