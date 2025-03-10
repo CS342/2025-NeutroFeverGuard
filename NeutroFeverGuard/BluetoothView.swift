@@ -43,3 +43,12 @@ struct BluetoothView: View {
         .scanNearbyDevices(with: bluetooth, autoConnect: true)
     }
 }
+#Preview { BluetoothView()
+        .previewWith {
+            Bluetooth {
+                Discover(
+                    CoreSensor.self, by: .advertisedService("00002100-5B1E-4347-B07C-97B514DAE121")
+                )
+            }
+        }
+    .environment(CoreSensor()) }
