@@ -52,3 +52,11 @@ func restartNotification(from date: Date) {
 > **Why Delete Before Create?** When restarting the "enter-lab-result" task schedule, previously completed events remained marked as complete, even after calling `createOrUpdateTask` with `shadowedOutcomesHandling: .delete`. This happened because `createOrUpdateTask` updates the task definition but doesn’t automatically clear old outcomes that still match the new schedule.
 
 Now you know how background checking & lab notification work in NeutroFeverGuard! Welcome back to [README](README.md).
+
+
+## License
+
+This project is licensed under the MIT License. See [Licenses](LICENSES) for more information.
+
+![Spezi Footer](https://raw.githubusercontent.com/StanfordSpezi/.github/main/assets/FooterLight.png#gh-light-mode-only)
+![Spezi Footer](https://raw.githubusercontent.com/StanfordSpezi/.github/main/assets/FooterDark.png#gh-dark-mode-only)
