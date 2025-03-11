@@ -105,7 +105,9 @@ final class CoreSensor: BluetoothDevice, @unchecked Sendable, ObservableObject, 
             }
         }
     }
+    @MainActor
     private func handleNewMeasurement(_ measurement: SkinTemperatureMeasurement) async {
+        warningState.isActive = false
         await measurements.recordNewMeasurement(measurement)
     }
     
