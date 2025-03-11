@@ -8,10 +8,11 @@ SPDX-License-Identifier: MIT
 
 -->
 
-NeutroFeverGuard Contributors
+NeutroFeverGuard Development Team and Contributions
 =================================
+* [Sixian Du]()
+* [Merve Cerit]()
+* [Viraj Mehta]()
+* [Priyanka Shrestha]()
 
-* [Paul Schmiedmayer](https://github.com/PSchmiedmayer)
-* [Andreas Bauer](https://github.com/Supereg)
-* [Philipp Zagar](https://github.com/philippzagar)
-* [Nikolai Madlener](https://github.com/NikolaiMadlener)
+We acknowledge and grateful for the support provided by CS342 Teaching Team and our Project Mentors! This app was built on top of [Spezi Template Application](https://github.com/StanfordSpezi/SpeziTemplateApplication).
