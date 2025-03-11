@@ -175,3 +175,29 @@ struct MedicationEntry: Codable {
         self.doseUnit = doseUnit
     }
 }
+
+enum Symptom: String, CaseIterable, Codable {
+    case nausea = "Nausea"
+    case vomiting = "Vomiting"
+    case diarrhea = "Diarrhea"
+    case chills = "Chills"
+    case cough = "Cough"
+    case pain = "Pain"
+}
+
+struct SymptomEntry: Codable {
+    var date: Date
+    var symptoms: [Symptom: Int]  // Maps symptoms to their severity (1-10)
+    
+    init(date: Date, symptoms: [Symptom: Int]) throws {
+        try isValidDate(date)
+        // Validate that all severity ratings are between 1 and 10
+        for (_, severity) in symptoms {
+            guard severity >= 1 && severity <= 10 else {
+                throw DataError.invalidSeverity
+            }
+        }
+        self.date = date
+        self.symptoms = symptoms
+    }
+}

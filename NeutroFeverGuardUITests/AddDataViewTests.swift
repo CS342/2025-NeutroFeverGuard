@@ -353,4 +353,69 @@ class AddDataViewTests: XCTestCase {
         try app.handleHealthKitAuthorization()
         XCTAssertTrue(app.staticTexts["What data would you like to add?"].waitForExistence(timeout: 5))
     }
+
+    @MainActor
+    func testSymptomsDataInput() throws {
+        let app = XCUIApplication()
+        
+        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 2.0))
+        
+        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Add Data"].waitForExistence(timeout: 5))
+        app.tabBars["Tab Bar"].buttons["Add Data"].tap()
+        
+        XCTAssertTrue(app.staticTexts["Symptoms"].waitForExistence(timeout: 5))
+        app.staticTexts["Symptoms"].tap()
+        
+        XCTAssertTrue(app.navigationBars["Symptoms"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Are you experiencing any of the following:"].waitForExistence(timeout: 5))
+        
+        let symptoms = ["Nausea", "Pain", "Cough"]
+        let severities = ["3", "5", "8"]
+        
+        for (index, symptom) in symptoms.enumerated() {
+            let toggle = app.switches[symptom]
+            XCTAssertTrue(toggle.waitForExistence(timeout: 5))
+            toggle.tap()
+            
+            let severityField = app.textFields["1-10"]
+            XCTAssertTrue(severityField.waitForExistence(timeout: 5))
+            severityField.tap()
+            severityField.typeText(severities[index])
+            
+            if severities[index] == "5" {
+                XCTAssertTrue(app.staticTexts["Contact your provider about moderately severe \(symptom.lowercased())"].waitForExistence(timeout: 5))
+            } else if severities[index] == "8" {
+                XCTAssertTrue(app.staticTexts["Contact your provider about severe \(symptom.lowercased())"].waitForExistence(timeout: 5))
+            }
+        }
+        
+        XCTAssertTrue(app.buttons["Add"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Add"].isEnabled)
+        app.buttons["Add"].tap()
+        try app.handleHealthKitAuthorization()
+        XCTAssertTrue(app.staticTexts["What data would you like to add?"].waitForExistence(timeout: 5))
+        
+        app.staticTexts["Symptoms"].tap()
+        
+        XCTAssertTrue(app.buttons["Add"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["Add"].isEnabled)
+        
+        let toggle = app.switches["Nausea"]
+        XCTAssertTrue(toggle.waitForExistence(timeout: 5))
+        toggle.tap()
+        
+        let severityField = app.textFields["1-10"]
+        XCTAssertTrue(severityField.waitForExistence(timeout: 5))
+        severityField.tap()
+        severityField.typeText("11")
+        
+        app.buttons["Add"].tap()
+        XCTAssertTrue(app.staticTexts["Error"].waitForExistence(timeout: 5))
+        
+        let lastSymptom = app.switches["Pain"]
+        while !lastSymptom.exists {
+            app.swipeUp()
+        }
+        XCTAssertTrue(lastSymptom.exists)
+    }
 }
