@@ -12,4 +12,5 @@ import Spezi
 @Observable
 class NoMeasurementWarningState: Module, EnvironmentAccessible {
     var isActive: Bool = false
+    init() {}
 }

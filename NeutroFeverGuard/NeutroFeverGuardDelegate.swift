@@ -61,6 +61,7 @@ class NeutroFeverGuardDelegate: SpeziAppDelegate {
             LabResultsManager()
             MedicationManager()
             HealthKitService()
+            NoMeasurementWarningState()
             Bluetooth {
                 Discover(CoreSensor.self, by: .advertisedService("180A"))
             }
