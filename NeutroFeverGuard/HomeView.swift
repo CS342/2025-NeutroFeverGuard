@@ -25,7 +25,6 @@ struct HomeView: View {
     @AppStorage(StorageKeys.homeTabSelection) private var selectedTab = Tabs.addData
     @AppStorage(StorageKeys.tabViewCustomization) private var tabViewCustomization = TabViewCustomization()
 
-    @State private var warningState = NoMeasurementWarningState()
     @State private var presentingAccount = false
         
     var body: some View {
@@ -72,7 +71,7 @@ struct HomeView: View {
             .accessibilityIdentifier("Contacts")
             
             Tab("Connect", systemImage: "medical.thermometer.fill", value: .sensor) {
-                BluetoothView(presentingAccount: $presentingAccount, selectedTab: $selectedTab, warningState: warningState)
+                BluetoothView(presentingAccount: $presentingAccount, selectedTab: $selectedTab)
             }
             .customizationID("home.sensor")
             .accessibilityIdentifier("Connect")

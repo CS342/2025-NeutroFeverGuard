@@ -101,7 +101,7 @@ struct BluetoothOffMessage: View {
                     Image(systemName: "exclamationmark.triangle.fill")
                         .foregroundColor(.yellow)
                         .accessibilityHidden(true)
-                    Text("Please turn on your Bluetooth.")
+                    Text("Please turn on your Bluetooth and CORE sensor.")
                         .font(.headline)
                         .foregroundColor(.red)
                 }
@@ -139,7 +139,7 @@ struct BluetoothView: View {
     @Environment(CoreSensor.self) var myDevice: CoreSensor?
     @Environment(ConnectedDevices<CoreSensor>.self) var connectedDevices
     @Environment(Account.self) private var account: Account?
-    @Bindable var warningState: NoMeasurementWarningState
+    @Environment(NoMeasurementWarningState.self) var warningState
     @Binding var selectedTab: HomeView.Tabs
     @Binding var presentingAccount: Bool
     @State private var showErrorAlert = false
@@ -185,10 +185,9 @@ struct BluetoothView: View {
         }
     }
 
-    init(presentingAccount: Binding<Bool>, selectedTab: Binding<HomeView.Tabs>, warningState: NoMeasurementWarningState) {
+    init(presentingAccount: Binding<Bool>, selectedTab: Binding<HomeView.Tabs>) {
         self._presentingAccount = presentingAccount
         self._selectedTab = selectedTab
-        self.warningState = warningState
     }
     
     private func handleDeviceConnection(_ device: CoreSensor) {

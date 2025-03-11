@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import Spezi
 
 @Observable
-class NoMeasurementWarningState {
+class NoMeasurementWarningState: Module, EnvironmentAccessible {
     var isActive: Bool = false
 }

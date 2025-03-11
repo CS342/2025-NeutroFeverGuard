@@ -37,6 +37,7 @@ struct SkinTemperatureService: BluetoothService {
 
 final class CoreSensor: BluetoothDevice, @unchecked Sendable, ObservableObject, Identifiable {
     @Dependency(Measurements.self) private var measurements
+    @Dependency(NoMeasurementWarningState.self) private var warningState
 
     @DeviceState(\.id) var id: UUID
     @DeviceState(\.name) var name: String?
@@ -49,9 +50,7 @@ final class CoreSensor: BluetoothDevice, @unchecked Sendable, ObservableObject, 
     
     @DeviceAction(\.connect) var connect
     @DeviceAction(\.disconnect) var disconnect
-    
-    var warningState = NoMeasurementWarningState() // in case core sensor is not reading any temperature, or the sensor is not placed on the body
-    
+        
     required init() {}
     
     func autoConnect(bluetooth: Bluetooth) {
@@ -85,6 +84,7 @@ final class CoreSensor: BluetoothDevice, @unchecked Sendable, ObservableObject, 
         return UUID(uuidString: uuidString)
     }
     
+    @MainActor
     func configure() {
         skinTemperatureService.$skinTemperature.onChange { [weak self] skintemperature in
             guard let self = self, !skintemperature.isEmpty else {

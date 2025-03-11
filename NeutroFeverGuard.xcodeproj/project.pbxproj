@@ -65,20 +65,15 @@
 		A9D83F962B083794000D0C78 /* SpeziFirebaseAccountStorage in Frameworks */ = {isa = PBXBuildFile; productRef = A9D83F952B083794000D0C78 /* SpeziFirebaseAccountStorage */; };
 		A9DFE8A92ABE551400428242 /* AccountButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DFE8A82ABE551400428242 /* AccountButton.swift */; };
 		A9FE7AD02AA39BAB0077B045 /* AccountSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FE7ACF2AA39BAB0077B045 /* AccountSheet.swift */; };
-		B00991C22D7FCD5C00D9CBD5 /* NoMeasurementWarningState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00991C12D7FCD5C00D9CBD5 /* NoMeasurementWarningState.swift */; };
 		B00991C42D7FCF2E00D9CBD5 /* BluetoothViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00991C32D7FCF2E00D9CBD5 /* BluetoothViewUITests.swift */; };
 		B03D0E432D7D22700024F2CA /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E6898E2D52ED8500869C4F /* HealthKitService.swift */; };
 		B03D0E462D7D24030024F2CA /* DataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8332D501C5C005C3495 /* DataType.swift */; };
 		B03D0E482D7D24AA0024F2CA /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22393792D5D4092006C8EB4 /* DataError.swift */; };
-		B05F57472D7EB4F900AC9FC2 /* Measurements.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05F57462D7EB4EE00AC9FC2 /* Measurements.swift */; };
-		B05F574A2D7EB98800AC9FC2 /* MeasurementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05F57492D7EB98300AC9FC2 /* MeasurementType.swift */; };
 		B08E39F92D7C416000077929 /* FeverMonitoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C95E382D78D5F2007A4CA6 /* FeverMonitoring.swift */; };
-		B0A824962D7E636A00919595 /* BluetoothView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A824952D7E635000919595 /* BluetoothView.swift */; };
 		B0C95E3A2D78D5F3007A4CA6 /* FeverMonitoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C95E382D78D5F2007A4CA6 /* FeverMonitoring.swift */; };
 		B0D4C9382D790F65000643C7 /* LabResultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D4C9372D790F5E000643C7 /* LabResultsManager.swift */; };
 		B0DF8DD42D7A88EE00581A00 /* SpeziBluetooth in Frameworks */ = {isa = PBXBuildFile; productRef = B0DF8DD32D7A88EE00581A00 /* SpeziBluetooth */; };
 		B0DF8DD62D7A88EE00581A00 /* SpeziBluetoothServices in Frameworks */ = {isa = PBXBuildFile; productRef = B0DF8DD52D7A88EE00581A00 /* SpeziBluetoothServices */; };
-		B0DF8DD82D7A893900581A00 /* BluetoothService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DF8DD72D7A893100581A00 /* BluetoothService.swift */; };
 		B0DF8DF72D7BFEFB00581A00 /* FeverMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DF8DF62D7BFEF600581A00 /* FeverMonitorTests.swift */; };
 		B0DF8DFC2D7C117800581A00 /* HealthDataFetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DF8DFB2D7C114900581A00 /* HealthDataFetchable.swift */; };
 		B0DF8DFD2D7C123200581A00 /* HealthDataFetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DF8DFB2D7C114900581A00 /* HealthDataFetchable.swift */; };
@@ -159,14 +154,9 @@
 		A9A3DCC72C75CB9A00FC9B69 /* FirebaseConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfiguration.swift; sourceTree = "<group>"; };
 		A9DFE8A82ABE551400428242 /* AccountButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountButton.swift; sourceTree = "<group>"; };
 		A9FE7ACF2AA39BAB0077B045 /* AccountSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSheet.swift; sourceTree = "<group>"; };
-		B00991C12D7FCD5C00D9CBD5 /* NoMeasurementWarningState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoMeasurementWarningState.swift; sourceTree = "<group>"; };
 		B00991C32D7FCF2E00D9CBD5 /* BluetoothViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothViewUITests.swift; sourceTree = "<group>"; };
-		B05F57462D7EB4EE00AC9FC2 /* Measurements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Measurements.swift; sourceTree = "<group>"; };
-		B05F57492D7EB98300AC9FC2 /* MeasurementType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementType.swift; sourceTree = "<group>"; };
-		B0A824952D7E635000919595 /* BluetoothView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothView.swift; sourceTree = "<group>"; };
 		B0C95E382D78D5F2007A4CA6 /* FeverMonitoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeverMonitoring.swift; sourceTree = "<group>"; };
 		B0D4C9372D790F5E000643C7 /* LabResultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabResultsManager.swift; sourceTree = "<group>"; };
-		B0DF8DD72D7A893100581A00 /* BluetoothService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothService.swift; sourceTree = "<group>"; };
 		B0DF8DF62D7BFEF600581A00 /* FeverMonitorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeverMonitorTests.swift; sourceTree = "<group>"; };
 		B0DF8DFB2D7C114900581A00 /* HealthDataFetchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthDataFetchable.swift; sourceTree = "<group>"; };
 		B0FF4DD12D797FEA0076A043 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
@@ -199,6 +189,7 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		B00991CB2D7FD86F00D9CBD5 /* BluetoothRelated */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = BluetoothRelated; sourceTree = "<group>"; };
 		EB7D47E02D51433200CEDC78 /* HealthKitVisualizations */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (EB02C65C2D5D52800035AA89 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = HealthKitVisualizations; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -347,11 +338,7 @@
 		653A254F283387FE005D4D48 /* NeutroFeverGuard */ = {
 			isa = PBXGroup;
 			children = (
-				B00991C12D7FCD5C00D9CBD5 /* NoMeasurementWarningState.swift */,
-				B05F57492D7EB98300AC9FC2 /* MeasurementType.swift */,
-				B05F57462D7EB4EE00AC9FC2 /* Measurements.swift */,
-				B0A824952D7E635000919595 /* BluetoothView.swift */,
-				B0DF8DD72D7A893100581A00 /* BluetoothService.swift */,
+				B00991CB2D7FD86F00D9CBD5 /* BluetoothRelated */,
 				B0DF8DFB2D7C114900581A00 /* HealthDataFetchable.swift */,
 				B0FF4DD12D797FEA0076A043 /* NotificationManager.swift */,
 				B0D4C9372D790F5E000643C7 /* LabResultsManager.swift */,
@@ -459,6 +446,7 @@
 				56E7083D2BB06FCA00B08F0A /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
+				B00991CB2D7FD86F00D9CBD5 /* BluetoothRelated */,
 				EB7D47E02D51433200CEDC78 /* HealthKitVisualizations */,
 			);
 			name = NeutroFeverGuard;
@@ -642,15 +630,12 @@
 			files = (
 				B0C95E3A2D78D5F3007A4CA6 /* FeverMonitoring.swift in Sources */,
 				F223937A2D5D4095006C8EB4 /* DataError.swift in Sources */,
-				B0A824962D7E636A00919595 /* BluetoothView.swift in Sources */,
 				C49EC8532D5038AC005C3495 /* DataInputForm.swift in Sources */,
-				B0DF8DD82D7A893900581A00 /* BluetoothService.swift in Sources */,
 				2FE5DC4129EDD7EE004B9AB4 /* StorageKeys.swift in Sources */,
 				C42C1B312D782A7600EA417F /* MedicationView.swift in Sources */,
 				2FE5DCB129EE6107004B9AB4 /* AccountOnboarding.swift in Sources */,
 				2FE5DC3A29EDD7CA004B9AB4 /* Welcome.swift in Sources */,
 				2FE5DC3829EDD7CA004B9AB4 /* InterestingModules.swift in Sources */,
-				B00991C22D7FCD5C00D9CBD5 /* NoMeasurementWarningState.swift in Sources */,
 				2FE5DC3529EDD7CA004B9AB4 /* Consent.swift in Sources */,
 				B0FF4DD22D797FEA0076A043 /* NotificationManager.swift in Sources */,
 				2FC975A82978F11A00BA99FE /* HomeView.swift in Sources */,
@@ -660,7 +645,6 @@
 				A9A3DCC82C75CBBD00FC9B69 /* FirebaseConfiguration.swift in Sources */,
 				2FE5DC3729EDD7CA004B9AB4 /* OnboardingFlow.swift in Sources */,
 				2F1AC9DF2B4E840E00C24973 /* NeutroFeverGuard.docc in Sources */,
-				B05F574A2D7EB98800AC9FC2 /* MeasurementType.swift in Sources */,
 				2FF53D8D2A8729D600042B76 /* NeutroFeverGuardStandard.swift in Sources */,
 				A9720E432ABB68CC00872D23 /* AccountSetupHeader.swift in Sources */,
 				2FE5DC4029EDD7EE004B9AB4 /* FeatureFlags.swift in Sources */,
@@ -678,7 +662,6 @@
 				653A2551283387FE005D4D48 /* NeutroFeverGuard.swift in Sources */,
 				2FE5DC3629EDD7CA004B9AB4 /* HealthKitPermissions.swift in Sources */,
 				2F65B44E2A3B8B0600A36932 /* NotificationPermissions.swift in Sources */,
-				B05F57472D7EB4F900AC9FC2 /* Measurements.swift in Sources */,
 				2FE5DC2629EDD38A004B9AB4 /* Contacts.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
