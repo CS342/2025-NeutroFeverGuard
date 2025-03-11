@@ -10,7 +10,7 @@ import Foundation
 import Testing
 
 @MainActor
-struct SkinTemperatureMeasurementTests {
+struct SkinTemperatureDecodingTests {
     @Test("Decode valid Celsius temperature")
     func testDecodeValidCelsiusTemperature() {
         // Flags: 0x00 (Celsius, no timestamp)
