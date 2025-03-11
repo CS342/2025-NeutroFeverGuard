@@ -31,22 +31,28 @@ NeutroFeverGuard is using the [Spezi](https://github.com/StanfordSpezi/Spezi) ec
 
 Screenshots table:
 
-1. Visualization page
-2. Add data page
-3. Lab page
-4. Medication page
-5. Contact page (?)
-6. On boarding page / schedule 
+1. Onboarding Pages
+2. Connection to bluetooth
+3. Add data page
+4. Visualizations page
+5. Records page (lab + medications)
+6. Symptom Survey 
+7. Notifications  
+8. Contact Page 
+9. Firebase (to show things push there?)
 
 ### I. Health Record Tracking
 
 #### Health Data Sources:
-1. **Apple Health App**: Data recorded by Apple Watch or other Bluetooth-enabled sensors via HealthKit.  
-2. **Manual Entry**: Users can manually add health data, including vital signs and lab values.
+1. **Bluetooth-enabled Temperature Sensors**: Users can connect their CORE Temperature Sensor to provide continuous skin temperature data.
+2. **Apple Health App**: Data recorded by Apple Watch or Apple Health App via HealthKit.  
+3. **Manual Entry**: Users can manually add health data, including vital signs and lab values.
 
 > [!NOTE]  
-> How is the data being processed and stored? NeutroFeverGuard use [Spezi Local Storage](https://github.com/StanfordSpezi/SpeziStorage) to store lab results and medication data locally. Other health data is stored in [Healthkit](https://github.com/StanfordSpezi/SpeziHealthKit). For cloud storage, data is stored as [FHIR](https://github.com/StanfordSpezi/SpeziFHIR) elements on [Firebase](https://github.com/StanfordSpezi/SpeziFirebase).
+> How is the data being processed and stored? NeutroFeverGuard use [Spezi Local Storage](https://github.com/StanfordSpezi/SpeziStorage) to store lab results and medication data locally. Other health data is stored in [Healthkit](https://github.com/StanfordSpezi/SpeziHealthKit). For cloud storage, all data is stored as [FHIR](https://github.com/StanfordSpezi/SpeziFHIR) elements on [Firebase](https://github.com/StanfordSpezi/SpeziFirebase).
 
+> [!NOTE]  
+> Want to understand how CORE Sensor connection, and continuous temperature data flow work? Check out the detailed explanation in [Working with CORE Sensor - Bluetooth Connection](Documentation/BluetoothSensor.md).
 
 #### Visualization:
 Interactive graphs display trends for: heart rate, temperature, oxygen saturation, absolute neutrophil count (ANC). Visuals include trend lines and daily average readings to help users and clinicians better understand health fluctuations.
@@ -54,8 +60,7 @@ Interactive graphs display trends for: heart rate, temperature, oxygen saturatio
 ### II. Notifications & Alerts
 1. **Critical Health Alerts:**  
    The app sends immediate alerts if:  
-   - **Fever Detected:** Elevated body temperature, especially when ANC is low (e.g., < 500/µL).  
-   - **Increased Resting Heart Rate:** Heart rate exceeds 100 BPM. 
+   **Fever Detected in case of Neutropenia:** Elevated body temperature (at or over 101 F once or steady at our over 100.4 F in the past hour), especially when ANC is low (< 500/µL).
    
    Users receive a push notification advising them to seek medical attention.
 
@@ -69,7 +74,7 @@ Interactive graphs display trends for: heart rate, temperature, oxygen saturatio
    - ANC < 100: Profound Neutropenia (Red)
 
 > [!NOTE]  
-> Want to understand how background checking and lab results reminders work? Check out the detailed explanation in [Background Checking & Lab Notification](Documentation/Notification.md).
+> Want to understand how fever monitoring alerts and lab results reminders work in the background? Check out the detailed explanation in [Fever Monitoring & Lab Notifications](Documentation/Notification.md).
 
 
 ## Setup Instructions

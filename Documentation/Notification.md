@@ -8,12 +8,14 @@ SPDX-License-Identifier: MIT
 
 -->
 
-# Background Checking & Lab Notification - NeutroFeverGuard
-This file explains how background checking and lab results reminders work in NeutroFeverGuard.
+# Fever Monitoring & Lab Notifications - NeutroFeverGuard
+This file explains how fever monitoring and notifications and lab results reminders work in NeutroFeverGuard.
 
 Back to [README](../README.md).
 
-## Background Checking
+## Fever Monitoring and Notification
+
+### Background Checking
 
 ## Lab Notification
 
@@ -61,4 +63,4 @@ func restartNotification(from date: Date) {
 > [!NOTE]  
 > **Why Delete Before Create?** When restarting the "enter-lab-result" task schedule, previously completed events remained marked as complete, even after calling `createOrUpdateTask` with `shadowedOutcomesHandling: .delete`. This happened because `createOrUpdateTask` updates the task definition but doesn’t automatically clear old outcomes that still match the new schedule.
 
-Now you know how background checking & lab notification work in NeutroFeverGuard! Welcome back to [README](../README.md).
+Now you know how fever monitoring and notifications and lab results reminders work in NeutroFeverGuard! Welcome back to [README](../README.md).
