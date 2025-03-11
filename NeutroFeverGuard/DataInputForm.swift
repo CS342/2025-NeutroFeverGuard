@@ -147,7 +147,6 @@ struct SymptomForm: View {
     @Binding var symptomSeverity: [Symptom: String]
     
     var body: some View {
-        // swiftlint:disable closure_body_length
         VStack(alignment: .leading, spacing: 8) {
             Text("Are you experiencing any of:")
                 .font(.headline)
@@ -459,6 +458,7 @@ struct DataInputForm: View {
         } else {
             // For 3 or more items, join all but the last with commas, then add "and" before the last
             let lastWarning = warnings.last!
+            // swiftlint:disable next force_unwrapping
             let allButLast = warnings.dropLast()
             return prefix + allButLast.joined(separator: ", ") + ", and " + lastWarning
         }

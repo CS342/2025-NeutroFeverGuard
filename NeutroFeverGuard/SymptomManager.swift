@@ -1,3 +1,11 @@
+//
+// This source file is part of the NeutroFeverGuard based on the Stanford Spezi Template Application project
+//
+// SPDX-FileCopyrightText: 2025 Stanford University
+//
+// SPDX-License-Identifier: MIT
+//
+
 import FirebaseFirestore
 import Spezi
 import SpeziLocalStorage
@@ -46,4 +54,4 @@ class SymptomManager: Module, EnvironmentAccessible {
             print("Failed to save symptoms: \(error)")
         }
     }
-} 
+}

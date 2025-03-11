@@ -10,7 +10,7 @@ import XCTest
 import XCTestExtensions
 import XCTHealthKit
 
-
+// swiftlint:disable type_body_length
 class AddDataViewTests: XCTestCase {
     @MainActor
     override func setUp() async throws {
