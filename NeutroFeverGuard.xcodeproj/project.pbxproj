@@ -65,6 +65,8 @@
 		A9D83F962B083794000D0C78 /* SpeziFirebaseAccountStorage in Frameworks */ = {isa = PBXBuildFile; productRef = A9D83F952B083794000D0C78 /* SpeziFirebaseAccountStorage */; };
 		A9DFE8A92ABE551400428242 /* AccountButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DFE8A82ABE551400428242 /* AccountButton.swift */; };
 		A9FE7AD02AA39BAB0077B045 /* AccountSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FE7ACF2AA39BAB0077B045 /* AccountSheet.swift */; };
+		B00991C22D7FCD5C00D9CBD5 /* NoMeasurementWarningState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00991C12D7FCD5C00D9CBD5 /* NoMeasurementWarningState.swift */; };
+		B00991C42D7FCF2E00D9CBD5 /* BluetoothViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00991C32D7FCF2E00D9CBD5 /* BluetoothViewUITests.swift */; };
 		B03D0E432D7D22700024F2CA /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E6898E2D52ED8500869C4F /* HealthKitService.swift */; };
 		B03D0E462D7D24030024F2CA /* DataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8332D501C5C005C3495 /* DataType.swift */; };
 		B03D0E482D7D24AA0024F2CA /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22393792D5D4092006C8EB4 /* DataError.swift */; };
@@ -157,6 +159,8 @@
 		A9A3DCC72C75CB9A00FC9B69 /* FirebaseConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfiguration.swift; sourceTree = "<group>"; };
 		A9DFE8A82ABE551400428242 /* AccountButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountButton.swift; sourceTree = "<group>"; };
 		A9FE7ACF2AA39BAB0077B045 /* AccountSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSheet.swift; sourceTree = "<group>"; };
+		B00991C12D7FCD5C00D9CBD5 /* NoMeasurementWarningState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoMeasurementWarningState.swift; sourceTree = "<group>"; };
+		B00991C32D7FCF2E00D9CBD5 /* BluetoothViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothViewUITests.swift; sourceTree = "<group>"; };
 		B05F57462D7EB4EE00AC9FC2 /* Measurements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Measurements.swift; sourceTree = "<group>"; };
 		B05F57492D7EB98300AC9FC2 /* MeasurementType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementType.swift; sourceTree = "<group>"; };
 		B0A824952D7E635000919595 /* BluetoothView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothView.swift; sourceTree = "<group>"; };
@@ -343,6 +347,7 @@
 		653A254F283387FE005D4D48 /* NeutroFeverGuard */ = {
 			isa = PBXGroup;
 			children = (
+				B00991C12D7FCD5C00D9CBD5 /* NoMeasurementWarningState.swift */,
 				B05F57492D7EB98300AC9FC2 /* MeasurementType.swift */,
 				B05F57462D7EB4EE00AC9FC2 /* Measurements.swift */,
 				B0A824952D7E635000919595 /* BluetoothView.swift */,
@@ -393,6 +398,7 @@
 		653A256A28338800005D4D48 /* NeutroFeverGuardUITests */ = {
 			isa = PBXGroup;
 			children = (
+				B00991C32D7FCF2E00D9CBD5 /* BluetoothViewUITests.swift */,
 				C4C8A3672D6F9E1A00F313AE /* LabViewUITests.swift */,
 				C42C1C702D7AB84300EA417F /* MedicationViewUITests.swift */,
 				653A256B28338800005D4D48 /* SchedulerTests.swift */,
@@ -644,6 +650,7 @@
 				2FE5DCB129EE6107004B9AB4 /* AccountOnboarding.swift in Sources */,
 				2FE5DC3A29EDD7CA004B9AB4 /* Welcome.swift in Sources */,
 				2FE5DC3829EDD7CA004B9AB4 /* InterestingModules.swift in Sources */,
+				B00991C22D7FCD5C00D9CBD5 /* NoMeasurementWarningState.swift in Sources */,
 				2FE5DC3529EDD7CA004B9AB4 /* Consent.swift in Sources */,
 				B0FF4DD22D797FEA0076A043 /* NotificationManager.swift in Sources */,
 				2FC975A82978F11A00BA99FE /* HomeView.swift in Sources */,
@@ -698,6 +705,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5680DD3E2AB8CD84004E6D4A /* ContributionsTest.swift in Sources */,
+				B00991C42D7FCF2E00D9CBD5 /* BluetoothViewUITests.swift in Sources */,
 				C4C8A3682D6F9E2100F313AE /* LabViewUITests.swift in Sources */,
 				C42C1C712D7AB84300EA417F /* MedicationViewUITests.swift in Sources */,
 				C4C8A35F2D6F950600F313AE /* AddDataViewTests.swift in Sources */,

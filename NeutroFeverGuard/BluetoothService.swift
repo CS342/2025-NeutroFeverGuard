@@ -35,7 +35,7 @@ struct SkinTemperatureService: BluetoothService {
     @Characteristic(id: "2A1C", notify: true) var skinTemperature: Data?
 }
 
-final class CoreSensor: BluetoothDevice, @unchecked Sendable, Identifiable {
+final class CoreSensor: BluetoothDevice, @unchecked Sendable, ObservableObject, Identifiable {
     @Dependency(Measurements.self) private var measurements
 
     @DeviceState(\.id) var id: UUID
@@ -50,7 +50,7 @@ final class CoreSensor: BluetoothDevice, @unchecked Sendable, Identifiable {
     @DeviceAction(\.connect) var connect
     @DeviceAction(\.disconnect) var disconnect
     
-    @Published var noMeasurementWarning: Bool = false // if the core sensor is not reading any temperature, or the sensor is not placed on the body
+    var warningState = NoMeasurementWarningState() // in case core sensor is not reading any temperature, or the sensor is not placed on the body
     
     required init() {}
     
@@ -101,15 +101,17 @@ final class CoreSensor: BluetoothDevice, @unchecked Sendable, Identifiable {
                 await self.handleNewMeasurement(measurement)
             } else {
                 print("No valid skin temperature detected. Sensor might be off-body or not initialized.")
-                self.handleNoMeasurement()
+                await self.handleNoMeasurement()
             }
         }
     }
     private func handleNewMeasurement(_ measurement: SkinTemperatureMeasurement) async {
         await measurements.recordNewMeasurement(measurement)
     }
-    private func handleNoMeasurement() {
+    
+    @MainActor
+    private func handleNoMeasurement() async {
         print("No temperature detected. Sensor might be off-body or waiting for a valid reading.")
-        noMeasurementWarning = true  // This will be used to trigger UI warning
+        warningState.isActive = true   // This will be used to trigger UI warning
     }
 }

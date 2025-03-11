@@ -120,13 +120,26 @@ struct BluetoothOffMessage: View {
     }
 }
 
+struct NoMeasurementWarningView: View {
+    var body: some View {
+        Section {
+            HStack {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .foregroundColor(.yellow)
+                    .accessibilityHidden(true)
+                Text("No valid temperature detected. Ensure the sensor is placed correctly.")
+                    .foregroundColor(.red)
+            }
+        }
+    }
+}
 
 struct BluetoothView: View {
     @Environment(Bluetooth.self) var bluetooth
     @Environment(CoreSensor.self) var myDevice: CoreSensor?
     @Environment(ConnectedDevices<CoreSensor>.self) var connectedDevices
     @Environment(Account.self) private var account: Account?
-
+    @Bindable var warningState: NoMeasurementWarningState
     @Binding var selectedTab: HomeView.Tabs
     @Binding var presentingAccount: Bool
     @State private var showErrorAlert = false
@@ -135,22 +148,14 @@ struct BluetoothView: View {
     var body: some View {
         NavigationStack {
             List {
-                if myDevice?.noMeasurementWarning == true {
-                    Section {
-                        HStack {
-                            Image(systemName: "exclamationmark.triangle.fill")
-                                .foregroundColor(.yellow)
-                            Text("No valid temperature detected yet. Ensure the sensor is placed correctly on your body.")
-                                .foregroundColor(.red)
-                        }
-                    }
-                }
                 if bluetooth.nearbyDevices(for: CoreSensor.self).isEmpty {
                     BluetoothOffMessage {
                         selectedTab = .addData
                     }
                 }
-
+                if warningState.isActive {
+                    NoMeasurementWarningView()
+                }
                 if let myDevice {
                     MyDeviceSection(myDevice: myDevice, handleDeviceConnection: handleDeviceConnection)
                 }
@@ -180,9 +185,10 @@ struct BluetoothView: View {
         }
     }
 
-    init(presentingAccount: Binding<Bool>, selectedTab: Binding<HomeView.Tabs>) {
+    init(presentingAccount: Binding<Bool>, selectedTab: Binding<HomeView.Tabs>, warningState: NoMeasurementWarningState) {
         self._presentingAccount = presentingAccount
         self._selectedTab = selectedTab
+        self.warningState = warningState
     }
     
     private func handleDeviceConnection(_ device: CoreSensor) {

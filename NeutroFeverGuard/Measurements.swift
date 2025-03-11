@@ -25,6 +25,9 @@ class Measurements: Module, EnvironmentAccessible, DefaultInitializable {
         print("New Temperature Recorded: \(measurement.temperature) \(measurement.unit == .celsius ? "°C" : "°F") at \(timestamp)")
         
         do {
+            // Request HealthKit authorization (Temporarily placed to make sure data is pushed on iphone, remove while pushing to main)
+            // try await healthKitService.requestAuthorization()
+            
             // Convert measurement into HealthKit-compatible TemperatureEntry
             let temperatureEntry = try TemperatureEntry(
                 date: timestamp,
