@@ -32,7 +32,7 @@ final class BluetoothViewUITests: XCTestCase {
         XCTAssertTrue(nearbyDevices.exists, "Nearby Devices section should appear in the Bluetooth view.")
         
         let connectedDevices = app.staticTexts["Connected Devices"]
-        XCTAssertTrue(nearbyDevices.exists, "Connected Devices section should appear in the Bluetooth view.")
+        XCTAssertTrue(connectedDevices.exists, "Connected Devices section should appear in the Bluetooth view.")
         
     }
 }
