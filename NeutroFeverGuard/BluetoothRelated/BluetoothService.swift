@@ -10,12 +10,12 @@ import Foundation
 import Spezi
 import SpeziBluetooth
 
-struct DeviceInformationService: BluetoothService {
-    static let id: BTUUID = "180A"
+// struct DeviceInformationService: BluetoothService {
+//    static let id: BTUUID = "180A"
     
-    @Characteristic(id: "2A29") var manufacturer: String?
-    @Characteristic(id: "2A26") var firmwareRevision: String?
-}
+//    @Characteristic(id: "2A29") var manufacturer: String?
+//    @Characteristic(id: "2A26") var firmwareRevision: String?
+// }
 
 // struct BatteryService: BluetoothService {
 //    static let id: BTUUID = "180F"
@@ -43,7 +43,7 @@ final class CoreSensor: BluetoothDevice, @unchecked Sendable, ObservableObject, 
     @DeviceState(\.name) var name: String?
     @DeviceState(\.state) var state: PeripheralState
     
-    @Service var deviceInformation = DeviceInformationService()
+    // @Service var deviceInformation = DeviceInformationService()
     // @Service var batteryService = BatteryService()
     // @Service var coreTemperatureService = CoreTemperatureService()
     @Service var skinTemperatureService = SkinTemperatureService()
@@ -52,37 +52,6 @@ final class CoreSensor: BluetoothDevice, @unchecked Sendable, ObservableObject, 
     @DeviceAction(\.disconnect) var disconnect
         
     required init() {}
-    
-    func autoConnect(bluetooth: Bluetooth) {
-        guard let storedDeviceID = loadPreviousDeviceID() else {
-            return
-        }
-
-        Task {
-            guard let device = await bluetooth.retrieveDevice(for: storedDeviceID, as: CoreSensor.self) else {
-                print("No previously connected device found or it's out of range.")
-                return
-            }
-            
-            do {
-                try await device.connect()
-                print("Successfully connected to previously paired device: \(device.name ?? "Unknown")")
-            } catch {
-                print("Failed to connect to previously paired device: \(error.localizedDescription)")
-            }
-        }
-    }
-
-    private func savePreviousDeviceID(_ id: UUID) {
-        UserDefaults.standard.set(id.uuidString, forKey: "LastConnectedDeviceID")
-    }
-
-    private func loadPreviousDeviceID() -> UUID? {
-        guard let uuidString = UserDefaults.standard.string(forKey: "LastConnectedDeviceID") else {
-            return nil
-        }
-        return UUID(uuidString: uuidString)
-    }
     
     @MainActor
     func configure() {
