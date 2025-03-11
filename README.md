@@ -60,7 +60,7 @@ Interactive graphs display trends for: heart rate, temperature, oxygen saturatio
 ### II. Notifications & Alerts
 1. **Critical Health Alerts:**  
    The app sends immediate alerts if:  
-   **Fever Detected in case of Neutropenia:** Elevated body temperature (at or over 101 F once or steady at our over 100.4 F in the past hour), especially when ANC is low (< 500/µL).
+   **Fever Detected in case of Neutropenia:** In the case of elevated body temperature (≥101°F once or sustained at ≥100.4°F over the past hour), when ANC is low (<500/µL). 
    
    Users receive a push notification advising them to seek medical attention.
 
