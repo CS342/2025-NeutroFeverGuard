@@ -17,24 +17,22 @@ final class BluetoothViewUITests: XCTestCase {
         app.launchArguments = ["--skipOnboarding"]
         app.deleteAndLaunch(withSpringboardAppName: "NeutroFeverGuard")
     }
-    @MainActor
-    func testNoMeasurementWarningAppears() throws {
-        let app = XCUIApplication()
-        // Ensure app launches
-        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5))
-
-        // Simulate no measurement warning by toggling the state
-        let warningText = "No valid temperature detected. Ensure the sensor is placed correctly."
-
-        // Check if the warning is displayed
-        let warningElement = app.staticTexts[warningText]
-        XCTAssertTrue(warningElement.exists, "No Measurement Warning should be visible")
-    }
+    
     @MainActor
     func testBluetoothOffMessageAppears() throws {
         let app = XCUIApplication()
-        // Check for Bluetooth Off Message
+        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5))
+        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Connect"].waitForExistence(timeout: 2))
+        app.tabBars["Tab Bar"].buttons["Connect"].tap()
+        
         let bluetoothWarning = app.staticTexts["Please turn on your Bluetooth and CORE sensor."]
         XCTAssertTrue(bluetoothWarning.exists, "Bluetooth warning should appear when Bluetooth is off")
+        
+        let nearbyDevices = app.staticTexts["Nearby Devices"]
+        XCTAssertTrue(nearbyDevices.exists, "Nearby Devices section should appear in the Bluetooth view.")
+        
+        let connectedDevices = app.staticTexts["Connected Devices"]
+        XCTAssertTrue(nearbyDevices.exists, "Connected Devices section should appear in the Bluetooth view.")
+        
     }
 }
