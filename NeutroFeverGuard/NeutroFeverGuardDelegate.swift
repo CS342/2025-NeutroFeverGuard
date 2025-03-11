@@ -10,6 +10,7 @@ import class FirebaseFirestore.FirestoreSettings
 import class FirebaseFirestore.MemoryCacheSettings
 import Spezi
 import SpeziAccount
+import SpeziBluetooth
 import SpeziFirebaseAccount
 import SpeziFirebaseAccountStorage
 import SpeziFirebaseStorage
@@ -60,6 +61,10 @@ class NeutroFeverGuardDelegate: SpeziAppDelegate {
             LabResultsManager()
             MedicationManager()
             HealthKitService()
+            NoMeasurementWarningState()
+            Bluetooth {
+                Discover(CoreSensor.self, by: .advertisedService("180A"))
+            }
         }
     }
     

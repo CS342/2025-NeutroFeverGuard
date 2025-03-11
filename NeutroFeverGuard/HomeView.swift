@@ -19,6 +19,7 @@ struct HomeView: View {
         case records
 //        case schedule
         case contact
+        case sensor
     }
 
 
@@ -62,6 +63,12 @@ struct HomeView: View {
             }
             .customizationID("home.contacts")
             .accessibilityIdentifier("Contacts")
+            
+            Tab("Connect", systemImage: "medical.thermometer.fill", value: .sensor) {
+                BluetoothView(presentingAccount: $presentingAccount, selectedTab: $selectedTab)
+            }
+            .customizationID("home.sensor")
+            .accessibilityIdentifier("Connect")
         }
         .tabViewStyle(.sidebarAdaptable)
         .tabViewCustomization($tabViewCustomization)
