@@ -65,21 +65,26 @@
 		A9D83F962B083794000D0C78 /* SpeziFirebaseAccountStorage in Frameworks */ = {isa = PBXBuildFile; productRef = A9D83F952B083794000D0C78 /* SpeziFirebaseAccountStorage */; };
 		A9DFE8A92ABE551400428242 /* AccountButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DFE8A82ABE551400428242 /* AccountButton.swift */; };
 		A9FE7AD02AA39BAB0077B045 /* AccountSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FE7ACF2AA39BAB0077B045 /* AccountSheet.swift */; };
+		B00991C42D7FCF2E00D9CBD5 /* BluetoothViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00991C32D7FCF2E00D9CBD5 /* BluetoothViewUITests.swift */; };
 		B03D0E432D7D22700024F2CA /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E6898E2D52ED8500869C4F /* HealthKitService.swift */; };
 		B03D0E462D7D24030024F2CA /* DataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8332D501C5C005C3495 /* DataType.swift */; };
 		B03D0E482D7D24AA0024F2CA /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22393792D5D4092006C8EB4 /* DataError.swift */; };
 		B08E39F92D7C416000077929 /* FeverMonitoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C95E382D78D5F2007A4CA6 /* FeverMonitoring.swift */; };
 		B0C95E3A2D78D5F3007A4CA6 /* FeverMonitoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C95E382D78D5F2007A4CA6 /* FeverMonitoring.swift */; };
 		B0D4C9382D790F65000643C7 /* LabResultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D4C9372D790F5E000643C7 /* LabResultsManager.swift */; };
+		B0DF8DD42D7A88EE00581A00 /* SpeziBluetooth in Frameworks */ = {isa = PBXBuildFile; productRef = B0DF8DD32D7A88EE00581A00 /* SpeziBluetooth */; };
+		B0DF8DD62D7A88EE00581A00 /* SpeziBluetoothServices in Frameworks */ = {isa = PBXBuildFile; productRef = B0DF8DD52D7A88EE00581A00 /* SpeziBluetoothServices */; };
 		B0DF8DF72D7BFEFB00581A00 /* FeverMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DF8DF62D7BFEF600581A00 /* FeverMonitorTests.swift */; };
 		B0DF8DFC2D7C117800581A00 /* HealthDataFetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DF8DFB2D7C114900581A00 /* HealthDataFetchable.swift */; };
 		B0DF8DFD2D7C123200581A00 /* HealthDataFetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DF8DFB2D7C114900581A00 /* HealthDataFetchable.swift */; };
+		B0E1C5C32D80D3CB009CF90A /* SkinTemperatureDecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E1C5C22D80D3CB009CF90A /* SkinTemperatureDecodingTests.swift */; };
 		B0FF4DD22D797FEA0076A043 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FF4DD12D797FEA0076A043 /* NotificationManager.swift */; };
 		C42B98FF2D769E54005D820B /* SpeziKeychainStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C42B98FE2D769E54005D820B /* SpeziKeychainStorage */; };
 		C42C1B312D782A7600EA417F /* MedicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C1B302D782A7100EA417F /* MedicationView.swift */; };
 		C42C1C6B2D7A985B00EA417F /* MedicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C1C6A2D7A985B00EA417F /* MedicationManager.swift */; };
 		C42C1C712D7AB84300EA417F /* MedicationViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C1C702D7AB84300EA417F /* MedicationViewUITests.swift */; };
 		C42D4DA52D5AC89900B2A169 /* LabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D4DA42D5AC89500B2A169 /* LabView.swift */; };
+		C48838FA2D7F849E00D25764 /* RecordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48838F92D7F849800D25764 /* RecordsView.swift */; };
 		C49EC8342D501C62005C3495 /* DataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8332D501C5C005C3495 /* DataType.swift */; };
 		C49EC8382D5026EE005C3495 /* DataTypeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8372D5026EE005C3495 /* DataTypeTest.swift */; };
 		C49EC8402D5033F9005C3495 /* AddDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC83F2D5033F9005C3495 /* AddDataView.swift */; };
@@ -151,15 +156,18 @@
 		A9A3DCC72C75CB9A00FC9B69 /* FirebaseConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfiguration.swift; sourceTree = "<group>"; };
 		A9DFE8A82ABE551400428242 /* AccountButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountButton.swift; sourceTree = "<group>"; };
 		A9FE7ACF2AA39BAB0077B045 /* AccountSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSheet.swift; sourceTree = "<group>"; };
+		B00991C32D7FCF2E00D9CBD5 /* BluetoothViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothViewUITests.swift; sourceTree = "<group>"; };
 		B0C95E382D78D5F2007A4CA6 /* FeverMonitoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeverMonitoring.swift; sourceTree = "<group>"; };
 		B0D4C9372D790F5E000643C7 /* LabResultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabResultsManager.swift; sourceTree = "<group>"; };
 		B0DF8DF62D7BFEF600581A00 /* FeverMonitorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeverMonitorTests.swift; sourceTree = "<group>"; };
 		B0DF8DFB2D7C114900581A00 /* HealthDataFetchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthDataFetchable.swift; sourceTree = "<group>"; };
+		B0E1C5C22D80D3CB009CF90A /* SkinTemperatureDecodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinTemperatureDecodingTests.swift; sourceTree = "<group>"; };
 		B0FF4DD12D797FEA0076A043 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		C42C1B302D782A7100EA417F /* MedicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationView.swift; sourceTree = "<group>"; };
 		C42C1C6A2D7A985B00EA417F /* MedicationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationManager.swift; sourceTree = "<group>"; };
 		C42C1C702D7AB84300EA417F /* MedicationViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationViewUITests.swift; sourceTree = "<group>"; };
 		C42D4DA42D5AC89500B2A169 /* LabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabView.swift; sourceTree = "<group>"; };
+		C48838F92D7F849800D25764 /* RecordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsView.swift; sourceTree = "<group>"; };
 		C49EC8332D501C5C005C3495 /* DataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataType.swift; sourceTree = "<group>"; };
 		C49EC8372D5026EE005C3495 /* DataTypeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTypeTest.swift; sourceTree = "<group>"; };
 		C49EC83F2D5033F9005C3495 /* AddDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDataView.swift; sourceTree = "<group>"; };
@@ -185,6 +193,7 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		B00991CB2D7FD86F00D9CBD5 /* BluetoothRelated */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = BluetoothRelated; sourceTree = "<group>"; };
 		EB7D47E02D51433200CEDC78 /* HealthKitVisualizations */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (EB02C65C2D5D52800035AA89 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = HealthKitVisualizations; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -196,6 +205,7 @@
 				9733CFC62A8066DE001B7ABC /* SpeziOnboarding in Frameworks */,
 				2FE5DC6429EDD883004B9AB4 /* SpeziAccount in Frameworks */,
 				A9947BF02CC131ED0068AA8A /* SpeziSchedulerUI in Frameworks */,
+				B0DF8DD62D7A88EE00581A00 /* SpeziBluetoothServices in Frameworks */,
 				2FB099AF2A875DF100B20952 /* FirebaseAuth in Frameworks */,
 				97D73D6A2AD860AD00B47FA0 /* SpeziFirebaseStorage in Frameworks */,
 				2FE5DC6729EDD894004B9AB4 /* SpeziContact in Frameworks */,
@@ -214,6 +224,7 @@
 				2F49B7762980407C00BCB272 /* Spezi in Frameworks */,
 				2FE5DC8F29EDD980004B9AB4 /* SpeziViews in Frameworks */,
 				2F3D4ABC2A4E7C290068FB2F /* SpeziScheduler in Frameworks */,
+				B0DF8DD42D7A88EE00581A00 /* SpeziBluetooth in Frameworks */,
 				2FBD738C2A3BD150004228E7 /* SpeziScheduler in Frameworks */,
 				2FE5DC7929EDD8E6004B9AB4 /* SpeziFirestore in Frameworks */,
 				2FE5DC7729EDD8E6004B9AB4 /* SpeziFirebaseConfiguration in Frameworks */,
@@ -331,6 +342,7 @@
 		653A254F283387FE005D4D48 /* NeutroFeverGuard */ = {
 			isa = PBXGroup;
 			children = (
+				B00991CB2D7FD86F00D9CBD5 /* BluetoothRelated */,
 				B0DF8DFB2D7C114900581A00 /* HealthDataFetchable.swift */,
 				B0FF4DD12D797FEA0076A043 /* NotificationManager.swift */,
 				B0D4C9372D790F5E000643C7 /* LabResultsManager.swift */,
@@ -338,6 +350,7 @@
 				EB7D47E02D51433200CEDC78 /* HealthKitVisualizations */,
 				F22393792D5D4092006C8EB4 /* DataError.swift */,
 				C42D4DA42D5AC89500B2A169 /* LabView.swift */,
+				C48838F92D7F849800D25764 /* RecordsView.swift */,
 				B0C95E382D78D5F2007A4CA6 /* FeverMonitoring.swift */,
 				C42C1B302D782A7100EA417F /* MedicationView.swift */,
 				C4C0A78E2D518DB500F37EEC /* HelperFunc.swift */,
@@ -366,6 +379,7 @@
 			isa = PBXGroup;
 			children = (
 				B0DF8DF62D7BFEF600581A00 /* FeverMonitorTests.swift */,
+				B0E1C5C22D80D3CB009CF90A /* SkinTemperatureDecodingTests.swift */,
 				653A256128338800005D4D48 /* NeutroFeverGuardTests.swift */,
 				C4A367C72D73C1E1009923C9 /* DataErrorTests.swift */,
 				C4C8A3B22D71204200F313AE /* HelperFuncTests.swift */,
@@ -377,6 +391,7 @@
 		653A256A28338800005D4D48 /* NeutroFeverGuardUITests */ = {
 			isa = PBXGroup;
 			children = (
+				B00991C32D7FCF2E00D9CBD5 /* BluetoothViewUITests.swift */,
 				C4C8A3672D6F9E1A00F313AE /* LabViewUITests.swift */,
 				C42C1C702D7AB84300EA417F /* MedicationViewUITests.swift */,
 				653A256B28338800005D4D48 /* SchedulerTests.swift */,
@@ -437,6 +452,7 @@
 				56E7083D2BB06FCA00B08F0A /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
+				B00991CB2D7FD86F00D9CBD5 /* BluetoothRelated */,
 				EB7D47E02D51433200CEDC78 /* HealthKitVisualizations */,
 			);
 			name = NeutroFeverGuard;
@@ -465,6 +481,8 @@
 				A94DDFFC2CBD1190004930BD /* SpeziNotifications */,
 				A9947BEF2CC131ED0068AA8A /* SpeziSchedulerUI */,
 				C42B98FE2D769E54005D820B /* SpeziKeychainStorage */,
+				B0DF8DD32D7A88EE00581A00 /* SpeziBluetooth */,
+				B0DF8DD52D7A88EE00581A00 /* SpeziBluetoothServices */,
 			);
 			productName = NeutroFeverGuard;
 			productReference = 653A254D283387FE005D4D48 /* NeutroFeverGuard.app */;
@@ -568,6 +586,7 @@
 				2F66D20D2BB723180010D555 /* XCRemoteSwiftPackageReference "SwiftLint" */,
 				A945FCD32C9C6BFA00B9EBC7 /* XCRemoteSwiftPackageReference "ResearchKitOnFHIR" */,
 				A94DDFFB2CBD1190004930BD /* XCRemoteSwiftPackageReference "SpeziNotifications" */,
+				B0DF8DD22D7A88EE00581A00 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */,
 			);
 			productRefGroup = 653A254E283387FE005D4D48 /* Products */;
 			projectDirPath = "";
@@ -640,6 +659,7 @@
 				C49EC8402D5033F9005C3495 /* AddDataView.swift in Sources */,
 				C42D4DA52D5AC89900B2A169 /* LabView.swift in Sources */,
 				F2E6898F2D52ED8600869C4F /* HealthKitService.swift in Sources */,
+				C48838FA2D7F849E00D25764 /* RecordsView.swift in Sources */,
 				C49EC8342D501C62005C3495 /* DataType.swift in Sources */,
 				2FE5DC5329EDD7FA004B9AB4 /* Bundle+Questionnaire.swift in Sources */,
 				2F5E32BD297E05EA003432F8 /* NeutroFeverGuardDelegate.swift in Sources */,
@@ -657,6 +677,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0E1C5C32D80D3CB009CF90A /* SkinTemperatureDecodingTests.swift in Sources */,
 				C4A367C82D73C1EC009923C9 /* DataErrorTests.swift in Sources */,
 				B08E39F92D7C416000077929 /* FeverMonitoring.swift in Sources */,
 				EB02C6612D5D52E90035AA89 /* NeutroFeverGuardTests.swift in Sources */,
@@ -675,6 +696,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5680DD3E2AB8CD84004E6D4A /* ContributionsTest.swift in Sources */,
+				B00991C42D7FCF2E00D9CBD5 /* BluetoothViewUITests.swift in Sources */,
 				C4C8A3682D6F9E2100F313AE /* LabViewUITests.swift in Sources */,
 				C42C1C712D7AB84300EA417F /* MedicationViewUITests.swift in Sources */,
 				C4C8A35F2D6F950600F313AE /* AddDataViewTests.swift in Sources */,
@@ -794,6 +816,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "NeutroFeverGuard/Supporting Files/Info.plist";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This app uses Bluetooth to connect to external devices for enhanced functionality.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This message should never appear. Please adjust this when you start using camera information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "The NeutroFeverGuard uses the step count to demonstrate Spezi's integration with HealthKit.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "The NeutroFeverGuard uses the step count to demonstrate Spezi's integration with HealthKit.";
@@ -1002,6 +1025,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "NeutroFeverGuard/Supporting Files/Info.plist";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This app uses Bluetooth to connect to external devices for enhanced functionality.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This message should never appear. Please adjust this when you start using camera information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "The NeutroFeverGuard uses the step count to demonstrate Spezi's integration with HealthKit.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "The NeutroFeverGuard uses the step count to demonstrate Spezi's integration with HealthKit.";
@@ -1049,6 +1073,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "NeutroFeverGuard/Supporting Files/Info.plist";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This app uses Bluetooth to connect to external devices for enhanced functionality.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This message should never appear. Please adjust this when you start using camera information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "The NeutroFeverGuard uses the step count to demonstrate Spezi's integration with HealthKit.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "The NeutroFeverGuard uses the step count to demonstrate Spezi's integration with HealthKit.";
@@ -1357,6 +1382,14 @@
 				minimumVersion = 1.0.2;
 			};
 		};
+		B0DF8DD22D7A88EE00581A00 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/StanfordSpezi/SpeziBluetooth.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.2.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1513,6 +1546,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2F66D20D2BB723180010D555 /* XCRemoteSwiftPackageReference "SwiftLint" */;
 			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+		B0DF8DD32D7A88EE00581A00 /* SpeziBluetooth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B0DF8DD22D7A88EE00581A00 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */;
+			productName = SpeziBluetooth;
+		};
+		B0DF8DD52D7A88EE00581A00 /* SpeziBluetoothServices */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B0DF8DD22D7A88EE00581A00 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */;
+			productName = SpeziBluetoothServices;
 		};
 		C42B98FE2D769E54005D820B /* SpeziKeychainStorage */ = {
 			isa = XCSwiftPackageProductDependency;

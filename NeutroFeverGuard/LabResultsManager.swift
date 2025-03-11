@@ -57,6 +57,7 @@ class LabResultsManager: Module, EnvironmentAccessible {
             results = []
         }
         
+        results.sort { $0.date > $1.date }
         self.labRecords = results
         if let latestRecord = results.first {
             latestRecordedTime = formatDate(latestRecord.date)
