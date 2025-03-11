@@ -77,6 +77,7 @@
 		B0DF8DF72D7BFEFB00581A00 /* FeverMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DF8DF62D7BFEF600581A00 /* FeverMonitorTests.swift */; };
 		B0DF8DFC2D7C117800581A00 /* HealthDataFetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DF8DFB2D7C114900581A00 /* HealthDataFetchable.swift */; };
 		B0DF8DFD2D7C123200581A00 /* HealthDataFetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DF8DFB2D7C114900581A00 /* HealthDataFetchable.swift */; };
+		B0E1C5C32D80D3CB009CF90A /* SkinTemperatureDecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E1C5C22D80D3CB009CF90A /* SkinTemperatureDecodingTests.swift */; };
 		B0FF4DD22D797FEA0076A043 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FF4DD12D797FEA0076A043 /* NotificationManager.swift */; };
 		C42B98FF2D769E54005D820B /* SpeziKeychainStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C42B98FE2D769E54005D820B /* SpeziKeychainStorage */; };
 		C42C1B312D782A7600EA417F /* MedicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C1B302D782A7100EA417F /* MedicationView.swift */; };
@@ -160,6 +161,7 @@
 		B0D4C9372D790F5E000643C7 /* LabResultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabResultsManager.swift; sourceTree = "<group>"; };
 		B0DF8DF62D7BFEF600581A00 /* FeverMonitorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeverMonitorTests.swift; sourceTree = "<group>"; };
 		B0DF8DFB2D7C114900581A00 /* HealthDataFetchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthDataFetchable.swift; sourceTree = "<group>"; };
+		B0E1C5C22D80D3CB009CF90A /* SkinTemperatureDecodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinTemperatureDecodingTests.swift; sourceTree = "<group>"; };
 		B0FF4DD12D797FEA0076A043 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		C42C1B302D782A7100EA417F /* MedicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationView.swift; sourceTree = "<group>"; };
 		C42C1C6A2D7A985B00EA417F /* MedicationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationManager.swift; sourceTree = "<group>"; };
@@ -377,6 +379,7 @@
 			isa = PBXGroup;
 			children = (
 				B0DF8DF62D7BFEF600581A00 /* FeverMonitorTests.swift */,
+				B0E1C5C22D80D3CB009CF90A /* SkinTemperatureDecodingTests.swift */,
 				653A256128338800005D4D48 /* NeutroFeverGuardTests.swift */,
 				C4A367C72D73C1E1009923C9 /* DataErrorTests.swift */,
 				C4C8A3B22D71204200F313AE /* HelperFuncTests.swift */,
@@ -674,6 +677,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0E1C5C32D80D3CB009CF90A /* SkinTemperatureDecodingTests.swift in Sources */,
 				C4A367C82D73C1EC009923C9 /* DataErrorTests.swift in Sources */,
 				B08E39F92D7C416000077929 /* FeverMonitoring.swift in Sources */,
 				EB02C6612D5D52E90035AA89 /* NeutroFeverGuardTests.swift in Sources */,
