@@ -142,6 +142,9 @@
     "Are you sure you want to delete this lab record? This action cannot be undone." : {
 
     },
+    "Are you sure you want to delete this medication record? This action cannot be undone." : {
+
+    },
     "Body Temperature (°F)" : {
       "localizations" : {
         "en" : {
@@ -232,6 +235,9 @@
     "Delete Lab Record" : {
 
     },
+    "Delete Medication" : {
+
+    },
     "Diastolic (mmHg)" : {
       "localizations" : {
         "en" : {
@@ -286,6 +292,9 @@
           }
         }
       }
+    },
+    "Health Data" : {
+
     },
     "Health Data Access" : {
 
@@ -484,6 +493,7 @@
       }
     },
     "Lab" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -568,13 +578,13 @@
         }
       }
     },
-    "Medication" : {
-
-    },
     "Medication List" : {
 
     },
     "Medication Name" : {
+
+    },
+    "Medications" : {
 
     },
     "Name" : {
@@ -744,6 +754,9 @@
     "Record & Track Symptoms" : {
 
     },
+    "Records" : {
+
+    },
     "Save" : {
 
     },
@@ -757,6 +770,9 @@
           }
         }
       }
+    },
+    "Select Section" : {
+
     },
     "Sign the Consent Form" : {
 
