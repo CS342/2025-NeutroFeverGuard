@@ -84,27 +84,29 @@ struct HKVisualization: View {
     @Environment(Account.self) private var account: Account?
     @Binding var presentingAccount: Bool
     
+    init(presentingAccount: Binding<Bool>) {
+        self._presentingAccount = presentingAccount
+    }
+    
     var body: some View {
         self.readAllHKData()
         
         return NavigationStack {
             vizList
-                .navigationTitle("HKVIZ_NAVIGATION_TITLE")
-                .toolbar {if account != nil {AccountButton(isPresented: $presentingAccount)}
+            .navigationTitle("HKVIZ_NAVIGATION_TITLE")
+            .onAppear {
+                // Ensure that the data are up-to-date when the view is activated.
+                self.readAllHKData(ensureUpdate: true)
+            }
+            .toolbar {
+                if account != nil {
+                    AccountButton(isPresented: $presentingAccount)
                 }
-                .onAppear {
-                    // Ensure that the data are up-to-date when the view is activated.
-                    self.readAllHKData(ensureUpdate: true)
-                }
+            }
         }
     }
     
     func readAllHKData(ensureUpdate: Bool = false) {
-        if FeatureFlags.vizMockTestData {
-            // Use the mockData directly and no need to query HK data.
-            loadMockData()
-            return
-        }
         print("Reading all HealthKit data with ensureUpdate: \(ensureUpdate)")
         let dateRange = generateDateRange()
         guard let startDate = dateRange[0] as? Date else {
