@@ -135,6 +135,16 @@ struct BluetoothView: View {
     var body: some View {
         NavigationStack {
             List {
+                if myDevice?.noMeasurementWarning == true {
+                    Section {
+                        HStack {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .foregroundColor(.yellow)
+                            Text("No valid temperature detected yet. Ensure the sensor is placed correctly on your body.")
+                                .foregroundColor(.red)
+                        }
+                    }
+                }
                 if bluetooth.nearbyDevices(for: CoreSensor.self).isEmpty {
                     BluetoothOffMessage {
                         selectedTab = .addData

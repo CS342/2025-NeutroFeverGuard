@@ -32,7 +32,7 @@ struct DeviceInformationService: BluetoothService {
 struct SkinTemperatureService: BluetoothService {
     static let id: BTUUID = "1809"
     
-    @Characteristic(id: "2A1C", notify: true) var skinTemperature: String?
+    @Characteristic(id: "2A1C", notify: true) var skinTemperature: Data?
 }
 
 final class CoreSensor: BluetoothDevice, @unchecked Sendable, Identifiable {
@@ -49,6 +49,8 @@ final class CoreSensor: BluetoothDevice, @unchecked Sendable, Identifiable {
     
     @DeviceAction(\.connect) var connect
     @DeviceAction(\.disconnect) var disconnect
+    
+    @Published var noMeasurementWarning: Bool = false // if the core sensor is not reading any temperature, or the sensor is not placed on the body
     
     required init() {}
     
@@ -83,24 +85,31 @@ final class CoreSensor: BluetoothDevice, @unchecked Sendable, Identifiable {
         return UUID(uuidString: uuidString)
     }
     
-
     func configure() {
         skinTemperatureService.$skinTemperature.onChange { [weak self] skintemperature in
-            guard self != nil else {
+            guard let self = self, !skintemperature.isEmpty else {
+                print("No skin temperature data received.")
                 return
             }
 
-            if skintemperature.isEmpty == false {
-                print("Skin Temperature: \(skintemperature) °C")
-                // let measurement = SkinTemperatureMeasurement(temperature: skintemperature, unit: .celsius)
-                // self.handleNewMeasurement(measurement)
+            // Debug: Print raw data in hex format
+            print("Raw Skin Temperature Data (Hex):", skintemperature.map { String(format: "%02X", $0) }.joined(separator: " "))
+
+            // Decode temperature from Data
+            if let measurement = SkinTemperatureMeasurement(from: skintemperature) {
+                print("Decoded Skin Temperature: \(String(format: "%.2f", measurement.temperature)) \(measurement.unit)")
+                await self.handleNewMeasurement(measurement)
             } else {
-                print("No skin temperature data received.")
+                print("No valid skin temperature detected. Sensor might be off-body or not initialized.")
+                self.handleNoMeasurement()
             }
         }
     }
-
-    private func handleNewMeasurement(_ measurement: SkinTemperatureMeasurement) {
-        measurements.recordNewMeasurement(measurement)
+    private func handleNewMeasurement(_ measurement: SkinTemperatureMeasurement) async {
+        await measurements.recordNewMeasurement(measurement)
+    }
+    private func handleNoMeasurement() {
+        print("No temperature detected. Sensor might be off-body or waiting for a valid reading.")
+        noMeasurementWarning = true  // This will be used to trigger UI warning
     }
 }

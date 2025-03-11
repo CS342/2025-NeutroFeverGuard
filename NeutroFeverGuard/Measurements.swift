@@ -6,18 +6,39 @@
 // SPDX-License-Identifier: MIT
 //
 
+import Foundation
+import HealthKit
 import Spezi
 import SpeziBluetooth
 
 class Measurements: Module, EnvironmentAccessible, DefaultInitializable {
+    @Dependency(HealthKitService.self) private var healthKitService
     private var recordedTemperatures: [SkinTemperatureMeasurement] = []
     
     required init() {}
+    
+    @MainActor
+    func recordNewMeasurement(_ measurement: SkinTemperatureMeasurement) async {
+        let timestamp = measurement.timestamp ?? Date() // if we dont get timestamp from the sensor, then we need to generate.
 
-    func recordNewMeasurement(_ measurement: SkinTemperatureMeasurement) {
         recordedTemperatures.append(measurement)
-        print("New Temperature: \(String(describing: measurement.temperature)) \(measurement.unit == .celsius ? "°C" : "°F")")
+        print("New Temperature Recorded: \(measurement.temperature) \(measurement.unit == .celsius ? "°C" : "°F") at \(timestamp)")
         
-        // If integrating with HealthKit, push data here
+        do {
+            // Convert measurement into HealthKit-compatible TemperatureEntry
+            let temperatureEntry = try TemperatureEntry(
+                date: timestamp,
+                value: Double(measurement.temperature),
+                unit: measurement.unit == .celsius ? .celsius : .fahrenheit
+            )
+            
+            // Save to HealthKit
+            try await healthKitService.saveTemperature(temperatureEntry)
+            print("Core Sensor Skin Temperature successfully saved to HealthKit.")
+        } catch let error as DataError {
+            print("HealthKit save error: \(error.errorMessage)")
+        } catch {
+            print("Unexpected error saving to HealthKit: \(error)")
+        }
     }
 }
