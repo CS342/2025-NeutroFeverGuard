@@ -152,7 +152,6 @@ struct SymptomForm: View {
                 .font(.headline)
                 .padding(.bottom, 4)
             
-            // swiftlint:disable closure_body_length
             ForEach(Symptom.allCases, id: \.self) { symptom in
                 VStack(alignment: .leading, spacing: 4) {
                     Toggle(symptom.rawValue, isOn: Binding(
@@ -457,8 +456,8 @@ struct DataInputForm: View {
             return prefix + warnings.joined(separator: " and ")
         } else {
             // For 3 or more items, join all but the last with commas, then add "and" before the last
-            let lastWarning = warnings.last!
             // swiftlint:disable next force_unwrapping
+            let lastWarning = warnings.last!
             let allButLast = warnings.dropLast()
             return prefix + allButLast.joined(separator: ", ") + ", and " + lastWarning
         }
