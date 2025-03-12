@@ -634,6 +634,12 @@
         }
       }
     },
+    "Neutrophil Count" : {
+
+    },
+    "Neutrophil Count Over Past Week" : {
+
+    },
     "Next" : {
       "localizations" : {
         "en" : {
@@ -675,6 +681,9 @@
 
     },
     "No medications recorded" : {
+
+    },
+    "No neutrophil count data available." : {
 
     },
     "No oxygen saturation data available." : {

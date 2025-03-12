@@ -134,7 +134,7 @@ struct BloodPressureEntry {
  - Lab values: include the number associated with the lab name above
  */
 
-struct LabEntry: Codable {
+struct LabEntry: Codable, Equatable {
     var date: Date
     var values: [LabTestType: Double]
     

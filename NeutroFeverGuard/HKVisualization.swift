@@ -29,6 +29,7 @@ struct HKVisualization: View {
     @State var heartRateScatterData: [HKData] = []
     @State var oxygenSaturationScatterData: [HKData] = []
     @State var bodyTemperatureScatterData: [HKData] = []
+    @State private var neutrophilData: [(date: Date, ancValue: Double)] = []
     
     var vizList: some View {
         self.readAllHKData()
@@ -78,6 +79,40 @@ struct HKVisualization: View {
                         .foregroundColor(.gray)
                 }
             }
+            Section {
+                if !neutrophilData.isEmpty {
+                    Text("Neutrophil Count Over Past Week")
+                        .font(.headline)
+
+                    Chart {
+                        ForEach(neutrophilData, id: \.date) { dataPoint in
+                            LineMark(
+                                x: .value("Date", dataPoint.date),
+                                y: .value("Neutrophil Count", dataPoint.ancValue)
+                            )
+                            .interpolationMethod(.monotone)
+                            .foregroundStyle(.blue)
+                        }
+                    }
+                    .frame(height: 200)
+                    .chartXAxis {
+                        AxisMarks(values: .stride(by: .day)) { value in
+                            AxisGridLine()
+                            AxisValueLabel(format: .dateTime.day().month())
+                        }
+                    }
+                    .chartYAxis {
+                        AxisMarks { value in
+                            AxisGridLine()
+                            AxisValueLabel()
+                        }
+                    }
+                    .padding(.vertical)
+                } else {
+                    Text("No neutrophil count data available.")
+                        .foregroundColor(.gray)
+                }
+            }
         }
     }
     
@@ -105,6 +140,18 @@ struct HKVisualization: View {
             }
         }
     }
+    
+    // Load neutrophil count data for the past week
+    private func loadNeutrophilData() {
+        neutrophilData = getNeutrophilCountsForPastWeek()
+        print("✅ Loaded neutrophil data: \(neutrophilData)")
+    }
+
+    private func getNeutrophilCountsForPastWeek() -> [(date: Date, ancValue: Double)] {
+        let oneWeekAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date()) ?? Date()
+        return getAllAncValues().filter { $0.date >= oneWeekAgo }
+    }
+
     
     func readAllHKData(ensureUpdate: Bool = false) {
         print("Reading all HealthKit data with ensureUpdate: \(ensureUpdate)")
