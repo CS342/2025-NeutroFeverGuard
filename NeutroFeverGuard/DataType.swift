@@ -203,3 +203,22 @@ struct SymptomEntry: Codable {
         self.symptoms = symptoms
     }
 }
+
+struct MasccEntry: Codable {
+    // periphery:ignore
+    var date: Date
+    // periphery:ignore
+    var symptoms: [Symptom: Int]  // Maps symptoms to their severity (1-10)
+    
+    init(date: Date, symptoms: [Symptom: Int]) throws {
+        try isValidDate(date)
+        // Validate that all severity ratings are between 1 and 10
+        for (_, severity) in symptoms {
+            guard severity >= 1 && severity <= 10 else {
+                throw DataError.invalidSeverity
+            }
+        }
+        self.date = date
+        self.symptoms = symptoms
+    }
+}
