@@ -133,6 +133,12 @@
     "Are you sure you want to delete this lab record? This action cannot be undone." : {
 
     },
+    "Bluetooth Devices" : {
+
+    },
+    "Are you sure you want to delete this medication record? This action cannot be undone." : {
+
+    },
     "Body Temperature (°F)" : {
       "localizations" : {
         "en" : {
@@ -172,6 +178,15 @@
           }
         }
       }
+    },
+    "Connect" : {
+
+    },
+    "Connected Devices" : {
+
+    },
+    "Connection Error" : {
+
     },
     "CONSENT_LOADING_ERROR" : {
       "localizations" : {
@@ -226,6 +241,9 @@
     "Delete Lab Record" : {
 
     },
+    "Delete Medication" : {
+
+    },
     "Diastolic (mmHg)" : {
       "localizations" : {
         "en" : {
@@ -235,6 +253,9 @@
           }
         }
       }
+    },
+    "Disconnect" : {
+
     },
     "Dose" : {
 
@@ -250,6 +271,9 @@
       }
     },
     "Edit" : {
+
+    },
+    "Enter Data Manually" : {
 
     },
     "Enter Lab Results" : {
@@ -280,6 +304,9 @@
           }
         }
       }
+    },
+    "Health Data" : {
+
     },
     "Health Data Access" : {
 
@@ -419,6 +446,9 @@
     "How to Start?" : {
 
     },
+    "If you don’t have a sensor, you can manually enter your data." : {
+
+    },
     "Interesting Modules" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -481,6 +511,7 @@
       }
     },
     "Lab" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -565,16 +596,22 @@
         }
       }
     },
-    "Medication" : {
-
-    },
     "Medication List" : {
 
     },
     "Medication Name" : {
 
     },
+    "My Device" : {
+    
+    },
+    "Medications" : {
+
+    },
     "Name" : {
+
+    },
+    "Nearby Devices" : {
 
     },
     "NeutroFeverGuard" : {
@@ -639,6 +676,9 @@
           }
         }
       }
+    },
+    "No valid temperature detected. Ensure the sensor is placed correctly." : {
+
     },
     "NOTIFICATION_PERMISSIONS_DESCRIPTION" : {
       "localizations" : {
@@ -722,6 +762,9 @@
         }
       }
     },
+    "Please turn on your Bluetooth and CORE sensor." : {
+
+    },
     "Provide Your Data" : {
 
     },
@@ -735,7 +778,13 @@
         }
       }
     },
+    "Reconnect" : {
+
+    },
     "Record & Track Symptoms" : {
+
+    },
+    "Records" : {
 
     },
     "Save" : {
@@ -751,6 +800,9 @@
           }
         }
       }
+    },
+    "Select Section" : {
+
     },
     "Sign the Consent Form" : {
 
@@ -801,6 +853,9 @@
           }
         }
       }
+    },
+    "State:" : {
+
     },
     "Swift Package Manager" : {
       "extractionState" : "stale",

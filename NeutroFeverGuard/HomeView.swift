@@ -14,10 +14,12 @@ struct HomeView: View {
     enum Tabs: String {
         case dashboard
         case addData
-        case labResult
-        case medication
+//        case labResult
+//        case medication
+        case records
 //        case schedule
         case contact
+        case sensor
     }
 
 
@@ -42,19 +44,12 @@ struct HomeView: View {
             .customizationID("home.addData")
             .accessibilityIdentifier("Add Data")
             
-            // Lab tab
-            Tab("Lab", systemImage: "flask", value: .labResult) {
-                LabView(presentingAccount: $presentingAccount)
+            // Record tab
+            Tab("Records", systemImage: "list.clipboard", value: .records) {
+                RecordsView(presentingAccount: $presentingAccount)
             }
-            .customizationID("home.lab")
-            .accessibilityIdentifier("Lab")
-            
-            // Medication tab
-            Tab("Medication", systemImage: "pills", value: .medication) {
-                MedicationView(presentingAccount: $presentingAccount)
-            }
-            .customizationID("home.medication")
-            .accessibilityIdentifier("Medication")
+            .customizationID("home.records")
+            .accessibilityIdentifier("Records")
             
             // Schedule tab
 //            Tab("Schedule", systemImage: "list.clipboard", value: .schedule) {
@@ -69,6 +64,12 @@ struct HomeView: View {
             }
             .customizationID("home.contacts")
             .accessibilityIdentifier("Contacts")
+            
+            Tab("Connect", systemImage: "medical.thermometer.fill", value: .sensor) {
+                BluetoothView(presentingAccount: $presentingAccount, selectedTab: $selectedTab)
+            }
+            .customizationID("home.sensor")
+            .accessibilityIdentifier("Connect")
         }
         .tabViewStyle(.sidebarAdaptable)
         .tabViewCustomization($tabViewCustomization)
