@@ -168,37 +168,6 @@ struct HKVisualization: View {
             print("Unsupported identifier: \(identifier.rawValue)")
         }
     }
-    
-    func loadMockData() {
-        let today = Date()
-        self.heartRateData = (0..<10).map {
-            HKData(
-                   date: Calendar.current.date(byAdding: .day, value: -$0, to: today) ??  Date(),
-                   sumValue: Double.random(in: 60...120),
-                   avgValue: 80,
-                   minValue: 60,
-                   maxValue: 120
-            )
-        }
-        self.bodyTemperatureData = (0..<10).map {
-            HKData(
-                   date: Calendar.current.date(byAdding: .day, value: -$0, to: today) ?? Date(),
-                   sumValue: Double.random(in: 97...99),
-                   avgValue: 98.6,
-                   minValue: 97,
-                   maxValue: 99
-            )
-        }
-        self.oxygenSaturationData = (0..<10).map {
-            HKData(
-                   date: Calendar.current.date(byAdding: .day, value: -$0, to: today) ?? Date(),
-                   sumValue: Double.random(in: 90...100),
-                   avgValue: 95,
-                   minValue: 90,
-                   maxValue: 100
-            )
-        }
-    }
 
     func handleAuthorizationError(_ error: Error) {
         if let hkError = error as? HKError {

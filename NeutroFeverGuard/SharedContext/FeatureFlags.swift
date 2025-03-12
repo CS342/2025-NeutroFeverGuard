@@ -31,8 +31,5 @@ enum FeatureFlags {
     
     static let mockMedData = CommandLine.arguments.contains("--mockMedData")
     
-    static let vizMockTestData = CommandLine.arguments.contains("--vizMockTestData")
-    
-    /// Defines whether to use the mock data for testing the application. This should only be set to true in UI tests.
-//     static let mockTestData = CommandLine.arguments.contains("--mockTestData")
+    // static let vizMockTestData = CommandLine.arguments.contains("--vizMockTestData")
 }
