@@ -72,6 +72,7 @@ struct HKVisualizationItem: View {
                     y: .value(.init(self.yName), dataPoint.sumValue)
                 )
                 .foregroundStyle(getBarColor(value: dataPoint.sumValue, date: dataPoint.date).opacity(0.2))
+                .accessibilityIdentifier("ScatterPoint_\(dataPoint.date)")
             }
             ForEach(data) { dataPoint in
                 BarMark(
@@ -80,6 +81,7 @@ struct HKVisualizationItem: View {
                     width: .fixed(10)
                 )
                     .foregroundStyle(getBarColor(value: dataPoint.sumValue, date: dataPoint.date))
+                    .accessibilityIdentifier("Bar_\(dataPoint.date)")
                 if self.plotAvg {
                     LineMark(
                         x: .value(.init(self.xName), dataPoint.date, unit: .day),
@@ -95,6 +97,7 @@ struct HKVisualizationItem: View {
                 )
                 .foregroundStyle(.primary)
                 .lineStyle(StrokeStyle(lineWidth: 1, dash: [5]))
+                .accessibilityIdentifier("Threshold")
             }
         }
         .padding(.top, 10)
