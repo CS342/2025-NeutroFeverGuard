@@ -12,7 +12,6 @@ import Foundation
 import SwiftUI
 
 struct HKVisualizationItem: View {
-    // periphery:ignore
     let id = UUID()
     let data: [HKData]
     let xName: LocalizedStringResource

@@ -10,6 +10,24 @@ import HealthKit
 import SpeziAccount
 import SwiftUI
 
+func handleAuthorizationError(_ error: Error) {
+    if let hkError = error as? HKError {
+        switch hkError.code {
+        case .errorAuthorizationDenied:
+            print("Authorization denied by the user.")
+        case .errorHealthDataUnavailable:
+            print("Health data is unavailable on this device.")
+        case .errorInvalidArgument:
+            print("Invalid argument provided for HealthKit authorization.")
+        default:
+            print("Unhandled HealthKit error: \(error.localizedDescription)")
+        }
+    } else {
+        print("Unknown error during HealthKit authorization: \(error.localizedDescription)")
+    }
+}
+
+
 struct HKData: Identifiable {
     var date: Date
     var id = UUID()
@@ -17,6 +35,33 @@ struct HKData: Identifiable {
     var avgValue: Double
     var minValue: Double
     var maxValue: Double
+}
+
+struct HKVisualizationSection: View {
+    var data: [HKData]
+    var xName: LocalizedStringResource
+    var yName: LocalizedStringResource
+    var title: LocalizedStringResource
+    var threshold: Double
+    var scatterData: [HKData]
+    var noDataText: String
+
+    var body: some View {
+        Section {
+            if !data.isEmpty {
+                HKVisualizationItem(
+                    data: data,
+                    xName: xName,
+                    yName: yName,
+                    title: title,
+                    threshold: threshold,
+                    scatterData: scatterData
+                )
+            } else {
+                Text(noDataText).foregroundColor(.gray)
+            }
+        }
+    }
 }
 
 struct HKVisualization: View {
@@ -30,60 +75,38 @@ struct HKVisualization: View {
     var vizList: some View {
         self.readAllHKData()
         return List {
-            Section {
-                if !heartRateData.isEmpty {
-                    HKVisualizationItem(
-                        data: heartRateData,
-                        xName: "Time",
-                        yName: "Heart Rate (bpm)",
-                        title: "Heart Rate Over Time",
-                        threshold: 100,
-                        scatterData: heartRateScatterData
-                    )
-                } else {
-                    Text("No heart rate data available.")
-                        .foregroundColor(.gray)
-                }
-            }
-            Section {
-                if !bodyTemperatureData.isEmpty {
-                    HKVisualizationItem(
-                        data: bodyTemperatureData,
-                        xName: "Time",
-                        yName: "Body Temperature (°F)",
-                        title: "Body Temperature Over Time",
-                        threshold: 99.0,
-                        scatterData: bodyTemperatureScatterData
-                    )
-                } else {
-                    Text("No body temperature data available.")
-                        .foregroundColor(.gray)
-                }
-            }
-            Section {
-                if !oxygenSaturationData.isEmpty {
-                    HKVisualizationItem(
-                        data: oxygenSaturationData,
-                        xName: "Time",
-                        yName: "Oxygen Saturation (%)",
-                        title: "Oxygen Saturation Over Time",
-                        threshold: 94.0,
-                        scatterData: oxygenSaturationScatterData
-                    )
-                } else {
-                    Text("No oxygen saturation data available.")
-                        .foregroundColor(.gray)
-                }
-            }
+            HKVisualizationSection(
+                data: heartRateData,
+                xName: "Time",
+                yName: "Heart Rate (bpm)",
+                title: "Heart Rate Over Time",
+                threshold: 100,
+                scatterData: heartRateScatterData,
+                noDataText: "No heart rate data available."
+            )
+            HKVisualizationSection(
+                data: bodyTemperatureData,
+                xName: "Time",
+                yName: "Body Temperature (°F)",
+                title: "Body Temperature Over Time",
+                threshold: 99.0,
+                scatterData: bodyTemperatureScatterData,
+                noDataText: "No body temperature data available."
+            )
+            HKVisualizationSection(
+                data: oxygenSaturationData,
+                xName: "Time",
+                yName: "Oxygen Saturation (%)",
+                title: "Oxygen Saturation Over Time",
+                threshold: 94.0,
+                scatterData: oxygenSaturationScatterData,
+                noDataText: "No oxygen saturation data available."
+            )
         }
     }
     
     @Environment(Account.self) private var account: Account?
     @Binding var presentingAccount: Bool
-    
-    init(presentingAccount: Binding<Bool>) {
-        self._presentingAccount = presentingAccount
-    }
     
     var body: some View {
         self.readAllHKData()
@@ -100,6 +123,10 @@ struct HKVisualization: View {
                 }
             }
         }
+    }
+    
+    init(presentingAccount: Binding<Bool>) {
+        self._presentingAccount = presentingAccount
     }
     
     func readAllHKData(ensureUpdate: Bool = false) {
@@ -169,7 +196,7 @@ struct HKVisualization: View {
         let today = Date()
         self.heartRateData = (0..<10).map {
             HKData(
-                   date: Calendar.current.date(byAdding: .day, value: -$0, to: today) ??  Date(),
+                   date: Calendar.current.date(byAdding: .day, value: -$0, to: today) ?? Date(),
                    sumValue: Double.random(in: 60...120),
                    avgValue: 80,
                    minValue: 60,
@@ -193,23 +220,6 @@ struct HKVisualization: View {
                    minValue: 90,
                    maxValue: 100
             )
-        }
-    }
-
-    func handleAuthorizationError(_ error: Error) {
-        if let hkError = error as? HKError {
-            switch hkError.code {
-            case .errorAuthorizationDenied:
-                print("Authorization denied by the user.")
-            case .errorHealthDataUnavailable:
-                print("Health data is unavailable on this device.")
-            case .errorInvalidArgument:
-                print("Invalid argument provided for HealthKit authorization.")
-            default:
-                print("Unhandled HealthKit error: \(error.localizedDescription)")
-            }
-        } else {
-            print("Unknown error during HealthKit authorization: \(error.localizedDescription)")
         }
     }
     
@@ -314,7 +324,6 @@ struct HKVisualization: View {
             print("Unexpected quantity received:", quantityTypeIDF)
         }
     }
-    // swiftlint:enable closure_body_length
 }
 
 func parseStat(statistics: HKStatistics, quantityTypeIDF: HKQuantityTypeIdentifier) -> HKData? {

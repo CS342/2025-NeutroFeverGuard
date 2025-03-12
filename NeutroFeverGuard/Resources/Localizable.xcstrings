@@ -658,10 +658,8 @@
         }
       }
     },
-    "No body temperature data available." : {
-
-    },
     "No heart rate data available." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -678,6 +676,7 @@
 
     },
     "No oxygen saturation data available." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
