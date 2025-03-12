@@ -28,4 +28,7 @@ class HKVisualizationTests: XCTestCase {
         XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Dashboard"].waitForExistence(timeout: 2))
         app.tabBars["Tab Bar"].buttons["Dashboard"].tap()
     }
+    
+    
+    
 }
