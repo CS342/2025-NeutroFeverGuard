@@ -96,10 +96,16 @@ class LabResultsManager: Module, EnvironmentAccessible {
             try localStorage.store(labRecords, for: LocalStorageKey<[LabEntry]>("labResults"))
             // Save to Firestore
             if !FeatureFlags.disableFirebase {
-                try firebaseConfig.userDocumentReference
-                    .collection("LabResults")
-                    .document(UUID().uuidString)
-                    .setData(from: labRecords)
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                
+                for lab in labRecords {
+                    let dateString = dateFormatter.string(from: lab.date)
+                    try firebaseConfig.userDocumentReference
+                        .collection("LabResults")
+                        .document(dateString)
+                        .setData(from: lab)
+                }
             }
             refresh()
         } catch {
