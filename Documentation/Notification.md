@@ -14,8 +14,48 @@ This file explains how fever monitoring and notifications and lab results remind
 Back to [README](../README.md).
 
 ## Fever Monitoring and Notification
+NeutroFeverGuard continously monitors  body temperature, heart rate and oxygen saturation through HealthKit. We use [SpeziHealthKit](https://swiftpackageindex.com/StanfordSpezi/SpeziHealthKit/1.0.0-beta.4/documentation/spezihealthkit) to read these in the background continuously and push it to HealthKit.
 
-### Background Checking of Vitals
+```swift
+private var healthKit: HealthKit {
+        HealthKit {
+            CollectSample(.heartRate, continueInBackground: true, predicate: predicateOneMonth)
+            CollectSample(.bloodOxygen, continueInBackground: true, predicate: predicateOneMonth)
+            CollectSample(.bodyTemperature, continueInBackground: true, predicate: predicateOneMonth)
+        }
+    }
+```
+
+Based on latest Absolute Neutrophil Count (ANC), we determine whether the patient is neutropenic (ANC<500). If the patient is neutropenic, and the continuously read temperature indicates fever (>=101 F once or >=100.4 F steadily in the last hour), we send a timely notification warning to patient to contact their care provider.
+
+```swift
+func add(sample: HKSample) async {
+        if FeatureFlags.disableFirebase {
+            logger.debug("Received new HealthKit sample: \(sample)")
+            if let condition = await checkForFebrileNeutropenia() {
+                notificationManager.sendLocalNotification(
+                    title: "Health Alert",
+                    body: "Risk detected: \(condition), please contact your care provider."
+                )
+            }
+            return
+        }
+        
+        do {
+            try await healthKitDocument(id: sample.id)
+                .setData(from: sample.resource)
+            // Check if the condition is met before sending a notification
+            if let condition = await checkForFebrileNeutropenia() {
+                notificationManager.sendLocalNotification(
+                    title: "Health Alert",
+                    body: "Risk detected: \(condition), please contact your care provider."
+                )
+            }
+        } catch {
+            logger.error("Could not store HealthKit sample: \(error)")
+        }
+    }
+```
 
 ## Lab Notification
 
