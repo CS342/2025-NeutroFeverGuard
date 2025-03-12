@@ -96,6 +96,7 @@
 		C4C8A3B32D71204200F313AE /* HelperFuncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C8A3B22D71204200F313AE /* HelperFuncTests.swift */; };
 		EB02C6612D5D52E90035AA89 /* NeutroFeverGuardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653A256128338800005D4D48 /* NeutroFeverGuardTests.swift */; };
 		F223937A2D5D4095006C8EB4 /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22393792D5D4092006C8EB4 /* DataError.swift */; };
+		F268C4562D7F928C0020026F /* SymptomManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F268C4552D7F928B0020026F /* SymptomManager.swift */; };
 		F279F70C2D780462005C2927 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = F2A54D362D5DE24400A20113 /* FirebaseCore */; };
 		F279F70D2D780462005C2927 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F2A54D382D5DE24E00A20113 /* FirebaseFirestore */; };
 		F2E6898F2D52ED8600869C4F /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E6898E2D52ED8500869C4F /* HealthKitService.swift */; };
@@ -178,6 +179,7 @@
 		C4C8A3672D6F9E1A00F313AE /* LabViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabViewUITests.swift; sourceTree = "<group>"; };
 		C4C8A3B22D71204200F313AE /* HelperFuncTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFuncTests.swift; sourceTree = "<group>"; };
 		F22393792D5D4092006C8EB4 /* DataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataError.swift; sourceTree = "<group>"; };
+		F268C4552D7F928B0020026F /* SymptomManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomManager.swift; sourceTree = "<group>"; };
 		F2E6898E2D52ED8500869C4F /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -344,6 +346,7 @@
 			children = (
 				B00991CB2D7FD86F00D9CBD5 /* BluetoothRelated */,
 				B0DF8DFB2D7C114900581A00 /* HealthDataFetchable.swift */,
+				F268C4552D7F928B0020026F /* SymptomManager.swift */,
 				B0FF4DD12D797FEA0076A043 /* NotificationManager.swift */,
 				B0D4C9372D790F5E000643C7 /* LabResultsManager.swift */,
 				C42C1C6A2D7A985B00EA417F /* MedicationManager.swift */,
@@ -639,6 +642,7 @@
 				C49EC8532D5038AC005C3495 /* DataInputForm.swift in Sources */,
 				2FE5DC4129EDD7EE004B9AB4 /* StorageKeys.swift in Sources */,
 				C42C1B312D782A7600EA417F /* MedicationView.swift in Sources */,
+				F268C4562D7F928C0020026F /* SymptomManager.swift in Sources */,
 				2FE5DCB129EE6107004B9AB4 /* AccountOnboarding.swift in Sources */,
 				2FE5DC3A29EDD7CA004B9AB4 /* Welcome.swift in Sources */,
 				2FE5DC3829EDD7CA004B9AB4 /* InterestingModules.swift in Sources */,
