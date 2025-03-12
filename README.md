@@ -43,19 +43,20 @@ Screenshots table:
 
 ### I. Health Record Tracking
 
-#### Health Data Sources:
-1. **Bluetooth-enabled Temperature Sensors**: Users can connect their CORE Temperature Sensor to provide continuous skin temperature data.
-2. **Apple Health App**: Data recorded by Apple Watch or Apple Health App via HealthKit.  
-3. **Manual Entry**: Users can manually add health data, including vital signs and lab values.
+1. **Health Data Sources:**
+- **Bluetooth-enabled Temperature Sensors**: Users can connect their CORE Temperature Sensor to provide continuous skin temperature data.
+-  **Apple Health App**: Data recorded by Apple Watch or Apple Health App via HealthKit.  
+-  **Manual Entry**: Users can manually add health data, including vital signs and lab values.
 
-> [!NOTE]  
-> How is the data being processed and stored? NeutroFeverGuard use [Spezi Local Storage](https://github.com/StanfordSpezi/SpeziStorage) to store lab results and medication data locally. Other health data is stored in [Healthkit](https://github.com/StanfordSpezi/SpeziHealthKit). For cloud storage, all data is stored as [FHIR](https://github.com/StanfordSpezi/SpeziFHIR) elements on [Firebase](https://github.com/StanfordSpezi/SpeziFirebase).
+   > [!NOTE]  
+   > How is the data being processed and stored? NeutroFeverGuard use [Spezi Local Storage](https://github.com/StanfordSpezi/SpeziStorage) to store lab results and medication data locally. Other health data is stored in [Healthkit](https://github.com/StanfordSpezi/SpeziHealthKit). For cloud storage, all data is stored as [FHIR](https://github.com/StanfordSpezi/SpeziFHIR) elements on [Firebase](https://github.com/StanfordSpezi/SpeziFirebase).
 
-> [!NOTE]  
-> Want to understand how CORE Sensor connection, and continuous temperature data flow work? Check out the detailed explanation in [Working with CORE Sensor - Bluetooth Connection](Documentation/BluetoothSensor.md).
+   > [!NOTE]  
+   > Want to understand how CORE Sensor connection, and continuous temperature data flow work? Check out the detailed explanation in [Working with CORE Sensor - Bluetooth Connection](Documentation/BluetoothSensor.md).
 
-#### Visualization:
-Interactive graphs display trends for: heart rate, temperature, oxygen saturation, absolute neutrophil count (ANC). Visuals include trend lines and daily average readings to help users and clinicians better understand health fluctuations.
+2. **Visualization:**
+
+    Interactive graphs display trends for: heart rate, temperature, oxygen saturation, absolute neutrophil count (ANC). Visuals include trend lines and daily average readings to help users and clinicians better understand health fluctuations.
 
 ### II. Notifications & Alerts
 1. **Critical Health Alerts:**  
@@ -77,8 +78,11 @@ Interactive graphs display trends for: heart rate, temperature, oxygen saturatio
 > Want to understand how fever monitoring alerts and lab results reminders work in the background? Check out the detailed explanation in [Fever Monitoring & Lab Notifications](Documentation/Notification.md).
 
 
-## Setup Instructions
-Use [TestFlight](https://testflight.apple.com/join/CAuYHs84) to download NeutroFeverGuard. Following the instruction when onboarding: sign the consent form, give permissions to health data and notification, sign up and provide your data. 
+## User Instructions
+1. **Setup:** Use [TestFlight](https://testflight.apple.com/join/CAuYHs84) to download NeutroFeverGuard. Following the instruction when onboarding: sign the consent form, give permissions to health data and notification, sign up and provide your data. 
+2. **Dashboard:** Visualize your heart rate, body temperature, and oxygen saturation trends. The data syncs with the Health app, including readings from Bluetooth sensors and manual entries. Note that the Apple Watch doesn’t measure body temperature, only [nightly wrist temperature](https://support.apple.com/en-us/102674), which isn’t supported. For body temperature, you can use sensors like [CORE](https://corebodytemp.com/?srsltid=AfmBOooG6QWkEg89zKtJ3pBPQ4A96dReSOQWW1QcdxCdXDEXgoTYrhvj).
+3. **Add Data:** Manually log health metrics, including temperature, heart rate, oxygen saturation, and blood pressure — these will also sync to the Health app. You can record lab results for neutropenia-related tests, track medication intake with timestamps, and log symptoms like nausea or fatigue.
+4. **Records:** View past entries in two tabs — Lab Results and Medications. The Lab Results tab shows your latest Absolute Neutrophil Count (ANC) and provides a detailed history where you can view and delete records. In the Medications tab, you can view, edit, or delete your medication logs.
 
 Enjoy!
 
