@@ -213,7 +213,6 @@ struct DataInputForm: View {
     @State private var symptomSeverity: [Symptom: String] = [:]
     @State private var showWarningAlert = false
     @State private var warningMessage = ""
-    @Environment(\.presentationMode) var presentationMode
     
     var onDismissWithWarning: ((String) -> Void)?
     

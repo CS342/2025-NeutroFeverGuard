@@ -41,13 +41,16 @@ class SymptomManager: Module, EnvironmentAccessible {
     private func saveSymptoms() {
         do {
             try localStorage.store(symptomRecords, for: LocalStorageKey<[SymptomEntry]>("symptoms"))
-            
+            // Save to Firestore
             if !FeatureFlags.disableFirebase {
-                let symptomsCollection = try firebaseConfig.userDocumentReference.collection("Symptoms")
-                for symptom in symptomRecords {
-                    try symptomsCollection
-                        .document(UUID().uuidString)
-                        .setData(from: symptom)
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                for record in symptomRecords {
+                    let dateString = dateFormatter.string(from: record.date)
+                    try firebaseConfig.userDocumentReference
+                        .collection("Symptoms")
+                        .document(dateString)
+                        .setData(from: record)
                 }
             }
         } catch {

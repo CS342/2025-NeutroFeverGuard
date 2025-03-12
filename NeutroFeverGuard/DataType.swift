@@ -186,7 +186,9 @@ enum Symptom: String, CaseIterable, Codable {
 }
 
 struct SymptomEntry: Codable {
+    // periphery:ignore
     var date: Date
+    // periphery:ignore
     var symptoms: [Symptom: Int]  // Maps symptoms to their severity (1-10)
     
     init(date: Date, symptoms: [Symptom: Int]) throws {
