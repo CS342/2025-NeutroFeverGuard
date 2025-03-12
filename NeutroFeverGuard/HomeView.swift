@@ -12,7 +12,7 @@ import SwiftUI
 
 struct HomeView: View {
     enum Tabs: String {
-//        case dashboard
+        case dashboard
         case addData
 //        case labResult
 //        case medication
@@ -31,10 +31,11 @@ struct HomeView: View {
     var body: some View {
         TabView(selection: $selectedTab) {
             // Dashboard tab (HKVisualization)
-//            Tab("Dashboard", systemImage: "heart.text.square", value: .dashboard) {
-//                HKVisualization()
-//            }
-//            .customizationID("home.dashboard")
+            Tab("Dashboard", systemImage: "plus.app.fill", value: .dashboard) {
+                HKVisualization(presentingAccount: $presentingAccount)
+            }
+            .customizationID("home.visualization")
+            .accessibilityIdentifier("Visualization")
             
             // Add Data tab
             Tab("Add Data", systemImage: "plus.app.fill", value: .addData) {
