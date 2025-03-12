@@ -12,7 +12,8 @@ import SpeziLocalStorage
 import SwiftUI
 
 
-@Observable class LabResultsManager: Module, EnvironmentAccessible, ObservableObject {
+@Observable
+class LabResultsManager: Module, EnvironmentAccessible {
     var latestRecordedTime: String = "None"
     var labRecords: [LabEntry] = []
     var mockLabData: [LabEntry] = []
@@ -20,8 +21,7 @@ import SwiftUI
     @ObservationIgnored @Dependency(LocalStorage.self) private var localStorage
     @ObservationIgnored @Dependency(FirebaseConfiguration.self) private var firebaseConfig
     
-    
-    public func configure() {
+    func configure() {
         loadLabResults() // Load data on startup
         if FeatureFlags.mockLabData {
             do {

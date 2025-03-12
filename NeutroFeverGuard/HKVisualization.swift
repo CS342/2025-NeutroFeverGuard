@@ -22,7 +22,7 @@ struct HKData: Identifiable {
 }
 
 struct HKVisualization: View {
-    @StateObject private var labResultsManager = LabResultsManager()
+    @Environment(LabResultsManager.self) private var labResultsManager
     // swiftlint:disable closure_body_length
     @State var bodyTemperatureData: [HKData] = []
     @State var heartRateData: [HKData] = []
@@ -30,7 +30,7 @@ struct HKVisualization: View {
     @State var heartRateScatterData: [HKData] = []
     @State var oxygenSaturationScatterData: [HKData] = []
     @State var bodyTemperatureScatterData: [HKData] = []
-    @State private var neutrophilData: [(date: Date, ancValue: Double)] = []
+    @State private var neutrophilData: [HKData] = []
     
     var vizList: some View {
         self.readAllHKData()
@@ -82,39 +82,19 @@ struct HKVisualization: View {
             }
             Section {
                 if !neutrophilData.isEmpty {
-                    Text("Neutrophil Count Over Past Week")
-                        .font(.headline)
-
-                    Chart {
-                        ForEach(neutrophilData, id: \.date) { dataPoint in
-                            LineMark(
-                                x: .value("Date", dataPoint.date),
-                                y: .value("Neutrophil Count", dataPoint.ancValue)
-                            )
-                            .interpolationMethod(.monotone)
-                            .foregroundStyle(.blue)
-                        }
-                    }
-                    .frame(height: 200)
-                    .chartXAxis {
-                        AxisMarks(values: .stride(by: .day)) { value in
-                            AxisGridLine()
-                            AxisValueLabel(format: .dateTime.day().month())
-                        }
-                    }
-                    .chartYAxis {
-                        AxisMarks { value in
-                            AxisGridLine()
-                            AxisValueLabel()
-                        }
-                    }
-                    .padding(.vertical)
+                    HKVisualizationItem(
+                        data: neutrophilData,
+                        xName: "Date",
+                        yName: "Neutrophil Count",
+                        title: "Neutrophil Count Over Past Week",
+                        threshold: 15, // Adjust the threshold if necessary
+                        scatterData: []
+                    )
                 } else {
                     Text("No neutrophil count data available.")
                         .foregroundColor(.gray)
                 }
-            }
-        }
+            }        }
     }
     
     @Environment(Account.self) private var account: Account?
@@ -145,8 +125,21 @@ struct HKVisualization: View {
     
     // Load neutrophil count data for the past week
     private func loadNeutrophilData() {
-        neutrophilData = getNeutrophilCountsForPastWeek()
-        print("✅ Loaded neutrophil data: \(neutrophilData)")
+        let rawData = labResultsManager.getAllAncValues().filter {
+            $0.date >= Calendar.current.date(byAdding: .day, value: -7, to: Date()) ?? Date()
+        }
+        
+        neutrophilData = rawData.map { record in
+            HKData(
+                date: record.date,
+                sumValue: record.ancValue,
+                avgValue: record.ancValue, // You can set it to the same value for plotting.
+                minValue: record.ancValue, // Same for min.
+                maxValue: record.ancValue  // Same for max.
+            )
+        }
+        
+        print("✅ Converted neutrophil data: \(neutrophilData)")
     }
 
     private func getNeutrophilCountsForPastWeek() -> [(date: Date, ancValue: Double)] {
