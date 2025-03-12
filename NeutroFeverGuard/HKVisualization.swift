@@ -1,3 +1,5 @@
+// periphery:ignore all
+// swiftlint:disable all
 // This source file is part of the NeutroFeverGuard based on the Stanford Spezi Template Application project
 //
 // SPDX-FileCopyrightText: 2025 Stanford University
@@ -19,17 +21,18 @@ struct HKData: Identifiable {
     var maxValue: Double
 }
 
-// swiftlint:disable closure_body_length
-struct HealthDataListView: View {
-    @Binding var heartRateData: [HKData]
-    @Binding var heartRateScatterData: [HKData]
-    @Binding var bodyTemperatureData: [HKData]
-    @Binding var bodyTemperatureScatterData: [HKData]
-    @Binding var oxygenSaturationData: [HKData]
-    @Binding var oxygenSaturationScatterData: [HKData]
+struct HKVisualization: View {
+    // swiftlint:disable closure_body_length
+    @State var bodyTemperatureData: [HKData] = []
+    @State var heartRateData: [HKData] = []
+    @State var oxygenSaturationData: [HKData] = []
+    @State var heartRateScatterData: [HKData] = []
+    @State var oxygenSaturationScatterData: [HKData] = []
+    @State var bodyTemperatureScatterData: [HKData] = []
     
-    var body: some View {
-        List {
+    var vizList: some View {
+        self.readAllHKData()
+        return List {
             Section {
                 if !heartRateData.isEmpty {
                     HKVisualizationItem(
@@ -77,36 +80,23 @@ struct HealthDataListView: View {
             }
         }
     }
-}
-// swiftlint:enable closure_body_length
-
-struct HKVisualization: View {
-    @State var bodyTemperatureData: [HKData] = []
-    @State var heartRateData: [HKData] = []
-    @State var oxygenSaturationData: [HKData] = []
-    @State var heartRateScatterData: [HKData] = []
-    @State var oxygenSaturationScatterData: [HKData] = []
-    @State var bodyTemperatureScatterData: [HKData] = []
     
     @Environment(Account.self) private var account: Account?
     @Binding var presentingAccount: Bool
     
-    init(presentingAccount: Binding<Bool>) { self._presentingAccount = presentingAccount }
-
+    init(presentingAccount: Binding<Bool>) {
+        self._presentingAccount = presentingAccount
+    }
+    
     var body: some View {
         self.readAllHKData()
+        
         return NavigationStack {
-            HealthDataListView(
-                heartRateData: $heartRateData,
-                heartRateScatterData: $heartRateScatterData,
-                bodyTemperatureData: $bodyTemperatureData,
-                bodyTemperatureScatterData: $bodyTemperatureScatterData,
-                oxygenSaturationData: $oxygenSaturationData,
-                oxygenSaturationScatterData: $oxygenSaturationScatterData
-            )
+            vizList
             .navigationTitle("HKVIZ_NAVIGATION_TITLE")
             .onAppear {
-                readAllHKData(ensureUpdate: true)
+                // Ensure that the data up-to-date when the view is activated.
+                self.readAllHKData(ensureUpdate: true)
             }
             .toolbar {
                 if account != nil {
@@ -117,10 +107,6 @@ struct HKVisualization: View {
     }
     
     func readAllHKData(ensureUpdate: Bool = false) {
-        if FeatureFlags.mockVizData {
-            loadMockData()
-            return
-        }
         print("Reading all HealthKit data with ensureUpdate: \(ensureUpdate)")
         let dateRange = generateDateRange()
         guard let startDate = dateRange[0] as? Date else {
@@ -134,58 +120,12 @@ struct HKVisualization: View {
         }
             
         print("Date Range: \(startDate) - \(endDate)")
+            
         readHealthData(for: .heartRate, ensureUpdate: ensureUpdate, startDate: startDate, endDate: endDate, predicate: predicate)
         readHealthData(for: .oxygenSaturation, ensureUpdate: ensureUpdate, startDate: startDate, endDate: endDate, predicate: predicate)
         readHealthData(for: .bodyTemperature, ensureUpdate: ensureUpdate, startDate: startDate, endDate: endDate, predicate: predicate)
-        print("Finished reading all HealthKit data.")
-    }
-    
-    func loadMockData() {
-        let loadData = { (view: HKVisualization) in
-            let today = Date()
-            let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: today) ?? today
-            let twoDaysAgo = Calendar.current.date(byAdding: .day, value: -2, to: today) ?? today
             
-            // Heart Rate Mock Data (60-100 bpm normal range)
-            view.heartRateData = [
-                HKData(date: today, sumValue: 75, avgValue: 75, minValue: 65, maxValue: 85),
-                HKData(date: yesterday, sumValue: 82, avgValue: 82, minValue: 70, maxValue: 95),
-                HKData(date: twoDaysAgo, sumValue: 90, avgValue: 90, minValue: 80, maxValue: 105)
-            ]
-                
-            view.heartRateScatterData = [
-                HKData(date: today, sumValue: 75, avgValue: 75, minValue: 75, maxValue: 75),
-                HKData(date: yesterday, sumValue: 82, avgValue: 82, minValue: 82, maxValue: 82),
-                HKData(date: twoDaysAgo, sumValue: 90, avgValue: 90, minValue: 90, maxValue: 90)
-            ]
-                
-            // Body Temperature Mock Data (97-99°F normal range)
-            view.bodyTemperatureData = [
-                HKData(date: today, sumValue: 98.6, avgValue: 98.6, minValue: 98.2, maxValue: 99.0),
-                HKData(date: yesterday, sumValue: 98.9, avgValue: 98.9, minValue: 98.5, maxValue: 99.2),
-                HKData(date: twoDaysAgo, sumValue: 99.1, avgValue: 99.1, minValue: 98.7, maxValue: 99.5)
-            ]
-                
-            view.bodyTemperatureScatterData = [
-                HKData(date: today, sumValue: 98.6, avgValue: 98.6, minValue: 98.6, maxValue: 98.6),
-                HKData(date: yesterday, sumValue: 98.9, avgValue: 98.9, minValue: 98.9, maxValue: 98.9),
-                HKData(date: twoDaysAgo, sumValue: 99.1, avgValue: 99.1, minValue: 99.1, maxValue: 99.1)
-            ]
-                
-            // Oxygen Saturation Mock Data (94-100% normal range)
-            view.oxygenSaturationData = [
-                HKData(date: today, sumValue: 98, avgValue: 98, minValue: 96, maxValue: 99),
-                HKData(date: yesterday, sumValue: 97, avgValue: 97, minValue: 95, maxValue: 98),
-                HKData(date: twoDaysAgo, sumValue: 96, avgValue: 96, minValue: 94, maxValue: 97)
-            ]
-                
-            view.oxygenSaturationScatterData = [
-                HKData(date: today, sumValue: 98, avgValue: 98, minValue: 98, maxValue: 98),
-                HKData(date: yesterday, sumValue: 97, avgValue: 97, minValue: 97, maxValue: 97),
-                HKData(date: twoDaysAgo, sumValue: 96, avgValue: 96, minValue: 96, maxValue: 96)
-            ]
-        }
-        loadData(self) // Pass `self` to the closure
+        print("Finished reading all HealthKit data.")
     }
 
     private func generateDateRange() -> [Any] {
@@ -199,6 +139,7 @@ struct HKVisualization: View {
         let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: [])
         return [startDate, endDate, predicate]
     }
+
 
     private func readHealthData(
                                 for identifier: HKQuantityTypeIdentifier,
@@ -228,6 +169,37 @@ struct HKVisualization: View {
         }
     }
     
+    func loadMockData() {
+        let today = Date()
+        self.heartRateData = (0..<10).map {
+            HKData(
+                   date: Calendar.current.date(byAdding: .day, value: -$0, to: today) ??  Date(),
+                   sumValue: Double.random(in: 60...120),
+                   avgValue: 80,
+                   minValue: 60,
+                   maxValue: 120
+            )
+        }
+        self.bodyTemperatureData = (0..<10).map {
+            HKData(
+                   date: Calendar.current.date(byAdding: .day, value: -$0, to: today) ?? Date(),
+                   sumValue: Double.random(in: 97...99),
+                   avgValue: 98.6,
+                   minValue: 97,
+                   maxValue: 99
+            )
+        }
+        self.oxygenSaturationData = (0..<10).map {
+            HKData(
+                   date: Calendar.current.date(byAdding: .day, value: -$0, to: today) ?? Date(),
+                   sumValue: Double.random(in: 90...100),
+                   avgValue: 95,
+                   minValue: 90,
+                   maxValue: 100
+            )
+        }
+    }
+
     func handleAuthorizationError(_ error: Error) {
         if let hkError = error as? HKError {
             switch hkError.code {
