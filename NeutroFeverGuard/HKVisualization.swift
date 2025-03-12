@@ -1,5 +1,3 @@
-// periphery:ignore all
-// swiftlint:disable all
 // This source file is part of the NeutroFeverGuard based on the Stanford Spezi Template Application project
 //
 // SPDX-FileCopyrightText: 2025 Stanford University
@@ -22,7 +20,6 @@ struct HKData: Identifiable {
 }
 
 struct HKVisualization: View {
-    // swiftlint:disable closure_body_length
     @State var bodyTemperatureData: [HKData] = []
     @State var heartRateData: [HKData] = []
     @State var oxygenSaturationData: [HKData] = []
@@ -30,7 +27,7 @@ struct HKVisualization: View {
     @State var oxygenSaturationScatterData: [HKData] = []
     @State var bodyTemperatureScatterData: [HKData] = []
     
-    var vizList: some View { // make this into a struct
+    var vizList: some View {
         self.readAllHKData()
         return List {
             Section {
@@ -95,7 +92,6 @@ struct HKVisualization: View {
             vizList
             .navigationTitle("HKVIZ_NAVIGATION_TITLE")
             .onAppear {
-                // Ensure that the data are up-to-date when the view is activated.
                 self.readAllHKData(ensureUpdate: true)
             }
             .toolbar {
