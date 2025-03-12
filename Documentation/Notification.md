@@ -15,7 +15,7 @@ Back to [README](../README.md).
 
 ## Fever Monitoring and Notification
 
-### Background Checking
+### Background Checking of Vitals
 
 ## Lab Notification
 
