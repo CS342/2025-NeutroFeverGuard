@@ -177,10 +177,10 @@ struct BluetoothView: View {
                 }
             }
             .scanNearbyDevices(with: bluetooth, autoConnect: true)
-        }
-        .toolbar {
-            if account != nil {
-                AccountButton(isPresented: $presentingAccount)
+            .toolbar {
+                if account != nil {
+                    AccountButton(isPresented: $presentingAccount)
+                }
             }
         }
     }
