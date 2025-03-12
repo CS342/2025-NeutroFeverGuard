@@ -30,6 +30,29 @@ enum LabTestType: String, CaseIterable, Codable {
     case blasts = "% Blasts"
 }
 
+enum MasccSymptom: String, Codable, CaseIterable {
+    case noHypotension = "No Hypotension"
+    case noCOPD = "No COPD"
+    case solidTumor = "Solid Tumor"
+    case noDehydration = "No Dehydration"
+    case mildSymptoms = "Mild Symptoms"
+    case moderateSymptoms = "Moderate Symptoms"
+    case severeSymptoms = "Severe Symptoms"
+    case ageUnder60 = "Age Under 60"
+    
+    var score: Int {
+        switch self {
+        case .noHypotension: return 5
+        case .noCOPD: return 4
+        case .solidTumor: return 4
+        case .noDehydration: return 3
+        case .mildSymptoms: return 5
+        case .moderateSymptoms: return 3
+        case .severeSymptoms: return 0
+        case .ageUnder60: return 2
+        }
+    }
+}
 
 enum TemperatureUnit: String {
    case celsius = "Celsius"
@@ -106,7 +129,6 @@ struct OxygenSaturationEntry {
 /*
  Blood Pressure: date + time measured, and two pressures (systolic and diastolic) in mmHg.
  */
-// swiftlint:disable:next file_types_order
 struct BloodPressureEntry {
     static let systolicType = HKQuantityType(.bloodPressureSystolic)
     static let diastolicType = HKQuantityType(.bloodPressureDiastolic)
@@ -201,30 +223,6 @@ struct SymptomEntry: Codable {
         }
         self.date = date
         self.symptoms = symptoms
-    }
-}
-
-enum MasccSymptom: String, Codable, CaseIterable {
-    case noHypotension = "No Hypotension"
-    case noCOPD = "No COPD"
-    case solidTumor = "Solid Tumor"
-    case noDehydration = "No Dehydration"
-    case mildSymptoms = "Mild Symptoms"
-    case moderateSymptoms = "Moderate Symptoms"
-    case severeSymptoms = "Severe Symptoms"
-    case ageUnder60 = "Age Under 60"
-    
-    var score: Int {
-        switch self {
-        case .noHypotension: return 5
-        case .noCOPD: return 4
-        case .solidTumor: return 4
-        case .noDehydration: return 3
-        case .mildSymptoms: return 5
-        case .moderateSymptoms: return 3
-        case .severeSymptoms: return 0
-        case .ageUnder60: return 2
-        }
     }
 }
 

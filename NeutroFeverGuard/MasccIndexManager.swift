@@ -58,4 +58,3 @@ class MasccManager: Module, EnvironmentAccessible {
         }
     }
 }
-
