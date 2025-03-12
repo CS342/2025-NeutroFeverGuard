@@ -176,6 +176,7 @@ struct SymptomForm: View {
                             .keyboardType(.numberPad)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .frame(width: 80)
+                            .accessibilityIdentifier("severity-\(symptom.rawValue)")
                         }
                         .padding(.leading, 8)
                     }

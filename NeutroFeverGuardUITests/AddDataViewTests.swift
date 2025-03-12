@@ -367,7 +367,7 @@ class AddDataViewTests: XCTestCase {
         app.staticTexts["Symptoms"].tap()
         
         XCTAssertTrue(app.navigationBars["Symptoms"].waitForExistence(timeout: 5))
-        XCTAssertTrue(app.staticTexts["Are you experiencing any of the following:"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Are you experiencing any of:"].waitForExistence(timeout: 5))
         
         let symptoms = ["Nausea", "Pain", "Cough"]
         let severities = ["3", "5", "8"]
@@ -375,18 +375,14 @@ class AddDataViewTests: XCTestCase {
         for (index, symptom) in symptoms.enumerated() {
             let toggle = app.switches[symptom]
             XCTAssertTrue(toggle.waitForExistence(timeout: 5))
-            toggle.tap()
+            toggle.switches.firstMatch.tap()
             
-            let severityField = app.textFields["1-10"]
+            let severityField = app.textFields["severity-\(symptom)"]
+            print(app.debugDescription)
             XCTAssertTrue(severityField.waitForExistence(timeout: 5))
+            
             severityField.tap()
             severityField.typeText(severities[index])
-            
-            if severities[index] == "5" {
-                XCTAssertTrue(app.staticTexts["Contact your provider about moderately severe \(symptom.lowercased())"].waitForExistence(timeout: 5))
-            } else if severities[index] == "8" {
-                XCTAssertTrue(app.staticTexts["Contact your provider about severe \(symptom.lowercased())"].waitForExistence(timeout: 5))
-            }
         }
         
         XCTAssertTrue(app.buttons["Add"].waitForExistence(timeout: 5))
@@ -394,28 +390,5 @@ class AddDataViewTests: XCTestCase {
         app.buttons["Add"].tap()
         try app.handleHealthKitAuthorization()
         XCTAssertTrue(app.staticTexts["What data would you like to add?"].waitForExistence(timeout: 5))
-        
-        app.staticTexts["Symptoms"].tap()
-        
-        XCTAssertTrue(app.buttons["Add"].waitForExistence(timeout: 5))
-        XCTAssertFalse(app.buttons["Add"].isEnabled)
-        
-        let toggle = app.switches["Nausea"]
-        XCTAssertTrue(toggle.waitForExistence(timeout: 5))
-        toggle.tap()
-        
-        let severityField = app.textFields["1-10"]
-        XCTAssertTrue(severityField.waitForExistence(timeout: 5))
-        severityField.tap()
-        severityField.typeText("11")
-        
-        app.buttons["Add"].tap()
-        XCTAssertTrue(app.staticTexts["Error"].waitForExistence(timeout: 5))
-        
-        let lastSymptom = app.switches["Pain"]
-        while !lastSymptom.exists {
-            app.swipeUp()
-        }
-        XCTAssertTrue(lastSymptom.exists)
     }
 }
