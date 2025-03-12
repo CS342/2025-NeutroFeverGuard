@@ -90,6 +90,7 @@
 		C4C8A3682D6F9E2100F313AE /* LabViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C8A3672D6F9E1A00F313AE /* LabViewUITests.swift */; };
 		C4C8A3B32D71204200F313AE /* HelperFuncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C8A3B22D71204200F313AE /* HelperFuncTests.swift */; };
 		EB02C6612D5D52E90035AA89 /* NeutroFeverGuardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653A256128338800005D4D48 /* NeutroFeverGuardTests.swift */; };
+		EB5D7CF92D8108BC0046BF8E /* AccountButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DFE8A82ABE551400428242 /* AccountButton.swift */; };
 		EB6FDBCE2D80133A008E9F90 /* HKVisualization.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6FDBCB2D80133A008E9F90 /* HKVisualization.swift */; };
 		EB6FDBCF2D80133A008E9F90 /* HKVisualizationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6FDBCC2D80133A008E9F90 /* HKVisualizationItem.swift */; };
 		EB6FDBD02D80133A008E9F90 /* HKVisualization.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6FDBCB2D80133A008E9F90 /* HKVisualization.swift */; };
@@ -658,6 +659,7 @@
 				B03D0E482D7D24AA0024F2CA /* DataError.swift in Sources */,
 				C4C8A3B32D71204200F313AE /* HelperFuncTests.swift in Sources */,
 				B03D0E432D7D22700024F2CA /* HealthKitService.swift in Sources */,
+				EB5D7CF92D8108BC0046BF8E /* AccountButton.swift in Sources */,
 				B03D0E462D7D24030024F2CA /* DataType.swift in Sources */,
 				C49EC8382D5026EE005C3495 /* DataTypeTest.swift in Sources */,
 			);
