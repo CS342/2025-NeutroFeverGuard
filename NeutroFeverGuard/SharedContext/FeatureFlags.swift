@@ -1,4 +1,3 @@
-// swiftlint:disable orphaned_doc_comment
 //
 // This source file is part of the NeutroFeverGuard based on the Stanford Spezi Template Application project
 //
