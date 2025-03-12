@@ -93,7 +93,7 @@ struct HKVisualization: View {
         
         return NavigationStack {
             vizList
-            .navigationTitle("HKVIZ_NAVIGATION_TITLE")
+            .navigationTitle("Dashboard")
             .onAppear {
                 // Ensure that data up-to-date when the view is activated.
                 self.readAllHKData(ensureUpdate: true)
