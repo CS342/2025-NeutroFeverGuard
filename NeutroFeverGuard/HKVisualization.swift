@@ -22,6 +22,7 @@ struct HKData: Identifiable {
 }
 
 struct HKVisualization: View {
+    @StateObject private var labResultsManager = LabResultsManager()
     // swiftlint:disable closure_body_length
     @State var bodyTemperatureData: [HKData] = []
     @State var heartRateData: [HKData] = []
@@ -149,9 +150,8 @@ struct HKVisualization: View {
 
     private func getNeutrophilCountsForPastWeek() -> [(date: Date, ancValue: Double)] {
         let oneWeekAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date()) ?? Date()
-        return getAllAncValues().filter { $0.date >= oneWeekAgo }
+        return labResultsManager.getAllAncValues().filter { $0.date >= oneWeekAgo }
     }
-
     
     func readAllHKData(ensureUpdate: Bool = false) {
         print("Reading all HealthKit data with ensureUpdate: \(ensureUpdate)")

@@ -12,8 +12,7 @@ import SpeziLocalStorage
 import SwiftUI
 
 
-@Observable
-class LabResultsManager: Module, EnvironmentAccessible {
+@Observable class LabResultsManager: Module, EnvironmentAccessible, ObservableObject {
     var latestRecordedTime: String = "None"
     var labRecords: [LabEntry] = []
     var mockLabData: [LabEntry] = []
@@ -22,7 +21,7 @@ class LabResultsManager: Module, EnvironmentAccessible {
     @ObservationIgnored @Dependency(FirebaseConfiguration.self) private var firebaseConfig
     
     
-    func configure() {
+    public func configure() {
         loadLabResults() // Load data on startup
         if FeatureFlags.mockLabData {
             do {
@@ -122,7 +121,7 @@ class LabResultsManager: Module, EnvironmentAccessible {
         return (neutrophils / 100.0) * wbc
     }
     
-    public func getAllAncValues() -> [(date: Date, ancValue: Double)] {
+    func getAllAncValues() -> [(date: Date, ancValue: Double)] {
         var ancValues: [(date: Date, ancValue: Double)] = []
         
         for record in labRecords {
