@@ -88,6 +88,7 @@
       }
     },
     "ACCOUNT_SUBTITLE" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -133,10 +134,10 @@
     "Are you sure you want to delete this lab record? This action cannot be undone." : {
 
     },
-    "Bluetooth Devices" : {
+    "Are you sure you want to delete this medication record? This action cannot be undone." : {
 
     },
-    "Are you sure you want to delete this medication record? This action cannot be undone." : {
+    "Bluetooth Devices" : {
 
     },
     "Body Temperature (°F)" : {
@@ -602,10 +603,10 @@
     "Medication Name" : {
 
     },
-    "My Device" : {
-    
-    },
     "Medications" : {
+
+    },
+    "My Device" : {
 
     },
     "Name" : {
