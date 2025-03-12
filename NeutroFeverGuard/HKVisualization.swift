@@ -30,7 +30,7 @@ struct HKVisualization: View {
     @State var oxygenSaturationScatterData: [HKData] = []
     @State var bodyTemperatureScatterData: [HKData] = []
     
-    var vizList: some View { // make this into a struct
+    var vizList: some View {
         self.readAllHKData()
         return List {
             Section {
