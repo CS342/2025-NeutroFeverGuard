@@ -1,4 +1,3 @@
-// swiftlint:disable orphaned_doc_comment
 //
 // This source file is part of the NeutroFeverGuard based on the Stanford Spezi Template Application project
 //
@@ -31,6 +30,5 @@ enum FeatureFlags {
     
     static let mockMedData = CommandLine.arguments.contains("--mockMedData")
     
-    /// Defines whether to use the mock data for testing the application. This should only be set to true in UI tests.
-//     static let mockTestData = CommandLine.arguments.contains("--mockTestData")
+    // static let vizMockTestData = CommandLine.arguments.contains("--vizMockTestData")
 }
