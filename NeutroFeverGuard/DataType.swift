@@ -106,7 +106,6 @@ struct OxygenSaturationEntry {
 /*
  Blood Pressure: date + time measured, and two pressures (systolic and diastolic) in mmHg.
  */
-// swiftlint:disable:next file_types_order
 struct BloodPressureEntry {
     static let systolicType = HKQuantityType(.bloodPressureSystolic)
     static let diastolicType = HKQuantityType(.bloodPressureDiastolic)

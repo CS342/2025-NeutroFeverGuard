@@ -9,6 +9,7 @@
 import Charts
 import Foundation
 import HealthKit
+import NeutroFeverGuard
 import SpeziAccount
 import SwiftUI
 
