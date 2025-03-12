@@ -79,12 +79,15 @@ class MedicationManager: Module, EnvironmentAccessible {
         }
         do {
             try localStorage.store(medications, for: LocalStorageKey<[MedicationEntry]>("medications"))
+            print(medications)
             // Save to Firestore
             if !FeatureFlags.disableFirebase {
-                try firebaseConfig.userDocumentReference
-                    .collection("Medications")
-                    .document(UUID().uuidString)
-                    .setData(from: medications)
+                for medication in medications {
+                    try firebaseConfig.userDocumentReference
+                        .collection("Medications")
+                        .document(medication.name)
+                        .setData(from: medication)
+                }
             }
             refresh()
         } catch {

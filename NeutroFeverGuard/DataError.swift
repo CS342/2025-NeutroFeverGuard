@@ -10,6 +10,7 @@ enum DataError: Error, Equatable {
     case invalidDate
     case invalidPercentage
     case invalidBloodPressure
+    case invalidSeverity
     
     var errorMessage: String {
         switch self {
@@ -19,6 +20,8 @@ enum DataError: Error, Equatable {
             return "percentage must be between 0 and 100"
         case .invalidBloodPressure:
             return "blood pressure must be greater than 0"
+        case .invalidSeverity:
+            return "Severity must be between 1 and 10"
         }
     }
 }
