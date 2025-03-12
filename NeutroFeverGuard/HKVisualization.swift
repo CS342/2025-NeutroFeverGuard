@@ -151,8 +151,7 @@ struct HKVisualization: View {
         let oneWeekAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date()) ?? Date()
         return getAllAncValues().filter { $0.date >= oneWeekAgo }
     }
-
-    
+  
     func readAllHKData(ensureUpdate: Bool = false) {
         print("Reading all HealthKit data with ensureUpdate: \(ensureUpdate)")
         let dateRange = generateDateRange()
