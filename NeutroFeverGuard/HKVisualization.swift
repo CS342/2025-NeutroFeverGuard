@@ -30,7 +30,8 @@ struct HKVisualization: View {
     @State var heartRateScatterData: [HKData] = []
     @State var oxygenSaturationScatterData: [HKData] = []
     @State var bodyTemperatureScatterData: [HKData] = []
-    @State private var neutrophilData: [HKData] = []
+    @State var neutrophilData: [HKData] = []
+    @State var neutrophilScatterData: [HKData] = []
     
     var vizList: some View {
         self.readAllHKData()
@@ -88,7 +89,7 @@ struct HKVisualization: View {
                         yName: "Neutrophil Count",
                         title: "Neutrophil Count Over Past Week",
                         threshold: 15, // Adjust the threshold if necessary
-                        scatterData: []
+                        scatterData: neutrophilScatterData
                     )
                 } else {
                     Text("No neutrophil count data available.")
@@ -113,6 +114,7 @@ struct HKVisualization: View {
             .onAppear {
                 // Ensure that data up-to-date when the view is activated.
                 self.readAllHKData(ensureUpdate: true)
+                labResultsManager.loadLabResults()
                 loadNeutrophilData() // Ensure this is called
             }
             .toolbar {
@@ -123,23 +125,35 @@ struct HKVisualization: View {
         }
     }
     
-    // Load neutrophil count data for the past week
     private func loadNeutrophilData() {
         let rawData = labResultsManager.getAllAncValues().filter {
             $0.date >= Calendar.current.date(byAdding: .day, value: -7, to: Date()) ?? Date()
         }
         
+        // Convert to HKData for bar plot
         neutrophilData = rawData.map { record in
             HKData(
                 date: record.date,
                 sumValue: record.ancValue,
-                avgValue: record.ancValue, // You can set it to the same value for plotting.
-                minValue: record.ancValue, // Same for min.
-                maxValue: record.ancValue  // Same for max.
+                avgValue: record.ancValue,
+                minValue: record.ancValue,
+                maxValue: record.ancValue
             )
         }
-        
+
+        // Create scatter data (with some random variation to separate points)
+        neutrophilScatterData = rawData.map { record in
+            HKData(
+                date: record.date,
+                sumValue: record.ancValue + Double.random(in: -0.5...0.5), // Add slight variation for visualization
+                avgValue: -1.0,
+                minValue: -1.0,
+                maxValue: -1.0
+            )
+        }
+
         print("✅ Converted neutrophil data: \(neutrophilData)")
+        print("✅ Scatter neutrophil data: \(neutrophilScatterData)")
     }
 
     private func getNeutrophilCountsForPastWeek() -> [(date: Date, ancValue: Double)] {
