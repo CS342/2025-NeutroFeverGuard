@@ -123,11 +123,31 @@ struct DataTypeTest {
     }
     
     @Test
+    func testMasccEntry() async throws {
+        let validDate = Date()
+        let invalidDate = Date().addingTimeInterval(60 * 60 * 24)
+        
+        let validSymptoms: [MasccSymptom] = [
+            .mildSymptoms,
+            .noHypotension,
+            .noCOPD,
+            .ageUnder60
+        ]
+        
+        try MasccEntry(date: validDate, symptoms: validSymptoms)
+        
+        #expect(throws: DataError.invalidDate) {
+            try MasccEntry(date: invalidDate, symptoms: validSymptoms)
+        }
+    }
+    
+    @Test
     func testDataTypesArray() {
         let view = AddDataView(presentingAccount: .constant(false))
         #expect(view.dataTypes.count == 7)
         
-        let expectedNames = ["Temperature", "Heart Rate", "Oxygen Saturation", "Blood Pressure", "Lab Results", "Medication", "Symptoms"]
+        // swiftlint:disable line_length
+        let expectedNames = ["Temperature", "Heart Rate", "Oxygen Saturation", "Blood Pressure", "Lab Results", "Medication", "Symptoms", "MASC Index"]
         let actualNames = view.dataTypes.map { $0.name }
 
         #expect(expectedNames == actualNames)

@@ -124,6 +124,9 @@
         }
       }
     },
+    "Age < 60 years (+2)" : {
+
+    },
     "Allow Notifications" : {
       "localizations" : {
         "en" : {
@@ -168,6 +171,9 @@
           }
         }
       }
+    },
+    "Burden of illness (symptom severity)" : {
+
     },
     "Cancel" : {
       "localizations" : {
@@ -609,6 +615,12 @@
     "Medications" : {
 
     },
+    "Mild symptoms (+5)" : {
+
+    },
+    "Moderate symptoms (+3)" : {
+
+    },
     "My Device" : {
 
     },
@@ -655,6 +667,12 @@
     "No body temperature data available." : {
 
     },
+    "No COPD (+4)" : {
+
+    },
+    "No dehydration requiring IV fluids (+3)" : {
+
+    },
     "No heart rate data available." : {
       "localizations" : {
         "en" : {
@@ -664,6 +682,9 @@
           }
         }
       }
+    },
+    "No hypotension (sBP ≥90 mmHg) (+5)" : {
+
     },
     "No lab results recorded" : {
 
@@ -725,6 +746,9 @@
         }
       }
     },
+    "Other factors" : {
+
+    },
     "Oxygen Saturation (%)" : {
       "localizations" : {
         "en" : {
@@ -765,6 +789,9 @@
           }
         }
       }
+    },
+    "Please select all that apply:" : {
+
     },
     "Please turn on your Bluetooth and CORE sensor." : {
 
@@ -811,6 +838,9 @@
     "Select Section" : {
 
     },
+    "Severe symptoms (+0)" : {
+
+    },
     "Sign the Consent Form" : {
 
     },
@@ -827,6 +857,9 @@
           }
         }
       }
+    },
+    "Solid tumor or no prior fungal infection (+4)" : {
+
     },
     "Spezi Modules" : {
       "extractionState" : "stale",
@@ -938,6 +971,9 @@
       }
     },
     "Timely Warning Notifications." : {
+
+    },
+    "Total Score: %lld" : {
 
     },
     "Unsupported Event" : {

@@ -188,6 +188,66 @@ struct SymptomForm: View {
     }
 }
 
+struct MasccForm: View {
+    @Binding var selectedSymptoms: Set<MasccSymptom>
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Please select all that apply:")
+                .font(.headline)
+                .padding(.bottom, 4)
+            
+            Group {
+                Text("Burden of illness (select only one)")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                    .padding(.top, 8)
+                
+                Toggle("Mild symptoms (+5)", isOn: bindingFor(.mildSymptoms))
+                Toggle("Moderate symptoms (+3)", isOn: bindingFor(.moderateSymptoms))
+                Toggle("Severe symptoms (+0)", isOn: bindingFor(.severeSymptoms))
+            }
+            
+            Group {
+                Text("Other factors")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                    .padding(.top, 8)
+                
+                Toggle("No hypotension (sBP ≥90 mmHg) (+5)", isOn: bindingFor(.noHypotension))
+                Toggle("No COPD (+4)", isOn: bindingFor(.noCOPD))
+                Toggle("Solid tumor or no prior fungal infection (+4)", isOn: bindingFor(.solidTumor))
+                Toggle("No dehydration requiring IV fluids (+3)", isOn: bindingFor(.noDehydration))
+                Toggle("Age < 60 years (+2)", isOn: bindingFor(.ageUnder60))
+            }
+            
+            if !selectedSymptoms.isEmpty {
+                Text("Total Score: \(calculateTotal())")
+                    .font(.headline)
+                    .padding(.top, 16)
+            }
+        }
+        .padding()
+    }
+    
+    private func bindingFor(_ symptom: MasccSymptom) -> Binding<Bool> {
+        Binding(
+            get: { selectedSymptoms.contains(symptom) },
+            set: { isSelected in
+                if isSelected {
+                    selectedSymptoms.insert(symptom)
+                } else {
+                    selectedSymptoms.remove(symptom)
+                }
+            }
+        )
+    }
+    
+    private func calculateTotal() -> Int {
+        selectedSymptoms.map(\.score).reduce(0, +)
+    }
+}
+
 // swiftlint:disable type_body_length
 struct DataInputForm: View {
     let dataType: String
@@ -195,6 +255,7 @@ struct DataInputForm: View {
     @Environment(MedicationManager.self) private var medicationManager
     @Environment(HealthKitService.self) var healthKitService
     @Environment(SymptomManager.self) private var symptomManager
+    @Environment(MasccManager.self) private var masccManager
     
     @State private var date = Date()
     @State private var time = Date()
@@ -213,6 +274,7 @@ struct DataInputForm: View {
     @State private var symptomSeverity: [Symptom: String] = [:]
     @State private var showWarningAlert = false
     @State private var warningMessage = ""
+    @State private var selectedMasccSymptoms: Set<MasccSymptom> = []
     
     var onDismissWithWarning: ((String) -> Void)?
     
@@ -240,6 +302,11 @@ struct DataInputForm: View {
                 }
                 return severity >= 1 && severity <= 10
             }
+        case "MASCC Index":
+            let hasOneSymptomSeverity = [MasccSymptom.mildSymptoms, .moderateSymptoms, .severeSymptoms]
+                .filter { selectedMasccSymptoms.contains($0) }
+                .count == 1
+            return hasOneSymptomSeverity
         default:
             return false
         }
@@ -265,6 +332,8 @@ struct DataInputForm: View {
                     MedicationForm( medicationName: $medicationName, doseValue: $doseValue, doseUnit: $doseUnit)
                 } else if dataType == "Symptoms" {
                     SymptomForm(selectedSymptoms: $selectedSymptoms, symptomSeverity: $symptomSeverity)
+                } else if dataType == "MASCC Index" {
+                    MasccForm(selectedSymptoms: $selectedMasccSymptoms)
                 }
             }
             .navigationTitle(dataType)
@@ -313,6 +382,8 @@ struct DataInputForm: View {
             await addMedication()
         case "Symptoms":
             await addSymptoms()
+        case "MASCC Index":
+            await addMascc()
         default:
             alertMessage = "Unknown data type"
         }
@@ -432,65 +503,49 @@ struct DataInputForm: View {
             alertMessage = "Error: \(error)"
         }
     }
-
-    private func generateWarningMessage(from symptoms: [MasccSymptom]) -> String {
-        let totalScore = symptoms.reduce(0) { $0 + $1.score }
-        
+    
+    private func generateWarningMessage(from symptoms: [Symptom: Int]) -> String {
         var warnings: [String] = []
         
-        for symptom in symptoms {
-            switch symptom.score {
-            case 5...:
-                warnings.append("High severity: \(symptom.rawValue.lowercased())")
-            case 3..<5:
-                warnings.append("Moderate severity: \(symptom.rawValue.lowercased())")
-            case 1..<3:
-                warnings.append("Mild severity: \(symptom.rawValue.lowercased())")
-            default:
-                warnings.append("No severity: \(symptom.rawValue.lowercased())")
+        for (symptom, severity) in symptoms {
+            if severity >= 7 {
+                warnings.append("severe \(symptom.rawValue.lowercased())")
+            } else if severity >= 4 {
+                warnings.append("moderately severe \(symptom.rawValue.lowercased())")
             }
         }
         
-        var message = ""
-        
-        if !warnings.isEmpty {
-            let prefix = "You should see your provider for "
-            
-            if warnings.count == 1 {
-                message = prefix + warnings[0]
-            } else if warnings.count == 2 {
-                message = prefix + warnings.joined(separator: " and ")
-            } else {
-                let lastWarning = warnings.last!
-                let allButLast = warnings.dropLast()
-                message = prefix + allButLast.joined(separator: ", ") + ", and " + lastWarning
-            }
+        if warnings.isEmpty {
+            return ""
         }
         
-        if totalScore < 21 {
-            message += "\n\n⚠️ Your MASCC score is **\(totalScore)**, which indicates a high risk for complications. Seek medical attention immediately."
-        } else if totalScore < 26 {
-            message += "\n\n✅ Your MASCC score is **\(totalScore)**, which indicates moderate risk. Monitor symptoms closely."
+        let prefix = "You should see your provider for "
+        
+        if warnings.count == 1 {
+            return prefix + warnings[0]
+        } else if warnings.count == 2 {
+            return prefix + warnings.joined(separator: " and ")
         } else {
-            message += "\n\n✅ Your MASCC score is **\(totalScore)**, which indicates low risk."
+            // For 3 or more items, join all but the last with commas, then add "and" before the last
+            // swiftlint:disable force_unwrapping
+            let lastWarning = warnings.last!
+            let allButLast = warnings.dropLast()
+            return prefix + allButLast.joined(separator: ", ") + ", and " + lastWarning
         }
-        
-        return message
     }
     
     func addSymptoms() async {
-        var symptoms: [MasccSymptom] = []
+        var symptoms: [Symptom: Int] = [:]
         
         for symptom in selectedSymptoms {
             if let severityStr = symptomSeverity[symptom],
-               let severity = Int(severityStr),
-               let masccSymptom = MasccSymptom(rawValue: symptom.rawValue) {
-                symptoms.append(masccSymptom)
+               let severity = Int(severityStr) {
+                symptoms[symptom] = severity
             }
         }
         
         do {
-            let symptomEntry = try MasccEntry(
+            let symptomEntry = try SymptomEntry(
                 date: combineDateAndTime(date, time),
                 symptoms: symptoms
             )
@@ -503,6 +558,34 @@ struct DataInputForm: View {
             if !warning.isEmpty {
                 onDismissWithWarning?(warning)
             }
+        } catch {
+            alertMessage = "Error: \(error)"
+        }
+    }
+    
+    func generateMasccWarning(score: Int) -> String {
+        if score < 21 {
+            return "⚠️ Your MASCC score is \(score). This indicates HIGH RISK for complications. Seek immediate medical attention."
+        } else if score < 26 {
+            return "⚠️ Your MASCC score is \(score). This indicates MODERATE RISK. Contact your healthcare provider."
+        } else {
+            return "✓ Your MASCC score is \(score). This indicates LOW RISK. Continue monitoring your symptoms."
+        }
+    }
+
+    func addMascc() async {
+        do {
+            let masccEntry = try MasccEntry(
+                date: combineDateAndTime(date, time),
+                symptoms: Array(selectedMasccSymptoms)
+            )
+            
+            masccManager.addMasccEntry(masccEntry)
+            
+            let totalScore = selectedMasccSymptoms.map(\.score).reduce(0, +)
+            let warning = generateMasccWarning(score: totalScore)
+            dismiss()
+            onDismissWithWarning?(warning)
         } catch {
             alertMessage = "Error: \(error)"
         }
