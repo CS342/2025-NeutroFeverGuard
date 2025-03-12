@@ -204,21 +204,47 @@ struct SymptomEntry: Codable {
     }
 }
 
-struct MasccEntry: Codable {
-    // periphery:ignore
-    var date: Date
-    // periphery:ignore
-    var symptoms: [Symptom: Int]  // Maps symptoms to their severity (1-10)
+enum MasccSymptom: String, Codable, CaseIterable {
+    case noHypotension = "No Hypotension"
+    case noCOPD = "No COPD"
+    case solidTumor = "Solid Tumor"
+    case noDehydration = "No Dehydration"
+    case mildSymptoms = "Mild Symptoms"
+    case moderateSymptoms = "Moderate Symptoms"
+    case severeSymptoms = "Severe Symptoms"
+    case ageUnder60 = "Age Under 60"
     
-    init(date: Date, symptoms: [Symptom: Int]) throws {
-        try isValidDate(date)
-        // Validate that all severity ratings are between 1 and 10
-        for (_, severity) in symptoms {
-            guard severity >= 1 && severity <= 10 else {
-                throw DataError.invalidSeverity
-            }
+    var score: Int {
+        switch self {
+        case .noHypotension: return 5
+        case .noCOPD: return 4
+        case .solidTumor: return 4
+        case .noDehydration: return 3
+        case .mildSymptoms: return 5
+        case .moderateSymptoms: return 3
+        case .severeSymptoms: return 0
+        case .ageUnder60: return 2
         }
+    }
+}
+
+struct MasccEntry: Codable {
+    var date: Date
+    var symptoms: [MasccSymptom]
+    
+    init(date: Date, symptoms: [MasccSymptom]) throws {
+        try MasccEntry.isValidDate(date)
         self.date = date
         self.symptoms = symptoms
+    }
+    
+    static func isValidDate(_ date: Date) throws {
+        let calendar = Calendar.current
+        let currentDate = Date()
+        
+        // Prevent future dates
+        guard date <= currentDate else {
+            throw DataError.invalidDate
+        }
     }
 }

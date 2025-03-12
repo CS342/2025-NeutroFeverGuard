@@ -32,7 +32,7 @@ class MasccManager: Module, EnvironmentAccessible {
     }
     
     @MainActor
-    func addMasccEntry(_ entry: masccEntry) {
+    func addMasccEntry(_ entry: MasccEntry) {
         masccRecords.append(entry)
         saveMascc()
     }

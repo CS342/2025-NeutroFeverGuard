@@ -433,48 +433,64 @@ struct DataInputForm: View {
         }
     }
 
-    private func generateWarningMessage(from symptoms: [Symptom: Int]) -> String {
+    private func generateWarningMessage(from symptoms: [MasccSymptom]) -> String {
+        let totalScore = symptoms.reduce(0) { $0 + $1.score }
+        
         var warnings: [String] = []
         
-        for (symptom, severity) in symptoms {
-            if severity >= 7 {
-                warnings.append("severe \(symptom.rawValue.lowercased())")
-            } else if severity >= 4 {
-                warnings.append("moderately severe \(symptom.rawValue.lowercased())")
+        for symptom in symptoms {
+            switch symptom.score {
+            case 5...:
+                warnings.append("High severity: \(symptom.rawValue.lowercased())")
+            case 3..<5:
+                warnings.append("Moderate severity: \(symptom.rawValue.lowercased())")
+            case 1..<3:
+                warnings.append("Mild severity: \(symptom.rawValue.lowercased())")
+            default:
+                warnings.append("No severity: \(symptom.rawValue.lowercased())")
             }
         }
         
-        if warnings.isEmpty {
-            return ""
+        var message = ""
+        
+        if !warnings.isEmpty {
+            let prefix = "You should see your provider for "
+            
+            if warnings.count == 1 {
+                message = prefix + warnings[0]
+            } else if warnings.count == 2 {
+                message = prefix + warnings.joined(separator: " and ")
+            } else {
+                let lastWarning = warnings.last!
+                let allButLast = warnings.dropLast()
+                message = prefix + allButLast.joined(separator: ", ") + ", and " + lastWarning
+            }
         }
         
-        let prefix = "You should see your provider for "
-        
-        if warnings.count == 1 {
-            return prefix + warnings[0]
-        } else if warnings.count == 2 {
-            return prefix + warnings.joined(separator: " and ")
+        if totalScore < 21 {
+            message += "\n\n⚠️ Your MASCC score is **\(totalScore)**, which indicates a high risk for complications. Seek medical attention immediately."
+        } else if totalScore < 26 {
+            message += "\n\n✅ Your MASCC score is **\(totalScore)**, which indicates moderate risk. Monitor symptoms closely."
         } else {
-            // For 3 or more items, join all but the last with commas, then add "and" before the last
-            // swiftlint:disable force_unwrapping
-            let lastWarning = warnings.last!
-            let allButLast = warnings.dropLast()
-            return prefix + allButLast.joined(separator: ", ") + ", and " + lastWarning
+            message += "\n\n✅ Your MASCC score is **\(totalScore)**, which indicates low risk."
         }
+        
+        return message
     }
     
     func addSymptoms() async {
-        var symptoms: [Symptom: Int] = [:]
+        var symptoms: [MasccSymptom] = []
         
         for symptom in selectedSymptoms {
             if let severityStr = symptomSeverity[symptom],
-               let severity = Int(severityStr) {
-                symptoms[symptom] = severity
+               let severity = Int(severityStr),
+               let masccSymptom = MasccSymptom(rawValue: symptom.rawValue) {
+                symptoms.append(masccSymptom)
             }
         }
         
         do {
-            let symptomEntry = try SymptomEntry(
+            let symptomEntry = try MasccEntry(
                 date: combineDateAndTime(date, time),
                 symptoms: symptoms
             )
