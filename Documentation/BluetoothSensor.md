@@ -128,8 +128,12 @@ func recordNewMeasurement(_ measurement: SkinTemperatureMeasurement) async {
         }
     }
 ```
-
 > [!TIP]  
 > We built these functions on top of **SpeziBluetooth**. In addition our code and documentation, check out their [documentation](https://swiftpackageindex.com/StanfordSpezi/SpeziBluetooth/main/documentation/spezibluetooth).
 
 Now you know how bluetooth connection with CORE Sensor work in NeutroFeverGuard! Welcome back to [README](../README.md).
+
+Before you go here is a:
+
+> [!FUN FACT]  
+> The technology, "Bluetooth," was named after King Harald "Bluetooth" Gormsson, who united Denmark and Norway in the 10th century, with the name chosen to reflect the technology's goal of uniting diverse communication protocols. The Bluetooth logo is a bind rune that merges the Younger Futhark runes H (ᚼ) and B (ᛒ), which represent Harald's initials.

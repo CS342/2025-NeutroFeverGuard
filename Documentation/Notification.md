@@ -56,6 +56,17 @@ func add(sample: HKSample) async {
         }
     }
 ```
+These local notifications can be received both when the app is foreground or background. Here is how you do that:
+
+```swift
+@Observable
+class NotificationManager: Module, NotificationHandler {
+    @MainActor
+    func receiveIncomingNotification(_ notification: UNNotification) async -> UNNotificationPresentationOptions? {
+        [.badge, .banner, .list]
+    }
+    // more functions here.
+```
 
 ## Lab Notification
 
