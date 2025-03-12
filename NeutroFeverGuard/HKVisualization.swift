@@ -95,7 +95,7 @@ struct HKVisualization: View {
             vizList
             .navigationTitle("HKVIZ_NAVIGATION_TITLE")
             .onAppear {
-                // Ensure that the data up-to-date when the view is activated.
+                // Ensure that data up-to-date when the view is activated.
                 self.readAllHKData(ensureUpdate: true)
             }
             .toolbar {

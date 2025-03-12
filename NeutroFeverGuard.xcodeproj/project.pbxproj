@@ -104,6 +104,8 @@
 		EB5D7CF92D8108BC0046BF8E /* AccountButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DFE8A82ABE551400428242 /* AccountButton.swift */; };
 		EB6FDBCE2D80133A008E9F90 /* HKVisualization.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6FDBCB2D80133A008E9F90 /* HKVisualization.swift */; };
 		EB6FDBCF2D80133A008E9F90 /* HKVisualizationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6FDBCC2D80133A008E9F90 /* HKVisualizationItem.swift */; };
+		EB6FDBD02D80133A008E9F90 /* HKVisualization.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6FDBCB2D80133A008E9F90 /* HKVisualization.swift */; };
+		EB6FDBD12D80133A008E9F90 /* HKVisualizationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6FDBCC2D80133A008E9F90 /* HKVisualizationItem.swift */; };
 		F223937A2D5D4095006C8EB4 /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22393792D5D4092006C8EB4 /* DataError.swift */; };
 		F268C4562D7F928C0020026F /* SymptomManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F268C4552D7F928B0020026F /* SymptomManager.swift */; };
 		F279F70C2D780462005C2927 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = F2A54D362D5DE24400A20113 /* FirebaseCore */; };
@@ -705,6 +707,8 @@
 				EB02C6612D5D52E90035AA89 /* NeutroFeverGuardTests.swift in Sources */,
 				B0DF8DFD2D7C123200581A00 /* HealthDataFetchable.swift in Sources */,
 				B0DF8DF72D7BFEFB00581A00 /* FeverMonitorTests.swift in Sources */,
+				EB6FDBD02D80133A008E9F90 /* HKVisualization.swift in Sources */,
+				EB6FDBD12D80133A008E9F90 /* HKVisualizationItem.swift in Sources */,
 				B03D0E482D7D24AA0024F2CA /* DataError.swift in Sources */,
 				C4C8A3B32D71204200F313AE /* HelperFuncTests.swift in Sources */,
 				B03D0E432D7D22700024F2CA /* HealthKitService.swift in Sources */,
