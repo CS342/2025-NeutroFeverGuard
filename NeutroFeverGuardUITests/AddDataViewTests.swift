@@ -10,7 +10,7 @@ import XCTest
 import XCTestExtensions
 import XCTHealthKit
 
-
+// swiftlint:disable type_body_length
 class AddDataViewTests: XCTestCase {
     @MainActor
     override func setUp() async throws {
@@ -350,6 +350,44 @@ class AddDataViewTests: XCTestCase {
         
         XCTAssertTrue(app.buttons["Cancel"].waitForExistence(timeout: 5))
         app.buttons["Cancel"].tap()
+        try app.handleHealthKitAuthorization()
+        XCTAssertTrue(app.staticTexts["What data would you like to add?"].waitForExistence(timeout: 5))
+    }
+
+    @MainActor
+    func testSymptomsDataInput() throws {
+        let app = XCUIApplication()
+        
+        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 2.0))
+        
+        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Add Data"].waitForExistence(timeout: 5))
+        app.tabBars["Tab Bar"].buttons["Add Data"].tap()
+        
+        XCTAssertTrue(app.staticTexts["Symptoms"].waitForExistence(timeout: 5))
+        app.staticTexts["Symptoms"].tap()
+        
+        XCTAssertTrue(app.navigationBars["Symptoms"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Are you experiencing any of:"].waitForExistence(timeout: 5))
+        
+        let symptoms = ["Nausea", "Pain", "Cough"]
+        let severities = ["3", "5", "8"]
+        
+        for (index, symptom) in symptoms.enumerated() {
+            let toggle = app.switches[symptom]
+            XCTAssertTrue(toggle.waitForExistence(timeout: 5))
+            toggle.switches.firstMatch.tap()
+            
+            let severityField = app.textFields["severity-\(symptom)"]
+            print(app.debugDescription)
+            XCTAssertTrue(severityField.waitForExistence(timeout: 5))
+            
+            severityField.tap()
+            severityField.typeText(severities[index])
+        }
+        
+        XCTAssertTrue(app.buttons["Add"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Add"].isEnabled)
+        app.buttons["Add"].tap()
         try app.handleHealthKitAuthorization()
         XCTAssertTrue(app.staticTexts["What data would you like to add?"].waitForExistence(timeout: 5))
     }
