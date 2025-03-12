@@ -133,6 +133,7 @@ struct HKVisualization: View {
             .onAppear {
                 // Ensure that data up-to-date when the view is activated.
                 self.readAllHKData(ensureUpdate: true)
+                loadNeutrophilData() // Ensure this is called
             }
             .toolbar {
                 if account != nil {
@@ -150,7 +151,14 @@ struct HKVisualization: View {
 
     private func getNeutrophilCountsForPastWeek() -> [(date: Date, ancValue: Double)] {
         let oneWeekAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date()) ?? Date()
-        return labResultsManager.getAllAncValues().filter { $0.date >= oneWeekAgo }
+        let allValues = labResultsManager.getAllAncValues()
+        
+        print("🔍 All ANC Values: \(allValues)")
+        
+        let filteredValues = allValues.filter { $0.date >= oneWeekAgo }
+        print("✅ Filtered ANC Values: \(filteredValues)")
+        
+        return filteredValues
     }
   
     func readAllHKData(ensureUpdate: Bool = false) {
