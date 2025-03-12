@@ -31,7 +31,7 @@ struct HomeView: View {
     var body: some View {
         TabView(selection: $selectedTab) {
             // Dashboard tab (HKVisualization)
-            Tab("Dashboard", systemImage: "plus.app.fill", value: .dashboard) {
+            Tab("Dashboard", systemImage: "heart.circle", value: .dashboard) {
                 HKVisualization(presentingAccount: $presentingAccount)
             }
             .customizationID("home.visualization")
