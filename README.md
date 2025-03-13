@@ -45,8 +45,8 @@ Screenshots table:
 
 1. **Health Data Sources:**
 - **Bluetooth-enabled Temperature Sensors**: Users can connect their CORE Temperature Sensor to provide continuous skin temperature data.
--  **Apple Health App**: Data recorded by Apple Watch or Apple Health App via HealthKit.  
--  **Manual Entry**: Users can manually add health data, including vital signs and lab values.
+-  **Apple Health App**: Data recorded by Apple Watch or Apple Health App via HealthKit, including skin temperature, heart rate, and oxygen saturation.  
+-  **Manual Entry**: Users can manually add health data, including vital signs, blood pressure, lab values, symptoms, and the [MASCC (Multinational Association for Supportive Care in Cancer) Risk Index](https://www.mdcalc.com/calc/3913/mascc-risk-index-febrile-neutropenia).
 
    > [!NOTE]  
    > How is the data being processed and stored? NeutroFeverGuard use [Spezi Local Storage](https://github.com/StanfordSpezi/SpeziStorage) to store lab results and medication data locally. Other health data is stored in [Healthkit](https://github.com/StanfordSpezi/SpeziHealthKit). For cloud storage, all data is stored as [FHIR](https://github.com/StanfordSpezi/SpeziFHIR) elements on [Firebase](https://github.com/StanfordSpezi/SpeziFirebase).
@@ -72,6 +72,13 @@ Screenshots table:
    - ANC ≥ 500: Normal (Green)
    - 100 ≤ ANC < 500: Severe Neutropenia (Orange)  
    - ANC < 100: Profound Neutropenia (Red)
+
+4. **MASCC Risk Index:**
+   Users & providers together can fill out a survey for the [MASCC Risk Index](https://www.mdcalc.com/calc/3913/mascc-risk-index-febrile-neutropenia), a validated clinical survey for whether a patient is at high risk for febrile neutropenia-related complications. The patient will receive a warning to seek immediate medical attention if they are at high risk, or will be notified to continue monitoring their symptoms if they are at low risk.
+   
+5. **Symptoms Warnings:**
+   When a users fills out the symptoms form, they will be prompted to rate their symptoms on a scale of 1-10. If they rate a symptom between 4-6, they will receive a warning regarding a moderate severity symptom; if 7+, they will receive a warning regarding a high severity symptom.
+   Note: These thresholds were arbitrarily determined and can be modified as seen fit.
 
 > [!NOTE]  
 > Want to understand how fever monitoring alerts and lab results reminders work in the background? Check out the detailed explanation in [Fever Monitoring & Lab Notifications](Documentation/Notification.md).
