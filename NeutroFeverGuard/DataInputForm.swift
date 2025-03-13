@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+// swiftlint:disable file_length
 import SpeziLocalStorage
 import SpeziViews
 import SwiftUI
@@ -141,11 +142,120 @@ struct BloodPressureForm: View {
     }
 }
 
+struct SymptomForm: View {
+    @Binding var selectedSymptoms: Set<Symptom>
+    @Binding var symptomSeverity: [Symptom: String]
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Are you experiencing any of:")
+                .font(.headline)
+                .padding(.bottom, 4)
+            
+            ForEach(Symptom.allCases, id: \.self) { symptom in
+                VStack(alignment: .leading, spacing: 4) {
+                    Toggle(symptom.rawValue, isOn: Binding(
+                        get: { selectedSymptoms.contains(symptom) },
+                        set: { isSelected in
+                            if isSelected {
+                                selectedSymptoms.insert(symptom)
+                            } else {
+                                selectedSymptoms.remove(symptom)
+                                symptomSeverity.removeValue(forKey: symptom)
+                            }
+                        }
+                    ))
+                    
+                    if selectedSymptoms.contains(symptom) {
+                        HStack {
+                            Text("Rate your \(symptom.rawValue.lowercased()) (1-10):")
+                            TextField("1-10", text: Binding(
+                                get: { symptomSeverity[symptom] ?? "" },
+                                set: { symptomSeverity[symptom] = $0 }
+                            ))
+                            .keyboardType(.numberPad)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .frame(width: 80)
+                            .accessibilityIdentifier("severity-\(symptom.rawValue)")
+                        }
+                        .padding(.leading, 8)
+                    }
+                }
+                .padding(.vertical, 2)
+            }
+        }
+        .padding(8)
+    }
+}
+
+struct MasccForm: View {
+    @Binding var selectedSymptoms: Set<MasccSymptom>
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Please select all that apply:")
+                .font(.headline)
+                .padding(.bottom, 4)
+            
+            Group {
+                Text("Burden of illness (select only one)")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                    .padding(.top, 8)
+                
+                Toggle("Mild symptoms (+5)", isOn: bindingFor(.mildSymptoms))
+                Toggle("Moderate symptoms (+3)", isOn: bindingFor(.moderateSymptoms))
+                Toggle("Severe symptoms (+0)", isOn: bindingFor(.severeSymptoms))
+            }
+            
+            Group {
+                Text("Other factors")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                    .padding(.top, 8)
+                
+                Toggle("No hypotension (sBP ≥90 mmHg) (+5)", isOn: bindingFor(.noHypotension))
+                Toggle("No COPD (+4)", isOn: bindingFor(.noCOPD))
+                Toggle("Solid tumor or no prior fungal infection (+4)", isOn: bindingFor(.solidTumor))
+                Toggle("No dehydration requiring IV fluids (+3)", isOn: bindingFor(.noDehydration))
+                Toggle("Age < 60 years (+2)", isOn: bindingFor(.ageUnder60))
+            }
+            
+            if !selectedSymptoms.isEmpty {
+                Text("Total Score: \(calculateTotal())")
+                    .font(.headline)
+                    .padding(.top, 16)
+            }
+        }
+        .padding()
+    }
+    
+    private func bindingFor(_ symptom: MasccSymptom) -> Binding<Bool> {
+        Binding(
+            get: { selectedSymptoms.contains(symptom) },
+            set: { isSelected in
+                if isSelected {
+                    selectedSymptoms.insert(symptom)
+                } else {
+                    selectedSymptoms.remove(symptom)
+                }
+            }
+        )
+    }
+    
+    private func calculateTotal() -> Int {
+        selectedSymptoms.map(\.score).reduce(0, +)
+    }
+}
+
+// swiftlint:disable type_body_length
 struct DataInputForm: View {
     let dataType: String
     @Environment(LabResultsManager.self) var labResultsManager
     @Environment(MedicationManager.self) private var medicationManager
     @Environment(HealthKitService.self) var healthKitService
+    @Environment(SymptomManager.self) private var symptomManager
+    @Environment(MasccManager.self) private var masccManager
     
     @State private var date = Date()
     @State private var time = Date()
@@ -160,6 +270,13 @@ struct DataInputForm: View {
     @State private var alertMessage: String = ""
     @Environment(\.dismiss) var dismiss
     @Environment(NeutroFeverGuardScheduler.self) private var scheduler
+    @State private var selectedSymptoms: Set<Symptom> = []
+    @State private var symptomSeverity: [Symptom: String] = [:]
+    @State private var showWarningAlert = false
+    @State private var warningMessage = ""
+    @State private var selectedMasccSymptoms: Set<MasccSymptom> = []
+    
+    var onDismissWithWarning: ((String) -> Void)?
     
     var isFormValid: Bool {
         switch dataType {
@@ -177,6 +294,19 @@ struct DataInputForm: View {
             }
         case "Medication":
             return !medicationName.isEmpty && !doseValue.isEmpty
+        case "Symptoms":
+            return !selectedSymptoms.isEmpty && selectedSymptoms.allSatisfy { symptom in
+                guard let severityStr = symptomSeverity[symptom],
+                      let severity = Int(severityStr) else {
+                    return false
+                }
+                return severity >= 1 && severity <= 10
+            }
+        case "MASCC Index":
+            let hasOneSymptomSeverity = [MasccSymptom.mildSymptoms, .moderateSymptoms, .severeSymptoms]
+                .filter { selectedMasccSymptoms.contains($0) }
+                .count == 1
+            return hasOneSymptomSeverity
         default:
             return false
         }
@@ -200,6 +330,10 @@ struct DataInputForm: View {
                     LabResultsForm(labValues: $labValues)
                 } else if dataType == "Medication" {
                     MedicationForm( medicationName: $medicationName, doseValue: $doseValue, doseUnit: $doseUnit)
+                } else if dataType == "Symptoms" {
+                    SymptomForm(selectedSymptoms: $selectedSymptoms, symptomSeverity: $symptomSeverity)
+                } else if dataType == "MASCC Index" {
+                    MasccForm(selectedSymptoms: $selectedMasccSymptoms)
                 }
             }
             .navigationTitle(dataType)
@@ -212,14 +346,24 @@ struct DataInputForm: View {
                     } catch { print("Error requesting HealthKit authorization: \(error)") }
                 }.disabled(!isFormValid)
             )
-            .alert(isPresented: .constant(!alertMessage.isEmpty)) {
-                Alert( title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")) { alertMessage = "" })
+        }
+        .alert("Error", isPresented: .constant(!alertMessage.isEmpty)) {
+            Button("OK") { alertMessage = "" }
+        } message: {
+            Text(alertMessage)
+        }
+        .alert("Warning", isPresented: $showWarningAlert) {
+            Button("Acknowledge") {
+                showWarningAlert = false
             }
+        } message: {
+            Text(warningMessage)
         }
     }
     
-    init(dataType: String) {
+    init(dataType: String, onDismissWithWarning: ((String) -> Void)? = nil) {
         self.dataType = dataType
+        self.onDismissWithWarning = onDismissWithWarning
     }
     
     func addData() async {
@@ -236,6 +380,10 @@ struct DataInputForm: View {
             await addLabResult()
         case "Medication":
             await addMedication()
+        case "Symptoms":
+            await addSymptoms()
+        case "MASCC Index":
+            await addMascc()
         default:
             alertMessage = "Unknown data type"
         }
@@ -351,6 +499,91 @@ struct DataInputForm: View {
             dismiss()
         } catch let error as DataError {
             alertMessage = "Error: \(error.errorMessage)"
+        } catch {
+            alertMessage = "Error: \(error)"
+        }
+    }
+    
+    private func generateWarningMessage(from symptoms: [Symptom: Int]) -> String {
+        var warnings: [String] = []
+        
+        for (symptom, severity) in symptoms {
+            if severity >= 7 {
+                warnings.append("severe \(symptom.rawValue.lowercased())")
+            } else if severity >= 4 {
+                warnings.append("moderately severe \(symptom.rawValue.lowercased())")
+            }
+        }
+        
+        if warnings.isEmpty {
+            return ""
+        }
+        
+        let prefix = "You should see your provider for "
+        
+        if warnings.count == 1 {
+            return prefix + warnings[0]
+        } else if warnings.count == 2 {
+            return prefix + warnings.joined(separator: " and ")
+        } else {
+            // For 3 or more items, join all but the last with commas, then add "and" before the last
+            // swiftlint:disable force_unwrapping
+            let lastWarning = warnings.last!
+            let allButLast = warnings.dropLast()
+            return prefix + allButLast.joined(separator: ", ") + ", and " + lastWarning
+        }
+    }
+    
+    func addSymptoms() async {
+        var symptoms: [Symptom: Int] = [:]
+        
+        for symptom in selectedSymptoms {
+            if let severityStr = symptomSeverity[symptom],
+               let severity = Int(severityStr) {
+                symptoms[symptom] = severity
+            }
+        }
+        
+        do {
+            let symptomEntry = try SymptomEntry(
+                date: combineDateAndTime(date, time),
+                symptoms: symptoms
+            )
+            symptomManager.addSymptomEntry(symptomEntry)
+            
+            // Generate warning message if needed
+            let warning = generateWarningMessage(from: symptoms)
+            dismiss()
+            
+            if !warning.isEmpty {
+                onDismissWithWarning?(warning)
+            }
+        } catch {
+            alertMessage = "Error: \(error)"
+        }
+    }
+    
+    func generateMasccWarning(score: Int) -> String {
+        if score < 21 {
+            return "⚠️ Your MASCC score is \(score). This indicates HIGH RISK for complications. Seek medical attention."
+        } else {
+            return "✓ Your MASCC score is \(score). This indicates LOW RISK. Continue monitoring your symptoms."
+        }
+    }
+
+    func addMascc() async {
+        do {
+            let masccEntry = try MasccEntry(
+                date: combineDateAndTime(date, time),
+                symptoms: Array(selectedMasccSymptoms)
+            )
+            
+            masccManager.addMasccEntry(masccEntry)
+            
+            let totalScore = selectedMasccSymptoms.map(\.score).reduce(0, +)
+            let warning = generateMasccWarning(score: totalScore)
+            dismiss()
+            onDismissWithWarning?(warning)
         } catch {
             alertMessage = "Error: \(error)"
         }

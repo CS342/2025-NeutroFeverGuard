@@ -26,6 +26,7 @@ import SwiftUI
 
 class NeutroFeverGuardDelegate: SpeziAppDelegate {
     override var configuration: Configuration {
+        // swiftlint:disable closure_body_length
         Configuration(standard: NeutroFeverGuardStandard()) {
             if !FeatureFlags.disableFirebase {
                 AccountConfiguration(
@@ -60,6 +61,8 @@ class NeutroFeverGuardDelegate: SpeziAppDelegate {
             NotificationManager()
             LabResultsManager()
             MedicationManager()
+            SymptomManager()
+            MasccManager()
             HealthKitService()
             NoMeasurementWarningState()
             Bluetooth {

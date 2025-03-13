@@ -16,6 +16,8 @@ struct DataTypeItem: Identifiable {
 
 struct AddDataView: View {
     @State private var selectedDataType: DataTypeItem?
+    @State private var showWarningAlert = false
+    @State private var warningMessage = ""
     
     @Environment(Account.self) private var account: Account?
     @Binding var presentingAccount: Bool
@@ -26,13 +28,17 @@ struct AddDataView: View {
         (name: "Oxygen Saturation", emoji: "🫁"),
         (name: "Blood Pressure", emoji: "🩸"),
         (name: "Lab Results", emoji: "🧪"),
-        (name: "Medication", emoji: "💊")
+        (name: "Medication", emoji: "💊"),
+        (name: "Symptoms", emoji: "😷"),
+        (name: "MASCC Index", emoji: "📊")
     ]
     
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
 
     var body: some View {
+        // swiftlint:disable closure_body_length
         NavigationStack {
+            // swiftlint:disable closure_body_length
             ZStack {
                 Color(.systemBackground).ignoresSafeArea()
                 VStack {
@@ -60,9 +66,22 @@ struct AddDataView: View {
                     .padding()
                 }
                 .sheet(item: $selectedDataType) { item in
-                    DataInputForm(dataType: item.name)
+                    DataInputForm(dataType: item.name) { warning in
+                        warningMessage = warning
+                        showWarningAlert = true
+                    }
                 }
-                .toolbar {if account != nil {AccountButton(isPresented: $presentingAccount)}
+                .alert("Warning", isPresented: $showWarningAlert) {
+                    Button("Acknowledge") {
+                        showWarningAlert = false
+                    }
+                } message: {
+                    Text(warningMessage)
+                }
+                .toolbar {
+                    if account != nil {
+                        AccountButton(isPresented: $presentingAccount)
+                    }
                 }
             }
         }
