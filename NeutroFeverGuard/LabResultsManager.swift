@@ -21,7 +21,6 @@ class LabResultsManager: Module, EnvironmentAccessible {
     @ObservationIgnored @Dependency(LocalStorage.self) private var localStorage
     @ObservationIgnored @Dependency(FirebaseConfiguration.self) private var firebaseConfig
     
-    
     func configure() {
         loadLabResults() // Load data on startup
         if FeatureFlags.mockLabData {
