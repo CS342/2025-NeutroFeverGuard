@@ -11,7 +11,9 @@ import UserNotifications
 
 @Observable
 class NotificationManager: Module, NotificationHandler {
-    let notificationIdentifier = "FebrileNeutropeniaAlert"
+    private let notificationIdentifier = "FebrileNeutropeniaAlert"
+    private let notificationSentKey = "FebrileNeutropeniaNotificationSent"
+
     
     @MainActor
     func receiveIncomingNotification(_ notification: UNNotification) async -> UNNotificationPresentationOptions? {
@@ -19,19 +21,36 @@ class NotificationManager: Module, NotificationHandler {
     }
     
     func sendLocalNotification(title: String, body: String) {
+        guard !isNotificationAlreadySent() else {
+            print("Notification already sent, skipping duplicate alert.")
+            return
+        }
+        
         let content = UNMutableNotificationContent()
         content.title = title
         content.body = body
         content.sound = .default
-        
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notificationIdentifier])
-        
+                
         let request = UNNotificationRequest(identifier: notificationIdentifier, content: content, trigger: nil)
 
         UNUserNotificationCenter.current().add(request) { error in
             if let error = error {
                 print("Failed to send notification: \(error.localizedDescription)")
+            } else {
+                self.saveNotificationSent()
             }
         }
+    }
+    
+    private func isNotificationAlreadySent() -> Bool {
+        UserDefaults.standard.bool(forKey: notificationSentKey)
+    }
+
+    private func saveNotificationSent() {
+        UserDefaults.standard.set(true, forKey: notificationSentKey)
+    }
+
+    func resetNotificationState() {
+        UserDefaults.standard.set(false, forKey: notificationSentKey)
     }
 }
