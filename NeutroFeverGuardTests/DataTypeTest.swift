@@ -93,13 +93,69 @@ struct DataTypeTest {
             try LabEntry(date: invalidDate, values: values)
         }
     }
+
+    @Test
+    func testSymptomEntry() async throws {
+        let validDate = Date()
+        let invalidDate = Date().addingTimeInterval(60 * 60 * 24)
+        
+        let validSymptoms: [Symptom: Int] = [
+            .nausea: 5,
+            .pain: 3,
+            .cough: 7
+        ]
+        
+        let invalidSymptoms: [Symptom: Int] = [
+            .nausea: 11,
+            .pain: 0,
+            .cough: 5
+        ]
+        
+        try SymptomEntry(date: validDate, symptoms: validSymptoms)
+        
+        #expect(throws: DataError.invalidDate) {
+            try SymptomEntry(date: invalidDate, symptoms: validSymptoms)
+        }
+        
+        #expect(throws: DataError.invalidSeverity) {
+            try SymptomEntry(date: validDate, symptoms: invalidSymptoms)
+        }
+    }
+    
+    @Test
+    func testMasccEntry() async throws {
+        let validDate = Date()
+        let invalidDate = Date().addingTimeInterval(60 * 60 * 24)
+        
+        let validSymptoms: [MasccSymptom] = [
+            .mildSymptoms,
+            .noHypotension,
+            .noCOPD,
+            .ageUnder60
+        ]
+        
+        try MasccEntry(date: validDate, symptoms: validSymptoms)
+        
+        #expect(throws: DataError.invalidDate) {
+            try MasccEntry(date: invalidDate, symptoms: validSymptoms)
+        }
+    }
     
     @Test
     func testDataTypesArray() {
         let view = AddDataView(presentingAccount: .constant(false))
-        #expect(view.dataTypes.count == 6)
+        #expect(view.dataTypes.count == 8)
         
-        let expectedNames = ["Temperature", "Heart Rate", "Oxygen Saturation", "Blood Pressure", "Lab Results", "Medication"]
+        let expectedNames = [
+            "Temperature",
+            "Heart Rate",
+            "Oxygen Saturation",
+            "Blood Pressure",
+            "Lab Results",
+            "Medication",
+            "Symptoms",
+            "MASCC Index"
+        ]
         let actualNames = view.dataTypes.map { $0.name }
 
         #expect(expectedNames == actualNames)

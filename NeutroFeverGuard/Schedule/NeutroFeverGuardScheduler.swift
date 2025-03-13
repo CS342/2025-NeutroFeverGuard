@@ -62,7 +62,6 @@ final class NeutroFeverGuardScheduler: Module, DefaultInitializable, Environment
                 try event.complete()
                 //                print("Marked event \(event.id) as complete")
             }
-            scheduler.manuallyScheduleNotificationRefresh()
         } catch {
             print("Error querying or completing events: \(error)")
         }

@@ -30,7 +30,6 @@ enum LabTestType: String, CaseIterable, Codable {
     case blasts = "% Blasts"
 }
 
-
 enum TemperatureUnit: String {
    case celsius = "Celsius"
    case fahrenheit = "Fahrenheit"
@@ -106,7 +105,6 @@ struct OxygenSaturationEntry {
 /*
  Blood Pressure: date + time measured, and two pressures (systolic and diastolic) in mmHg.
  */
-// swiftlint:disable:next file_types_order
 struct BloodPressureEntry {
     static let systolicType = HKQuantityType(.bloodPressureSystolic)
     static let diastolicType = HKQuantityType(.bloodPressureDiastolic)
@@ -173,5 +171,79 @@ struct MedicationEntry: Codable {
         self.name = name
         self.doseValue = doseValue
         self.doseUnit = doseUnit
+    }
+}
+
+enum Symptom: String, CaseIterable, Codable {
+    case nausea = "Nausea"
+    case vomiting = "Vomiting"
+    case diarrhea = "Diarrhea"
+    case chills = "Chills"
+    case cough = "Cough"
+    case pain = "Pain"
+}
+
+struct SymptomEntry: Codable {
+    // periphery:ignore
+    var date: Date
+    // periphery:ignore
+    var symptoms: [Symptom: Int]  // Maps symptoms to their severity (1-10)
+    
+    init(date: Date, symptoms: [Symptom: Int]) throws {
+        try isValidDate(date)
+        // Validate that all severity ratings are between 1 and 10
+        for (_, severity) in symptoms {
+            guard severity >= 1 && severity <= 10 else {
+                throw DataError.invalidSeverity
+            }
+        }
+        self.date = date
+        self.symptoms = symptoms
+    }
+}
+
+struct MasccEntry: Codable {
+    var date: Date
+    // periphery:ignore
+    var symptoms: [MasccSymptom]
+    
+    init(date: Date, symptoms: [MasccSymptom]) throws {
+        try MasccEntry.isValidDate(date)
+        self.date = date
+        self.symptoms = symptoms
+    }
+    
+    static func isValidDate(_ date: Date) throws {
+        let calendar = Calendar.current
+        let currentDate = Date()
+        
+        // Prevent future dates
+        guard date <= currentDate else {
+            throw DataError.invalidDate
+        }
+    }
+}
+
+enum MasccSymptom: String, Codable, CaseIterable {
+    case noHypotension = "No Hypotension"
+    case noCOPD = "No COPD"
+    case solidTumor = "Solid Tumor"
+    case noDehydration = "No Dehydration"
+    case mildSymptoms = "Mild Symptoms"
+    case moderateSymptoms = "Moderate Symptoms"
+    case severeSymptoms = "Severe Symptoms"
+    case ageUnder60 = "Age Under 60"
+    
+    var score: Int {
+        switch self {
+        case .noHypotension: return 5
+        case .noCOPD: return 4
+        case .solidTumor: return 4
+        case .noDehydration: return 3
+        case .mildSymptoms: return 5
+        case .moderateSymptoms: return 3
+        case .severeSymptoms: return 0
+        case .ageUnder60: return 2
+        }
     }
 }

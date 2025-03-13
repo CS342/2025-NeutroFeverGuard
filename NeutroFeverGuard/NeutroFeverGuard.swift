@@ -11,7 +11,6 @@ import SpeziFirebaseAccount
 import SpeziViews
 import SwiftUI
 
-
 @main
 struct NeutroFeverGuard: App {
     @UIApplicationDelegateAdaptor(NeutroFeverGuardDelegate.self) var appDelegate
