@@ -158,7 +158,7 @@ class HKVisualizationTests: XCTestCase {
         try app.handleHealthKitAuthorization()
         
         // Wait for chart to appear
-        let chartTitle = app.staticTexts["Hear Rate Over Time"]
+        let chartTitle = app.staticTexts["Heart Rate Over Time"]
         XCTAssertTrue(chartTitle.waitForExistence(timeout: 5))
         
         // Get the frame of the chart title
