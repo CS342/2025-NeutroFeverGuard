@@ -55,8 +55,7 @@ Screenshots table:
    > Want to understand how CORE Sensor connection, and continuous temperature data flow work? Check out the detailed explanation in [Working with CORE Sensor - Bluetooth Connection](Documentation/BluetoothSensor.md).
 
 2. **Visualization:**
-
-    Interactive graphs display trends for: heart rate, temperature, oxygen saturation, absolute neutrophil count (ANC). Visuals include trend lines and daily average readings to help users and clinicians better understand health fluctuations.
+    Interactive graphs display trends for: heart rate, temperature, oxygen saturation, absolute neutrophil count (ANC). Visuals include trend lines and daily average readings to help users and clinicians better understand health fluctuations. To see the average, minimum, and maximum value of a measurement for a day simply click one of the scatter plot points. Clicking on a scatter plot data will turn it purple and turn the other data gray. Click anywhere besides the selected point to hide the summary and make all of the points blue again. Data is automatically loaded and read from HealthKit.
 
 ### II. Notifications & Alerts
 1. **Critical Health Alerts:**  
@@ -80,7 +79,7 @@ Screenshots table:
 
 ## User Instructions
 1. **Setup:** Use [TestFlight](https://testflight.apple.com/join/CAuYHs84) to download NeutroFeverGuard. Following the instruction when onboarding: sign the consent form, give permissions to health data and notification, sign up and provide your data. 
-2. **Dashboard:** Visualize your heart rate, body temperature, and oxygen saturation trends. The data syncs with the Health app, including readings from Bluetooth sensors and manual entries. Note that the Apple Watch doesn’t measure absolute body temperature continuously, only [nightly wrist temperature](https://support.apple.com/en-us/102674), which isn’t supported. For body temperature, you can use the [CORE sensor](https://corebodytemp.com/?srsltid=AfmBOooG6QWkEg89zKtJ3pBPQ4A96dReSOQWW1QcdxCdXDEXgoTYrhvj) or other sensors/apps that push body temperature data to Apple Health app.
+2. **Dashboard:** Visualize your heart rate, body temperature, and oxygen saturation trends. The data syncs with the Health app, including readings from Bluetooth sensors and manual entries. Click on each scatter plot data to see a summary of what day it was recorded on and what the average, minimum, and maximum values for that measurement that day was. Note that the Apple Watch doesn’t measure absolute body temperature continuously, only [nightly wrist temperature](https://support.apple.com/en-us/102674), which isn’t supported. For body temperature, you can use the [CORE sensor](https://corebodytemp.com/?srsltid=AfmBOooG6QWkEg89zKtJ3pBPQ4A96dReSOQWW1QcdxCdXDEXgoTYrhvj) or other sensors/apps that push body temperature data to Apple Health app.
 3. **Connect to Sensor:** If you have a CORE Sensor, make sure your sensor and bluetooth is on, go to Connect tab and our app will automatically connect, read and save your body temperature data through the CORE Sensor. If you don't have this sensor, this page will suggest you to add your data manually.
 4. **Add Data:** Manually log health metrics, including temperature, heart rate, oxygen saturation, and blood pressure — these will also sync to the Health app. You can record lab results for neutropenia-related tests, track medication intake with timestamps, and log symptoms like nausea or fatigue.
 5. **Records:** View past entries in two tabs — Lab Results and Medications. The Lab Results tab shows your latest Absolute Neutrophil Count (ANC) and provides a detailed history where you can view and delete records. In the Medications tab, you can view, edit, or delete your medication logs.
