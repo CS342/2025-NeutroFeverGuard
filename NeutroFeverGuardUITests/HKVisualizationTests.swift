@@ -44,11 +44,8 @@ class HKVisualizationTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Oxygen Saturation Over Time"].exists)
         XCTAssertTrue(app.staticTexts["Body Temperature Over Time"].exists)
         XCTAssertTrue(app.staticTexts["Heart Rate Over Time"].exists)
-        
-        // Test Lollipop functions
-        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Dashboard"].waitForExistence(timeout: 2))
-        app.tabBars["Tab Bar"].buttons["Dashboard"].tap()
-        try app.handleHealthKitAuthorization()
+        XCTAssertTrue(app.otherElements["Threshold"].exists)
+        XCTAssertTrue(app.otherElements["Average"].exists)
         
         // Wait for chart to appear
         let chartTitle = app.staticTexts["Oxygen Saturation Over Time"]
