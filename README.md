@@ -105,7 +105,7 @@ Contributions to this project are welcome. Please make sure to read the [contrib
 
 ## Team and Contributions
 
-Please see [team and contribution details](https://github.com/CS342/2025-NeutroFeverGuard/blob/sixian-readme/CONTRIBUTORS.md) for more information.
+Please see [team and contribution details](/Documentation/CONTRIBUTORS.md) for more information.
 
 ## License
 
