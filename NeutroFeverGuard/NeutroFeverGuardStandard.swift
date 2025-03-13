@@ -37,11 +37,15 @@ actor NeutroFeverGuardStandard: Standard,
     func add(sample: HKSample) async {
         if FeatureFlags.disableFirebase {
             logger.debug("Received new HealthKit sample: \(sample)")
-            if let condition = await checkForFebrileNeutropenia() {
-                notificationManager.sendLocalNotification(
-                    title: "Health Alert",
-                    body: "Risk detected: \(condition), please contact your care provider."
-                )
+            // Check if the sample is a body temperature measurement before proceeding
+            if let quantitySample = sample as? HKQuantitySample,
+               quantitySample.quantityType == HKQuantityType.quantityType(forIdentifier: .bodyTemperature) {
+                if let condition = await checkForFebrileNeutropenia() {
+                    notificationManager.sendLocalNotification(
+                        title: "Health Alert",
+                        body: "Risk detected: \(condition), please contact your care provider."
+                    )
+                }
             }
             return
         }
@@ -50,11 +54,14 @@ actor NeutroFeverGuardStandard: Standard,
             try await healthKitDocument(id: sample.id)
                 .setData(from: sample.resource)
             // Check if the condition is met before sending a notification
-            if let condition = await checkForFebrileNeutropenia() {
-                notificationManager.sendLocalNotification(
-                    title: "Health Alert",
-                    body: "Risk detected: \(condition), please contact your care provider."
-                )
+            if let quantitySample = sample as? HKQuantitySample,
+               quantitySample.quantityType == HKQuantityType.quantityType(forIdentifier: .bodyTemperature) {
+                if let condition = await checkForFebrileNeutropenia() {
+                    notificationManager.sendLocalNotification(
+                        title: "Health Alert",
+                        body: "Risk detected: \(condition), please contact your care provider."
+                    )
+                }
             }
         } catch {
             logger.error("Could not store HealthKit sample: \(error)")
