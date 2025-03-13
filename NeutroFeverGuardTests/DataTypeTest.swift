@@ -146,8 +146,16 @@ struct DataTypeTest {
         let view = AddDataView(presentingAccount: .constant(false))
         #expect(view.dataTypes.count == 8)
         
-        // swiftlint:disable line_length
-        let expectedNames = ["Temperature", "Heart Rate", "Oxygen Saturation", "Blood Pressure", "Lab Results", "Medication", "Symptoms", "MASCC Index"]
+        let expectedNames = [
+            "Temperature",
+            "Heart Rate",
+            "Oxygen Saturation",
+            "Blood Pressure",
+            "Lab Results",
+            "Medication",
+            "Symptoms",
+            "MASCC Index"
+        ]
         let actualNames = view.dataTypes.map { $0.name }
 
         #expect(expectedNames == actualNames)
