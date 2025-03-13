@@ -51,10 +51,10 @@ struct HKVisualizationItem: View {
                 String(localized: "Average: ", locale: locale) +
                 String(round(elm.avgValue * 10) / 10) +
                 ", " +
-                String(localized: "Max Value: ", locale: locale) +
+                String(localized: "Max value: ", locale: locale) +
                 String(Int(round(elm.maxValue))) +
                 ", " +
-                String(localized: "Min Value: ", locale: locale) +
+                String(localized: "Min value: ", locale: locale) +
                 String(Int(round(elm.minValue)))
             )
             Text(details)
@@ -72,6 +72,7 @@ struct HKVisualizationItem: View {
                     y: .value(.init(self.yName), dataPoint.sumValue)
                 )
                 .foregroundStyle(getBarColor(value: dataPoint.sumValue, date: dataPoint.date).opacity(0.2))
+                .accessibilityIdentifier("ScatterPoint_\(dataPoint.date)")
             }
             ForEach(data) { dataPoint in
                 BarMark(
@@ -80,6 +81,7 @@ struct HKVisualizationItem: View {
                     width: .fixed(10)
                 )
                     .foregroundStyle(getBarColor(value: dataPoint.sumValue, date: dataPoint.date))
+                    .accessibilityIdentifier("Bar_\(dataPoint.date)")
                 if self.plotAvg {
                     LineMark(
                         x: .value(.init(self.xName), dataPoint.date, unit: .day),
@@ -95,6 +97,7 @@ struct HKVisualizationItem: View {
                 )
                 .foregroundStyle(.primary)
                 .lineStyle(StrokeStyle(lineWidth: 1, dash: [5]))
+                .accessibilityIdentifier("Threshold")
             }
         }
         .padding(.top, 10)
