@@ -70,7 +70,6 @@ class HKVisualizationTests: XCTestCase {
         let app = XCUIApplication()
         
         XCTAssertTrue(app.wait(for: .runningForeground, timeout: 2.0))
-        
         XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Dashboard"].waitForExistence(timeout: 2))
         app.tabBars["Tab Bar"].buttons["Dashboard"].tap()
         try app.handleHealthKitAuthorization()
