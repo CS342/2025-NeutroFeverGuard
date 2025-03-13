@@ -204,6 +204,7 @@ struct SymptomEntry: Codable {
 
 struct MasccEntry: Codable {
     var date: Date
+    // periphery:ignore
     var symptoms: [MasccSymptom]
     
     init(date: Date, symptoms: [MasccSymptom]) throws {
