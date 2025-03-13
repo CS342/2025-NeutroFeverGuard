@@ -52,7 +52,7 @@ class HKVisualizationTests: XCTestCase {
         // Get the frame of the chart title
         let frame = chartTitle.frame
         // Tap below the title where the chart should be
-        let tapPoint = CGPoint(x: frame.maxX - 50, y: frame.maxY + 100)  // Tap near the right side where today's data point should be
+        let tapPoint = CGPoint(x: frame.maxX - 50, y: frame.maxY + 0)  // Tap near the right side where today's data point should be
         app.coordinate(withNormalizedOffset: .zero).withOffset(CGVector(dx: tapPoint.x, dy: tapPoint.y)).tap()
         
         // Verify that some interaction happened by checking for a date
@@ -63,8 +63,12 @@ class HKVisualizationTests: XCTestCase {
         
         let dateExists = app.staticTexts[dateStr].waitForExistence(timeout: 2)
         XCTAssertTrue(dateExists, "Today's date (\(dateStr)) should appear after tapping")
-        let valueExists = app.staticTexts["98"].waitForExistence(timeout: 2)
+        let valueExists = app.staticTexts["50.0"].waitForExistence(timeout: 2)
         XCTAssertTrue(valueExists, "Correct value (\(valueExists)) exists")
+        let minValueExists = app.staticTexts["1"].waitForExistence(timeout: 2)
+        XCTAssertTrue(valueExists, "Correct min value (\(valueExists)) exists")
+        let maxValueExists = app.staticTexts["100"].waitForExistence(timeout: 2)
+        XCTAssertTrue(valueExists, "Correct max value (\(valueExists)) exists")
     }
     
     @MainActor
