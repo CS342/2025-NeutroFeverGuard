@@ -78,8 +78,8 @@ Screenshots table:
    Users & providers together can fill out a survey for the [MASCC Risk Index](https://www.mdcalc.com/calc/3913/mascc-risk-index-febrile-neutropenia), a validated clinical survey for whether a patient is at high risk for febrile neutropenia-related complications. The patient will receive a warning to seek immediate medical attention if they are at high risk, or will be notified to continue monitoring their symptoms if they are at low risk.
    
 5. **Symptoms Warnings:**
-   - When a users fills out the symptoms form, they will be prompted to rate their symptoms on a scale of 1-10. If they rate a symptom between 4-6, they will receive a warning regarding a moderate severity symptom; if 7+, they will receive a warning regarding a high severity symptom.
-   - Note: These thresholds were arbitrarily determined and can be modified as seen fit.
+   When a users fills out the symptoms form, they will be prompted to rate their symptoms on a scale of 1-10. If they rate a symptom between 4-6, they will receive a warning regarding a moderate severity symptom; if 7+, they will receive a warning regarding a high severity symptom.
+   Note: These thresholds were arbitrarily determined and can be modified as seen fit.
 
 > [!NOTE]  
 > Want to understand how fever monitoring alerts and lab results reminders work in the background? Check out the detailed explanation in [Fever Monitoring & Lab Notifications](Documentation/Notification.md).
