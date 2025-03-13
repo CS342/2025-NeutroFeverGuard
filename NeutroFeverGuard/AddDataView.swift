@@ -29,7 +29,8 @@ struct AddDataView: View {
         (name: "Blood Pressure", emoji: "🩸"),
         (name: "Lab Results", emoji: "🧪"),
         (name: "Medication", emoji: "💊"),
-        (name: "Symptoms", emoji: "😷")
+        (name: "Symptoms", emoji: "😷"),
+        (name: "MASCC Index", emoji: "📊")
     ]
     
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
