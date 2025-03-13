@@ -152,6 +152,9 @@
     "Average: " : {
 
     },
+    "Average: %@" : {
+
+    },
     "Bluetooth Devices" : {
 
     },
@@ -603,6 +606,9 @@
     "Max value: " : {
 
     },
+    "Max value: %@" : {
+
+    },
     "Medication List" : {
 
     },
@@ -616,6 +622,9 @@
 
     },
     "Min value: " : {
+
+    },
+    "Min value: %@" : {
 
     },
     "Moderate symptoms (+3)" : {
@@ -898,6 +907,9 @@
 
     },
     "Summary: " : {
+
+    },
+    "Summary: %@" : {
 
     },
     "Swift Package Manager" : {

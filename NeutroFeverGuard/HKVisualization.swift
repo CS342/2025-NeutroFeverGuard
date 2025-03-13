@@ -292,25 +292,40 @@ struct HKVisualization: View {
         }
     }
     func loadMockDataNew() {
-        // Load the mock data for testing purposes to the states.
         let today = Date()
-        let sumStatData = [
-            HKData(date: today, sumValue: 100, avgValue: 0, minValue: 0, maxValue: 0),
-            HKData(date: today, sumValue: 100, avgValue: 0, minValue: 0, maxValue: 0)
-        ]
+        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: today) ?? today
+        let twoDaysAgo = Calendar.current.date(byAdding: .day, value: -2, to: today) ?? today
         let minMaxAvgStatData = [
             HKData(date: today, sumValue: 0, avgValue: 50, minValue: 1, maxValue: 100)
         ]
-        if self.heartRateData.isEmpty {
-            self.bodyTemperatureData = minMaxAvgStatData
-            self.bodyTemperatureScatterData = sumStatData
-            self.heartRateScatterData = sumStatData
-            self.oxygenSaturationScatterData = sumStatData
-            self.heartRateData = minMaxAvgStatData
-            self.oxygenSaturationData = minMaxAvgStatData
-        }
-    }
     
+        // Clear out bar data to prevent rendering of bar graphs
+        self.heartRateData = minMaxAvgStatData
+        self.bodyTemperatureData = minMaxAvgStatData
+        self.oxygenSaturationData = minMaxAvgStatData
+        
+        // ✅ Heart Rate Scatter Data (60-100 bpm normal range)
+        self.heartRateScatterData = [
+            HKData(date: today, sumValue: 75, avgValue: 75, minValue: 75, maxValue: 75),
+            HKData(date: yesterday, sumValue: 82, avgValue: 82, minValue: 82, maxValue: 82),
+            HKData(date: twoDaysAgo, sumValue: 90, avgValue: 90, minValue: 90, maxValue: 90)
+        ]
+        
+        // ✅ Body Temperature Scatter Data (97-99°F normal range)
+        self.bodyTemperatureScatterData = [
+            HKData(date: today, sumValue: 98.6, avgValue: 98.6, minValue: 98.6, maxValue: 98.6),
+            HKData(date: yesterday, sumValue: 98.9, avgValue: 98.9, minValue: 98.9, maxValue: 98.9),
+            HKData(date: twoDaysAgo, sumValue: 99.1, avgValue: 99.1, minValue: 99.1, maxValue: 99.1)
+        ]
+        
+        // ✅ Oxygen Saturation Scatter Data (94-100% normal range)
+        self.oxygenSaturationScatterData = [
+            HKData(date: today, sumValue: 98, avgValue: 98, minValue: 98, maxValue: 98),
+            HKData(date: yesterday, sumValue: 97, avgValue: 97, minValue: 97, maxValue: 97),
+            HKData(date: twoDaysAgo, sumValue: 96, avgValue: 96, minValue: 96, maxValue: 96)
+        ]
+    }
+
     func loadMockData() {
         let today = Date()
         let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: today) ?? today

@@ -107,6 +107,7 @@
 		EB6FDBCF2D80133A008E9F90 /* HKVisualizationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6FDBCC2D80133A008E9F90 /* HKVisualizationItem.swift */; };
 		EB6FDBD02D80133A008E9F90 /* HKVisualization.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6FDBCB2D80133A008E9F90 /* HKVisualization.swift */; };
 		EB6FDBD12D80133A008E9F90 /* HKVisualizationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6FDBCC2D80133A008E9F90 /* HKVisualizationItem.swift */; };
+		EBE60BDA2D8360310050D832 /* HKVisualizationTestsNoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE60BD92D83602A0050D832 /* HKVisualizationTestsNoData.swift */; };
 		EBFA80652D81FBE600596C3C /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DC3E29EDD7ED004B9AB4 /* FeatureFlags.swift */; };
 		F223937A2D5D4095006C8EB4 /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22393792D5D4092006C8EB4 /* DataError.swift */; };
 		F268C4562D7F928C0020026F /* SymptomManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F268C4552D7F928B0020026F /* SymptomManager.swift */; };
@@ -196,10 +197,11 @@
 		C4C8A35E2D6F950600F313AE /* AddDataViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDataViewTests.swift; sourceTree = "<group>"; };
 		C4C8A3672D6F9E1A00F313AE /* LabViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabViewUITests.swift; sourceTree = "<group>"; };
 		C4C8A3B22D71204200F313AE /* HelperFuncTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFuncTests.swift; sourceTree = "<group>"; };
-		EB2AED6E2D81A00300861EE2 /* MasccIndexManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasccIndexManager.swift; sourceTree = "<group>"; };
 		EB0065562D813AC900F6DA00 /* HKVisualizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKVisualizationTests.swift; sourceTree = "<group>"; };
+		EB2AED6E2D81A00300861EE2 /* MasccIndexManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasccIndexManager.swift; sourceTree = "<group>"; };
 		EB6FDBCB2D80133A008E9F90 /* HKVisualization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKVisualization.swift; sourceTree = "<group>"; };
 		EB6FDBCC2D80133A008E9F90 /* HKVisualizationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKVisualizationItem.swift; sourceTree = "<group>"; };
+		EBE60BD92D83602A0050D832 /* HKVisualizationTestsNoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKVisualizationTestsNoData.swift; sourceTree = "<group>"; };
 		F22393792D5D4092006C8EB4 /* DataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataError.swift; sourceTree = "<group>"; };
 		F268C4552D7F928B0020026F /* SymptomManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomManager.swift; sourceTree = "<group>"; };
 		F2E6898E2D52ED8500869C4F /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
@@ -410,6 +412,7 @@
 				2F4E23862989DB360013F3D9 /* ContactsTests.swift */,
 				5680DD3D2AB8CD84004E6D4A /* ContributionsTest.swift */,
 				EB0065562D813AC900F6DA00 /* HKVisualizationTests.swift */,
+				EBE60BD92D83602A0050D832 /* HKVisualizationTestsNoData.swift */,
 			);
 			path = NeutroFeverGuardUITests;
 			sourceTree = "<group>";
@@ -733,6 +736,7 @@
 				C4C8A3682D6F9E2100F313AE /* LabViewUITests.swift in Sources */,
 				C42C1C712D7AB84300EA417F /* MedicationViewUITests.swift in Sources */,
 				C4C8A35F2D6F950600F313AE /* AddDataViewTests.swift in Sources */,
+				EBE60BDA2D8360310050D832 /* HKVisualizationTestsNoData.swift in Sources */,
 				EB0065572D813AC900F6DA00 /* HKVisualizationTests.swift in Sources */,
 				2F4E23872989DB360013F3D9 /* ContactsTests.swift in Sources */,
 				653A256C28338800005D4D48 /* SchedulerTests.swift in Sources */,

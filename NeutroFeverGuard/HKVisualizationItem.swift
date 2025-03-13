@@ -44,22 +44,21 @@ struct HKVisualizationItem: View {
         }
         // Helper text to show data when clicked.
         if let elm = selectedElement, elm.sumValue == 0 {
-            let details = (
-                String(localized: "Summary: ", locale: locale) +
-                String(elm.date.formatted(.dateTime.year().month().day())) +
-                ":\n" +
-                String(localized: "Average: ", locale: locale) +
-                String(round(elm.avgValue * 10) / 10) +
-                ", " +
-                String(localized: "Max value: ", locale: locale) +
-                String(Int(round(elm.maxValue))) +
-                ", " +
-                String(localized: "Min value: ", locale: locale) +
-                String(Int(round(elm.minValue)))
-            )
-            Text(details)
+            Text("Summary: \(elm.date.formatted(.dateTime.year().month().day()))")
                 .font(.footnote)
-                .listRowSeparator(.hidden)
+                .accessibilityIdentifier("Summary_Date")
+            
+            Text("Average: \(String(round(elm.avgValue * 10) / 10))")
+                .font(.footnote)
+                .accessibilityIdentifier("Summary_Average")
+            
+            Text("Max value: \(String(Int(round(elm.maxValue))))")
+                .font(.footnote)
+                .accessibilityIdentifier("Summary_Max")
+            
+            Text("Min value: \(String(Int(round(elm.minValue))))")
+                .font(.footnote)
+                .accessibilityIdentifier("Summary_Min")
         }
         chart
     }
