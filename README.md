@@ -87,11 +87,11 @@ Screenshots table:
 
 Enjoy!
 
-## Known Issues & Improvements to Make
+## Future Improvements
 
-- **Apple ID sign-Up issue:** Signing up with Apple ID is currently not functional due to a Spezi-related bug. This issue is expected to be resolved in upcoming iterations.
 - **Manual data entry validation:** While our manual data entry feature warns users against entering invalid values (e.g., negative blood pressure), it still accepts unrealistic values (e.g., heart rate of 300 bpm). This validation should be improved in future iterations, and [SpeziValidation](https://github.com/StanfordSpezi/SpeziViews/tree/main/Sources/SpeziValidation) can be used.
-- **Real-Time data issues with HealthKit when the App is not in the foreground:** As discussed with the Apple Health Research Team, retrieving real-time data from HealthKit while the app is in the background is inconsistent, which is a known issue on their end. Currently, the app receives near-real-time updates even if it is not in the foreground, with HealthKit pushing data approximately once per hour. To enable truly real-time fever monitoring when the app is not in the foreground, the system should query locally stored Bluetooth data instead of relying on HealthKit observer queries.
+- **Real-Time data issues with HealthKit when the App is not in the foreground:** As discussed with the Apple Health Research Team, retrieving real-time data from HealthKit while the app is in the background is inconsistent, which is a known issue on their end. Currently, the app receives near-real-time updates even if it is not in the foreground, with HealthKit pushing data approximately once per hour. To enable truly real-time fever monitoring when the app is not in the foreground, the system could query locally stored Bluetooth data instead of relying on HealthKit observer queries.
+- **Adding ANC visualization over time**: Currently, we visualize vitals, however it might be good to add ANC count over time as well.
 
 ## Contributing
 
