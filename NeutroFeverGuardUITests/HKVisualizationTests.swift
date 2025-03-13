@@ -45,11 +45,6 @@ class HKVisualizationTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Body Temperature Over Time"].exists)
         XCTAssertTrue(app.staticTexts["Heart Rate Over Time"].exists)
         
-        // Test Lollipop functions
-        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Dashboard"].waitForExistence(timeout: 2))
-        app.tabBars["Tab Bar"].buttons["Dashboard"].tap()
-        try app.handleHealthKitAuthorization()
-        
         // Wait for chart to appear
         let chartTitle = app.staticTexts["Oxygen Saturation Over Time"]
         XCTAssertTrue(chartTitle.waitForExistence(timeout: 5))
@@ -68,5 +63,37 @@ class HKVisualizationTests: XCTestCase {
         
         let dateExists = app.staticTexts[dateStr].waitForExistence(timeout: 2)
         XCTAssertTrue(dateExists, "Today's date (\(dateStr)) should appear after tapping")
+    }
+    
+    @MainActor
+    func testThresholdAndAverageForAllCharts() throws {
+        let app = XCUIApplication()
+        
+        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 2.0))
+        
+        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Dashboard"].waitForExistence(timeout: 2))
+        app.tabBars["Tab Bar"].buttons["Dashboard"].tap()
+        try app.handleHealthKitAuthorization()
+        
+        // Check for Heart Rate Chart
+        let heartRateChartTitle = app.staticTexts["Heart Rate Over Time"]
+        XCTAssertTrue(heartRateChartTitle.waitForExistence(timeout: 5), "Heart Rate chart title should exist")
+        
+        let heartRateThreshold = app.otherElements["Threshold"]
+        XCTAssertTrue(heartRateThreshold.waitForExistence(timeout: 2), "Heart Rate threshold line should be visible.")
+        
+        // Check for Body Temperature Chart
+        let bodyTempChartTitle = app.staticTexts["Body Temperature Over Time"]
+        XCTAssertTrue(bodyTempChartTitle.waitForExistence(timeout: 5), "Body Temperature chart title should exist")
+        
+        let bodyTempThreshold = app.otherElements["Threshold"]
+        XCTAssertTrue(bodyTempThreshold.waitForExistence(timeout: 2), "Body Temperature threshold line should be visible.")
+        
+        // Check for Oxygen Saturation Chart
+        let oxygenSatChartTitle = app.staticTexts["Oxygen Saturation Over Time"]
+        XCTAssertTrue(oxygenSatChartTitle.waitForExistence(timeout: 5), "Oxygen Saturation chart title should exist")
+        
+        let oxygenSatThreshold = app.otherElements["Threshold"]
+        XCTAssertTrue(oxygenSatThreshold.waitForExistence(timeout: 2), "Oxygen Saturation threshold line should be visible.")
     }
 }
