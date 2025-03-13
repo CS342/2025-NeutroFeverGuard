@@ -27,19 +27,16 @@ NeutroFeverGuard is using the [Spezi](https://github.com/StanfordSpezi/Spezi) ec
 2. Sync data with the Apple Health app and view interactive visualizations of health trends.  
 3. Receive reminders for uploading lab results and notifications in case of febrile neutropenia risk.
 
-## Features
+## User Interface and Key Features
+| Onboarding | Dashboard | Adding Data Manually |
+|----------|----------|----------|
+| ![](https://github.com/CS342/2025-NeutroFeverGuard/blob/sixian-readme/Documentation/Images/onboarding.PNG) | ![](https://github.com/CS342/2025-NeutroFeverGuard/blob/sixian-readme/Documentation/Images/dashboard.PNG) | ![](https://github.com/CS342/2025-NeutroFeverGuard/blob/sixian-readme/Documentation/Images/adddata.PNG) |
 
-Screenshots table:
 
-1. Onboarding Pages
-2. Connection to bluetooth
-3. Add data page
-4. Visualizations page
-5. Records page (lab + medications)
-6. Symptom Survey 
-7. Notifications  
-8. Contact Page 
-9. Firebase (to show things push there?)
+| View Records | Connect to Sensor | Contact Care Provider |
+|----------|----------|----------|
+| ![](https://github.com/CS342/2025-NeutroFeverGuard/blob/sixian-readme/Documentation/Images/lab.PNG) | ![](https://github.com/CS342/2025-NeutroFeverGuard/blob/sixian-readme/Documentation/Images/bluetooth.PNG) | ![](https://github.com/CS342/2025-NeutroFeverGuard/blob/sixian-readme/Documentation/Images/contacts.PNG) |
+
 
 ### I. Health Record Tracking
 
