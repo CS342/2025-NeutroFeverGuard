@@ -38,10 +38,13 @@ actor NeutroFeverGuardStandard: Standard,
         if FeatureFlags.disableFirebase {
             logger.debug("Received new HealthKit sample: \(sample)")
             if let condition = await checkForFebrileNeutropenia() {
+                print("Send notification")
                 notificationManager.sendLocalNotification(
                     title: "Health Alert",
                     body: "Risk detected: \(condition), please contact your care provider."
                 )
+            } else {
+                notificationManager.resetNotificationState() // Reset when condition resolves
             }
             return
         }
@@ -51,10 +54,13 @@ actor NeutroFeverGuardStandard: Standard,
                 .setData(from: sample.resource)
             // Check if the condition is met before sending a notification
             if let condition = await checkForFebrileNeutropenia() {
+                print("Send notification")
                 notificationManager.sendLocalNotification(
                     title: "Health Alert",
                     body: "Risk detected: \(condition), please contact your care provider."
                 )
+            } else {
+                notificationManager.resetNotificationState()
             }
         } catch {
             logger.error("Could not store HealthKit sample: \(error)")
