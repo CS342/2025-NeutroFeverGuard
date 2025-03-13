@@ -99,6 +99,7 @@
 		C4C8A35F2D6F950600F313AE /* AddDataViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C8A35E2D6F950600F313AE /* AddDataViewTests.swift */; };
 		C4C8A3682D6F9E2100F313AE /* LabViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C8A3672D6F9E1A00F313AE /* LabViewUITests.swift */; };
 		C4C8A3B32D71204200F313AE /* HelperFuncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C8A3B22D71204200F313AE /* HelperFuncTests.swift */; };
+		C4DEE85E2D82C09900BFBC26 /* BloodPressureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DEE85D2D82C09900BFBC26 /* BloodPressureTests.swift */; };
 		EB0065572D813AC900F6DA00 /* HKVisualizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0065562D813AC900F6DA00 /* HKVisualizationTests.swift */; };
 		EB02C6612D5D52E90035AA89 /* NeutroFeverGuardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653A256128338800005D4D48 /* NeutroFeverGuardTests.swift */; };
 		EB2AED6F2D81A00900861EE2 /* MasccIndexManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2AED6E2D81A00300861EE2 /* MasccIndexManager.swift */; };
@@ -197,6 +198,7 @@
 		C4C8A35E2D6F950600F313AE /* AddDataViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDataViewTests.swift; sourceTree = "<group>"; };
 		C4C8A3672D6F9E1A00F313AE /* LabViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabViewUITests.swift; sourceTree = "<group>"; };
 		C4C8A3B22D71204200F313AE /* HelperFuncTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFuncTests.swift; sourceTree = "<group>"; };
+		C4DEE85D2D82C09900BFBC26 /* BloodPressureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BloodPressureTests.swift; sourceTree = "<group>"; };
 		EB0065562D813AC900F6DA00 /* HKVisualizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKVisualizationTests.swift; sourceTree = "<group>"; };
 		EB2AED6E2D81A00300861EE2 /* MasccIndexManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasccIndexManager.swift; sourceTree = "<group>"; };
 		EB6FDBCB2D80133A008E9F90 /* HKVisualization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKVisualization.swift; sourceTree = "<group>"; };
@@ -409,6 +411,7 @@
 				C42C1C702D7AB84300EA417F /* MedicationViewUITests.swift */,
 				653A256B28338800005D4D48 /* SchedulerTests.swift */,
 				C4C8A35E2D6F950600F313AE /* AddDataViewTests.swift */,
+				C4DEE85D2D82C09900BFBC26 /* BloodPressureTests.swift */,
 				2F4E23862989DB360013F3D9 /* ContactsTests.swift */,
 				5680DD3D2AB8CD84004E6D4A /* ContributionsTest.swift */,
 				EB0065562D813AC900F6DA00 /* HKVisualizationTests.swift */,
@@ -740,6 +743,7 @@
 				EB0065572D813AC900F6DA00 /* HKVisualizationTests.swift in Sources */,
 				2F4E23872989DB360013F3D9 /* ContactsTests.swift in Sources */,
 				653A256C28338800005D4D48 /* SchedulerTests.swift in Sources */,
+				C4DEE85E2D82C09900BFBC26 /* BloodPressureTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
