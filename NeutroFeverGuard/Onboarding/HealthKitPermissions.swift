@@ -14,10 +14,26 @@ import SwiftUI
 struct HealthKitPermissions: View {
     @Environment(HealthKit.self) private var healthKitDataSource
     @Environment(OnboardingNavigationPath.self) private var onboardingNavigationPath
-    
+
     @State private var healthKitProcessing = false
     
-    
+    let accessRequirements = HealthKit.DataAccessRequirements(
+        read: [
+            HKQuantityType(.heartRate),
+            HKQuantityType(.oxygenSaturation),
+            HKQuantityType(.bodyTemperature),
+            HKQuantityType(.bloodPressureSystolic),
+            HKQuantityType(.bloodPressureDiastolic)
+        ],
+        write: [
+            HKQuantityType(.heartRate),
+            HKQuantityType(.oxygenSaturation),
+            HKQuantityType(.bodyTemperature),
+            HKQuantityType(.bloodPressureSystolic),
+            HKQuantityType(.bloodPressureDiastolic)
+        ]
+    )
+
     var body: some View {
         OnboardingView(
             contentView: {
@@ -46,7 +62,7 @@ struct HealthKitPermissions: View {
                             if ProcessInfo.processInfo.isPreviewSimulator {
                                 try await _Concurrency.Task.sleep(for: .seconds(5))
                             } else {
-                                try await healthKitDataSource.askForAuthorization()
+                                try await healthKitDataSource.askForAuthorization(for: accessRequirements)
                             }
                         } catch {
                             print("Could not request HealthKit permissions.")

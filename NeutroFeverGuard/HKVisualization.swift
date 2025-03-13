@@ -93,7 +93,7 @@ struct HKVisualization: View {
         
         return NavigationStack {
             vizList
-            .navigationTitle("HKVIZ_NAVIGATION_TITLE")
+            .navigationTitle("Dashboard")
             .onAppear {
                 // Ensure that data up-to-date when the view is activated.
                 self.readAllHKData(ensureUpdate: true)
@@ -107,6 +107,10 @@ struct HKVisualization: View {
     }
     
     func readAllHKData(ensureUpdate: Bool = false) {
+        if FeatureFlags.mockVizData {
+            loadMockData()
+            return
+        }
         print("Reading all HealthKit data with ensureUpdate: \(ensureUpdate)")
         let dateRange = generateDateRange()
         guard let startDate = dateRange[0] as? Date else {
@@ -286,6 +290,51 @@ struct HKVisualization: View {
         default:
             print("Unexpected quantity received:", quantityTypeIDF)
         }
+    }
+    
+    func loadMockData() {
+        let today = Date()
+        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: today) ?? today
+        let twoDaysAgo = Calendar.current.date(byAdding: .day, value: -2, to: today) ?? today
+        
+        // Heart Rate Mock Data (60-100 bpm normal range)
+        self.heartRateData = [
+            HKData(date: today, sumValue: 75, avgValue: 75, minValue: 65, maxValue: 85),
+            HKData(date: yesterday, sumValue: 82, avgValue: 82, minValue: 70, maxValue: 95),
+            HKData(date: twoDaysAgo, sumValue: 90, avgValue: 90, minValue: 80, maxValue: 105)
+        ]
+        
+        self.heartRateScatterData = [
+            HKData(date: today, sumValue: 75, avgValue: 75, minValue: 75, maxValue: 75),
+            HKData(date: yesterday, sumValue: 82, avgValue: 82, minValue: 82, maxValue: 82),
+            HKData(date: twoDaysAgo, sumValue: 90, avgValue: 90, minValue: 90, maxValue: 90)
+        ]
+        
+        // Body Temperature Mock Data (97-99°F normal range)
+        self.bodyTemperatureData = [
+            HKData(date: today, sumValue: 98.6, avgValue: 98.6, minValue: 98.2, maxValue: 99.0),
+            HKData(date: yesterday, sumValue: 98.9, avgValue: 98.9, minValue: 98.5, maxValue: 99.2),
+            HKData(date: twoDaysAgo, sumValue: 99.1, avgValue: 99.1, minValue: 98.7, maxValue: 99.5)
+        ]
+        
+        self.bodyTemperatureScatterData = [
+            HKData(date: today, sumValue: 98.6, avgValue: 98.6, minValue: 98.6, maxValue: 98.6),
+            HKData(date: yesterday, sumValue: 98.9, avgValue: 98.9, minValue: 98.9, maxValue: 98.9),
+            HKData(date: twoDaysAgo, sumValue: 99.1, avgValue: 99.1, minValue: 99.1, maxValue: 99.1)
+        ]
+        
+        // Oxygen Saturation Mock Data (94-100% normal range)
+        self.oxygenSaturationData = [
+            HKData(date: today, sumValue: 98, avgValue: 98, minValue: 96, maxValue: 99),
+            HKData(date: yesterday, sumValue: 97, avgValue: 97, minValue: 95, maxValue: 98),
+            HKData(date: twoDaysAgo, sumValue: 96, avgValue: 96, minValue: 94, maxValue: 97)
+        ]
+        
+        self.oxygenSaturationScatterData = [
+            HKData(date: today, sumValue: 98, avgValue: 98, minValue: 98, maxValue: 98),
+            HKData(date: yesterday, sumValue: 97, avgValue: 97, minValue: 97, maxValue: 97),
+            HKData(date: twoDaysAgo, sumValue: 96, avgValue: 96, minValue: 96, maxValue: 96)
+        ]
     }
     // swiftlint:enable closure_body_length
 }
