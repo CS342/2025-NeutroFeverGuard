@@ -10,6 +10,7 @@ import XCTest
 import XCTestExtensions
 import XCTHealthKit
 
+// swiftlint:disable type_body_length
 class AddDataViewTests: XCTestCase {
     @MainActor
     override func setUp() async throws {
@@ -382,6 +383,36 @@ class AddDataViewTests: XCTestCase {
             
             severityField.tap()
             severityField.typeText(severities[index])
+        }
+        
+        XCTAssertTrue(app.buttons["Add"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Add"].isEnabled)
+        app.buttons["Add"].tap()
+        try app.handleHealthKitAuthorization()
+        XCTAssertTrue(app.staticTexts["What data would you like to add?"].waitForExistence(timeout: 5))
+    }
+    
+    @MainActor
+    func testMaascIndexInput() throws {
+        let app = XCUIApplication()
+        
+        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 2.0))
+        
+        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Add Data"].waitForExistence(timeout: 5))
+        app.tabBars["Tab Bar"].buttons["Add Data"].tap()
+        
+        XCTAssertTrue(app.staticTexts["MASCC Index"].waitForExistence(timeout: 5))
+        app.staticTexts["MASCC Index"].tap()
+        
+        XCTAssertTrue(app.navigationBars["MASCC Index"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Please select all that apply:"].waitForExistence(timeout: 5))
+        
+        let selections = ["Mild symptoms (+5)", "No COPD (+4)", "Age < 60 years (+2)"]
+        
+        for (index, selection) in selections.enumerated() {
+            let toggle = app.switches[selection]
+            XCTAssertTrue(toggle.waitForExistence(timeout: 5))
+            toggle.switches.firstMatch.tap()
         }
         
         XCTAssertTrue(app.buttons["Add"].waitForExistence(timeout: 5))
