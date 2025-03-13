@@ -70,4 +70,3 @@ class HKVisualizationTests: XCTestCase {
         XCTAssertTrue(dateExists, "Today's date (\(dateStr)) should appear after tapping")
     }
 }
-
