@@ -149,6 +149,9 @@
     "Are you sure you want to delete this medication record? This action cannot be undone." : {
 
     },
+    "Average: " : {
+
+    },
     "Bluetooth Devices" : {
 
     },
@@ -172,7 +175,7 @@
         }
       }
     },
-    "Burden of illness (symptom severity)" : {
+    "Burden of illness (select only one)" : {
 
     },
     "Cancel" : {
@@ -400,9 +403,6 @@
         }
       }
     },
-    "HKVIZ_AVERAGE_STRING: " : {
-
-    },
     "HKVIZ_MAX_STRING" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -413,9 +413,6 @@
           }
         }
       }
-    },
-    "HKVIZ_MAX_STRING: " : {
-
     },
     "HKVIZ_MIN_STRING" : {
       "extractionState" : "stale",
@@ -428,12 +425,6 @@
         }
       }
     },
-    "HKVIZ_MIN_STRING: " : {
-
-    },
-    "HKVIZ_NAVIGATION_TITLE" : {
-
-    },
     "HKVIZ_SUMMARY" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -444,9 +435,6 @@
           }
         }
       }
-    },
-    "HKVIZ_SUMMARY: " : {
-
     },
     "HL7 FHIR" : {
       "extractionState" : "stale",
@@ -612,6 +600,9 @@
         }
       }
     },
+    "Max Value: " : {
+
+    },
     "Medication List" : {
 
     },
@@ -622,6 +613,9 @@
 
     },
     "Mild symptoms (+5)" : {
+
+    },
+    "Min Value: " : {
 
     },
     "Moderate symptoms (+3)" : {
@@ -901,6 +895,9 @@
       }
     },
     "State:" : {
+
+    },
+    "Summary: " : {
 
     },
     "Swift Package Manager" : {

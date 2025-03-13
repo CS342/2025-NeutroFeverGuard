@@ -565,9 +565,7 @@ struct DataInputForm: View {
     
     func generateMasccWarning(score: Int) -> String {
         if score < 21 {
-            return "⚠️ Your MASCC score is \(score). This indicates HIGH RISK for complications. Seek immediate medical attention."
-        } else if score < 26 {
-            return "⚠️ Your MASCC score is \(score). This indicates MODERATE RISK. Contact your healthcare provider."
+            return "⚠️ Your MASCC score is \(score). This indicates HIGH RISK for complications. Seek medical attention."
         } else {
             return "✓ Your MASCC score is \(score). This indicates LOW RISK. Continue monitoring your symptoms."
         }
