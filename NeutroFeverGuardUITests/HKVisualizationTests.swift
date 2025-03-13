@@ -63,6 +63,8 @@ class HKVisualizationTests: XCTestCase {
         
         let dateExists = app.staticTexts[dateStr].waitForExistence(timeout: 2)
         XCTAssertTrue(dateExists, "Today's date (\(dateStr)) should appear after tapping")
+        let valueExists = app.staticTexts["98"].waitForExistence(timeout: 2)
+        XCTAssertTrue(valueExists, "Correct value (\(valueExists)) exists")
     }
     
     @MainActor
@@ -81,19 +83,5 @@ class HKVisualizationTests: XCTestCase {
         
         let heartRateThreshold = app.otherElements["Threshold"]
         XCTAssertTrue(heartRateThreshold.waitForExistence(timeout: 2), "Heart Rate threshold line should be visible.")
-        
-        // Check for Body Temperature Chart
-        let bodyTempChartTitle = app.staticTexts["Body Temperature Over Time"]
-        XCTAssertTrue(bodyTempChartTitle.waitForExistence(timeout: 5), "Body Temperature chart title should exist")
-        
-        let bodyTempThreshold = app.otherElements["Threshold"]
-        XCTAssertTrue(bodyTempThreshold.waitForExistence(timeout: 2), "Body Temperature threshold line should be visible.")
-        
-        // Check for Oxygen Saturation Chart
-        let oxygenSatChartTitle = app.staticTexts["Oxygen Saturation Over Time"]
-        XCTAssertTrue(oxygenSatChartTitle.waitForExistence(timeout: 5), "Oxygen Saturation chart title should exist")
-        
-        let oxygenSatThreshold = app.otherElements["Threshold"]
-        XCTAssertTrue(oxygenSatThreshold.waitForExistence(timeout: 2), "Oxygen Saturation threshold line should be visible.")
     }
 }

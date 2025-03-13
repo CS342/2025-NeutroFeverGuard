@@ -108,7 +108,7 @@ struct HKVisualization: View {
     
     func readAllHKData(ensureUpdate: Bool = false) {
         if FeatureFlags.mockVizData {
-            loadMockData()
+            loadMockDataNew()
             return
         }
         print("Reading all HealthKit data with ensureUpdate: \(ensureUpdate)")
@@ -291,6 +291,25 @@ struct HKVisualization: View {
             print("Unexpected quantity received:", quantityTypeIDF)
         }
     }
+    func loadMockDataNew() {
+        // Load the mock data for testing purposes to the states.
+        let today = Date()
+        let sumStatData = [
+            HKData(date: today, sumValue: 100, avgValue: 0, minValue: 0, maxValue: 0),
+            HKData(date: today, sumValue: 100, avgValue: 0, minValue: 0, maxValue: 0)
+        ]
+        let minMaxAvgStatData = [
+            HKData(date: today, sumValue: 0, avgValue: 50, minValue: 1, maxValue: 100)
+        ]
+        if self.heartRateData.isEmpty {
+            self.bodyTemperatureData = minMaxAvgStatData
+            self.bodyTemperatureScatterData = sumStatData
+            self.heartRateScatterData = sumStatData
+            self.oxygenSaturationScatterData = sumStatData
+            self.heartRateData = minMaxAvgStatData
+            self.oxygenSaturationData = minMaxAvgStatData
+        }
+    }
     
     func loadMockData() {
         let today = Date()
@@ -411,19 +430,5 @@ func parseSampleQueryData(results: [HKSample], quantityTypeIDF: HKQuantityTypeId
 }
 
 #Preview {
-    let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date()
 
-    let mockData = [
-        HKData(date: Date(), sumValue: 100, avgValue: 96, minValue: 90, maxValue: 105),
-        HKData(date: yesterday, sumValue: 0, avgValue: 96, minValue: 91, maxValue: 102)
-    ]
-    
-    HKVisualizationItem(
-        data: mockData,
-        xName: "Date",
-        yName: "Oxygen Saturation (%)",
-        title: "Blood Oxygen Saturation",
-        threshold: 94.0,
-        helperText: "Maintain oxygen saturation above 94%."
-    )
 }

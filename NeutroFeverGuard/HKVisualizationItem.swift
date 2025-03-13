@@ -165,9 +165,9 @@ struct HKVisualizationItem: View {
         
         // Find max and min for y range.
         let ymax = data.map(\.maxValue).max() ?? 0
-        // For step data, we only have sum values.
         self.ymax = max(ymax, data.map(\.sumValue).max() ?? 0)
         self.ymin = data.map(\.minValue).min() ?? 0
+        
         // Plot average data if we have such data.
         self.plotAvg = data.map(\.avgValue).max() ?? 0 > 0
         self.scatterData = scatterData
