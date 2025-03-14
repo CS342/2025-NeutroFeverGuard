@@ -36,32 +36,31 @@ actor FeverMonitor: Sendable {
                 print("Temperature: \(tempFahrenheit)°F at \(temp.startDate)")
             }
 
-            if let latest = temperatures.last {
+            if let latest = temperatures.first {
                 let latestTempFahrenheit = convertToFahrenheit(latest.quantity)
                 print("Latest temperature: \(latestTempFahrenheit)°F")
                 if latestTempFahrenheit >= 101.0 {
                     print("Fever detected: Latest temperature is >= 101.0°F")
                     return true
                 }
-            } else {
-                let allHighTemps = temperatures.allSatisfy { sample in
-                    let tempFahrenheit = convertToFahrenheit(sample.quantity)
-                    return tempFahrenheit >= 100.4
-                }
+            }
 
-                if allHighTemps {
-                    print("Fever detected: All temperatures in the last hour are >= 100.4°F")
-                    return true
-                } else {
-                    print("No fever detected")
-                    return false
-                }
+            let allHighTemps = temperatures.allSatisfy { sample in
+                let tempFahrenheit = convertToFahrenheit(sample.quantity)
+                return tempFahrenheit >= 100.4
+            }
+
+            if allHighTemps {
+                print("Fever detected: All temperatures in the last hour are >= 100.4°F")
+                return true
+            } else {
+                print("No fever detected")
+                return false
             }
         } catch {
             print("Error fetching health data: \(error)")
             return false
         }
-        return false
     }
 
     private func convertToFahrenheit(_ quantity: HKQuantity) -> Double {

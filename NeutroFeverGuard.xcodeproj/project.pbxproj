@@ -172,8 +172,6 @@
 		A9DFE8A82ABE551400428242 /* AccountButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountButton.swift; sourceTree = "<group>"; };
 		A9FE7ACF2AA39BAB0077B045 /* AccountSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSheet.swift; sourceTree = "<group>"; };
 		B00991C32D7FCF2E00D9CBD5 /* BluetoothViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothViewUITests.swift; sourceTree = "<group>"; };
-		B04754952D83C6E10013DE00 /* NeutroFeverGuardDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NeutroFeverGuardDebug.entitlements; sourceTree = "<group>"; };
-		B04754962D83C6FC0013DE00 /* NeutroFeverGuardTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NeutroFeverGuardTest.entitlements; sourceTree = "<group>"; };
 		B0C95E382D78D5F2007A4CA6 /* FeverMonitoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeverMonitoring.swift; sourceTree = "<group>"; };
 		B0D4C9372D790F5E000643C7 /* LabResultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabResultsManager.swift; sourceTree = "<group>"; };
 		B0DF8DF62D7BFEF600581A00 /* FeverMonitorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeverMonitorTests.swift; sourceTree = "<group>"; };
@@ -354,8 +352,6 @@
 		653A254F283387FE005D4D48 /* NeutroFeverGuard */ = {
 			isa = PBXGroup;
 			children = (
-				B04754962D83C6FC0013DE00 /* NeutroFeverGuardTest.entitlements */,
-				B04754952D83C6E10013DE00 /* NeutroFeverGuardDebug.entitlements */,
 				C457589E2D812AB300178E8F /* BluetoothRelated */,
 				B0DF8DFB2D7C114900581A00 /* HealthDataFetchable.swift */,
 				F268C4552D7F928B0020026F /* SymptomManager.swift */,
@@ -849,12 +845,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = NeutroFeverGuard/NeutroFeverGuardTest.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "NeutroFeverGuard/Supporting Files/NeutroFeverGuard.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = RTS8FG3C64;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "NeutroFeverGuard/Supporting Files/Info.plist";
@@ -878,7 +874,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.stanford.cs342.2025.neutrofeverguard-mervecerit";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs342.2025.neutrofeverguard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1058,12 +1054,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = NeutroFeverGuard/NeutroFeverGuardDebug.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "NeutroFeverGuard/Supporting Files/NeutroFeverGuard.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = RTS8FG3C64;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "NeutroFeverGuard/Supporting Files/Info.plist";
@@ -1087,7 +1083,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.stanford.cs342.2025.neutrofeverguard-mervecerit";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.cs342.2025.neutrofeverguard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
