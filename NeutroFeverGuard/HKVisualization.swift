@@ -9,7 +9,6 @@
 import Charts
 import Foundation
 import HealthKit
-import NeutroFeverGuard
 import SpeziAccount
 import SwiftUI
 
@@ -156,7 +155,7 @@ struct HKVisualization: View {
                         xName: "Date",
                         yName: "Neutrophil Count",
                         title: "Neutrophil Count Over Past Week",
-                        threshold: 15, // Adjust the threshold if necessary
+                        threshold: 500, // Adjust the threshold if necessary
                         scatterData: neutrophilScatterData
                     )
                 } else {
