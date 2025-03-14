@@ -31,7 +31,7 @@ class HKVisualizationTests: XCTestCase {
     }
     
     @MainActor
-    func testHealthDashboard() throws {
+    func testHealthDashboardOxygen() throws {
         let app = XCUIApplication()
         
         XCTAssertTrue(app.wait(for: .runningForeground, timeout: 2.0))
@@ -55,14 +55,143 @@ class HKVisualizationTests: XCTestCase {
         let tapPoint = CGPoint(x: frame.maxX - 50, y: frame.maxY + 100)  // Tap near the right side where today's data point should be
         app.coordinate(withNormalizedOffset: .zero).withOffset(CGVector(dx: tapPoint.x, dy: tapPoint.y)).tap()
         
-        // Verify that some interaction happened by checking for a date
+        // ✅ Check that summary date is correct
         let today = Date()
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
+        formatter.timeStyle = .none
         let dateStr = formatter.string(from: today)
         
-        let dateExists = app.staticTexts[dateStr].waitForExistence(timeout: 2)
-        XCTAssertTrue(dateExists, "Today's date (\(dateStr)) should appear after tapping")
+        let summaryDate = app.staticTexts["Summary_Date"]
+        XCTAssertTrue(summaryDate.exists)
+        XCTAssertEqual(summaryDate.label, "Summary: \(dateStr)")
+
+        // ✅ Check that average value is correct
+        let summaryAverage = app.staticTexts["Summary_Average"]
+        XCTAssertTrue(summaryAverage.exists)
+        XCTAssertEqual(summaryAverage.label, "Average: 50.0")
+
+        // ✅ Check that max value is correct
+        let summaryMax = app.staticTexts["Summary_Max"]
+        XCTAssertTrue(summaryMax.exists)
+        XCTAssertEqual(summaryMax.label, "Max value: 100")
+
+        // ✅ Check that min value is correct
+        let summaryMin = app.staticTexts["Summary_Min"]
+        XCTAssertTrue(summaryMin.exists)
+        XCTAssertEqual(summaryMin.label, "Min value: 1")
+    }
+    
+    @MainActor
+    func testThreshold() throws {
+        let app = XCUIApplication()
+        
+        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 2.0))
+        
+        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Dashboard"].waitForExistence(timeout: 2))
+        app.tabBars["Tab Bar"].buttons["Dashboard"].tap()
+        try app.handleHealthKitAuthorization()
+        
+        // Check for Heart Rate Chart
+        let heartRateChartTitle = app.staticTexts["Heart Rate Over Time"]
+        XCTAssertTrue(heartRateChartTitle.waitForExistence(timeout: 5), "Heart Rate chart title should exist")
+        
+        let heartRateThreshold = app.otherElements["Threshold"]
+        XCTAssertTrue(heartRateThreshold.waitForExistence(timeout: 2), "Heart Rate threshold line should be visible.")
+    }
+    
+    @MainActor
+    func testHealthDashboardTemperature() throws {
+        let app = XCUIApplication()
+        
+        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 2.0))
+        
+        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Dashboard"].waitForExistence(timeout: 2))
+        app.tabBars["Tab Bar"].buttons["Dashboard"].tap()
+        try app.handleHealthKitAuthorization()
+        
+        // Wait for chart to appear
+        let chartTitle = app.staticTexts["Body Temperature Over Time"]
+        XCTAssertTrue(chartTitle.waitForExistence(timeout: 5))
+        
+        // Get the frame of the chart title
+        let frame = chartTitle.frame
+        // Tap below the title where the chart should be
+        let tapPoint = CGPoint(x: frame.maxX - 50, y: frame.maxY + 100)  // Tap near the right side where today's data point should be
+        app.coordinate(withNormalizedOffset: .zero).withOffset(CGVector(dx: tapPoint.x, dy: tapPoint.y)).tap()
+        
+        // ✅ Check that summary date is correct
+        let today = Date()
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        let dateStr = formatter.string(from: today)
+        
+        let summaryDate = app.staticTexts["Summary_Date"]
+        XCTAssertTrue(summaryDate.exists)
+        XCTAssertEqual(summaryDate.label, "Summary: \(dateStr)")
+
+        // ✅ Check that average value is correct
+        let summaryAverage = app.staticTexts["Summary_Average"]
+        XCTAssertTrue(summaryAverage.exists)
+        XCTAssertEqual(summaryAverage.label, "Average: 50.0")
+
+        // ✅ Check that max value is correct
+        let summaryMax = app.staticTexts["Summary_Max"]
+        XCTAssertTrue(summaryMax.exists)
+        XCTAssertEqual(summaryMax.label, "Max value: 100")
+
+        // ✅ Check that min value is correct
+        let summaryMin = app.staticTexts["Summary_Min"]
+        XCTAssertTrue(summaryMin.exists)
+        XCTAssertEqual(summaryMin.label, "Min value: 1")
+    }
+    
+    @MainActor
+    func testHealthDashboardHearRate() throws {
+        let app = XCUIApplication()
+        
+        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 2.0))
+        
+        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Dashboard"].waitForExistence(timeout: 2))
+        app.tabBars["Tab Bar"].buttons["Dashboard"].tap()
+        try app.handleHealthKitAuthorization()
+        
+        // Wait for chart to appear
+        let chartTitle = app.staticTexts["Heart Rate Over Time"]
+        XCTAssertTrue(chartTitle.waitForExistence(timeout: 5))
+        
+        // Get the frame of the chart title
+        let frame = chartTitle.frame
+        // Tap below the title where the chart should be
+        let tapPoint = CGPoint(x: frame.maxX - 50, y: frame.maxY + 100)  // Tap near the right side where today's data point should be
+        app.coordinate(withNormalizedOffset: .zero).withOffset(CGVector(dx: tapPoint.x, dy: tapPoint.y)).tap()
+        
+        // ✅ Check that summary date is correct
+        let today = Date()
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        let dateStr = formatter.string(from: today)
+        
+        let summaryDate = app.staticTexts["Summary_Date"]
+        XCTAssertTrue(summaryDate.exists)
+        XCTAssertEqual(summaryDate.label, "Summary: \(dateStr)")
+
+        // ✅ Check that average value is correct
+        let summaryAverage = app.staticTexts["Summary_Average"]
+        XCTAssertTrue(summaryAverage.exists)
+        XCTAssertEqual(summaryAverage.label, "Average: 50.0")
+
+        // ✅ Check that max value is correct
+        let summaryMax = app.staticTexts["Summary_Max"]
+        XCTAssertTrue(summaryMax.exists)
+        XCTAssertEqual(summaryMax.label, "Max value: 100")
+
+        // ✅ Check that min value is correct
+        let summaryMin = app.staticTexts["Summary_Min"]
+        XCTAssertTrue(summaryMin.exists)
+        XCTAssertEqual(summaryMin.label, "Min value: 1")
     }
     
     @MainActor
