@@ -149,7 +149,7 @@
     "Are you sure you want to delete this medication record? This action cannot be undone." : {
 
     },
-    "Average: " : {
+    "Average: %@" : {
 
     },
     "Bluetooth Devices" : {
@@ -600,7 +600,7 @@
         }
       }
     },
-    "Max value: " : {
+    "Max value: %@" : {
 
     },
     "Medication List" : {
@@ -615,7 +615,7 @@
     "Mild symptoms (+5)" : {
 
     },
-    "Min value: " : {
+    "Min value: %@" : {
 
     },
     "Moderate symptoms (+3)" : {
@@ -897,7 +897,7 @@
     "State:" : {
 
     },
-    "Summary: " : {
+    "Summary: %@" : {
 
     },
     "Swift Package Manager" : {
