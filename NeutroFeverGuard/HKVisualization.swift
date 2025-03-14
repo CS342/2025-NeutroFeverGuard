@@ -14,25 +14,37 @@ import SwiftUI
 
 // Parses the raw HealthKit data.
 func parseSampleQueryData(results: [HKSample], quantityTypeIDF: HKQuantityTypeIdentifier) -> [HKData] {
+    // Retrieve quantity value and time for each data point.
+
+    // initialize empty data array
     var collectedData: [HKData] = []
+
     for result in results {
         guard let result: HKQuantitySample = result as? HKQuantitySample else {
             print("Unexpected HK Quantity sample received.")
             continue
         }
         var value = -1.0
+        // oxygen saturation collect
         if quantityTypeIDF == HKQuantityTypeIdentifier.oxygenSaturation {
             value = result.quantity.doubleValue(for: HKUnit.percent()) * 100
+
+        // hear rate collect
         } else if quantityTypeIDF == HKQuantityTypeIdentifier.heartRate {
             value = result.quantity.doubleValue(for: HKUnit(from: "count/min"))
+
+        // body temperature collect
         } else if quantityTypeIDF == HKQuantityTypeIdentifier.bodyTemperature {
             value = result.quantity.doubleValue(for: .degreeCelsius())
         }
+
+        // retrieve the date the data was recorded
         let date = result.startDate
         collectedData.append(HKData(date: date, sumValue: value, avgValue: -1.0, minValue: -1.0, maxValue: -1.0))
     }
     return collectedData
 }
+
 
 func generateDateRange() -> [Any] {
     let startOfToday = Calendar.current.startOfDay(for: Date())
