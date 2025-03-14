@@ -140,6 +140,7 @@ struct BluetoothView: View {
     @Environment(ConnectedDevices<CoreSensor>.self) var connectedDevices
     @Environment(Account.self) private var account: Account?
     @Environment(NoMeasurementWarningState.self) var warningState
+    @Environment(\.requestNotificationAuthorization) private var requestNotificationAuthorization
     @Binding var selectedTab: HomeView.Tabs
     @Binding var presentingAccount: Bool
     @State private var showErrorAlert = false
@@ -153,9 +154,7 @@ struct BluetoothView: View {
                         selectedTab = .addData
                     }
                 }
-                if warningState.isActive {
-                    NoMeasurementWarningView()
-                }
+                
                 if let myDevice {
                     MyDeviceSection(myDevice: myDevice, handleDeviceConnection: handleDeviceConnection)
                 }
@@ -173,7 +172,11 @@ struct BluetoothView: View {
             }
             .onAppear {
                 Task {
-                    await bluetooth.powerOn()
+                    do {
+                        try await requestNotificationAuthorization(options: [.alert, .sound, .badge])
+                    } catch {
+                        print("couldn't request notification authorization")
+                    }
                 }
             }
             .scanNearbyDevices(with: bluetooth, autoConnect: true)

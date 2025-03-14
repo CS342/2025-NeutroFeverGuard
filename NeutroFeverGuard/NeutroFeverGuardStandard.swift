@@ -35,19 +35,19 @@ actor NeutroFeverGuardStandard: Standard,
 
 
     func add(sample: HKSample) async {
-        if FeatureFlags.disableFirebase {
-            logger.debug("Received new HealthKit sample: \(sample)")
-            if let condition = await checkForFebrileNeutropenia() {
-                print("Send notification")
-                notificationManager.sendLocalNotification(
-                    title: "Health Alert",
-                    body: "Risk detected: \(condition), please contact your care provider."
-                )
-            } else {
-                notificationManager.resetNotificationState() // Reset when condition resolves
-            }
-            return
-        }
+//        if FeatureFlags.disableFirebase {
+//            logger.debug("Received new HealthKit sample: \(sample)")
+//            if let condition = await checkForFebrileNeutropenia() {
+//                print("Send notification")
+//                notificationManager.sendLocalNotification(
+//                    title: "Health Alert",
+//                    body: "Risk detected: \(condition), please contact your care provider."
+//                )
+//            } else {
+//                notificationManager.resetNotificationState() // Reset when condition resolves
+//            }
+//            return
+//        }
         
         do {
             try await healthKitDocument(id: sample.id)
