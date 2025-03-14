@@ -53,7 +53,9 @@ actor NeutroFeverGuardStandard: Standard,
             try await healthKitDocument(id: sample.id)
                 .setData(from: sample.resource)
             // Check if the condition is met before sending a notification
-            if let condition = await checkForFebrileNeutropenia() {
+            if let quantitySample = sample as? HKQuantitySample,
+                quantitySample.quantityType == HKQuantityType.quantityType(forIdentifier: .bodyTemperature),
+                let condition = await checkForFebrileNeutropenia() {
                 print("Send notification")
                 notificationManager.sendLocalNotification(
                     title: "Health Alert",
