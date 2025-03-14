@@ -124,6 +124,9 @@
         }
       }
     },
+    "Age < 60 years (+2)" : {
+
+    },
     "Allow Notifications" : {
       "localizations" : {
         "en" : {
@@ -144,6 +147,9 @@
 
     },
     "Are you sure you want to delete this medication record? This action cannot be undone." : {
+
+    },
+    "Average: %@" : {
 
     },
     "Bluetooth Devices" : {
@@ -168,6 +174,9 @@
           }
         }
       }
+    },
+    "Burden of illness (select only one)" : {
+
     },
     "Cancel" : {
       "localizations" : {
@@ -394,9 +403,6 @@
         }
       }
     },
-    "HKVIZ_AVERAGE_STRING: " : {
-
-    },
     "HKVIZ_MAX_STRING" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -407,9 +413,6 @@
           }
         }
       }
-    },
-    "HKVIZ_MAX_STRING: " : {
-
     },
     "HKVIZ_MIN_STRING" : {
       "extractionState" : "stale",
@@ -422,12 +425,6 @@
         }
       }
     },
-    "HKVIZ_MIN_STRING: " : {
-
-    },
-    "HKVIZ_NAVIGATION_TITLE" : {
-
-    },
     "HKVIZ_SUMMARY" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -438,9 +435,6 @@
           }
         }
       }
-    },
-    "HKVIZ_SUMMARY: " : {
-
     },
     "HL7 FHIR" : {
       "extractionState" : "stale",
@@ -606,6 +600,9 @@
         }
       }
     },
+    "Max value: %@" : {
+
+    },
     "Medication List" : {
 
     },
@@ -613,6 +610,15 @@
 
     },
     "Medications" : {
+
+    },
+    "Mild symptoms (+5)" : {
+
+    },
+    "Min value: %@" : {
+
+    },
+    "Moderate symptoms (+3)" : {
 
     },
     "My Device" : {
@@ -667,6 +673,12 @@
     "No body temperature data available." : {
 
     },
+    "No COPD (+4)" : {
+
+    },
+    "No dehydration requiring IV fluids (+3)" : {
+
+    },
     "No heart rate data available." : {
       "localizations" : {
         "en" : {
@@ -676,6 +688,9 @@
           }
         }
       }
+    },
+    "No hypotension (sBP ≥90 mmHg) (+5)" : {
+
     },
     "No lab results recorded" : {
 
@@ -740,6 +755,9 @@
         }
       }
     },
+    "Other factors" : {
+
+    },
     "Oxygen Saturation (%)" : {
       "localizations" : {
         "en" : {
@@ -780,6 +798,9 @@
           }
         }
       }
+    },
+    "Please select all that apply:" : {
+
     },
     "Please turn on your Bluetooth and CORE sensor." : {
 
@@ -826,6 +847,9 @@
     "Select Section" : {
 
     },
+    "Severe symptoms (+0)" : {
+
+    },
     "Sign the Consent Form" : {
 
     },
@@ -842,6 +866,9 @@
           }
         }
       }
+    },
+    "Solid tumor or no prior fungal infection (+4)" : {
+
     },
     "Spezi Modules" : {
       "extractionState" : "stale",
@@ -877,6 +904,9 @@
       }
     },
     "State:" : {
+
+    },
+    "Summary: %@" : {
 
     },
     "Swift Package Manager" : {
@@ -953,6 +983,9 @@
       }
     },
     "Timely Warning Notifications." : {
+
+    },
+    "Total Score: %lld" : {
 
     },
     "Unsupported Event" : {
