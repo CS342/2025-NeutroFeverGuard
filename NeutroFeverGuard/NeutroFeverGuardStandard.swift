@@ -36,13 +36,15 @@ actor NeutroFeverGuardStandard: Standard,
 
     func add(sample: HKSample) async {
         if FeatureFlags.disableFirebase {
-            logger.debug("Received new HealthKit sample: \(sample)")
-            if let condition = await checkForFebrileNeutropenia() {
-                print("Send notification")
-                notificationManager.sendLocalNotification(
-                    title: "Health Alert",
-                    body: "Risk detected: \(condition), please contact your care provider."
-                )
+            logger.info("Received new HealthKit sample: \(sample)")
+            if let quantitySample = sample as? HKQuantitySample,
+                quantitySample.quantityType == HKQuantityType.quantityType(forIdentifier: .bodyTemperature),
+                let condition = await checkForFebrileNeutropenia() {
+                    print("Send notification")
+                    notificationManager.sendLocalNotification(
+                        title: "Health Alert",
+                        body: "Risk detected: \(condition), please contact your care provider."
+                    )
             } else {
                 notificationManager.resetNotificationState() // Reset when condition resolves
             }
@@ -53,8 +55,10 @@ actor NeutroFeverGuardStandard: Standard,
             try await healthKitDocument(id: sample.id)
                 .setData(from: sample.resource)
             // Check if the condition is met before sending a notification
-            if let condition = await checkForFebrileNeutropenia() {
-                print("Send notification")
+            if let quantitySample = sample as? HKQuantitySample,
+                quantitySample.quantityType == HKQuantityType.quantityType(forIdentifier: .bodyTemperature),
+                let condition = await checkForFebrileNeutropenia() {
+                logger.info("Send notification")
                 notificationManager.sendLocalNotification(
                     title: "Health Alert",
                     body: "Risk detected: \(condition), please contact your care provider."
