@@ -30,12 +30,12 @@ NeutroFeverGuard is using the [Spezi](https://github.com/StanfordSpezi/Spezi) ec
 ## User Interface and Key Features
 | Onboarding | Dashboard | Adding Data Manually |
 |----------|----------|----------|
-| ![](https://github.com/CS342/2025-NeutroFeverGuard/blob/sixian-readme/Documentation/Images/onboarding.PNG#gh-light-mode-only) ![](https://github.com/CS342/2025-NeutroFeverGuard/blob/sixian-readme/Documentation/Images/onboarding~dark.PNG#gh-dark-mode-only) | ![](https://github.com/CS342/2025-NeutroFeverGuard/blob/sixian-readme/Documentation/Images/dashboard.PNG#gh-light-mode-only) ![](https://github.com/CS342/2025-NeutroFeverGuard/blob/sixian-readme/Documentation/Images/dashboard~dark.PNG#gh-dark-mode-only) | ![](https://github.com/CS342/2025-NeutroFeverGuard/blob/sixian-readme/Documentation/Images/adddata.PNG#gh-light-mode-only) ![](https://github.com/CS342/2025-NeutroFeverGuard/blob/sixian-readme/Documentation/Images/adddata~dark.PNG#gh-dark-mode-only) |
+| ![](./Documentation/Images/onboarding.PNG#gh-light-mode-only) ![](./Documentation/Images/onboarding~dark.PNG#gh-dark-mode-only) | ![](./Documentation/Images/dashboard.PNG#gh-light-mode-only) ![](./Documentation/Images/dashboard~dark.PNG#gh-dark-mode-only) | ![](./Documentation/Images/adddata.PNG#gh-light-mode-only) ![](./Documentation/Images/adddata~dark.PNG#gh-dark-mode-only) |
 
 
 | View Records | Connect to Sensor | Contact Care Provider |
 |----------|----------|----------|
-| ![](https://github.com/CS342/2025-NeutroFeverGuard/blob/sixian-readme/Documentation/Images/lab.PNG#gh-light-mode-only)![](https://github.com/CS342/2025-NeutroFeverGuard/blob/sixian-readme/Documentation/Images/lab~dark.PNG#gh-dark-mode-only) | ![](https://github.com/CS342/2025-NeutroFeverGuard/blob/sixian-readme/Documentation/Images/bluetooth.PNG#gh-light-mode-only) ![](https://github.com/CS342/2025-NeutroFeverGuard/blob/sixian-readme/Documentation/Images/bluetooth~dark.PNG#gh-dark-mode-only) | ![](https://github.com/CS342/2025-NeutroFeverGuard/blob/sixian-readme/Documentation/Images/contacts.PNG#gh-light-mode-only) ![](https://github.com/CS342/2025-NeutroFeverGuard/blob/sixian-readme/Documentation/Images/contacts~dark.PNG#gh-dark-mode-only) |
+| ![](./Documentation/Images/lab.PNG#gh-light-mode-only)![](./Documentation/Images/lab~dark.PNG#gh-dark-mode-only) | ![](./Documentation/Images/bluetooth.PNG#gh-light-mode-only) ![](./Documentation/Images/bluetooth~dark.PNG#gh-dark-mode-only) | ![](./Documentation/Images/contacts.PNG#gh-light-mode-only) ![](./Documentation/Images/contacts~dark.PNG#gh-dark-mode-only) |
 
 
 ### I. Health Record Tracking
