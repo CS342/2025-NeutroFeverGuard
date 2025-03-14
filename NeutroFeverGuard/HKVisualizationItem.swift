@@ -28,8 +28,6 @@ struct HKVisualizationItem: View {
     // Variables for lollipops.
     let lollipopColor: Color = .indigo
 
-    @Environment(\.locale) private var locale
-
     @State private var selectedElement: HKData?
     
     var body: some View {
