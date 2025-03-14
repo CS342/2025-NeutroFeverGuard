@@ -12,6 +12,73 @@ import HealthKit
 import SpeziAccount
 import SwiftUI
 
+// Parses the raw HealthKit data.
+func parseSampleQueryData(results: [HKSample], quantityTypeIDF: HKQuantityTypeIdentifier) -> [HKData] {
+    // Retrieve quantity value and time for each data point.
+
+    // initialize empty data array
+    var collectedData: [HKData] = []
+
+    for result in results {
+        guard let result: HKQuantitySample = result as? HKQuantitySample else {
+            print("Unexpected HK Quantity sample received.")
+            continue
+        }
+        var value = -1.0
+        // oxygen saturation collect
+        if quantityTypeIDF == HKQuantityTypeIdentifier.oxygenSaturation {
+            value = result.quantity.doubleValue(for: HKUnit.percent()) * 100
+
+        // hear rate collect
+        } else if quantityTypeIDF == HKQuantityTypeIdentifier.heartRate {
+            value = result.quantity.doubleValue(for: HKUnit(from: "count/min"))
+
+        // body temperature collect
+        } else if quantityTypeIDF == HKQuantityTypeIdentifier.bodyTemperature {
+            value = result.quantity.doubleValue(for: .degreeCelsius())
+        }
+
+        // retrieve the date the data was recorded
+        let date = result.startDate
+        collectedData.append(HKData(date: date, sumValue: value, avgValue: -1.0, minValue: -1.0, maxValue: -1.0))
+    }
+    return collectedData
+}
+
+
+func generateDateRange() -> [Any] {
+    let startOfToday = Calendar.current.startOfDay(for: Date())
+    
+    guard let endDate = Calendar.current.date(byAdding: DateComponents(hour: 23, minute: 59, second: 59), to: startOfToday) else {
+        fatalError("*** Unable to create an end date ***")
+    }
+    
+    guard let startDate = Calendar.current.date(byAdding: .day, value: -14, to: endDate) else {
+        fatalError("*** Unable to create a start date ***")
+    }
+    
+    let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: [])
+    
+    return [startDate, endDate, predicate]
+}
+
+func handleAuthorizationError(_ error: Error) -> String {
+    if let hkError = error as? HKError {
+        switch hkError.code {
+        case .errorAuthorizationDenied:
+            return "Authorization denied by the user."
+        case .errorHealthDataUnavailable:
+            return "Health data is unavailable on this device."
+        case .errorInvalidArgument:
+            return "Invalid argument provided for HealthKit authorization."
+        default:
+            return "Unhandled HealthKit error: \(error.localizedDescription)"
+        }
+    } else {
+        return "Unknown error during HealthKit authorization: \(error.localizedDescription)"
+    }
+}
+
 struct HKData: Identifiable {
     var date: Date
     var id = UUID()
@@ -108,10 +175,9 @@ struct HKVisualization: View {
     
     func readAllHKData(ensureUpdate: Bool = false) {
         if FeatureFlags.mockVizData {
-            loadMockData()
+            loadMockDataNew()
             return
         }
-        print("Reading all HealthKit data with ensureUpdate: \(ensureUpdate)")
         let dateRange = generateDateRange()
         guard let startDate = dateRange[0] as? Date else {
             fatalError("*** Start date was not properly formatted ***")
@@ -122,28 +188,10 @@ struct HKVisualization: View {
         guard let predicate = dateRange[2] as? NSPredicate else {
             fatalError("*** Predicate was not properly formatted ***")
         }
-            
-        print("Date Range: \(startDate) - \(endDate)")
-            
         readHealthData(for: .heartRate, ensureUpdate: ensureUpdate, startDate: startDate, endDate: endDate, predicate: predicate)
         readHealthData(for: .oxygenSaturation, ensureUpdate: ensureUpdate, startDate: startDate, endDate: endDate, predicate: predicate)
         readHealthData(for: .bodyTemperature, ensureUpdate: ensureUpdate, startDate: startDate, endDate: endDate, predicate: predicate)
-            
-        print("Finished reading all HealthKit data.")
     }
-
-    private func generateDateRange() -> [Any] {
-        let startOfToday = Calendar.current.startOfDay(for: Date())
-        guard let endDate = Calendar.current.date(byAdding: DateComponents(hour: 23, minute: 59, second: 59), to: startOfToday) else {
-            fatalError("*** Unable to create an end date ***")
-        }
-        guard let startDate = Calendar.current.date(byAdding: .day, value: -14, to: endDate) else {
-            fatalError("*** Unable to create a start date ***")
-        }
-        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: [])
-        return [startDate, endDate, predicate]
-    }
-
 
     private func readHealthData(
                                 for identifier: HKQuantityTypeIdentifier,
@@ -170,23 +218,6 @@ struct HKVisualization: View {
             }
         default:
             print("Unsupported identifier: \(identifier.rawValue)")
-        }
-    }
-
-    func handleAuthorizationError(_ error: Error) {
-        if let hkError = error as? HKError {
-            switch hkError.code {
-            case .errorAuthorizationDenied:
-                print("Authorization denied by the user.")
-            case .errorHealthDataUnavailable:
-                print("Health data is unavailable on this device.")
-            case .errorInvalidArgument:
-                print("Invalid argument provided for HealthKit authorization.")
-            default:
-                print("Unhandled HealthKit error: \(error.localizedDescription)")
-            }
-        } else {
-            print("Unknown error during HealthKit authorization: \(error.localizedDescription)")
         }
     }
     
@@ -244,7 +275,6 @@ struct HKVisualization: View {
     
     func readHKStats(startDate: Date, endDate: Date, predicate: NSPredicate, quantityTypeIDF: HKQuantityTypeIdentifier) {
         let healthStore = HKHealthStore()
-        // Read the step counts per day for the past three months.
         guard let quantityType = HKObjectType.quantityType(forIdentifier: quantityTypeIDF) else {
             fatalError("*** Unable to create a quantity type ***")
         }
@@ -256,11 +286,9 @@ struct HKVisualization: View {
                 anchorDate: startDate,
                 intervalComponents: DateComponents(day: 1)
             )
-        
         query.initialResultsHandler = { _, results, error in
             Task { @MainActor in
                 guard error == nil else {
-                    print("Error retrieving health kit data: \(String(describing: error))")
                     return
                 }
                 if let results = results {
@@ -291,45 +319,34 @@ struct HKVisualization: View {
             print("Unexpected quantity received:", quantityTypeIDF)
         }
     }
-    
-    func loadMockData() {
+    func loadMockDataNew() {
         let today = Date()
         let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: today) ?? today
         let twoDaysAgo = Calendar.current.date(byAdding: .day, value: -2, to: today) ?? today
-        
-        // Heart Rate Mock Data (60-100 bpm normal range)
-        self.heartRateData = [
-            HKData(date: today, sumValue: 75, avgValue: 75, minValue: 65, maxValue: 85),
-            HKData(date: yesterday, sumValue: 82, avgValue: 82, minValue: 70, maxValue: 95),
-            HKData(date: twoDaysAgo, sumValue: 90, avgValue: 90, minValue: 80, maxValue: 105)
+        let minMaxAvgStatData = [
+            HKData(date: today, sumValue: 0, avgValue: 50, minValue: 1, maxValue: 100)
         ]
+    
+        // Clear out bar data to prevent rendering of bar graphs
+        self.heartRateData = minMaxAvgStatData
+        self.bodyTemperatureData = minMaxAvgStatData
+        self.oxygenSaturationData = minMaxAvgStatData
         
+        // ✅ Heart Rate Scatter Data (60-100 bpm normal range)
         self.heartRateScatterData = [
             HKData(date: today, sumValue: 75, avgValue: 75, minValue: 75, maxValue: 75),
             HKData(date: yesterday, sumValue: 82, avgValue: 82, minValue: 82, maxValue: 82),
             HKData(date: twoDaysAgo, sumValue: 90, avgValue: 90, minValue: 90, maxValue: 90)
         ]
         
-        // Body Temperature Mock Data (97-99°F normal range)
-        self.bodyTemperatureData = [
-            HKData(date: today, sumValue: 98.6, avgValue: 98.6, minValue: 98.2, maxValue: 99.0),
-            HKData(date: yesterday, sumValue: 98.9, avgValue: 98.9, minValue: 98.5, maxValue: 99.2),
-            HKData(date: twoDaysAgo, sumValue: 99.1, avgValue: 99.1, minValue: 98.7, maxValue: 99.5)
-        ]
-        
+        // ✅ Body Temperature Scatter Data (97-99°F normal range)
         self.bodyTemperatureScatterData = [
             HKData(date: today, sumValue: 98.6, avgValue: 98.6, minValue: 98.6, maxValue: 98.6),
             HKData(date: yesterday, sumValue: 98.9, avgValue: 98.9, minValue: 98.9, maxValue: 98.9),
             HKData(date: twoDaysAgo, sumValue: 99.1, avgValue: 99.1, minValue: 99.1, maxValue: 99.1)
         ]
         
-        // Oxygen Saturation Mock Data (94-100% normal range)
-        self.oxygenSaturationData = [
-            HKData(date: today, sumValue: 98, avgValue: 98, minValue: 96, maxValue: 99),
-            HKData(date: yesterday, sumValue: 97, avgValue: 97, minValue: 95, maxValue: 98),
-            HKData(date: twoDaysAgo, sumValue: 96, avgValue: 96, minValue: 94, maxValue: 97)
-        ]
-        
+        // ✅ Oxygen Saturation Scatter Data (94-100% normal range)
         self.oxygenSaturationScatterData = [
             HKData(date: today, sumValue: 98, avgValue: 98, minValue: 98, maxValue: 98),
             HKData(date: yesterday, sumValue: 97, avgValue: 97, minValue: 97, maxValue: 97),
@@ -372,58 +389,10 @@ func parseValue(quantity: HKQuantity, quantityTypeIDF: HKQuantityTypeIdentifier)
     case .bodyTemperature:
         return quantity.doubleValue(for: .degreeCelsius())
     default:
-        print("Unexpected quantity received:", quantityTypeIDF)
         return -1.0
     }
 }
 
-// Parses the raw HealthKit data.
-func parseSampleQueryData(results: [HKSample], quantityTypeIDF: HKQuantityTypeIdentifier) -> [HKData] {
-    // Retrieve quantity value and time for each data point.
-    
-    // initialize empty data array
-    var collectedData: [HKData] = []
-    
-    for result in results {
-        guard let result: HKQuantitySample = result as? HKQuantitySample else {
-            print("Unexpected HK Quantity sample received.")
-            continue
-        }
-        var value = -1.0
-        // oxygen saturation collect
-        if quantityTypeIDF == HKQuantityTypeIdentifier.oxygenSaturation {
-            value = result.quantity.doubleValue(for: HKUnit.percent()) * 100
-            
-        // hear rate collect
-        } else if quantityTypeIDF == HKQuantityTypeIdentifier.heartRate {
-            value = result.quantity.doubleValue(for: HKUnit(from: "count/min"))
-        
-        // body temperature collect
-        } else if quantityTypeIDF == HKQuantityTypeIdentifier.bodyTemperature {
-            value = result.quantity.doubleValue(for: .degreeCelsius())
-        }
-        
-        // retrieve the date the data was recorded
-        let date = result.startDate
-        collectedData.append(HKData(date: date, sumValue: value, avgValue: -1.0, minValue: -1.0, maxValue: -1.0))
-    }
-    return collectedData
-}
-
 #Preview {
-    let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date()
 
-    let mockData = [
-        HKData(date: Date(), sumValue: 100, avgValue: 96, minValue: 90, maxValue: 105),
-        HKData(date: yesterday, sumValue: 0, avgValue: 96, minValue: 91, maxValue: 102)
-    ]
-    
-    HKVisualizationItem(
-        data: mockData,
-        xName: "Date",
-        yName: "Oxygen Saturation (%)",
-        title: "Blood Oxygen Saturation",
-        threshold: 94.0,
-        helperText: "Maintain oxygen saturation above 94%."
-    )
 }

@@ -28,4 +28,10 @@ struct DataErrorTests {
         let error = DataError.invalidBloodPressure
         #expect(error.errorMessage == "blood pressure must be greater than 0")
     }
+    
+    @Test
+    func testInvalidSeverityError() {
+        let error = DataError.invalidSeverity
+        #expect(error.errorMessage == "Severity must be between 1 and 10")
+    }
 }

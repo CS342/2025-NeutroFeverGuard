@@ -28,8 +28,6 @@ struct HKVisualizationItem: View {
     // Variables for lollipops.
     let lollipopColor: Color = .indigo
 
-    @Environment(\.locale) private var locale
-
     @State private var selectedElement: HKData?
     
     var body: some View {
@@ -44,22 +42,21 @@ struct HKVisualizationItem: View {
         }
         // Helper text to show data when clicked.
         if let elm = selectedElement, elm.sumValue == 0 {
-            let details = (
-                String(localized: "Summary: ", locale: locale) +
-                String(elm.date.formatted(.dateTime.year().month().day())) +
-                ":\n" +
-                String(localized: "Average: ", locale: locale) +
-                String(round(elm.avgValue * 10) / 10) +
-                ", " +
-                String(localized: "Max value: ", locale: locale) +
-                String(Int(round(elm.maxValue))) +
-                ", " +
-                String(localized: "Min value: ", locale: locale) +
-                String(Int(round(elm.minValue)))
-            )
-            Text(details)
+            Text("Summary: \(elm.date.formatted(.dateTime.year().month().day()))")
                 .font(.footnote)
-                .listRowSeparator(.hidden)
+                .accessibilityIdentifier("Summary_Date")
+            
+            Text("Average: \(String(round(elm.avgValue * 10) / 10))")
+                .font(.footnote)
+                .accessibilityIdentifier("Summary_Average")
+            
+            Text("Max value: \(String(Int(round(elm.maxValue))))")
+                .font(.footnote)
+                .accessibilityIdentifier("Summary_Max")
+            
+            Text("Min value: \(String(Int(round(elm.minValue))))")
+                .font(.footnote)
+                .accessibilityIdentifier("Summary_Min")
         }
         chart
     }
@@ -165,9 +162,9 @@ struct HKVisualizationItem: View {
         
         // Find max and min for y range.
         let ymax = data.map(\.maxValue).max() ?? 0
-        // For step data, we only have sum values.
         self.ymax = max(ymax, data.map(\.sumValue).max() ?? 0)
         self.ymin = data.map(\.minValue).min() ?? 0
+        
         // Plot average data if we have such data.
         self.plotAvg = data.map(\.avgValue).max() ?? 0 > 0
         self.scatterData = scatterData
