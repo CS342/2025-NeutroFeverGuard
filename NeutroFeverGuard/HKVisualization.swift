@@ -12,6 +12,61 @@ import HealthKit
 import SpeziAccount
 import SwiftUI
 
+// Parses the raw HealthKit data.
+func parseSampleQueryData(results: [HKSample], quantityTypeIDF: HKQuantityTypeIdentifier) -> [HKData] {
+    var collectedData: [HKData] = []
+    for result in results {
+        guard let result: HKQuantitySample = result as? HKQuantitySample else {
+            print("Unexpected HK Quantity sample received.")
+            continue
+        }
+        var value = -1.0
+        if quantityTypeIDF == HKQuantityTypeIdentifier.oxygenSaturation {
+            value = result.quantity.doubleValue(for: HKUnit.percent()) * 100
+        } else if quantityTypeIDF == HKQuantityTypeIdentifier.heartRate {
+            value = result.quantity.doubleValue(for: HKUnit(from: "count/min"))
+        } else if quantityTypeIDF == HKQuantityTypeIdentifier.bodyTemperature {
+            value = result.quantity.doubleValue(for: .degreeCelsius())
+        }
+        let date = result.startDate
+        collectedData.append(HKData(date: date, sumValue: value, avgValue: -1.0, minValue: -1.0, maxValue: -1.0))
+    }
+    return collectedData
+}
+
+func generateDateRange() -> [Any] {
+    let startOfToday = Calendar.current.startOfDay(for: Date())
+    
+    guard let endDate = Calendar.current.date(byAdding: DateComponents(hour: 23, minute: 59, second: 59), to: startOfToday) else {
+        fatalError("*** Unable to create an end date ***")
+    }
+    
+    guard let startDate = Calendar.current.date(byAdding: .day, value: -14, to: endDate) else {
+        fatalError("*** Unable to create a start date ***")
+    }
+    
+    let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: [])
+    
+    return [startDate, endDate, predicate]
+}
+
+func handleAuthorizationError(_ error: Error) -> String {
+    if let hkError = error as? HKError {
+        switch hkError.code {
+        case .errorAuthorizationDenied:
+            return "Authorization denied by the user."
+        case .errorHealthDataUnavailable:
+            return "Health data is unavailable on this device."
+        case .errorInvalidArgument:
+            return "Invalid argument provided for HealthKit authorization."
+        default:
+            return "Unhandled HealthKit error: \(error.localizedDescription)"
+        }
+    } else {
+        return "Unknown error during HealthKit authorization: \(error.localizedDescription)"
+    }
+}
+
 struct HKData: Identifiable {
     var date: Date
     var id = UUID()
@@ -126,19 +181,6 @@ struct HKVisualization: View {
         readHealthData(for: .bodyTemperature, ensureUpdate: ensureUpdate, startDate: startDate, endDate: endDate, predicate: predicate)
     }
 
-    private func generateDateRange() -> [Any] {
-        let startOfToday = Calendar.current.startOfDay(for: Date())
-        guard let endDate = Calendar.current.date(byAdding: DateComponents(hour: 23, minute: 59, second: 59), to: startOfToday) else {
-            fatalError("*** Unable to create an end date ***")
-        }
-        guard let startDate = Calendar.current.date(byAdding: .day, value: -14, to: endDate) else {
-            fatalError("*** Unable to create a start date ***")
-        }
-        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: [])
-        return [startDate, endDate, predicate]
-    }
-
-
     private func readHealthData(
                                 for identifier: HKQuantityTypeIdentifier,
                                 ensureUpdate: Bool,
@@ -164,23 +206,6 @@ struct HKVisualization: View {
             }
         default:
             print("Unsupported identifier: \(identifier.rawValue)")
-        }
-    }
-
-    func handleAuthorizationError(_ error: Error) {
-        if let hkError = error as? HKError {
-            switch hkError.code {
-            case .errorAuthorizationDenied:
-                print("Authorization denied by the user.")
-            case .errorHealthDataUnavailable:
-                print("Health data is unavailable on this device.")
-            case .errorInvalidArgument:
-                print("Invalid argument provided for HealthKit authorization.")
-            default:
-                print("Unhandled HealthKit error: \(error.localizedDescription)")
-            }
-        } else {
-            print("Unknown error during HealthKit authorization: \(error.localizedDescription)")
         }
     }
     
@@ -354,28 +379,6 @@ func parseValue(quantity: HKQuantity, quantityTypeIDF: HKQuantityTypeIdentifier)
     default:
         return -1.0
     }
-}
-
-// Parses the raw HealthKit data.
-func parseSampleQueryData(results: [HKSample], quantityTypeIDF: HKQuantityTypeIdentifier) -> [HKData] {
-    var collectedData: [HKData] = []
-    for result in results {
-        guard let result: HKQuantitySample = result as? HKQuantitySample else {
-            print("Unexpected HK Quantity sample received.")
-            continue
-        }
-        var value = -1.0
-        if quantityTypeIDF == HKQuantityTypeIdentifier.oxygenSaturation {
-            value = result.quantity.doubleValue(for: HKUnit.percent()) * 100
-        } else if quantityTypeIDF == HKQuantityTypeIdentifier.heartRate {
-            value = result.quantity.doubleValue(for: HKUnit(from: "count/min"))
-        } else if quantityTypeIDF == HKQuantityTypeIdentifier.bodyTemperature {
-            value = result.quantity.doubleValue(for: .degreeCelsius())
-        }
-        let date = result.startDate
-        collectedData.append(HKData(date: date, sumValue: value, avgValue: -1.0, minValue: -1.0, maxValue: -1.0))
-    }
-    return collectedData
 }
 
 #Preview {
