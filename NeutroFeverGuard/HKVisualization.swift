@@ -413,8 +413,24 @@ struct HKVisualization: View {
             HKData(date: yesterday, sumValue: 97, avgValue: 97, minValue: 97, maxValue: 97),
             HKData(date: twoDaysAgo, sumValue: 96, avgValue: 96, minValue: 96, maxValue: 96)
         ]
+        
+        let mockNeutrophilData = [
+                (date: today, wbc: 5000, neutrophils: 50),
+                (date: yesterday, wbc: 4800, neutrophils: 48),
+                (date: twoDaysAgo, wbc: 5100, neutrophils: 52)
+        ]
+            
+        self.neutrophilData = mockNeutrophilData.map { record in
+            let ancValue = (Double(record.neutrophils) / 100.0) * Double(record.wbc)
+            return HKData(
+                date: record.date,
+                sumValue: ancValue,
+                avgValue: ancValue,
+                minValue: ancValue,
+                maxValue: ancValue
+            )
+        }
     }
-    // swiftlint:enable closure_body_length
 }
 
 func parseStat(statistics: HKStatistics, quantityTypeIDF: HKQuantityTypeIdentifier) -> HKData? {
