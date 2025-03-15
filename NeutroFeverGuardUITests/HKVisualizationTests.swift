@@ -16,7 +16,7 @@ class HKVisualizationTests: XCTestCase {
         
         let app = XCUIApplication()
         app.launchArguments = ["--skipOnboarding", "--mockVizData"]
-        app.deleteAndLaunch(withSpringboardAppName: "NeutroFeverGuard")
+        app.launch()
     }
     
     @MainActor
