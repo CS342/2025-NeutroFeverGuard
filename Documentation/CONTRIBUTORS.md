@@ -13,7 +13,7 @@ NeutroFeverGuard Development Team and Contributions
 * [Sixian Du](https://github.com/dusixian) worked on manual data entry, lab and medication list views, lab reminders, neutropenia classification.
 * [Merve Cerit](https://github.com/mmervecerit) worked on healthkit reading and pushing to Firebase, fever monitoring and alert notifications, bluetooth sensor connection and data flow.
 * [Viraj Mehta](https://github.com/viraj28m) worked on building manual data types, pushing manually entered data into Firebase, and symptoms survey.
-* [Priyanka Shrestha](https://github.com/Priyankas007) worked on building interactive visualizations for vitals and ANC values over time.
+* [Priyanka Shrestha](https://github.com/Priyankas007) worked on building interactive visualizations for heart rate, temperature and oxygen saturation over time.
 
 > [!NOTE]
 >For more information on the features and detailed contributions, see [this doc](https://docs.google.com/document/d/1j8EZ24MoMcDTlvnC3nsifSzX5pAhOhZuIHjAZhfiyts/edit?usp=sharing). 

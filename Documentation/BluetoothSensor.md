@@ -135,5 +135,5 @@ Now you know how bluetooth connection with CORE Sensor work in NeutroFeverGuard!
 
 Before you go here is a:
 
-> [!FUN FACT]  
+> [!NOTE]  
 > The technology, "Bluetooth," was named after King Harald "Bluetooth" Gormsson, who united Denmark and Norway in the 10th century, with the name chosen to reflect the technology's goal of uniting diverse communication protocols. The Bluetooth logo is a bind rune that merges the Younger Futhark runes H (ᚼ) and B (ᛒ), which represent Harald's initials.
