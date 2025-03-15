@@ -33,9 +33,6 @@ struct NeutroFeverGuardTests {
     
     @Test("Test Parse Value")
     func testParseValue() async throws {
-        let healthStore = HKHealthStore()
-        
-        // Heart Rate parsing
         let heartRateQuantity = HKQuantity(unit: HKUnit(from: "count/min"), doubleValue: 70)
         let heartRateValue = parseValue(quantity: heartRateQuantity, quantityTypeIDF: .heartRate)
         #expect(heartRateValue == 70.0, "Heart rate value should be 70.0")
