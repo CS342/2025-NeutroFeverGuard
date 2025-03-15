@@ -69,7 +69,6 @@
 		B03D0E432D7D22700024F2CA /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E6898E2D52ED8500869C4F /* HealthKitService.swift */; };
 		B03D0E462D7D24030024F2CA /* DataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49EC8332D501C5C005C3495 /* DataType.swift */; };
 		B03D0E482D7D24AA0024F2CA /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22393792D5D4092006C8EB4 /* DataError.swift */; };
-		B08715B22D860A320025BDFE /* LabResultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D4C9372D790F5E000643C7 /* LabResultsManager.swift */; };
 		B08E39F92D7C416000077929 /* FeverMonitoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C95E382D78D5F2007A4CA6 /* FeverMonitoring.swift */; };
 		B0C95E3A2D78D5F3007A4CA6 /* FeverMonitoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C95E382D78D5F2007A4CA6 /* FeverMonitoring.swift */; };
 		B0D4C9382D790F65000643C7 /* LabResultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D4C9372D790F5E000643C7 /* LabResultsManager.swift */; };
@@ -108,7 +107,6 @@
 		EB5D7CF92D8108BC0046BF8E /* AccountButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DFE8A82ABE551400428242 /* AccountButton.swift */; };
 		EB6FDBCE2D80133A008E9F90 /* HKVisualization.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6FDBCB2D80133A008E9F90 /* HKVisualization.swift */; };
 		EB6FDBCF2D80133A008E9F90 /* HKVisualizationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6FDBCC2D80133A008E9F90 /* HKVisualizationItem.swift */; };
-		EB6FDBD02D80133A008E9F90 /* HKVisualization.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6FDBCB2D80133A008E9F90 /* HKVisualization.swift */; };
 		EB6FDBD12D80133A008E9F90 /* HKVisualizationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6FDBCC2D80133A008E9F90 /* HKVisualizationItem.swift */; };
 		EBFA80652D81FBE600596C3C /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DC3E29EDD7ED004B9AB4 /* FeatureFlags.swift */; };
 		F223937A2D5D4095006C8EB4 /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22393792D5D4092006C8EB4 /* DataError.swift */; };
@@ -719,7 +717,6 @@
 				EB02C6612D5D52E90035AA89 /* NeutroFeverGuardTests.swift in Sources */,
 				B0DF8DFD2D7C123200581A00 /* HealthDataFetchable.swift in Sources */,
 				B0DF8DF72D7BFEFB00581A00 /* FeverMonitorTests.swift in Sources */,
-				EB6FDBD02D80133A008E9F90 /* HKVisualization.swift in Sources */,
 				EB6FDBD12D80133A008E9F90 /* HKVisualizationItem.swift in Sources */,
 				B03D0E482D7D24AA0024F2CA /* DataError.swift in Sources */,
 				EBFA80652D81FBE600596C3C /* FeatureFlags.swift in Sources */,
@@ -727,7 +724,6 @@
 				B03D0E432D7D22700024F2CA /* HealthKitService.swift in Sources */,
 				EB5D7CF92D8108BC0046BF8E /* AccountButton.swift in Sources */,
 				B03D0E462D7D24030024F2CA /* DataType.swift in Sources */,
-				B08715B22D860A320025BDFE /* LabResultsManager.swift in Sources */,
 				C49EC8382D5026EE005C3495 /* DataTypeTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
