@@ -8,6 +8,7 @@
 
 import Foundation
 import HealthKit
+@testable import NeutroFeverGuard
 import Testing
 
 @MainActor

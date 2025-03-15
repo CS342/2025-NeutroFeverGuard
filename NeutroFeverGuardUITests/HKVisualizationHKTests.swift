@@ -32,5 +32,6 @@ class HKVisualizationHKTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["No heart rate data available."].waitForExistence(timeout: 2))
         XCTAssertTrue(app.staticTexts["No body temperature data available."].waitForExistence(timeout: 2))
         XCTAssertTrue(app.staticTexts["No oxygen saturation data available."].waitForExistence(timeout: 2))
+        XCTAssertTrue(app.staticTexts["No neutrophil count data available."].waitForExistence(timeout: 2))
     }
 }
