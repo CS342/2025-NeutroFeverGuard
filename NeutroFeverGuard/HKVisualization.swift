@@ -89,7 +89,6 @@ struct HKData: Identifiable {
 }
 
 struct HKVisualization: View {
-    // swiftlint:disable closure_body_length
     @Environment(LabResultsManager.self) private var labResultsManager
     @State var bodyTemperatureData: [HKData] = []
     @State var heartRateData: [HKData] = []
