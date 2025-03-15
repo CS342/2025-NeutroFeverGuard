@@ -1,5 +1,5 @@
-// periphery:ignore all
 // swiftlint:disable all
+// periphery:ignore all
 // This source file is part of the NeutroFeverGuard based on the Stanford Spezi Template Application project
 //
 // SPDX-FileCopyrightText: 2025 Stanford University
@@ -79,13 +79,21 @@ func handleAuthorizationError(_ error: Error) -> String {
     }
 }
 
-struct HKData: Identifiable {
-    var date: Date
-    var id = UUID()
-    var sumValue: Double
-    var avgValue: Double
-    var minValue: Double
-    var maxValue: Double
+public struct HKData: Identifiable {
+    public var date: Date
+    public var id = UUID()
+    public var sumValue: Double
+    public var avgValue: Double
+    public var minValue: Double
+    public var maxValue: Double
+    
+    public init(date: Date, sumValue: Double, avgValue: Double, minValue: Double, maxValue: Double) {
+        self.date = date
+        self.sumValue = sumValue
+        self.avgValue = avgValue
+        self.minValue = minValue
+        self.maxValue = maxValue
+    }
 }
 
 struct HKVisualization: View {
@@ -161,7 +169,8 @@ struct HKVisualization: View {
                     Text("No neutrophil count data available.")
                         .foregroundColor(.gray)
                 }
-            }        }
+            }
+        }
     }
     
     @Environment(Account.self) private var account: Account?
@@ -468,8 +477,4 @@ func parseValue(quantity: HKQuantity, quantityTypeIDF: HKQuantityTypeIdentifier)
     default:
         return -1.0
     }
-}
-
-#Preview {
-
 }

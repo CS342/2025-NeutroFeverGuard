@@ -60,6 +60,9 @@
     "1-10" : {
 
     },
+    "Absolute Neutrophil Count" : {
+
+    },
     "Absolute Neutrophil Counts" : {
       "localizations" : {
         "en" : {
@@ -155,6 +158,9 @@
     "Bluetooth Devices" : {
 
     },
+    "Body Temperature" : {
+
+    },
     "Body Temperature (°F)" : {
       "localizations" : {
         "en" : {
@@ -166,6 +172,7 @@
       }
     },
     "Body Temperature Over Time" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -372,6 +379,9 @@
         }
       }
     },
+    "Heart Rate" : {
+
+    },
     "Heart Rate (bpm)" : {
       "localizations" : {
         "en" : {
@@ -383,6 +393,7 @@
       }
     },
     "Heart Rate Over Time" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -643,9 +654,6 @@
     "Neutrophil Count" : {
 
     },
-    "Neutrophil Count Over Past Week" : {
-
-    },
     "Next" : {
       "localizations" : {
         "en" : {
@@ -758,6 +766,9 @@
     "Other factors" : {
 
     },
+    "Oxygen Saturation" : {
+
+    },
     "Oxygen Saturation (%)" : {
       "localizations" : {
         "en" : {
@@ -769,6 +780,7 @@
       }
     },
     "Oxygen Saturation Over Time" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
