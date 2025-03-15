@@ -108,7 +108,7 @@ struct HKVisualization: View {
                         data: heartRateData,
                         xName: "Time",
                         yName: "Heart Rate (bpm)",
-                        title: "Heart Rate Over Time",
+                        title: "Heart Rate",
                         threshold: 100,
                         scatterData: heartRateScatterData
                     )
@@ -123,7 +123,7 @@ struct HKVisualization: View {
                         data: bodyTemperatureData,
                         xName: "Time",
                         yName: "Body Temperature (°F)",
-                        title: "Body Temperature Over Time",
+                        title: "Body Temperature",
                         threshold: 99.0,
                         scatterData: bodyTemperatureScatterData
                     )
@@ -138,7 +138,7 @@ struct HKVisualization: View {
                         data: oxygenSaturationData,
                         xName: "Time",
                         yName: "Oxygen Saturation (%)",
-                        title: "Oxygen Saturation Over Time",
+                        title: "Oxygen Saturation",
                         threshold: 94.0,
                         scatterData: oxygenSaturationScatterData
                     )
@@ -153,7 +153,7 @@ struct HKVisualization: View {
                         data: neutrophilData,
                         xName: "Date",
                         yName: "Neutrophil Count",
-                        title: "Neutrophil Count Over Past Week",
+                        title: "Absolute Neutrophil Count",
                         threshold: 500, // Adjust the threshold if necessary
                         scatterData: neutrophilScatterData
                     )
