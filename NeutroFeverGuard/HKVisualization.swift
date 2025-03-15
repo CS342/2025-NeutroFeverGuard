@@ -12,7 +12,16 @@ import HealthKit
 import SpeziAccount
 import SwiftUI
 
-// Parses the raw HealthKit data.
+
+struct HKData: Identifiable, Codable {
+    var id = UUID()
+    var date: Date
+    var sumValue: Double
+    var avgValue: Double
+    var minValue: Double
+    var maxValue: Double
+}
+
 func parseSampleQueryData(results: [HKSample], quantityTypeIDF: HKQuantityTypeIdentifier) -> [HKData] {
     // Retrieve quantity value and time for each data point.
 
@@ -76,23 +85,6 @@ func handleAuthorizationError(_ error: Error) -> String {
         }
     } else {
         return "Unknown error during HealthKit authorization: \(error.localizedDescription)"
-    }
-}
-
-public struct HKData: Identifiable {
-    public var date: Date
-    public var id = UUID()
-    public var sumValue: Double
-    public var avgValue: Double
-    public var minValue: Double
-    public var maxValue: Double
-    
-    public init(date: Date, sumValue: Double, avgValue: Double, minValue: Double, maxValue: Double) {
-        self.date = date
-        self.sumValue = sumValue
-        self.avgValue = avgValue
-        self.minValue = minValue
-        self.maxValue = maxValue
     }
 }
 
@@ -229,18 +221,6 @@ struct HKVisualization: View {
 
         print("✅ Converted neutrophil data: \(neutrophilData)")
         print("✅ Scatter neutrophil data: \(neutrophilScatterData)")
-    }
-
-    private func getNeutrophilCountsForPastWeek() -> [(date: Date, ancValue: Double)] {
-        let oneWeekAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date()) ?? Date()
-        let allValues = labResultsManager.getAllAncValues()
-        
-        print("🔍 All ANC Values: \(allValues)")
-        
-        let filteredValues = allValues.filter { $0.date >= oneWeekAgo }
-        print("✅ Filtered ANC Values: \(filteredValues)")
-        
-        return filteredValues
     }
   
     func readAllHKData(ensureUpdate: Bool = false) {
