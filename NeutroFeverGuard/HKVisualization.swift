@@ -193,6 +193,10 @@ struct HKVisualization: View {
     }
     
     private func loadNeutrophilData() {
+        if FeatureFlags.mockVizData {
+            loadMockDataNew()
+            return
+        }
         let rawData = labResultsManager.getAllAncValues().filter {
             $0.date >= Calendar.current.date(byAdding: .day, value: -7, to: Date()) ?? Date()
         }
@@ -381,7 +385,8 @@ struct HKVisualization: View {
         self.heartRateData = minMaxAvgStatData
         self.bodyTemperatureData = minMaxAvgStatData
         self.oxygenSaturationData = minMaxAvgStatData
-        
+        self.neutrophilData = minMaxAvgStatData
+
         // ✅ Heart Rate Scatter Data (60-100 bpm normal range)
         self.heartRateScatterData = [
             HKData(date: today, sumValue: 75, avgValue: 75, minValue: 75, maxValue: 75),
@@ -409,7 +414,7 @@ struct HKVisualization: View {
                 (date: twoDaysAgo, wbc: 5100, neutrophils: 52)
         ]
             
-        self.neutrophilData = mockNeutrophilData.map { record in
+        self.neutrophilScatterData = mockNeutrophilData.map { record in
             let ancValue = (Double(record.neutrophils) / 100.0) * Double(record.wbc)
             return HKData(
                 date: record.date,
