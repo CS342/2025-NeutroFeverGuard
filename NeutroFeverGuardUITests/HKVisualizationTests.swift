@@ -235,22 +235,20 @@ class HKVisualizationTests: XCTestCase {
         XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Dashboard"].waitForExistence(timeout: 2))
         app.tabBars["Tab Bar"].buttons["Dashboard"].tap()
         
-        let chartTitle = app.staticTexts["Absolute Neutrophil Count"]
-
-        var maxScrollAttempts = 10
-        while !chartTitle.exists && maxScrollAttempts > 0 {
+        var maxScrollAttempts = 3
+        while maxScrollAttempts > 0 {
             print("📍 Swiping up to find Neutrophil chart...")
             app.swipeUp()
             sleep(1) // Allow UI time to update
             maxScrollAttempts -= 1
         }
         
+        let chartTitle = app.staticTexts["Absolute Neutrophil Count"]
         XCTAssertTrue(chartTitle.waitForExistence(timeout: 5), "Neutrophil chart should be visible after scrolling.")
         
         // ✅ Tap on the chart to bring up the summary view
         let frame = chartTitle.frame
-        let tapPoint = CGPoint(x: frame.midX, y: frame.midY) // Tap at the center
-        print("📍 Tapping at: \(tapPoint)") // Debug print
+        let tapPoint = CGPoint(x: frame.maxX - 50, y: frame.maxY + 100)
         app.coordinate(withNormalizedOffset: .zero).withOffset(CGVector(dx: tapPoint.x, dy: tapPoint.y)).tap()
             
         // ✅ Verify summary date (should be today's date)
