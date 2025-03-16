@@ -52,7 +52,7 @@ NeutroFeverGuard is using the [Spezi](https://github.com/StanfordSpezi/Spezi) ec
 > Want to understand how CORE Sensor connection, and continuous temperature data flow work? Check out the detailed explanation in [Working with CORE Sensor - Bluetooth Connection](Documentation/BluetoothSensor.md).
 
 2. **Visualization:**
-    Interactive graphs display trends for: heart rate, temperature, and oxygen saturation. Visuals include trend lines and daily average readings to help users and clinicians better understand health fluctuations. Data is automatically loaded and read from HealthKit.
+    Interactive graphs display trends for: heart rate, temperature, oxygen saturation and absolute neutrophil count. Visuals include trend lines and daily average readings to help users and clinicians better understand health fluctuations. Data is automatically loaded and read from HealthKit.
 
 ### II. Notifications & Alerts
 1. **Critical Health Alerts:**  
@@ -94,7 +94,6 @@ Enjoy!
 
 - **Manual data entry validation:** While our manual data entry feature warns users against entering invalid values (e.g., negative blood pressure), it still accepts unrealistic values (e.g., heart rate of 300 bpm). This validation should be improved in future iterations, and [SpeziValidation](https://github.com/StanfordSpezi/SpeziViews/tree/main/Sources/SpeziValidation) can be used.
 - **Real-Time data issues with HealthKit when the App is not in the foreground:** As discussed with the Apple Health Research Team, retrieving real-time data from HealthKit while the app is in the background is inconsistent, which is a known issue on their end. Currently, the app receives near-real-time updates even if it is not in the foreground, with HealthKit pushing data approximately once per hour. To enable truly real-time fever monitoring when the app is not in the foreground, the system could query locally stored Bluetooth data instead of relying on HealthKit observer queries.
-- **Adding ANC visualization over time**: Currently, we visualize vitals, however it might be good to add ANC count over time as well.
 
 ## Contributing
 
