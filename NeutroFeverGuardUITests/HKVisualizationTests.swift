@@ -259,7 +259,7 @@ class HKVisualizationTests: XCTestCase {
         // ✅ Check the summary ANC values
         let summaryAverage = app.staticTexts["Summary_Average"]
         XCTAssertTrue(summaryAverage.exists, "Average ANC value should exist")
-        XCTAssertEqual(summaryAverage.label, "Average: 500")  // ✅ Adjusted to mock value
+        XCTAssertEqual(summaryAverage.label, "Average: 500.0")  // ✅ Adjusted to mock value
 
         let summaryMax = app.staticTexts["Summary_Max"]
         XCTAssertTrue(summaryMax.exists, "Max ANC value should exist")
