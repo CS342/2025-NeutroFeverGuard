@@ -259,15 +259,15 @@ class HKVisualizationTests: XCTestCase {
         // ✅ Check the summary ANC values
         let summaryAverage = app.staticTexts["Summary_Average"]
         XCTAssertTrue(summaryAverage.exists, "Average ANC value should exist")
-        XCTAssertEqual(summaryAverage.label, "Average: 2500.0")  // ✅ Adjusted to mock value
+        XCTAssertEqual(summaryAverage.label, "Average: 500")  // ✅ Adjusted to mock value
 
         let summaryMax = app.staticTexts["Summary_Max"]
         XCTAssertTrue(summaryMax.exists, "Max ANC value should exist")
-        XCTAssertEqual(summaryMax.label, "Max value: 2652")  // ✅ Adjusted to mock value
+        XCTAssertEqual(summaryMax.label, "Max value: 1000")  // ✅ Adjusted to mock value
 
         let summaryMin = app.staticTexts["Summary_Min"]
         XCTAssertTrue(summaryMin.exists, "Min ANC value should exist")
-        XCTAssertEqual(summaryMin.label, "Min value: 2304")  // ✅ Adjusted to mock value
+        XCTAssertEqual(summaryMin.label, "Min value: 1")  // ✅ Adjusted to mock value
     }
     
     @MainActor

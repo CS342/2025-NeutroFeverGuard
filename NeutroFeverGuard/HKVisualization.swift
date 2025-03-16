@@ -385,7 +385,7 @@ struct HKVisualization: View {
         self.heartRateData = minMaxAvgStatData
         self.bodyTemperatureData = minMaxAvgStatData
         self.oxygenSaturationData = minMaxAvgStatData
-        self.neutrophilData = minMaxAvgStatData
+        self.neutrophilData = [HKData(date: today, sumValue: 0, avgValue: 500, minValue: 1, maxValue: 1000)]
 
         // ✅ Heart Rate Scatter Data (60-100 bpm normal range)
         self.heartRateScatterData = [
