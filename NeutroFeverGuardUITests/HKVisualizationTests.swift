@@ -16,7 +16,7 @@ class HKVisualizationTests: XCTestCase {
         
         let app = XCUIApplication()
         app.launchArguments = ["--skipOnboarding", "--mockVizData"]
-        app.deleteAndLaunch(withSpringboardAppName: "NeutroFeverGuard")
+        app.launch()
     }
     
     @MainActor
@@ -41,12 +41,12 @@ class HKVisualizationTests: XCTestCase {
         try app.handleHealthKitAuthorization()
         
         // Verify Plot Titles Exists
-        XCTAssertTrue(app.staticTexts["Oxygen Saturation Over Time"].exists)
-        XCTAssertTrue(app.staticTexts["Body Temperature Over Time"].exists)
-        XCTAssertTrue(app.staticTexts["Heart Rate Over Time"].exists)
+        XCTAssertTrue(app.staticTexts["Oxygen Saturation"].exists)
+        XCTAssertTrue(app.staticTexts["Body Temperature"].exists)
+        XCTAssertTrue(app.staticTexts["Heart Rate"].exists)
         
         // Wait for chart to appear
-        let chartTitle = app.staticTexts["Oxygen Saturation Over Time"]
+        let chartTitle = app.staticTexts["Oxygen Saturation"]
         XCTAssertTrue(chartTitle.waitForExistence(timeout: 5))
         
         // Get the frame of the chart title
@@ -93,7 +93,7 @@ class HKVisualizationTests: XCTestCase {
         try app.handleHealthKitAuthorization()
         
         // Check for Heart Rate Chart
-        let heartRateChartTitle = app.staticTexts["Heart Rate Over Time"]
+        let heartRateChartTitle = app.staticTexts["Heart Rate"]
         XCTAssertTrue(heartRateChartTitle.waitForExistence(timeout: 5), "Heart Rate chart title should exist")
         
         let heartRateThreshold = app.otherElements["Threshold"]
@@ -111,7 +111,7 @@ class HKVisualizationTests: XCTestCase {
         try app.handleHealthKitAuthorization()
         
         // Wait for chart to appear
-        let chartTitle = app.staticTexts["Body Temperature Over Time"]
+        let chartTitle = app.staticTexts["Body Temperature"]
         XCTAssertTrue(chartTitle.waitForExistence(timeout: 5))
         
         // Get the frame of the chart title
@@ -158,7 +158,7 @@ class HKVisualizationTests: XCTestCase {
         try app.handleHealthKitAuthorization()
         
         // Wait for chart to appear
-        let chartTitle = app.staticTexts["Heart Rate Over Time"]
+        let chartTitle = app.staticTexts["Heart Rate"]
         XCTAssertTrue(chartTitle.waitForExistence(timeout: 5))
         
         // Get the frame of the chart title
@@ -205,24 +205,93 @@ class HKVisualizationTests: XCTestCase {
         try app.handleHealthKitAuthorization()
         
         // Check for Heart Rate Chart
-        let heartRateChartTitle = app.staticTexts["Heart Rate Over Time"]
+        let heartRateChartTitle = app.staticTexts["Heart Rate"]
         XCTAssertTrue(heartRateChartTitle.waitForExistence(timeout: 5), "Heart Rate chart title should exist")
         
         let heartRateThreshold = app.otherElements["Threshold"]
         XCTAssertTrue(heartRateThreshold.waitForExistence(timeout: 2), "Heart Rate threshold line should be visible.")
         
         // Check for Body Temperature Chart
-        let bodyTempChartTitle = app.staticTexts["Body Temperature Over Time"]
+        let bodyTempChartTitle = app.staticTexts["Body Temperature"]
         XCTAssertTrue(bodyTempChartTitle.waitForExistence(timeout: 5), "Body Temperature chart title should exist")
         
         let bodyTempThreshold = app.otherElements["Threshold"]
         XCTAssertTrue(bodyTempThreshold.waitForExistence(timeout: 2), "Body Temperature threshold line should be visible.")
         
         // Check for Oxygen Saturation Chart
-        let oxygenSatChartTitle = app.staticTexts["Oxygen Saturation Over Time"]
+        let oxygenSatChartTitle = app.staticTexts["Oxygen Saturation"]
         XCTAssertTrue(oxygenSatChartTitle.waitForExistence(timeout: 5), "Oxygen Saturation chart title should exist")
         
         let oxygenSatThreshold = app.otherElements["Threshold"]
         XCTAssertTrue(oxygenSatThreshold.waitForExistence(timeout: 2), "Oxygen Saturation threshold line should be visible.")
+    }
+    
+    @MainActor
+    func testHealthDashboardNeutrophils() throws {
+        let app = XCUIApplication()
+        
+        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 2.0))
+        
+        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Dashboard"].waitForExistence(timeout: 2))
+        app.tabBars["Tab Bar"].buttons["Dashboard"].tap()
+        
+        var maxScrollAttempts = 3
+        while maxScrollAttempts > 0 {
+            print("📍 Swiping up to find Neutrophil chart...")
+            app.swipeUp()
+            sleep(1) // Allow UI time to update
+            maxScrollAttempts -= 1
+        }
+        
+        let chartTitle = app.staticTexts["Absolute Neutrophil Count"]
+        XCTAssertTrue(chartTitle.waitForExistence(timeout: 5), "Neutrophil chart should be visible after scrolling.")
+        
+        // ✅ Tap on the chart to bring up the summary view
+        let frame = chartTitle.frame
+        let tapPoint = CGPoint(x: frame.maxX - 50, y: frame.maxY + 100)
+        app.coordinate(withNormalizedOffset: .zero).withOffset(CGVector(dx: tapPoint.x, dy: tapPoint.y)).tap()
+            
+        // ✅ Verify summary date (should be today's date)
+        let today = Date()
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        let dateStr = formatter.string(from: today)
+        
+        let summaryDate = app.staticTexts["Summary_Date"]
+        XCTAssertTrue(summaryDate.exists)
+        XCTAssertEqual(summaryDate.label, "Summary: \(dateStr)")
+
+        // ✅ Check the summary ANC values
+        let summaryAverage = app.staticTexts["Summary_Average"]
+        XCTAssertTrue(summaryAverage.exists, "Average ANC value should exist")
+        XCTAssertEqual(summaryAverage.label, "Average: 500.0")  // ✅ Adjusted to mock value
+
+        let summaryMax = app.staticTexts["Summary_Max"]
+        XCTAssertTrue(summaryMax.exists, "Max ANC value should exist")
+        XCTAssertEqual(summaryMax.label, "Max value: 1000")  // ✅ Adjusted to mock value
+
+        let summaryMin = app.staticTexts["Summary_Min"]
+        XCTAssertTrue(summaryMin.exists, "Min ANC value should exist")
+        XCTAssertEqual(summaryMin.label, "Min value: 1")  // ✅ Adjusted to mock value
+    }
+    
+    @MainActor
+    func testThresholdNeutrophils() throws {
+        let app = XCUIApplication()
+        
+        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 2.0))
+        
+        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Dashboard"].waitForExistence(timeout: 2))
+        app.tabBars["Tab Bar"].buttons["Dashboard"].tap()
+        try app.handleHealthKitAuthorization()
+        
+        // ✅ Check if "Neutrophil Count Over Past Week" chart exists
+        let chartTitle = app.staticTexts["Absolute Neutrophil Count"]
+        XCTAssertTrue(chartTitle.waitForExistence(timeout: 5), "Neutrophil chart title should exist")
+
+        // ✅ Verify threshold line exists (should be around **500 ANC**)
+        let neutrophilThreshold = app.otherElements["Threshold"]
+        XCTAssertTrue(neutrophilThreshold.waitForExistence(timeout: 2), "Neutrophil threshold line should be visible.")
     }
 }

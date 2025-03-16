@@ -8,11 +8,11 @@
 
 import Foundation
 import HealthKit
+@testable import NeutroFeverGuard
 import Testing
 
 @MainActor
 struct NeutroFeverGuardTests {
-    @MainActor
     @Test("HK Data Initialization Test")
     func testHKDataInitialization() async throws {
         let testDate = Date()
@@ -31,12 +31,8 @@ struct NeutroFeverGuardTests {
         #expect(hkData.maxValue == 90.0, "Maximum value should be 90.0")
     }
     
-    @MainActor
     @Test("Test Parse Value")
     func testParseValue() async throws {
-        let healthStore = HKHealthStore()
-        
-        // Heart Rate parsing
         let heartRateQuantity = HKQuantity(unit: HKUnit(from: "count/min"), doubleValue: 70)
         let heartRateValue = parseValue(quantity: heartRateQuantity, quantityTypeIDF: .heartRate)
         #expect(heartRateValue == 70.0, "Heart rate value should be 70.0")
@@ -57,7 +53,6 @@ struct NeutroFeverGuardTests {
         #expect(defaultSatValue == -1.0, "Default value should be -1.0")
     }
     
-    @MainActor
     @Test
     func testparseSampleQueryData() async throws {
         let sampleDate = Date()
@@ -70,7 +65,6 @@ struct NeutroFeverGuardTests {
         #expect(results.first?.sumValue == 95.0)
     }
     
-    @MainActor
     @Test
     func testGenerateDateRange() async throws {
         let range = generateDateRange()
@@ -81,7 +75,6 @@ struct NeutroFeverGuardTests {
         #expect(range[2] is NSPredicate)
     }
         
-    @MainActor
     @Test
     func testHandleAuthorizationError() async throws {
         let error = HKError(.errorAuthorizationDenied)
@@ -103,7 +96,6 @@ struct NeutroFeverGuardTests {
         #expect(unknownMessage == "Unknown error during HealthKit authorization: The operation couldn’t be completed. (TestError error 999.)")
     }
     
-    @MainActor
     @Test("Test HK Visualization Display")
     func testHKVisualizationDisplay() async throws {
         let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date()
@@ -124,7 +116,6 @@ struct NeutroFeverGuardTests {
         #expect(view != nil, "View should be initialized successfully")
     }
     
-    @MainActor
     @Test("Test HK Visualization Thereshold")
     func testHKVisualizationItemThreshold() async throws {
         let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date()

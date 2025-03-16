@@ -42,7 +42,7 @@ class LabResultsManager: Module, EnvironmentAccessible {
         loadLabResults()  // Refresh lab results
     }
     
-    private func loadLabResults() {
+    func loadLabResults() {
         var results: [LabEntry] = []
         
         do {
@@ -119,6 +119,20 @@ class LabResultsManager: Module, EnvironmentAccessible {
             return nil
         }
         return (neutrophils / 100.0) * wbc
+    }
+    
+    func getAllAncValues() -> [(date: Date, ancValue: Double)] {
+        var ancValues: [(date: Date, ancValue: Double)] = []
+        
+        for record in labRecords {
+            if let neutrophils = record.values[.neutrophils],
+               let wbc = record.values[.whiteBloodCell] {
+                let ancValue = (neutrophils / 100.0) * wbc
+                ancValues.append((date: record.date, ancValue: ancValue))
+            }
+        }
+        
+        return ancValues
     }
 
     func getANCStatus() -> (text: String, color: Color) {

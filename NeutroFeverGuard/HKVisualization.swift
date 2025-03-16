@@ -1,5 +1,5 @@
-// periphery:ignore all
 // swiftlint:disable all
+// periphery:ignore all
 // This source file is part of the NeutroFeverGuard based on the Stanford Spezi Template Application project
 //
 // SPDX-FileCopyrightText: 2025 Stanford University
@@ -12,7 +12,16 @@ import HealthKit
 import SpeziAccount
 import SwiftUI
 
-// Parses the raw HealthKit data.
+
+struct HKData: Identifiable, Codable {
+    var id = UUID()
+    var date: Date
+    var sumValue: Double
+    var avgValue: Double
+    var minValue: Double
+    var maxValue: Double
+}
+
 func parseSampleQueryData(results: [HKSample], quantityTypeIDF: HKQuantityTypeIdentifier) -> [HKData] {
     // Retrieve quantity value and time for each data point.
 
@@ -79,23 +88,16 @@ func handleAuthorizationError(_ error: Error) -> String {
     }
 }
 
-struct HKData: Identifiable {
-    var date: Date
-    var id = UUID()
-    var sumValue: Double
-    var avgValue: Double
-    var minValue: Double
-    var maxValue: Double
-}
-
 struct HKVisualization: View {
-    // swiftlint:disable closure_body_length
+    @Environment(LabResultsManager.self) private var labResultsManager
     @State var bodyTemperatureData: [HKData] = []
     @State var heartRateData: [HKData] = []
     @State var oxygenSaturationData: [HKData] = []
     @State var heartRateScatterData: [HKData] = []
     @State var oxygenSaturationScatterData: [HKData] = []
     @State var bodyTemperatureScatterData: [HKData] = []
+    @State var neutrophilData: [HKData] = []
+    @State var neutrophilScatterData: [HKData] = []
     
     var vizList: some View {
         self.readAllHKData()
@@ -106,7 +108,7 @@ struct HKVisualization: View {
                         data: heartRateData,
                         xName: "Time",
                         yName: "Heart Rate (bpm)",
-                        title: "Heart Rate Over Time",
+                        title: "Heart Rate",
                         threshold: 100,
                         scatterData: heartRateScatterData
                     )
@@ -121,7 +123,7 @@ struct HKVisualization: View {
                         data: bodyTemperatureData,
                         xName: "Time",
                         yName: "Body Temperature (°F)",
-                        title: "Body Temperature Over Time",
+                        title: "Body Temperature",
                         threshold: 99.0,
                         scatterData: bodyTemperatureScatterData
                     )
@@ -136,12 +138,27 @@ struct HKVisualization: View {
                         data: oxygenSaturationData,
                         xName: "Time",
                         yName: "Oxygen Saturation (%)",
-                        title: "Oxygen Saturation Over Time",
+                        title: "Oxygen Saturation",
                         threshold: 94.0,
                         scatterData: oxygenSaturationScatterData
                     )
                 } else {
                     Text("No oxygen saturation data available.")
+                        .foregroundColor(.gray)
+                }
+            }
+            Section {
+                if !neutrophilData.isEmpty {
+                    HKVisualizationItem(
+                        data: neutrophilData,
+                        xName: "Date",
+                        yName: "Neutrophil Count",
+                        title: "Absolute Neutrophil Count",
+                        threshold: 500, // Adjust the threshold if necessary
+                        scatterData: neutrophilScatterData
+                    )
+                } else {
+                    Text("No neutrophil count data available.")
                         .foregroundColor(.gray)
                 }
             }
@@ -164,6 +181,8 @@ struct HKVisualization: View {
             .onAppear {
                 // Ensure that data up-to-date when the view is activated.
                 self.readAllHKData(ensureUpdate: true)
+                labResultsManager.loadLabResults()
+                loadNeutrophilData() // Ensure this is called
             }
             .toolbar {
                 if account != nil {
@@ -173,6 +192,41 @@ struct HKVisualization: View {
         }
     }
     
+    private func loadNeutrophilData() {
+        if FeatureFlags.mockVizData {
+            loadMockDataNew()
+            return
+        }
+        let rawData = labResultsManager.getAllAncValues().filter {
+            $0.date >= Calendar.current.date(byAdding: .day, value: -7, to: Date()) ?? Date()
+        }
+        
+        // Convert to HKData for bar plot
+        neutrophilData = rawData.map { record in
+            HKData(
+                date: record.date,
+                sumValue: record.ancValue,
+                avgValue: record.ancValue,
+                minValue: record.ancValue,
+                maxValue: record.ancValue
+            )
+        }
+
+        // Create scatter data (with some random variation to separate points)
+        neutrophilScatterData = rawData.map { record in
+            HKData(
+                date: record.date,
+                sumValue: record.ancValue + Double.random(in: -0.5...0.5), // Add slight variation for visualization
+                avgValue: -1.0,
+                minValue: -1.0,
+                maxValue: -1.0
+            )
+        }
+
+        print("✅ Converted neutrophil data: \(neutrophilData)")
+        print("✅ Scatter neutrophil data: \(neutrophilScatterData)")
+    }
+  
     func readAllHKData(ensureUpdate: Bool = false) {
         if FeatureFlags.mockVizData {
             loadMockDataNew()
@@ -331,7 +385,8 @@ struct HKVisualization: View {
         self.heartRateData = minMaxAvgStatData
         self.bodyTemperatureData = minMaxAvgStatData
         self.oxygenSaturationData = minMaxAvgStatData
-        
+        self.neutrophilData = [HKData(date: today, sumValue: 0, avgValue: 500, minValue: 1, maxValue: 1000)]
+
         // ✅ Heart Rate Scatter Data (60-100 bpm normal range)
         self.heartRateScatterData = [
             HKData(date: today, sumValue: 75, avgValue: 75, minValue: 75, maxValue: 75),
@@ -352,8 +407,24 @@ struct HKVisualization: View {
             HKData(date: yesterday, sumValue: 97, avgValue: 97, minValue: 97, maxValue: 97),
             HKData(date: twoDaysAgo, sumValue: 96, avgValue: 96, minValue: 96, maxValue: 96)
         ]
+        
+        let mockNeutrophilData = [
+                (date: today, wbc: 1000, neutrophils: 50),
+                (date: yesterday, wbc: 1000, neutrophils: 5),
+                (date: twoDaysAgo, wbc: 1200, neutrophils: 20)
+        ]
+            
+        self.neutrophilScatterData = mockNeutrophilData.map { record in
+            let ancValue = (Double(record.neutrophils) / 100.0) * Double(record.wbc)
+            return HKData(
+                date: record.date,
+                sumValue: ancValue,
+                avgValue: ancValue,
+                minValue: ancValue,
+                maxValue: ancValue
+            )
+        }
     }
-    // swiftlint:enable closure_body_length
 }
 
 func parseStat(statistics: HKStatistics, quantityTypeIDF: HKQuantityTypeIdentifier) -> HKData? {
@@ -391,8 +462,4 @@ func parseValue(quantity: HKQuantity, quantityTypeIDF: HKQuantityTypeIdentifier)
     default:
         return -1.0
     }
-}
-
-#Preview {
-
 }
