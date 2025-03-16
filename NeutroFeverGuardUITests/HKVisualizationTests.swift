@@ -242,7 +242,7 @@ class HKVisualizationTests: XCTestCase {
 
         // ✅ Tap on the chart to bring up the summary view
         let frame = chartTitle.frame
-        let tapPoint = CGPoint(x: frame.maxX - 50, y: frame.maxY + 100)
+        let tapPoint = CGPoint(x: frame.maxX - 500, y: frame.maxY + 1000)
         app.coordinate(withNormalizedOffset: .zero).withOffset(CGVector(dx: tapPoint.x, dy: tapPoint.y)).tap()
         
         // ✅ Verify summary date (should be today's date)
