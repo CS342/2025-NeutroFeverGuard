@@ -409,9 +409,9 @@ struct HKVisualization: View {
         ]
         
         let mockNeutrophilData = [
-                (date: today, wbc: 5000, neutrophils: 50),
-                (date: yesterday, wbc: 4800, neutrophils: 48),
-                (date: twoDaysAgo, wbc: 5100, neutrophils: 52)
+                (date: today, wbc: 1000, neutrophils: 50),
+                (date: yesterday, wbc: 1000, neutrophils: 5),
+                (date: twoDaysAgo, wbc: 1200, neutrophils: 20)
         ]
             
         self.neutrophilScatterData = mockNeutrophilData.map { record in

@@ -253,7 +253,7 @@ class HKVisualizationTests: XCTestCase {
         let dateStr = formatter.string(from: today)
         
         let summaryDate = app.staticTexts["Summary_Date"]
-        XCTAssertTrue(summaryDate.exists, "Summary date label should exist")
+        XCTAssertTrue(summaryDate.exists)
         XCTAssertEqual(summaryDate.label, "Summary: \(dateStr)")
 
         // ✅ Check the summary ANC values
