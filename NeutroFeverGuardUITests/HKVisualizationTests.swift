@@ -236,8 +236,15 @@ class HKVisualizationTests: XCTestCase {
         app.tabBars["Tab Bar"].buttons["Dashboard"].tap()
         try app.handleHealthKitAuthorization()
         
-        // ✅ Check if "Neutrophil Count Over Past Week" chart exists
         let chartTitle = app.staticTexts["Absolute Neutrophil Count"]
+            
+        // ✅ Scroll down to find the Neutrophil chart
+        let dashboardTable = app.tables.firstMatch
+        while !chartTitle.exists {
+            dashboardTable.swipeUp()
+            sleep(2) // Give time for UI to update
+        }
+        
         XCTAssertTrue(chartTitle.waitForExistence(timeout: 5), "Neutrophil chart title should exist")
 
         // ✅ Tap on the chart to bring up the summary view
